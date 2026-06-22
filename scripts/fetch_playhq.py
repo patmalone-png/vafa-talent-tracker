@@ -85,7 +85,7 @@ def list_fixture(grade_id):
 
 
 def list_game_stats(game_id):
-    data, status = get(f"/games/{game_id}/statistics")
+    data, _ = get(f"/v1/games/{game_id}/summary")
     if not data:
         return []
     # The shape varies — return whatever rows look like player stats
