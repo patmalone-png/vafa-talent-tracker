@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VAFA Talent ID</title>
+<link rel="stylesheet" href="styles.css" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="topbar">
+    <h1>VAFA Talent ID</h1>
+    <div class="last-sync" id="lastSync">Loading…</div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="leaderboards">Leaderboards</button>
+    <button class="tab" data-tab="players">Players</button>
+    <button class="tab" data-tab="scout">Opposition Scout</button>
+    <button class="tab" data-tab="watchlist">Watchlist</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </nav>
+
+  <main>
+    <!-- Dashboard -->
+    <section class="panel active" id="dashboard">
+      <div class="tiles">
+        <div class="tile"><div class="tile-label">Games loaded</div><div class="tile-value" id="t-games">–</div></div>
+        <div class="tile"><div class="tile-label">Players tracked</div><div class="tile-value" id="t-players">–</div></div>
+        <div class="tile"><div class="tile-label">Top talent score</div><div class="tile-value" id="t-top">–</div></div>
+        <div class="tile"><div class="tile-label">Last sync</div><div class="tile-value" id="t-sync">–</div></div>
+      </div>
+      <div class="card">
+        <h2>Top 5 prospects</h2>
+        <div id="topProspects"></div>
+      </div>
+      <div class="card">
+        <h2>Recent fixtures</h2>
+        <div id="recentFixtures"></div>
+      </div>
+    </section>
+
+    <!-- Leaderboards -->
+    <section class="panel" id="leaderboards">
+      <div class="card">
+        <h2>Leaderboards</h2>
+        <div class="controls">
+          <label>Metric
+            <select id="lbMetric">
+              <option value="goals">Goals</option>
+              <option value="disposals">Disposals</option>
+              <option value="contested">Contested possessions</option>
+              <option value="marks">Marks</option>
+              <option value="tackles">Tackles</option>
+              <option value="clearances">Clearances</option>
+              <option value="inside50">Inside 50s</option>
+              <option value="talentScore">Talent score</option>
+            </select>
+          </label>
+          <label>Position
+            <select id="lbPosition">
+              <option value="">All</option>
+              <option value="Forward">Forward</option>
+              <option value="Midfielder">Midfielder</option>
+              <option value="Defender">Defender</option>
+              <option value="Ruck">Ruck</option>
+            </select>
+          </label>
+          <label>Min games
+            <input type="number" id="lbMinGames" value="1" min="1" />
+          </label>
+        </div>
+        <div id="lbTable"></div>
+      </div>
+    </section>
+
+    <!-- Players -->
+    <section class="panel" id="players">
+      <div class="card">
+        <h2>Players</h2>
+        <input type="text" id="playerSearch" placeholder="Search by name or club…" />
+        <div id="playerList"></div>
+      </div>
+      <div class="card hidden" id="playerProfile">
+        <button class="btn small" id="backToList">← Back to list</button>
+        <h2 id="profileName"></h2>
+        <div id="profileMeta" class="muted"></div>
+        <div id="profileStats"></div>
+        <canvas id="profileChart" width="600" height="160"></canvas>
+        <h3>Per-game</h3>
+        <div id="profileGames"></div>
+      </div>
+    </section>
+
+    <!-- Opposition Scout -->
+    <section class="panel" id="scout">
+      <div class="card">
+        <h2>Opposition Scout</h2>
+        <label>Club
+          <select id="scoutClub"><option value="">– select –</option></select>
+        </label>
+        <div id="scoutReport"></div>
+      </div>
+    </section>
+
+    <!-- Watchlist -->
+    <section class="panel" id="watchlist">
+      <div class="card">
+        <h2>Watchlist</h2>
+        <p class="muted">Star players from the Players tab to add them here.</p>
+        <div id="watchlistView"></div>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section class="panel" id="settings">
+      <div class="card">
+        <h2>Settings</h2>
+        <p><strong>App:</strong> VAFA Talent Identification (not the match-day tracker)</p>
+        <p><strong>Data source:</strong> PlayHQ REST API (tenant <code>afl</code>)</p>
+        <p><strong>API key:</strong> baked into <code>scripts/fetch_playhq.py</code> (<code>bc7f…930</code>)</p>
+        <p><strong>Last sync:</strong> <span id="setLastSync">–</span></p>
+        <button class="btn primary" id="refreshBtn">Reload local data</button>
+        <p class="muted">To pull fresh data from PlayHQ, run the <code>fetch-playhq</code> GitHub Action.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>VAFA Talent ID · OBGFC Women's · v1.0</footer>
+  <script src="app.js"></script>
+</body>
+</html>
