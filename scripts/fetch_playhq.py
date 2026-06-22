@@ -18,12 +18,14 @@ SEASON_NAME = "2026"
 
 # Six Women's grades for 2026
 GRADES = [
-    ("Premier B Women's",    "972de8ed-8555-42ce-91de-660850b3e7ea"),
-    ("Division 1 Women's",   "dae84ac0-533d-4dee-8518-10db71bbf0e3"),
-    ("Division 2 Women's",   "a63e5b85-0505-4423-8d49-0c31bb0a4343"),
-    ("Division 3 Women's",   "55ad642b-5f09-48a4-b147-77b89639b968"),
-    ("Division 4 Women's",   "5d67b06e-119c-4180-8dfc-82387a955e61"),
-    ("Division 5 Women's",   "6c9deafe-cc66-48f0-9f0f-0b69c594ea50"),
+    ("Premier A Women's",       "2ed24d43-8720-42aa-9483-c0e8e65be568"),
+    ("Premier A Women's Reserve","bbcf04d5-ec88-4f37-90f8-460ddcc71cc9"),
+    ("Premier B Women's",       "972de8ed-8555-42ce-91de-660850b3e7ea"),
+    ("Division 1 Women's",      "dae84ac0-533d-4dee-8518-10db71bbf0e3"),
+    ("Division 2 Women's",      "a63e5b85-0505-4423-8d49-0c31bb0a4343"),
+    ("Division 3 Women's",      "55ad642b-5f09-48a4-b147-77b89639b968"),
+    ("Division 4 Women's",      "5d67b06e-119c-4180-8dfc-82387a955e61"),
+    ("Division 5 Women's",      "6c9deafe-cc66-48f0-9f0f-0b69c594ea50"),
 ]
 
 HEADERS = {
