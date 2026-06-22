@@ -114,11 +114,14 @@ function talentScore(p) {
     let pool = players.filter(p => (p.games || 0) >= minGames);
     if (position) pool = pool.filter(p => (p.position||"") === position);
 
-    const getVal = (p) => {
-      if (metric === "talentScore") return p.talentScore || 0;
-      const v = (p.stats || {})[metric] || 0;
-      return p.games ? +(v / p.games).toFixed(2) : 0;
-    };
+const getVal = (p) => {
+  if (metric === "talentScore") return p.talentScore || 0;
+  if (metric === "bog")         return p.bog || 0;
+  if (metric === "bogFirsts")   return p.bogFirsts || 0;
+  if (metric === "goals")       return p.goals || 0;
+  if (metric === "wins")        return p.wins || 0;
+  return 0;
+};
     pool.sort((a,b)=>getVal(b)-getVal(a));
 
     const el = document.getElementById("lbTable");
