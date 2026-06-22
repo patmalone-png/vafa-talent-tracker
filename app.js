@@ -10,23 +10,19 @@
   let currentPlayerId = null;
 
   // ----- Talent score formula -----
-  // Weighted per-game contributions, normalised so a strong VAFA player
-  // sits around 100. Tunable here without touching the rest of the app.
-  //   goals=6, contested possessions=1.2, clearances=2, tackles=1.5,
-  //   inside50s=1, marks=0.8, disposals=0.3
-  function talentScore(p) {
-    const g = Math.max(1, p.games || 1);
-    const s = (p.stats || {});
-    const raw =
-      (s.goals      || 0) * 6.0 +
-      (s.contested  || 0) * 1.2 +
-      (s.clearances || 0) * 2.0 +
-      (s.tackles    || 0) * 1.5 +
-      (s.inside50   || 0) * 1.0 +
-      (s.marks      || 0) * 0.8 +
-      (s.disposals  || 0) * 0.3;
-    return +(raw / g).toFixed(1);
-  }
+// Talent Score (PlayHQ public data only):
+//   votes (BOG)   × 10
+//   goals         × 4
+//   wins          × 2
+// Normalised per game so 30+ is elite.
+function talentScore(p) {
+  const g = Math.max(1, p.games || 1);
+  const raw =
+    ((p.votes || 0) * 10) +
+    ((p.goals || 0) * 4) +
+    ((p.wins  || 0) * 2);
+  return +(raw / g).toFixed(1);
+}
 
   // ----- Boot -----
   async function loadData() {
