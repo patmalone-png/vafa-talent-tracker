@@ -84,66 +84,87 @@ def list_fixture(grade_id):
     return out
 
 
-def list_game_stats(game_id):
+
+ef list_game_stats(game_id):
+    """v1 Game summary — scores, result, best players."""
     data, _ = get(f"/v1/games/{game_id}/summary")
-    if not data:
-        return []
-    # The shape varies — return whatever rows look like player stats
-    rows = data.get("data") or []
-    flat = []
-    for team in rows if isinstance(rows, list) else []:
-        team_name = (team.get("team") or {}).get("name") if isinstance(team, dict) else None
-        for p in (team.get("players") or []) if isinstance(team, dict) else []:
-            flat.append({
-                "playerId":   p.get("id") or p.get("playerId"),
-                "playerName": p.get("name") or p.get("displayName"),
-                "teamName":   team_name,
-                "position":   p.get("position"),
-                "statistics": p.get("statistics") or p.get("stats") or {},
-            })
-    return flat
+    return data.get("data") if data else None
 
 
 def aggregate_players(games_with_stats):
+    """Build per-player rollup from game summaries.
+    Available: best players (BOG votes), team scores, win/loss.
+    """
     players = {}
     for g in games_with_stats:
-        for row in g.get("_stats", []):
-            pid = row.get("playerId")
-            if not pid:
-                continue
-            p = players.setdefault(pid, {
-                "id": pid,
-                "name": row.get("playerName") or "Unknown",
-                "club": row.get("teamName") or "",
-                "position": row.get("position") or "",
-                "grade": g.get("grade"),
-                "games": 0,
-                "stats": {"goals":0,"disposals":0,"contested":0,"marks":0,"tackles":0,"clearances":0,"inside50":0},
-                "history": [],
-            })
-            s = row.get("statistics") or {}
-            entry = {
-                "date":       g.get("date"),
-                "round":      g.get("round"),
-                "grade":      g.get("grade"),
-                "opponent":   g.get("away") if row.get("teamName") == g.get("home") else g.get("home"),
-                "goals":      int(s.get("goals") or 0),
-                "disposals":  int(s.get("disposals") or s.get("totalDisposals") or 0),
-                "contested":  int(s.get("contestedPossessions") or s.get("contested") or 0),
-                "marks":      int(s.get("marks") or 0),
-                "tackles":    int(s.get("tackles") or 0),
-                "clearances": int(s.get("clearances") or 0),
-                "inside50":   int(s.get("inside50s") or s.get("inside50") or 0),
-            }
-            for k in ("goals","disposals","contested","marks","tackles","clearances","inside50"):
-                p["stats"][k] += entry[k]
-            p["games"] += 1
-            entry["talentScore"] = round(
-                entry["goals"]*6 + entry["contested"]*1.2 + entry["clearances"]*2 +
-                entry["tackles"]*1.5 + entry["inside50"] + entry["marks"]*0.8 + entry["disposals"]*0.3, 1)
-            p["history"].append(entry)
-    return list(players.values())
+        summary = g.get("_stats")
+        if not summary:
+            continue
 
+        # Pull final score for context
+        teams = summary.get("teams") or []
+        score_by_team = {}
+        for t in teams:
+            tname = (t.get("name") or "").strip()
+            score = t.get("score") or {}
+            pts = (score.get("goals") or 0) * 6 + (score.get("behinds") or 0)
+            score_by_team[tname] = pts
+
+        # Determine winner
+        winner = max(score_by_team, key=score_by_team.get) if score_by_team else None
+
+        # Best players — each team has a list with vote counts
+        for t in teams:
+            tname = (t.get("name") or "").strip()
+            best = t.get("bestPlayers") or t.get("best") or []
+            for bp in best:
+                pid   = bp.get("id") or bp.get("playerId") or bp.get("name")
+                pname = bp.get("name") or bp.get("displayName") or "Unknown"
+                votes = int(bp.get("votes") or bp.get("rank") or 0)
+                if not pid: continue
+                p = players.setdefault(pid, {
+                    "id": pid, "name": pname, "club": tname,
+                    "position": "", "grade": g.get("grade"),
+                    "games": 0, "wins": 0, "votes": 0, "goals": 0,
+                    "stats": {"goals":0,"votes":0,"wins":0},
+                    "history": [],
+                })
+                p["games"] += 1
+                p["votes"] += votes
+                p["stats"]["votes"] += votes
+                if tname == winner:
+                    p["wins"] += 1
+                    p["stats"]["wins"] += 1
+                # Talent score: heavy weight on votes, plus a win bonus
+                ts = votes * 10 + (5 if tname == winner else 0)
+                p["history"].append({
+                    "date": g.get("date"), "round": g.get("round"),
+                    "grade": g.get("grade"),
+                    "opponent": next((x for x in score_by_team if x != tname), ""),
+                    "votes": votes, "win": tname == winner,
+                    "talentScore": ts,
+                })
+
+        # Goals scorers (if PlayHQ exposes them in the summary)
+        for t in teams:
+            tname = (t.get("name") or "").strip()
+            scorers = t.get("goalScorers") or t.get("scorers") or []
+            for sc in scorers:
+                pid   = sc.get("id") or sc.get("playerId") or sc.get("name")
+                pname = sc.get("name") or "Unknown"
+                goals = int(sc.get("goals") or 1)
+                if not pid: continue
+                p = players.setdefault(pid, {
+                    "id": pid, "name": pname, "club": tname,
+                    "position": "Forward", "grade": g.get("grade"),
+                    "games": 0, "wins": 0, "votes": 0, "goals": 0,
+                    "stats": {"goals":0,"votes":0,"wins":0},
+                    "history": [],
+                })
+                p["goals"] += goals
+                p["stats"]["goals"] += goals
+
+    return list(players.values())
 
 def main():
     banner()
