@@ -1,0 +1,37 @@
+name: fetch-playhq
+
+on:
+  schedule:
+    - cron: "0 19 * * 0"   # Sundays 19:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Run PlayHQ fetch
+        run: python scripts/fetch_playhq.py
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/games.json data/players.json
+          git diff --cached --quiet || git commit -m "chore(data): refresh PlayHQ VAFA Women's stats"
+          git push
