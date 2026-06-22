@@ -204,20 +204,22 @@ def main():
         bog   = app.get("bestPlayer") or 0   # 6=BOG, 5=2nd…1=5th
         cap   = app.get("captainRole")
 
-        p = players.setdefault(pid, {
-            "id":       pid,
-            "name":     f"{app.get('firstName','')} {app.get('lastName','')}".strip(),
-            "number":   app.get("playerNumber"),
-            "club":     app.get("_teamName"),
-            "grade":    app.get("_grade"),
-            "games":    0,
-            "goals":    0,
-            "bog":      0,   # total best-player vote points (sum of 1..6)
-            "bogFirsts":0,   # times awarded 6 (best on ground)
-            "wins":     0,
-            "captainGames": 0,
-            "history":  [],
-        })
+p = players.setdefault(pid, {
+    "id":       pid,
+    "name":     f"{app.get('firstName','')} {app.get('lastName','')}".strip(),
+    "number":   app.get("playerNumber"),
+    "club":     app.get("_teamName"),
+    "grade":    app.get("_grade"),
+    "games":    0,
+    "goals":    0,
+    "bog":      0,
+    "bogFirsts":0,
+    "bestCount":0,           # ← NEW
+    "wins":     0,
+    "captainGames": 0,
+    "history":  [],
+})
+
         p["games"] += 1
         p["goals"] += goals
         p["bog"]   += bog
@@ -226,14 +228,18 @@ def main():
         if cap: p["captainGames"] += 1
 
         p["history"].append({
-            "date":     (app.get("_dateTime") or "")[:10],
-            "round":    app.get("_round"),
-            "grade":    app.get("_grade"),
-            "opponent": "",   # we'll fill below
-            "goals":    goals,
-            "bog":      bog,
-            "won":      app.get("_won"),
-        })
+gs = goals * 5 + bog * 8 + (6 if bog == 6 else 0) + (2 if app.get("_won") else 0)
+p["history"].append({
+    "date":     (app.get("_dateTime") or "")[:10],
+    "round":    app.get("_round"),
+    "grade":    app.get("_grade"),
+    "opponent": "",
+    "goals":    goals,
+    "bog":      bog,
+    "inBest":   bog > 0,
+    "won":      app.get("_won"),
+    "talentScore": gs,
+})
 
     # back-fill opponent per history row
     games_by_id = {g["id"]: g for g in all_games}
