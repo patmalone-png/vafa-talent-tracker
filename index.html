@@ -23,101 +23,92 @@
   </nav>
 
   <main>
-    <!-- Dashboard -->
-<section class="panel active" id="dashboard">
-  <div class="card">
-    <div class="controls">
-      <label>Grade
-        <select id="gradeFilter">
-          <option value="">All Women's grades</option>
-          <option>Premier A Women's</option>
-          <option>Premier A Women's Reserve</option>
-          <option>Premier B Women's</option>
-          <option>Division 1 Women's</option>
-          <option>Division 2 Women's</option>
-          <option>Division 3 Women's</option>
-          <option>Division 4 Women's</option>
-          <option>Division 5 Women's</option>
-        </select>
-      </label>
-      <label>Form window
-        <select id="formWindow">
-          <option value="3">Last 3 games</option>
-          <option value="4">Last 4 games</option>
-          <option value="5">Last 5 games</option>
-        </select>
-      </label>
-    </div>
-  </div>
+    <!-- ============ Dashboard ============ -->
+    <section class="panel active" id="dashboard">
+      <div class="card">
+        <div class="controls">
+          <label>Grade
+            <select id="gradeFilter">
+              <option value="">All Women's grades</option>
+              <option>Premier A Women's</option>
+              <option>Premier A Women's Reserve</option>
+              <option>Premier B Women's</option>
+              <option>Division 1 Women's</option>
+              <option>Division 2 Women's</option>
+              <option>Division 3 Women's</option>
+              <option>Division 4 Women's</option>
+              <option>Division 5 Women's</option>
+            </select>
+          </label>
+          <label>Form window
+            <select id="formWindow">
+              <option value="3">Last 3 games</option>
+              <option value="4">Last 4 games</option>
+              <option value="5">Last 5 games</option>
+            </select>
+          </label>
+        </div>
+      </div>
 
-  <div class="tiles">
-    <div class="tile"><div class="tile-label">Games loaded</div><div class="tile-value" id="t-games">–</div></div>
-    <div class="tile"><div class="tile-label">Players tracked</div><div class="tile-value" id="t-players">–</div></div>
-    <div class="tile"><div class="tile-label">Top talent score</div><div class="tile-value" id="t-top">–</div></div>
-    <div class="tile"><div class="tile-label">Last sync</div><div class="tile-value" id="t-sync">–</div></div>
-  </div>
+      <div class="tiles">
+        <div class="tile"><div class="tile-label">Games loaded</div><div class="tile-value" id="t-games">–</div></div>
+        <div class="tile"><div class="tile-label">Players tracked</div><div class="tile-value" id="t-players">–</div></div>
+        <div class="tile"><div class="tile-label">Top talent score</div><div class="tile-value" id="t-top">–</div></div>
+        <div class="tile"><div class="tile-label">Last sync</div><div class="tile-value" id="t-sync">–</div></div>
+      </div>
 
-  <div class="card">
-    <h2>Top 5 — Talent Score</h2>
-    <div id="topTalent"></div>
-  </div>
+      <div class="card">
+        <h2>Top 5 — Talent Score</h2>
+        <div id="topTalent"></div>
+      </div>
 
-  <div class="card">
-    <h2>Top 5 — Times in the Best</h2>
-    <div id="topBest"></div>
-  </div>
+      <div class="card">
+        <h2>Top 5 — Times in the Best</h2>
+        <div id="topBest"></div>
+      </div>
 
-  <div class="card">
-    <h2>Top 5 — Total Goals</h2>
-    <div id="topGoals"></div>
-  </div>
+      <div class="card">
+        <h2>Top 5 — Total Goals</h2>
+        <div id="topGoals"></div>
+      </div>
 
-  <div class="card">
-    <h2>Top 5 — Form Indicator <span class="muted">(last 3 games trend)</span></h2>
-    <div id="topForm"></div>
-  </div>
+      <div class="card">
+        <h2>Top 5 — Form Indicator <span class="muted">(recent vs season avg)</span></h2>
+        <div id="topForm"></div>
+      </div>
 
-  <div class="card">
-    <h2>Recent fixtures</h2>
-    <div id="recentFixtures"></div>
-  </div>
+      <div class="card">
+        <h2>Recent fixtures</h2>
+        <div id="recentFixtures"></div>
+      </div>
+    </section>
 
-
-    <!-- Leaderboards -->
+    <!-- ============ Leaderboards ============ -->
     <section class="panel" id="leaderboards">
       <div class="card">
         <h2>Leaderboards</h2>
-        <div class="controls">          
-<label>Grade
-  <select id="lbGrade">
-    <option value="">All Women's grades</option>
-    <option>Premier A Women's</option>
-    <option>Premier A Women's Reserve</option>
-    <option>Premier B Women's</option>
-    <option>Division 1 Women's</option>
-    <option>Division 2 Women's</option>
-    <option>Division 3 Women's</option>
-    <option>Division 4 Women's</option>
-    <option>Division 5 Women's</option>
-  </select>
-</label>
-          <label>Metric
-            <select id="lbMetric">         
-<option value="talentScore">Talent score</option>
-<option value="bog">BOG votes (total)</option>
-<option value="bogFirsts">Best on ground (count)</option>
-<option value="bestCount">Times in the Best</option>
-<option value="goals">Goals</option>
-<option value="wins">Wins</option>
+        <div class="controls">
+          <label>Grade
+            <select id="lbGrade">
+              <option value="">All Women's grades</option>
+              <option>Premier A Women's</option>
+              <option>Premier A Women's Reserve</option>
+              <option>Premier B Women's</option>
+              <option>Division 1 Women's</option>
+              <option>Division 2 Women's</option>
+              <option>Division 3 Women's</option>
+              <option>Division 4 Women's</option>
+              <option>Division 5 Women's</option>
             </select>
           </label>
-          <label>Position
-            <select id="lbPosition">
-              <option value="">All</option>
-              <option value="Forward">Forward</option>
-              <option value="Midfielder">Midfielder</option>
-              <option value="Defender">Defender</option>
-              <option value="Ruck">Ruck</option>
+          <label>Metric
+            <select id="lbMetric">
+              <option value="talentScore">Talent score</option>
+              <option value="bestCount">Times in the Best</option>
+              <option value="bog">BOG votes (total)</option>
+              <option value="bogFirsts">Best on ground (count)</option>
+              <option value="goals">Goals</option>
+              <option value="wins">Wins</option>
             </select>
           </label>
           <label>Min games
@@ -128,7 +119,7 @@
       </div>
     </section>
 
-    <!-- Players -->
+    <!-- ============ Players ============ -->
     <section class="panel" id="players">
       <div class="card">
         <h2>Players</h2>
@@ -146,7 +137,7 @@
       </div>
     </section>
 
-    <!-- Opposition Scout -->
+    <!-- ============ Opposition Scout ============ -->
     <section class="panel" id="scout">
       <div class="card">
         <h2>Opposition Scout</h2>
@@ -157,7 +148,7 @@
       </div>
     </section>
 
-    <!-- Watchlist -->
+    <!-- ============ Watchlist ============ -->
     <section class="panel" id="watchlist">
       <div class="card">
         <h2>Watchlist</h2>
@@ -166,11 +157,11 @@
       </div>
     </section>
 
-    <!-- Settings -->
+    <!-- ============ Settings ============ -->
     <section class="panel" id="settings">
       <div class="card">
         <h2>Settings</h2>
-        <p><strong>App:</strong> VAFA Talent Identification (not the match-day tracker)</p>
+        <p><strong>App:</strong> VAFA Talent Identification</p>
         <p><strong>Data source:</strong> PlayHQ REST API (tenant <code>afl</code>)</p>
         <p><strong>API key:</strong> baked into <code>scripts/fetch_playhq.py</code> (<code>bc7f…930</code>)</p>
         <p><strong>Last sync:</strong> <span id="setLastSync">–</span></p>
@@ -180,7 +171,7 @@
     </section>
   </main>
 
-  <footer>VAFA Talent ID · OBGFC Women's · v1.0</footer>
+  <footer>VAFA Talent ID · OBGFC Women's · v1.1</footer>
   <script src="app.js"></script>
 </body>
 </html>
