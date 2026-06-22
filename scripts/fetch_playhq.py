@@ -85,7 +85,7 @@ def list_fixture(grade_id):
 
 
 
-ef list_game_stats(game_id):
+def list_game_stats(game_id):
     """v1 Game summary — scores, result, best players."""
     data, _ = get(f"/v1/games/{game_id}/summary")
     return data.get("data") if data else None
