@@ -73,7 +73,7 @@ def list_fixture(grade_id):
     out, cursor = [], None
     for _ in range(50):
         params = {"cursor": cursor} if cursor else None
-        data, status = get(f"/grades/{grade_id}/fixture", params)
+        data, status = get(f"/grades/{grade_id}/games", params)
         if not data:
             break
         out.extend(data.get("data", []))
