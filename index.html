@@ -24,22 +24,64 @@
 
   <main>
     <!-- Dashboard -->
-    <section class="panel active" id="dashboard">
-      <div class="tiles">
-        <div class="tile"><div class="tile-label">Games loaded</div><div class="tile-value" id="t-games">–</div></div>
-        <div class="tile"><div class="tile-label">Players tracked</div><div class="tile-value" id="t-players">–</div></div>
-        <div class="tile"><div class="tile-label">Top talent score</div><div class="tile-value" id="t-top">–</div></div>
-        <div class="tile"><div class="tile-label">Last sync</div><div class="tile-value" id="t-sync">–</div></div>
-      </div>
-      <div class="card">
-        <h2>Top 5 prospects</h2>
-        <div id="topProspects"></div>
-      </div>
-      <div class="card">
-        <h2>Recent fixtures</h2>
-        <div id="recentFixtures"></div>
-      </div>
-    </section>
+<section class="panel active" id="dashboard">
+  <div class="card">
+    <div class="controls">
+      <label>Grade
+        <select id="gradeFilter">
+          <option value="">All Women's grades</option>
+          <option>Premier A Women's</option>
+          <option>Premier A Women's Reserve</option>
+          <option>Premier B Women's</option>
+          <option>Division 1 Women's</option>
+          <option>Division 2 Women's</option>
+          <option>Division 3 Women's</option>
+          <option>Division 4 Women's</option>
+          <option>Division 5 Women's</option>
+        </select>
+      </label>
+      <label>Form window
+        <select id="formWindow">
+          <option value="3">Last 3 games</option>
+          <option value="4">Last 4 games</option>
+          <option value="5">Last 5 games</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><div class="tile-label">Games loaded</div><div class="tile-value" id="t-games">–</div></div>
+    <div class="tile"><div class="tile-label">Players tracked</div><div class="tile-value" id="t-players">–</div></div>
+    <div class="tile"><div class="tile-label">Top talent score</div><div class="tile-value" id="t-top">–</div></div>
+    <div class="tile"><div class="tile-label">Last sync</div><div class="tile-value" id="t-sync">–</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Top 5 — Talent Score</h2>
+    <div id="topTalent"></div>
+  </div>
+
+  <div class="card">
+    <h2>Top 5 — Times in the Best</h2>
+    <div id="topBest"></div>
+  </div>
+
+  <div class="card">
+    <h2>Top 5 — Total Goals</h2>
+    <div id="topGoals"></div>
+  </div>
+
+  <div class="card">
+    <h2>Top 5 — Form Indicator <span class="muted">(last 3 games trend)</span></h2>
+    <div id="topForm"></div>
+  </div>
+
+  <div class="card">
+    <h2>Recent fixtures</h2>
+    <div id="recentFixtures"></div>
+  </div>
+
 
     <!-- Leaderboards -->
     <section class="panel" id="leaderboards">
