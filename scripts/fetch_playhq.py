@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """
 PlayHQ fetcher for VAFA Talent ID.
-Pulls VAFA Women's competition fixtures + player stats and writes:
-  data/games.json
-  data/players.json
-API key is baked in per user request.
+Pulls fixtures + game stats for the six VAFA Women's grades we care about
+and writes data/games.json + data/players.json.
 """
 import json, sys, time
 from datetime import datetime, timezone
@@ -15,15 +13,24 @@ API_KEY = "bc7f6eea-fd24-405d-84ba-6ace22e5c930"
 TENANT  = "afl"
 BASE    = "https://api.playhq.com/v1"
 
-COMP_HINT   = "VAFA"           # competition search term
-GRADE_HINT  = "Women"          # grade filter
-SEASON_HINT = "2025"           # season filter
+SEASON_ID   = "2af0bc11-6f71-4c82-93b5-d46fe9bc739f"   # VAFA 2026
+SEASON_NAME = "2026"
+
+# Six Women's grades for 2026
+GRADES = [
+    ("Premier B Women's",    "972de8ed-8555-42ce-91de-660850b3e7ea"),
+    ("Division 1 Women's",   "dae84ac0-533d-4dee-8518-10db71bbf0e3"),
+    ("Division 2 Women's",   "a63e5b85-0505-4423-8d49-0c31bb0a4343"),
+    ("Division 3 Women's",   "55ad642b-5f09-48a4-b147-77b89639b968"),
+    ("Division 4 Women's",   "5d67b06e-119c-4180-8dfc-82387a955e61"),
+    ("Division 5 Women's",   "6c9deafe-cc66-48f0-9f0f-0b69c594ea50"),
+]
 
 HEADERS = {
     "x-api-key": API_KEY,
     "x-phq-tenant": TENANT,
     "Accept": "application/json",
-    "User-Agent": "vafa-talent-id/1.0",
+    "User-Agent": "vafa-talent-id/1.1",
 }
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,13 +39,14 @@ OUT_PLAYERS = ROOT / "data" / "players.json"
 
 
 def banner():
-    print("=" * 64)
+    print("=" * 68)
     print(" VAFA Talent ID — PlayHQ fetch")
     print(f" Time   : {datetime.now(timezone.utc).isoformat()}")
     print(f" Tenant : {TENANT}")
     print(f" Key    : {API_KEY[:8]}…")
-    print(f" Out    : {OUT_GAMES.name}, {OUT_PLAYERS.name}")
-    print("=" * 64)
+    print(f" Season : {SEASON_NAME} ({SEASON_ID})")
+    print(f" Grades : {len(GRADES)} women's grades")
+    print("=" * 68)
 
 
 def get(path, params=None):
@@ -46,50 +54,28 @@ def get(path, params=None):
     if params:
         url += "?" + parse.urlencode(params)
     req = request.Request(url, headers=HEADERS)
-    with request.urlopen(req, timeout=30) as r:
-        return json.loads(r.read().decode("utf-8"))
-
-
-def safe_get(path, params=None):
     try:
-        return get(path, params)
+        with request.urlopen(req, timeout=30) as r:
+            return json.loads(r.read().decode("utf-8")), r.status
     except error.HTTPError as e:
         body = e.read().decode("utf-8", "ignore")[:200]
         print(f"  HTTP {e.code} {path}: {body}")
+        return None, e.code
     except Exception as e:
         print(f"  ERR  {path}: {e}")
-    return {}
+        return None, 0
 
 
-def find_competition():
-    print(f"Searching competitions for {COMP_HINT!r}…")
-    data = safe_get("/competitions", {"search": COMP_HINT})
-    comps = data.get("data", [])
-    if not comps:
-        print("  no competitions returned")
-        return None
-    chosen = next((c for c in comps if COMP_HINT.lower() in (c.get("name") or "").lower()), comps[0])
-    print(f"  → using {chosen.get('name')}  id={chosen.get('id')}")
-    return chosen
-
-
-def list_seasons(comp_id):
-    data = safe_get(f"/competitions/{comp_id}/seasons")
-    return data.get("data", [])
-
-
-def list_grades(season_id):
-    data = safe_get(f"/seasons/{season_id}/grades")
-    return data.get("data", [])
-
-
-def list_fixtures(grade_id):
+def list_fixture(grade_id):
+    """Walk the cursor-paginated fixture endpoint."""
     out, cursor = [], None
     for _ in range(50):
         params = {"cursor": cursor} if cursor else None
-        page = safe_get(f"/grades/{grade_id}/fixture", params)
-        out.extend(page.get("data", []))
-        cursor = (page.get("metadata") or {}).get("nextCursor")
+        data, status = get(f"/grades/{grade_id}/fixture", params)
+        if not data:
+            break
+        out.extend(data.get("data", []))
+        cursor = (data.get("metadata") or {}).get("nextCursor")
         if not cursor:
             break
         time.sleep(0.2)
@@ -97,32 +83,50 @@ def list_fixtures(grade_id):
 
 
 def list_game_stats(game_id):
-    return safe_get(f"/games/{game_id}/statistics").get("data", []) or []
+    data, status = get(f"/games/{game_id}/statistics")
+    if not data:
+        return []
+    # The shape varies — return whatever rows look like player stats
+    rows = data.get("data") or []
+    flat = []
+    for team in rows if isinstance(rows, list) else []:
+        team_name = (team.get("team") or {}).get("name") if isinstance(team, dict) else None
+        for p in (team.get("players") or []) if isinstance(team, dict) else []:
+            flat.append({
+                "playerId":   p.get("id") or p.get("playerId"),
+                "playerName": p.get("name") or p.get("displayName"),
+                "teamName":   team_name,
+                "position":   p.get("position"),
+                "statistics": p.get("statistics") or p.get("stats") or {},
+            })
+    return flat
 
 
 def aggregate_players(games_with_stats):
-    """Roll per-game stats up to per-player aggregate + history."""
     players = {}
     for g in games_with_stats:
         for row in g.get("_stats", []):
-            pid = row.get("playerId") or row.get("id")
+            pid = row.get("playerId")
             if not pid:
                 continue
             p = players.setdefault(pid, {
                 "id": pid,
-                "name": row.get("playerName") or row.get("name") or "Unknown",
+                "name": row.get("playerName") or "Unknown",
                 "club": row.get("teamName") or "",
                 "position": row.get("position") or "",
+                "grade": g.get("grade"),
                 "games": 0,
                 "stats": {"goals":0,"disposals":0,"contested":0,"marks":0,"tackles":0,"clearances":0,"inside50":0},
                 "history": [],
             })
-            s = row.get("statistics") or row.get("stats") or {}
+            s = row.get("statistics") or {}
             entry = {
                 "date":       g.get("date"),
-                "opponent":   g.get("away") if row.get("teamName")==g.get("home") else g.get("home"),
+                "round":      g.get("round"),
+                "grade":      g.get("grade"),
+                "opponent":   g.get("away") if row.get("teamName") == g.get("home") else g.get("home"),
                 "goals":      int(s.get("goals") or 0),
-                "disposals":  int(s.get("disposals") or 0),
+                "disposals":  int(s.get("disposals") or s.get("totalDisposals") or 0),
                 "contested":  int(s.get("contestedPossessions") or s.get("contested") or 0),
                 "marks":      int(s.get("marks") or 0),
                 "tackles":    int(s.get("tackles") or 0),
@@ -132,7 +136,6 @@ def aggregate_players(games_with_stats):
             for k in ("goals","disposals","contested","marks","tackles","clearances","inside50"):
                 p["stats"][k] += entry[k]
             p["games"] += 1
-            # talent score for this game (mirrors front-end weighting)
             entry["talentScore"] = round(
                 entry["goals"]*6 + entry["contested"]*1.2 + entry["clearances"]*2 +
                 entry["tackles"]*1.5 + entry["inside50"] + entry["marks"]*0.8 + entry["disposals"]*0.3, 1)
@@ -142,46 +145,44 @@ def aggregate_players(games_with_stats):
 
 def main():
     banner()
-    comp = find_competition()
-    games_out, players_out = [], []
-    if not comp:
-        print("No competition found — writing empty data files.")
-    else:
-        seasons = [s for s in list_seasons(comp["id"]) if SEASON_HINT in (s.get("name") or "")] or list_seasons(comp["id"])
-        print(f"Seasons: {[s.get('name') for s in seasons]}")
-        all_games = []
-        for s in seasons:
-            grades = [g for g in list_grades(s["id"]) if GRADE_HINT.lower() in (g.get("name") or "").lower()] or list_grades(s["id"])
-            for gr in grades:
-                fx = list_fixtures(gr["id"])
-                print(f"  · {s.get('name')} / {gr.get('name')}: {len(fx)} fixtures")
-                for g in fx:
-                    entry = {
-                        "id":      g.get("id"),
-                        "season":  s.get("name"),
-                        "grade":   gr.get("name"),
-                        "round":   (g.get("round") or {}).get("name"),
-                        "date":    (g.get("schedule") or {}).get("date"),
-                        "time":    (g.get("schedule") or {}).get("time"),
-                        "venue":   (g.get("venue") or {}).get("name"),
-                        "home":    (g.get("homeTeam") or {}).get("name"),
-                        "away":    (g.get("awayTeam") or {}).get("name"),
-                        "status":  g.get("status"),
-                    }
-                    if entry["status"] in ("FINAL","FINAL_RESULT","COMPLETED"):
-                        entry["_stats"] = list_game_stats(g["id"])
-                    else:
-                        entry["_stats"] = []
-                    all_games.append(entry)
-                    time.sleep(0.1)
-        players_out = aggregate_players(all_games)
-        # strip private _stats before writing games.json
-        games_out = [{k:v for k,v in g.items() if k != "_stats"} for g in all_games]
+    all_games = []
+    for grade_name, grade_id in GRADES:
+        print(f"\n→ {grade_name}  ({grade_id[:8]}…)")
+        fx = list_fixture(grade_id)
+        print(f"   fixtures: {len(fx)}")
+        for g in fx:
+            entry = {
+                "id":     g.get("id"),
+                "season": SEASON_NAME,
+                "grade":  grade_name,
+                "round":  (g.get("round") or {}).get("name"),
+                "date":   (g.get("schedule") or {}).get("date"),
+                "time":   (g.get("schedule") or {}).get("time"),
+                "venue":  (g.get("venue") or {}).get("name"),
+                "home":   (g.get("homeTeam") or {}).get("name"),
+                "away":   (g.get("awayTeam") or {}).get("name"),
+                "status": g.get("status"),
+            }
+            # Only fetch stats for completed games
+            if str(entry["status"] or "").upper() in ("FINAL", "FINAL_RESULT", "COMPLETED"):
+                entry["_stats"] = list_game_stats(g["id"])
+            else:
+                entry["_stats"] = []
+            all_games.append(entry)
+            time.sleep(0.1)
+
+    players_out = aggregate_players(all_games)
+    games_out   = [{k:v for k,v in g.items() if k != "_stats"} for g in all_games]
 
     OUT_GAMES.parent.mkdir(parents=True, exist_ok=True)
     OUT_GAMES.write_text(json.dumps(games_out, indent=2))
     OUT_PLAYERS.write_text(json.dumps(players_out, indent=2))
-    print(f"Wrote {len(games_out)} games, {len(players_out)} players")
+
+    print("\n" + "=" * 68)
+    print(f" Wrote {len(games_out)} games, {len(players_out)} players")
+    print(f"  → {OUT_GAMES}")
+    print(f"  → {OUT_PLAYERS}")
+    print("=" * 68)
     return 0
 
 
@@ -190,7 +191,6 @@ if __name__ == "__main__":
         sys.exit(main())
     except Exception as e:
         print(f"FATAL: {e}")
-        # never block the workflow on a fetch failure
         if not OUT_GAMES.exists():   OUT_GAMES.write_text("[]\n")
         if not OUT_PLAYERS.exists(): OUT_PLAYERS.write_text("[]\n")
         sys.exit(0)
