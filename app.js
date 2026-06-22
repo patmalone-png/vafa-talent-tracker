@@ -111,9 +111,9 @@
   }
 
   // ----- Player name link (used across tables) -----
-  function playerLink(p) {
-    return '<a href="#" class="player-link" data-pid="'+p.id+'">'+(p.name||"Unknown")+'</a>';
-  }
+function playerLink(p) {
+    return '<a href="#" class="player-link" data-pid="' + p.id + '">' + (p.name || "Unknown") + '</a>';
+}
 
   // ----- Generic Top-5 table -----
   function renderTop5(elId, rows, metricLabel, valueFn, extraCol) {
