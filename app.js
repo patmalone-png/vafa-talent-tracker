@@ -10,17 +10,19 @@
   let currentPlayerId = null;
 
   // ----- Talent score formula -----
-// Talent Score (PlayHQ public data only):
-//   votes (BOG)   × 10
-//   goals         × 4
-//   wins          × 2
-// Normalised per game so 30+ is elite.
+// Talent Score reflects PlayHQ public data only:
+//   bog (best-player votes 1..6, summed) × 8
+//   bogFirsts (BOG count)                × 6
+//   goals                                × 5
+//   wins                                 × 2
+// Divided by games — anything 25+ is elite at VAFA Women's level.
 function talentScore(p) {
   const g = Math.max(1, p.games || 1);
   const raw =
-    ((p.votes || 0) * 10) +
-    ((p.goals || 0) * 4) +
-    ((p.wins  || 0) * 2);
+    ((p.bog       || 0) * 8) +
+    ((p.bogFirsts || 0) * 6) +
+    ((p.goals     || 0) * 5) +
+    ((p.wins      || 0) * 2);
   return +(raw / g).toFixed(1);
 }
 
