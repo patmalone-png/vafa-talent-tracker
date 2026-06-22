@@ -25,8 +25,8 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Discover PlayHQ IDs
-        run: python scripts/discover_ids.py
+      - name: Run PlayHQ fetch
+        run: python scripts/fetch_playhq.p
 
       - name: Commit refreshed data
         run: |
