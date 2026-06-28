@@ -1124,32 +1124,56 @@
     "season": "2026",
     "grade": "Premier A Women's",
     "round": "Round 10",
-    "dateTime": "2026-06-27T04:00:00.000Z",
+    "dateTime": "2026-06-27T03:45:00.000Z",
     "home": {
       "id": "e40f5c58-ff22-47ca-bf33-eb9ccd1433e9",
-      "name": "St Kevin's Senior Women's"
+      "name": "St Kevin's Senior Women's",
+      "score": {
+        "goals": 7,
+        "behinds": 5,
+        "points": 47
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "d3670bf4-0510-4a97-8bcc-cf2b5b3bbe79",
-      "name": "Old Brighton Senior Women's"
+      "name": "Old Brighton Senior Women's",
+      "score": {
+        "goals": 8,
+        "behinds": 7,
+        "points": 55
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/william-buck-premier-womens/game-centre/a7941507"
   },
   {
     "id": "6ed7f916-1b7f-4134-b8ed-ab5247858511",
     "season": "2026",
     "grade": "Premier A Women's",
     "round": "Round 10",
-    "dateTime": "2026-06-27T04:00:00.000Z",
+    "dateTime": "2026-06-27T00:00:00.000Z",
     "home": {
       "id": "032aa878-d508-4035-85fa-cc6f5ee089a1",
-      "name": "Westbourne Grammarians Senior Women's"
+      "name": "Westbourne Grammarians Senior Women's",
+      "score": {
+        "goals": 0,
+        "behinds": 0,
+        "points": 0
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "19d72a9a-fbfd-4a2d-bbc6-781490035d05",
-      "name": "Caulfield Grammarians Senior Women's"
+      "name": "Caulfield Grammarians Senior Women's",
+      "score": {
+        "goals": 7,
+        "behinds": 11,
+        "points": 53
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/william-buck-premier-womens/game-centre/6ed7f916"
   },
   {
     "id": "bd438ed8-518e-4723-96d0-0fd358eac2ed",
@@ -1159,13 +1183,25 @@
     "dateTime": "2026-06-27T03:00:00.000Z",
     "home": {
       "id": "b849dde2-1c79-495c-acbe-42d3ddb8bfc5",
-      "name": "Old Geelong Senior Women's"
+      "name": "Old Geelong Senior Women's",
+      "score": {
+        "goals": 4,
+        "behinds": 6,
+        "points": 30
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "d207cdfd-158e-45c6-9365-3750cb97f4b4",
-      "name": "Kew Senior Women's"
+      "name": "Kew Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 3,
+        "points": 33
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/william-buck-premier-womens/game-centre/bd438ed8"
   },
   {
     "id": "cad38939-09a3-400a-a435-8b56aff9877d",
@@ -1175,13 +1211,25 @@
     "dateTime": "2026-06-27T01:40:00.000Z",
     "home": {
       "id": "04fdf719-32b7-4bc4-90c9-32a637f6da4b",
-      "name": "Old Scotch Senior Women's"
+      "name": "Old Scotch Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 4,
+        "points": 34
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "809f83a6-49d0-402f-ba2e-ba369d6553b6",
-      "name": "West Brunswick Senior Women's"
+      "name": "West Brunswick Senior Women's",
+      "score": {
+        "goals": 2,
+        "behinds": 3,
+        "points": 15
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/william-buck-premier-womens/game-centre/cad38939"
   },
   {
     "id": "96055930-7faa-4f83-9213-e6d5e266ca1e",
@@ -2487,13 +2535,25 @@
     "dateTime": "2026-06-27T02:00:00.000Z",
     "home": {
       "id": "d2b77d8f-3353-48b8-ac25-b97be7491bc3",
-      "name": "Westbourne Grammarians Reserve Women's"
+      "name": "Westbourne Grammarians Reserve Women's",
+      "score": {
+        "goals": 0,
+        "behinds": 1,
+        "points": 1
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "8a4a3d34-755c-4c2a-96cf-37f1a0982615",
-      "name": "Caulfield Grammarians Reserve Women's"
+      "name": "Caulfield Grammarians Reserve Women's",
+      "score": {
+        "goals": 11,
+        "behinds": 13,
+        "points": 79
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/premier-womens-reserve/game-centre/6dc1323e"
   },
   {
     "id": "935844a9-386d-41e6-8467-36ac64374b76",
@@ -2503,13 +2563,25 @@
     "dateTime": "2026-06-27T01:00:00.000Z",
     "home": {
       "id": "7848d35c-0267-4a08-9205-18afc8146a4a",
-      "name": "Old Geelong Reserve Women's"
+      "name": "Old Geelong Reserve Women's",
+      "score": {
+        "goals": 2,
+        "behinds": 2,
+        "points": 14
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "1328b607-174d-40a9-a635-34aba313a9f4",
-      "name": "Kew Reserve Women's"
+      "name": "Kew Reserve Women's",
+      "score": {
+        "goals": 8,
+        "behinds": 10,
+        "points": 58
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/premier-womens-reserve/game-centre/935844a9"
   },
   {
     "id": "bf14d703-5927-411f-81aa-59d8acb8074b",
@@ -2519,13 +2591,25 @@
     "dateTime": "2026-06-26T22:00:00.000Z",
     "home": {
       "id": "2974c3d5-a03c-41f0-9e16-c34c0239fdb5",
-      "name": "Old Scotch Reserve Women's"
+      "name": "Old Scotch Reserve Women's",
+      "score": {
+        "goals": 4,
+        "behinds": 4,
+        "points": 28
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "b8971e30-dfb0-4043-9281-73d76d68493d",
-      "name": "West Brunswick Reserve Women's"
+      "name": "West Brunswick Reserve Women's",
+      "score": {
+        "goals": 7,
+        "behinds": 3,
+        "points": 45
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/premier-womens-reserve/game-centre/bf14d703"
   },
   {
     "id": "78b6f6e1-7752-45f0-8a89-5e0d47ad0ac7",
@@ -3943,13 +4027,25 @@
     "dateTime": "2026-06-27T04:00:00.000Z",
     "home": {
       "id": "73a41770-8ffd-418b-8f85-6cec65c0ec76",
-      "name": "Old Yarra Cobras Senior Women's"
+      "name": "Old Yarra Cobras Senior Women's",
+      "score": {
+        "goals": 4,
+        "behinds": 7,
+        "points": 31
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "608d0e0a-1f5d-418c-9cb4-8d0ee6d81444",
-      "name": "Port Melbourne Chargers Senior Women's"
+      "name": "Port Melbourne Chargers Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 3,
+        "points": 33
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/premier-b-womens/game-centre/679e1777"
   },
   {
     "id": "3de33180-cbfe-4309-990f-95b179169440",
@@ -3959,29 +4055,53 @@
     "dateTime": "2026-06-27T01:40:00.000Z",
     "home": {
       "id": "217b76ed-af7f-4bb1-a261-098148f029a5",
-      "name": "Glen Eira / Old McKinnon Senior Women's"
+      "name": "Glen Eira / Old McKinnon Senior Women's",
+      "score": {
+        "goals": 4,
+        "behinds": 4,
+        "points": 28
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "3516d876-1481-420f-a7a4-e3284eb26b57",
-      "name": "Beaumaris Senior Women's"
+      "name": "Beaumaris Senior Women's",
+      "score": {
+        "goals": 4,
+        "behinds": 5,
+        "points": 29
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/premier-b-womens/game-centre/3de33180"
   },
   {
     "id": "7b262689-8fcf-4873-b9b4-96efe590ee9f",
     "season": "2026",
     "grade": "Premier B Women's",
     "round": "Round 10",
-    "dateTime": "2026-06-27T04:00:00.000Z",
+    "dateTime": "2026-06-27T04:15:00.000Z",
     "home": {
       "id": "96566b3a-1044-4f53-861c-63d854cd5005",
-      "name": "Old Xaverians Senior Women's"
+      "name": "Old Xaverians Senior Women's",
+      "score": {
+        "goals": 6,
+        "behinds": 6,
+        "points": 42
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "69678c54-1c8b-4b6c-b9c3-5989e6a4257f",
-      "name": "Parkside Senior Women's"
+      "name": "Parkside Senior Women's",
+      "score": {
+        "goals": 6,
+        "behinds": 5,
+        "points": 41
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/premier-b-womens/game-centre/7b262689"
   },
   {
     "id": "477c9dac-4ac8-4b46-8167-31cdbd3320ce",
@@ -3991,13 +4111,25 @@
     "dateTime": "2026-06-26T23:20:00.000Z",
     "home": {
       "id": "88738bcf-c52f-4fd7-ba41-4efcb846e4c7",
-      "name": "Williamstown CYMS Senior Women's"
+      "name": "Williamstown CYMS Senior Women's",
+      "score": {
+        "goals": 7,
+        "behinds": 8,
+        "points": 50
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "6df8af47-28b9-4dd9-88e7-e39838d5969a",
-      "name": "Old Melburnians Senior Women's"
+      "name": "Old Melburnians Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 6,
+        "points": 12
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/premier-b-womens/game-centre/477c9dac"
   },
   {
     "id": "5d42bd12-46ef-40c0-a643-1d75a8382121",
@@ -5399,13 +5531,25 @@
     "dateTime": "2026-06-27T01:40:00.000Z",
     "home": {
       "id": "f5ab6a4b-7a7f-460f-ad36-04c43407078b",
-      "name": "Oakleigh Senior Women's"
+      "name": "Oakleigh Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 2,
+        "points": 8
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
-      "name": "Old Carey Senior Women's"
+      "name": "Old Carey Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 10,
+        "points": 16
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-1-womens/game-centre/0370b62a"
   },
   {
     "id": "a482aaaf-45d5-4fd2-bc77-e02a2fe12876",
@@ -5415,13 +5559,25 @@
     "dateTime": "2026-06-27T04:00:00.000Z",
     "home": {
       "id": "f337a4f3-d4da-4c2d-be50-01c337e28e68",
-      "name": "Ormond Senior Women's"
+      "name": "Ormond Senior Women's",
+      "score": {
+        "goals": 10,
+        "behinds": 13,
+        "points": 73
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "a8833bfa-4668-4cc6-8aef-9ceba5cde899",
-      "name": "La Trobe University Senior Women's"
+      "name": "La Trobe University Senior Women's",
+      "score": {
+        "goals": 0,
+        "behinds": 3,
+        "points": 3
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-1-womens/game-centre/a482aaaf"
   },
   {
     "id": "629e3aed-f975-4872-959d-4062f5a5e19c",
@@ -5431,13 +5587,25 @@
     "dateTime": "2026-06-27T04:00:00.000Z",
     "home": {
       "id": "14089275-6394-4c3c-9b52-0f0da8379201",
-      "name": "Monash Blues Senior Women's"
+      "name": "Monash Blues Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 4,
+        "points": 10
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "27c60654-f4e5-4432-8755-d446bdbe7ab4",
-      "name": "Power House Senior Women's"
+      "name": "Power House Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 4,
+        "points": 34
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-1-womens/game-centre/629e3aed"
   },
   {
     "id": "0a8dd979-babf-4d0b-a488-4c0152c43355",
@@ -5447,13 +5615,25 @@
     "dateTime": "2026-06-27T01:40:00.000Z",
     "home": {
       "id": "d3b772fd-6979-4f6b-9ffb-5cb5dd9af171",
-      "name": "Marcellin OC Senior Women's"
+      "name": "Marcellin OC Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 3,
+        "points": 33
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "c09196a2-d347-4834-ae23-3d3179fb614e",
-      "name": "Whitefriars Senior Women's"
+      "name": "Whitefriars Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 2,
+        "points": 32
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-1-womens/game-centre/0a8dd979"
   },
   {
     "id": "ca8e89f9-11da-4dc3-ac70-54f753f3ab2f",
@@ -6855,13 +7035,25 @@
     "dateTime": "2026-06-26T23:20:00.000Z",
     "home": {
       "id": "a25a1b20-1469-4e15-b4c9-1b7e407825dc",
-      "name": "UHS-VU Senior Women's"
+      "name": "UHS-VU Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 0,
+        "points": 6
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "e5fb8130-65e8-4ab6-b302-9c90271b3989",
-      "name": "Richmond Central Senior Women's"
+      "name": "Richmond Central Senior Women's",
+      "score": {
+        "goals": 3,
+        "behinds": 6,
+        "points": 24
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-2-womens/game-centre/180bb483"
   },
   {
     "id": "12acaef1-5046-4a19-94ee-6abc72335e3a",
@@ -6871,13 +7063,25 @@
     "dateTime": "2026-06-26T23:20:00.000Z",
     "home": {
       "id": "4674e2cb-5b5d-4a41-a255-a150c8f08e77",
-      "name": "De La Salle Senior Women's"
+      "name": "De La Salle Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 3,
+        "points": 9
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "a141e58e-57e6-480b-9d8a-99bb5d6c6fb7",
-      "name": "Beaumaris Senior Women's 2"
+      "name": "Beaumaris Senior Women's 2",
+      "score": {
+        "goals": 4,
+        "behinds": 2,
+        "points": 26
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-2-womens/game-centre/12acaef1"
   },
   {
     "id": "b39f3ee7-9708-4a1a-aed0-cdc261b2f6b3",
@@ -6887,13 +7091,25 @@
     "dateTime": "2026-06-26T23:20:00.000Z",
     "home": {
       "id": "63455043-e834-4d47-abb4-79f6ac9dc49b",
-      "name": "MCCFC Senior Women's"
+      "name": "MCCFC Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 8,
+        "points": 14
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "e58a083b-5d54-4e82-81ef-1b0758e7a5a2",
-      "name": "Hampton Rovers Senior Women's"
+      "name": "Hampton Rovers Senior Women's",
+      "score": {
+        "goals": 7,
+        "behinds": 1,
+        "points": 43
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-2-womens/game-centre/b39f3ee7"
   },
   {
     "id": "ac0762ff-6582-4efe-b324-6e5069e450db",
@@ -6903,13 +7119,25 @@
     "dateTime": "2026-06-27T02:00:00.000Z",
     "home": {
       "id": "90d80435-fae5-48ef-9f4a-ec0bcf60209d",
-      "name": "St Mary's Salesian Senior Women's"
+      "name": "St Mary's Salesian Senior Women's",
+      "score": {
+        "goals": 4,
+        "behinds": 13,
+        "points": 37
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "72397a3d-36cb-460a-a618-f6bf8680c55e",
-      "name": "Old Camberwell Senior Women's"
+      "name": "Old Camberwell Senior Women's",
+      "score": {
+        "goals": 3,
+        "behinds": 3,
+        "points": 21
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-2-womens/game-centre/ac0762ff"
   },
   {
     "id": "c478ccde-6143-450d-bcf9-48e58b7ececf",
@@ -6932,7 +7160,7 @@
     "season": "2026",
     "grade": "Division 2 Women's",
     "round": "Round 11",
-    "dateTime": "2026-07-03T23:20:00.000Z",
+    "dateTime": "2026-07-03T23:10:00.000Z",
     "home": {
       "id": "90d80435-fae5-48ef-9f4a-ec0bcf60209d",
       "name": "St Mary's Salesian Senior Women's"
@@ -8139,13 +8367,25 @@
     "dateTime": "2026-06-27T00:00:00.000Z",
     "home": {
       "id": "9937da82-3dcd-4144-8175-904d245b9f26",
-      "name": "Prahran/Collegians Senior Women's"
+      "name": "Prahran/Collegians Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 1,
+        "points": 7
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "1a608e45-629f-4585-8729-6005abf93be8",
-      "name": "Parkdale Vultures Senior Women's"
+      "name": "Parkdale Vultures Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 7,
+        "points": 37
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-3-womens/game-centre/84b16871"
   },
   {
     "id": "6bec1d49-4d9c-49af-a0ea-9ee555cba22f",
@@ -8155,29 +8395,53 @@
     "dateTime": "2026-06-26T23:20:00.000Z",
     "home": {
       "id": "8318f3c2-da82-462c-bd1e-e10f5892776d",
-      "name": "Hawthorn Senior Women's"
+      "name": "Hawthorn Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 6,
+        "points": 36
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "7791b8ca-8edd-4604-a4b4-32cc6b507157",
-      "name": "Old Haileybury Senior Women's"
+      "name": "Old Haileybury Senior Women's",
+      "score": {
+        "goals": 4,
+        "behinds": 6,
+        "points": 30
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-3-womens/game-centre/6bec1d49"
   },
   {
     "id": "bd5e9913-3b8b-41e3-b3d9-bd73a3b70a08",
     "season": "2026",
     "grade": "Division 3 Women's",
     "round": "Round 10",
-    "dateTime": "2026-06-27T02:00:00.000Z",
+    "dateTime": "2026-06-26T23:20:00.000Z",
     "home": {
       "id": "cf90cc88-4062-4af2-bc0c-7c205cf3fab7",
-      "name": "Old Yarra Cobras Senior Women's 2"
+      "name": "Old Yarra Cobras Senior Women's 2",
+      "score": {
+        "goals": 1,
+        "behinds": 6,
+        "points": 12
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "016e442b-f1d4-4874-8b2b-e680293ddb5f",
-      "name": "Caulfield Grammarians Senior Women's 3"
+      "name": "Caulfield Grammarians Senior Women's 3",
+      "score": {
+        "goals": 1,
+        "behinds": 1,
+        "points": 7
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-3-womens/game-centre/bd5e9913"
   },
   {
     "id": "22d61f7a-dc45-42db-8756-f791778abb66",
@@ -8456,7 +8720,7 @@
     "season": "2026",
     "grade": "Division 3 Women's",
     "round": "Round 16",
-    "dateTime": "2026-08-15T00:00:00.000Z",
+    "dateTime": "2026-08-15T01:40:00.000Z",
     "home": {
       "id": "9937da82-3dcd-4144-8175-904d245b9f26",
       "name": "Prahran/Collegians Senior Women's"
@@ -9572,6 +9836,146 @@
     "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-4-womens/game-centre/2e2f1b1d"
   },
   {
+    "id": "73a4fc40-195b-44a3-a36e-8d3cd8e82bee",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 10",
+    "dateTime": "2026-06-28T02:00:00.000Z",
+    "home": {
+      "id": "6178f8ee-16db-48aa-a9e5-319aa1c0f51b",
+      "name": "MUWFC Senior Women's",
+      "score": {
+        "goals": 3,
+        "behinds": 6,
+        "points": 24
+      },
+      "outcome": "LOST"
+    },
+    "away": {
+      "id": "14c977d3-f7a9-434f-9428-6744c3a00a6c",
+      "name": "Old Xaverians Senior Women's 2",
+      "score": {
+        "goals": 6,
+        "behinds": 4,
+        "points": 40
+      },
+      "outcome": "WON"
+    },
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-4-womens/game-centre/73a4fc40"
+  },
+  {
+    "id": "636c5db7-2897-429d-8259-d78bbb98090e",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 10",
+    "dateTime": "2026-06-26T23:20:00.000Z",
+    "home": {
+      "id": "a1397a83-ddab-46f8-8031-df88951b1446",
+      "name": "Aquinas Senior Women's",
+      "score": {
+        "goals": 3,
+        "behinds": 9,
+        "points": 27
+      },
+      "outcome": "LOST"
+    },
+    "away": {
+      "id": "1c0b6714-719e-4fa2-8d33-50d78458f620",
+      "name": "North Brunswick Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 2,
+        "points": 32
+      },
+      "outcome": "WON"
+    },
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-4-womens/game-centre/636c5db7"
+  },
+  {
+    "id": "ded42e0c-1ea0-42e3-9e29-8bd0764991bb",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 10",
+    "dateTime": "2026-06-27T04:00:00.000Z",
+    "home": {
+      "id": "e7ca0f10-7b16-42a9-bca3-1626fcdb5801",
+      "name": "Fitzroy Senior Women's 3",
+      "score": {
+        "goals": 7,
+        "behinds": 11,
+        "points": 53
+      },
+      "outcome": "WON"
+    },
+    "away": {
+      "id": "53bd8fa7-bfc0-452e-a7e8-fd0b45bb6930",
+      "name": "Brunswick Senior Women's",
+      "score": {
+        "goals": 0,
+        "behinds": 5,
+        "points": 5
+      },
+      "outcome": "LOST"
+    },
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-4-womens/game-centre/ded42e0c"
+  },
+  {
+    "id": "4c1047c3-80bd-47ed-8050-197617ddf738",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 10",
+    "dateTime": "2026-06-26T23:20:00.000Z",
+    "home": {
+      "id": "048040e9-ea1f-49ac-8aa6-bccd1600fac2",
+      "name": "Mazenod Senior Women's",
+      "score": {
+        "goals": 3,
+        "behinds": 12,
+        "points": 30
+      },
+      "outcome": "WON"
+    },
+    "away": {
+      "id": "247d468f-951d-4e4f-ad6e-246fbbb6f28c",
+      "name": "Albert Park Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 4,
+        "points": 10
+      },
+      "outcome": "LOST"
+    },
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-4-womens/game-centre/4c1047c3"
+  },
+  {
+    "id": "44bfd00a-737b-4698-93ec-279f901e342b",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 10",
+    "dateTime": "2026-06-26T23:20:00.000Z",
+    "home": {
+      "id": "388324b9-37da-4f33-800e-f6f149271c46",
+      "name": "Canterbury Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 4,
+        "points": 10
+      },
+      "outcome": "LOST"
+    },
+    "away": {
+      "id": "94db627b-5fa9-430d-9137-448c15862c28",
+      "name": "Wattle Park Senior Women's",
+      "score": {
+        "goals": 2,
+        "behinds": 1,
+        "points": 13
+      },
+      "outcome": "WON"
+    },
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-4-womens/game-centre/44bfd00a"
+  },
+  {
     "id": "590cefb7-bf27-4975-95b1-2621f57c169d",
     "season": "2026",
     "grade": "Division 4 Women's",
@@ -9586,86 +9990,6 @@
       "name": "Wattle Park Senior Women's"
     },
     "status": "ABANDONED"
-  },
-  {
-    "id": "73a4fc40-195b-44a3-a36e-8d3cd8e82bee",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 10",
-    "dateTime": "2026-06-28T02:00:00.000Z",
-    "home": {
-      "id": "6178f8ee-16db-48aa-a9e5-319aa1c0f51b",
-      "name": "MUWFC Senior Women's"
-    },
-    "away": {
-      "id": "14c977d3-f7a9-434f-9428-6744c3a00a6c",
-      "name": "Old Xaverians Senior Women's 2"
-    },
-    "status": "UPCOMING"
-  },
-  {
-    "id": "636c5db7-2897-429d-8259-d78bbb98090e",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 10",
-    "dateTime": "2026-06-26T23:20:00.000Z",
-    "home": {
-      "id": "a1397a83-ddab-46f8-8031-df88951b1446",
-      "name": "Aquinas Senior Women's"
-    },
-    "away": {
-      "id": "1c0b6714-719e-4fa2-8d33-50d78458f620",
-      "name": "North Brunswick Senior Women's"
-    },
-    "status": "UPCOMING"
-  },
-  {
-    "id": "ded42e0c-1ea0-42e3-9e29-8bd0764991bb",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 10",
-    "dateTime": "2026-06-27T04:00:00.000Z",
-    "home": {
-      "id": "e7ca0f10-7b16-42a9-bca3-1626fcdb5801",
-      "name": "Fitzroy Senior Women's 3"
-    },
-    "away": {
-      "id": "53bd8fa7-bfc0-452e-a7e8-fd0b45bb6930",
-      "name": "Brunswick Senior Women's"
-    },
-    "status": "UPCOMING"
-  },
-  {
-    "id": "4c1047c3-80bd-47ed-8050-197617ddf738",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 10",
-    "dateTime": "2026-06-26T23:20:00.000Z",
-    "home": {
-      "id": "048040e9-ea1f-49ac-8aa6-bccd1600fac2",
-      "name": "Mazenod Senior Women's"
-    },
-    "away": {
-      "id": "247d468f-951d-4e4f-ad6e-246fbbb6f28c",
-      "name": "Albert Park Senior Women's"
-    },
-    "status": "UPCOMING"
-  },
-  {
-    "id": "44bfd00a-737b-4698-93ec-279f901e342b",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 10",
-    "dateTime": "2026-06-26T23:20:00.000Z",
-    "home": {
-      "id": "388324b9-37da-4f33-800e-f6f149271c46",
-      "name": "Canterbury Senior Women's"
-    },
-    "away": {
-      "id": "94db627b-5fa9-430d-9137-448c15862c28",
-      "name": "Wattle Park Senior Women's"
-    },
-    "status": "UPCOMING"
   },
   {
     "id": "43828693-4c82-4bf2-b885-1425b580e442",
@@ -11415,13 +11739,25 @@
     "dateTime": "2026-06-27T02:00:00.000Z",
     "home": {
       "id": "7d956c2b-a74a-4be3-9f5c-c59b136ea836",
-      "name": "Monash Blues Senior Women's 2"
+      "name": "Monash Blues Senior Women's 2",
+      "score": {
+        "goals": 0,
+        "behinds": 2,
+        "points": 2
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "27abec55-89cc-4842-bbf5-24e1af91efde",
-      "name": "Ormond Senior Women's 2"
+      "name": "Ormond Senior Women's 2",
+      "score": {
+        "goals": 6,
+        "behinds": 12,
+        "points": 48
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-5-womens/game-centre/9d7bb58b"
   },
   {
     "id": "7a25fbfa-9d71-4c18-b586-625068738d63",
@@ -11431,29 +11767,53 @@
     "dateTime": "2026-06-26T23:20:00.000Z",
     "home": {
       "id": "23bacd2a-6bcf-4649-9973-4f65998e2b3f",
-      "name": "Elsternwick Senior Women's"
+      "name": "Elsternwick Senior Women's",
+      "score": {
+        "goals": 6,
+        "behinds": 11,
+        "points": 47
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "f8a05cd0-8a92-4b3f-88b9-1bf298e1c75c",
-      "name": "West Brunswick Senior Women's 3"
+      "name": "West Brunswick Senior Women's 3",
+      "score": {
+        "goals": 1,
+        "behinds": 1,
+        "points": 7
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-5-womens/game-centre/7a25fbfa"
   },
   {
     "id": "8fb788b0-745c-4d43-9029-4a42bf152cfe",
     "season": "2026",
     "grade": "Division 5 Women's",
     "round": "Round 10",
-    "dateTime": "2026-06-27T04:00:00.000Z",
+    "dateTime": "2026-06-27T01:00:00.000Z",
     "home": {
       "id": "a60222a0-ff2a-4222-a55b-9d2dec938c34",
-      "name": "St Kevin's Senior Women's 3"
+      "name": "St Kevin's Senior Women's 3",
+      "score": {
+        "goals": 2,
+        "behinds": 11,
+        "points": 23
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "f396c14f-a49a-4ce6-9cce-b18d89a54b99",
-      "name": "Preston Bullants Senior Women's"
+      "name": "Preston Bullants Senior Women's",
+      "score": {
+        "goals": 1,
+        "behinds": 6,
+        "points": 12
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-5-womens/game-centre/8fb788b0"
   },
   {
     "id": "c7a6631b-1917-4fe1-9cb3-e3ccd7ebf5cd",
@@ -11463,13 +11823,25 @@
     "dateTime": "2026-06-27T01:40:00.000Z",
     "home": {
       "id": "d4c78cec-3ca1-41a3-a585-b77604b861ad",
-      "name": "South Melbourne Senior Women's"
+      "name": "South Melbourne Senior Women's",
+      "score": {
+        "goals": 5,
+        "behinds": 0,
+        "points": 30
+      },
+      "outcome": "WON"
     },
     "away": {
       "id": "71356752-1f5f-40c7-b714-fa2e41f999d0",
-      "name": "Glen Eira / Old McKinnon Senior Women's 2"
+      "name": "Glen Eira / Old McKinnon Senior Women's 2",
+      "score": {
+        "goals": 3,
+        "behinds": 2,
+        "points": 20
+      },
+      "outcome": "LOST"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-5-womens/game-centre/c7a6631b"
   },
   {
     "id": "5a422180-3ef7-47a6-bfa2-61b89d18bb05",
@@ -11479,13 +11851,25 @@
     "dateTime": "2026-06-27T02:00:00.000Z",
     "home": {
       "id": "22f5abbe-4ccc-4611-b485-877ae474e490",
-      "name": "De La Salle Senior Women's 2"
+      "name": "De La Salle Senior Women's 2",
+      "score": {
+        "goals": 1,
+        "behinds": 0,
+        "points": 6
+      },
+      "outcome": "LOST"
     },
     "away": {
       "id": "f5b47f8d-94b9-46dc-8334-8c3aa91e0fb0",
-      "name": "Parkside Senior Women's 2"
+      "name": "Parkside Senior Women's 2",
+      "score": {
+        "goals": 13,
+        "behinds": 20,
+        "points": 98
+      },
+      "outcome": "WON"
     },
-    "status": "UPCOMING"
+    "url": "https://www.playhq.com/afl/org/victorian-amateur-football-association-vafa/victorian-amateur-football-association-vafa-2026/division-5-womens/game-centre/5a422180"
   },
   {
     "id": "be158343-8e76-4bb9-b3d5-7f560325671b",
@@ -11604,7 +11988,7 @@
     "season": "2026",
     "grade": "Division 5 Women's",
     "round": "Round 12",
-    "dateTime": "2026-07-18T02:00:00.000Z",
+    "dateTime": "2026-07-17T23:20:00.000Z",
     "home": {
       "id": "7d956c2b-a74a-4be3-9f5c-c59b136ea836",
       "name": "Monash Blues Senior Women's 2"
