@@ -6,40 +6,89 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:'Montserrat',system-ui,sans-serif}
 a{color:var(--gold);text-decoration:none}
+
 .topbar{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:14px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--gold)}
 .topbar h1{margin:0;font-size:1.1rem;letter-spacing:.5px}
 .last-sync{font-size:.75rem;color:var(--muted)}
+
 .tabs{display:flex;gap:6px;padding:10px;background:var(--navy);overflow-x:auto}
 .tab{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:600 .8rem 'Montserrat';cursor:pointer;white-space:nowrap}
 .tab.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+
 main{max-width:1000px;margin:0 auto;padding:14px}
 .panel{display:none}
 .panel.active{display:block}
+
 .card{background:var(--card);border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.2);border:1px solid var(--line)}
-.card h2{margin:0 0 10px;font-size:1rem;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:6px}
+.card h2{margin:0 0 10px;font-size:1rem;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .card h3{color:var(--gold);font-size:.9rem;margin:14px 0 6px}
+
 .tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:14px}
 .tile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
 .tile-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .tile-value{font-size:1.4rem;font-weight:800;color:var(--gold);margin-top:4px}
+
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 label{display:flex;flex-direction:column;gap:3px;font-size:.75rem;color:var(--muted)}
 input,select,textarea{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px;font:inherit}
 input:focus,select:focus{outline:1px solid var(--gold)}
 #playerSearch{width:100%;margin-bottom:10px}
+
 .btn{background:var(--navy2);color:#fff;border:1px solid var(--line);padding:8px 12px;border-radius:6px;font:600 .8rem 'Montserrat';cursor:pointer}
 .btn:hover{background:var(--navy)}
 .btn.primary{background:var(--gold);color:var(--navy);border-color:var(--gold)}
 .btn.small{padding:4px 8px;font-size:.7rem}
 .btn.danger{background:var(--danger)}
+.csv-btn{font-size:.7rem;padding:4px 8px}
+
 table.data{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:4px}
 table.data th,table.data td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
 table.data th{background:var(--navy);color:var(--gold);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
 table.data tr:hover td{background:rgba(201,164,76,.06)}
+
 .empty{text-align:center;color:var(--muted);padding:24px;font-style:italic}
 .muted{color:var(--muted);font-size:.8rem}
 .hidden{display:none!important}
 .star{background:transparent;border:0;color:var(--gold);font-size:1.1rem;cursor:pointer}
+
 canvas{display:block;background:var(--panel);border:1px solid var(--line);border-radius:6px;margin:10px 0;max-width:100%}
+
 footer{text-align:center;color:var(--muted);font-size:.7rem;padding:18px}
-@media(max-width:560px){.tile-value{font-size:1.1rem}}
+
+/* ----- OBGFC own-club highlight ----- */
+.own-club {
+  color: #c9a44c;
+  font-size: 1.1rem;
+  line-height: 1;
+  text-shadow: 0 0 6px rgba(201,164,76,.6);
+  vertical-align: middle;
+  margin-right: 2px;
+}
+table.data tr:has(.own-club) td {
+  background: rgba(201,164,76,.08);
+}
+table.data tr:has(.own-club) td:first-child {
+  border-left: 3px solid var(--gold);
+}
+.legend-note { margin: 0 0 10px; padding: 0 4px; font-size: .75rem; }
+
+/* ----- Talent Score formula descriptor ----- */
+.formula-card { padding: 0; }
+.formula-toggle {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  background: transparent; border: 0; color: var(--gold);
+  padding: 12px 14px; font: 600 .9rem 'Montserrat'; cursor: pointer;
+  text-align: left;
+}
+.formula-toggle:hover { background: rgba(201,164,76,.05); }
+.formula-toggle .formula-chevron { margin-left: auto; transition: transform .15s; }
+.formula-toggle[aria-expanded="true"] .formula-chevron { transform: rotate(180deg); }
+.formula-body { padding: 0 14px 14px; border-top: 1px solid var(--line); }
+.formula-body p { font-size: .85rem; line-height: 1.5; }
+.formula-table { margin: 10px 0; }
+.formula-table td { font-size: .8rem; }
+.formula-table td:nth-child(2) { color: var(--gold); font-weight: 600; white-space: nowrap; }
+
+@media(max-width:560px){
+  .tile-value{font-size:1.1rem}
+}
