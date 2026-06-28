@@ -8,8 +8,15 @@
   let lastSync = null;
   let watchlist = JSON.parse(localStorage.getItem("vafa_watchlist") || "[]");
 
-  // ----- Talent Score (fallback if not pre-computed by fetch script) -----
-  // bog × 8 + bogFirsts × 6 + goals × 5 + wins × 2, divided by games.
+  // ----- OBGFC own-club detection -----
+  const OWN_CLUB_KEYWORDS = ["old brighton"];
+  function isOwnClub(p) {
+    const c = (p.club || "").toLowerCase();
+    return OWN_CLUB_KEYWORDS.some(kw => c.includes(kw));
+  }
+
+  // ----- Talent Score (fallback if not pre-computed) -----
+  // bog × 8 + bogFirsts × 6 + goals × 5 + wins × 2, divided by √games.
   function talentScore(p) {
     const g = Math.max(1, p.games || 1);
     const raw =
@@ -17,22 +24,19 @@
       ((p.bogFirsts || 0) * 6) +
       ((p.goals     || 0) * 5) +
       ((p.wins      || 0) * 2);
-    return +(raw / g).toFixed(1);
+    return +(raw / Math.sqrt(g)).toFixed(1);
   }
 
-  // Count games in best (fallback to history scan for legacy data)
   function bestCount(p) {
     if (typeof p.bestCount === "number") return p.bestCount;
     return (p.history || []).filter(h => (h.bog || 0) > 0 || h.inBest).length;
   }
 
-  // Per-game talent score (fallback for legacy history rows)
   function gameTalentScore(h) {
     if (typeof h.talentScore === "number") return h.talentScore;
     return (h.goals || 0) * 5 + (h.bog || 0) * 8 + ((h.bog === 6) ? 6 : 0) + (h.won ? 2 : 0);
   }
 
-  // Form Indicator: last N games avg vs earlier avg
   function formIndicator(p, window) {
     const hist = [...(p.history || [])].sort((a,b) => (a.date||"").localeCompare(b.date||""));
     if (hist.length < window + 1) return null;
@@ -73,7 +77,6 @@
       console.warn("Data load failed", e);
       games = []; players = [];
     }
-    // Enrich players with talent score (use existing if pre-computed)
     players.forEach(p => {
       if (typeof p.talentScore !== "number") p.talentScore = talentScore(p);
     });
@@ -110,10 +113,11 @@
     return '<div class="empty">' + (msg || "No data yet — run the PlayHQ fetch workflow.") + '</div>';
   }
 
-  // ----- Player name link (used across tables) -----
-function playerLink(p) {
-    return '<a href="#" class="player-link" data-pid="' + p.id + '">' + (p.name || "Unknown") + '</a>';
-}
+  // ----- Player name link with OBGFC dot -----
+  function playerLink(p) {
+    const own = isOwnClub(p) ? '<span class="own-club" title="OBGFC">●</span> ' : '';
+    return own + '<a href="#" class="player-link" data-pid="' + p.id + '">' + (p.name || "Unknown") + '</a>';
+  }
 
   // ----- Generic Top-5 table -----
   function renderTop5(elId, rows, metricLabel, valueFn, extraCol) {
@@ -137,7 +141,9 @@ function playerLink(p) {
 
   // ----- Dashboard -----
   function renderDashboard() {
-    const pool   = applyGrade(players);
+    const pool = applyGrade(players).filter(p =>
+      p.name && p.name.trim() && p.name.trim().toLowerCase() !== "none none"
+    );
     const fxPool = applyGrade(games);
     const fw     = selectedFormWindow();
 
@@ -147,8 +153,11 @@ function playerLink(p) {
     document.getElementById("t-top").textContent     = top ? top.talentScore : "–";
     document.getElementById("t-sync").textContent    = lastSync ? new Date(lastSync).toLocaleDateString() : "–";
 
-    // Top 5 — Talent Score
-    const byTalent = [...pool]
+    const minGamesForTop = 3;
+    const qualified = pool.filter(p => (p.games || 0) >= minGamesForTop);
+
+    // Top 5 — Talent Score (min 3 games)
+    const byTalent = [...qualified]
       .sort((a,b)=>(b.talentScore||0)-(a.talentScore||0))
       .slice(0,5);
     renderTop5("topTalent", byTalent, "Score", p => p.talentScore || 0,
@@ -169,8 +178,8 @@ function playerLink(p) {
     renderTop5("topGoals", byGoals, "Goals", p => p.goals || 0,
       {label: "Per game", fn: p => p.games ? (p.goals/p.games).toFixed(2) : "0"});
 
-    // Top 5 — Form Indicator
-    const formed = pool
+    // Top 5 — Form Indicator (needs min games)
+    const formed = qualified
       .map(p => ({...p, _form: formIndicator(p, fw)}))
       .filter(p => p._form)
       .sort((a,b) => b._form.delta - a._form.delta)
@@ -179,7 +188,7 @@ function playerLink(p) {
       p => '<span style="color:'+(p._form.delta>0?'#7ddc7d':p._form.delta<0?'#f08484':'#c9a44c')+'">'+p._form.trend+' '+p._form.delta+'</span>',
       {label: "Last "+fw+" avg", fn: p => p._form.recent});
 
-    // Recent fixtures (grade-filtered)
+    // Recent fixtures
     const fx = [...fxPool]
       .sort((a,b)=> (b.dateTime||"").localeCompare(a.dateTime||""))
       .slice(0,8);
@@ -209,7 +218,10 @@ function playerLink(p) {
     const minGames  = parseInt((document.getElementById("lbMinGames")||{}).value || "1", 10);
     const grade     = (document.getElementById("lbGrade")||{}).value || "";
 
-    let pool = players.filter(p => (p.games || 0) >= minGames);
+    let pool = players.filter(p =>
+      (p.games || 0) >= minGames &&
+      p.name && p.name.trim() && p.name.trim().toLowerCase() !== "none none"
+    );
     if (position) pool = pool.filter(p => (p.position||"") === position);
     if (grade)    pool = pool.filter(p => p.grade === grade);
 
@@ -244,7 +256,8 @@ function playerLink(p) {
     const q = (document.getElementById("playerSearch").value || "").toLowerCase();
     const el = document.getElementById("playerList");
     const filtered = players.filter(p =>
-      !q || (p.name||"").toLowerCase().includes(q) || (p.club||"").toLowerCase().includes(q)
+      p.name && p.name.trim() && p.name.trim().toLowerCase() !== "none none" &&
+      (!q || (p.name||"").toLowerCase().includes(q) || (p.club||"").toLowerCase().includes(q))
     ).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
     if (!filtered.length) { el.innerHTML = emptyState(); return; }
     let html = '<table class="data"><thead><tr><th></th><th>Player</th><th>Club</th><th>Grade</th><th>Score</th><th></th></tr></thead><tbody>';
@@ -359,7 +372,6 @@ function playerLink(p) {
   function populateClubDropdown() {
     const sel = document.getElementById("scoutClub");
     if (!sel) return;
-    // Reset
     while (sel.options.length > 1) sel.remove(1);
     const clubs = Array.from(new Set(players.map(p=>p.club).filter(Boolean))).sort();
     clubs.forEach(c=>{
@@ -448,6 +460,59 @@ function playerLink(p) {
   ["gradeFilter","formWindow"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener("input", renderDashboard);
+  });
+
+  // ----- Talent Score formula toggle -----
+  (function bindFormulaToggle(){
+    const btn  = document.getElementById("formulaToggle");
+    const body = document.getElementById("formulaBody");
+    if (!btn || !body) return;
+    btn.addEventListener("click", () => {
+      const isHidden = body.classList.toggle("hidden");
+      btn.setAttribute("aria-expanded", isHidden ? "false" : "true");
+    });
+  })();
+
+  // ----- CSV export -----
+  function tableToCSV(tableEl) {
+    if (!tableEl) return "";
+    const rows = [];
+    tableEl.querySelectorAll("tr").forEach(tr => {
+      const cells = [];
+      tr.querySelectorAll("th,td").forEach(cell => {
+        const txt = cell.textContent.replace(/\s+/g, " ").trim();
+        cells.push(/[",\n]/.test(txt) ? '"' + txt.replace(/"/g, '""') + '"' : txt);
+      });
+      if (cells.length) rows.push(cells.join(","));
+    });
+    return rows.join("\n");
+  }
+
+  function downloadCSV(name, csv) {
+    const grade = (selectedGrade() || "all-grades")
+      .replace(/[^a-z0-9]+/gi, "-").toLowerCase();
+    const stamp = new Date().toISOString().slice(0,10);
+    const filename = `vafa-talent-id_${name}_${grade}_${stamp}.csv`;
+    const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".csv-btn");
+    if (!btn) return;
+    const targetId = btn.dataset.csv;
+    const name     = btn.dataset.name || "export";
+    const table    = document.querySelector("#" + targetId + " table");
+    if (!table) {
+      alert("Nothing to export yet.");
+      return;
+    }
+    downloadCSV(name, tableToCSV(table));
   });
 
   // ----- Boot -----
