@@ -2,7 +2,7 @@
 """
 VAFA Talent ID — PlayHQ fetcher.
 Pulls Women's grades 2026: fixtures (v2), per-game appearances (v1 summary),
-and team ladders (v2). Writes data/games.json + data/players.json.
+team ladders (v2). Writes data/games.json + data/players.json.
 """
 import json, sys, time
 from datetime import datetime, timezone
@@ -31,7 +31,7 @@ HEADERS = {
     "x-api-key": API_KEY,
     "x-phq-tenant": TENANT,
     "Accept": "application/json",
-    "User-Agent": "vafa-talent-id/2.0",
+    "User-Agent": "vafa-talent-id/2.1",
 }
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,7 +41,7 @@ OUT_PLAYERS = ROOT / "data" / "players.json"
 
 def banner():
     print("=" * 70)
-    print(" VAFA Talent ID — PlayHQ fetch v2")
+    print(" VAFA Talent ID — PlayHQ fetch v2.1")
     print(f" Time   : {datetime.now(timezone.utc).isoformat()}")
     print(f" Tenant : {TENANT}")
     print(f" Key    : {API_KEY[:8]}…")
@@ -70,7 +70,8 @@ def get(path, params=None):
 def list_grade_games(grade_id):
     """v2 fixture — returns list of rounds, each with games[]."""
     data = get(f"/v2/grades/{grade_id}/games")
-    if not data: return []
+    if not data:
+        return []
     rounds = data.get("rounds") or []
     flat = []
     for r in rounds:
@@ -84,7 +85,8 @@ def grade_ladder(grade_id):
     """v2 ladder — returns {team_id: {name, played, won, lost, drawn, pct}}."""
     data = get(f"/v2/grades/{grade_id}/ladder")
     teams = {}
-    if not data: return teams
+    if not data:
+        return teams
     for ladder in (data.get("ladders") or []):
         headers = [h["key"] for h in (ladder.get("headers") or [])]
         for s in (ladder.get("standings") or []):
@@ -104,12 +106,13 @@ def grade_ladder(grade_id):
 def game_summary(game_id):
     """v1 summary — returns appearances[]."""
     data = get(f"/v1/games/{game_id}/summary")
-    if not data: return []
+    if not data:
+        return []
     return (data.get("data") or {}).get("appearances") or []
 
 
 def extract_score(team):
-    """Pull TOTAL_GOALS / TOTAL_BEHINDS / TOTAL_SCORE from the match.teams[i] block."""
+    """Pull TOTAL_GOALS / TOTAL_BEHINDS / TOTAL_SCORE from match.teams[i]."""
     s = {"goals": 0, "behinds": 0, "points": 0}
     for st in ((team or {}).get("outcome") or {}).get("statistics") or []:
         t, v = st.get("type"), st.get("value", 0)
@@ -122,15 +125,17 @@ def extract_score(team):
 def main():
     banner()
     all_games   = []
-    team_lookup = {}     # team_id → {name, club...}
-    appearances = []     # raw appearance records
+    team_lookup = {}    # team_id → {name, grade, ladder}
+    appearances = []    # raw appearance records
 
     for grade_name, grade_id in GRADES:
         print(f"\n→ {grade_name}  ({grade_id[:8]}…)")
         ladder = grade_ladder(grade_id)
         for tid, t in ladder.items():
-            team_lookup.setdefault(tid, {"name": t["name"], "grade": grade_name,
-                                         "ladder": t})
+            team_lookup.setdefault(tid, {
+                "name": t["name"], "grade": grade_name, "ladder": t
+            })
+
         fixtures = list_grade_games(grade_id)
         print(f"   fixtures: {len(fixtures)}  ·  teams on ladder: {len(ladder)}")
 
@@ -146,120 +151,149 @@ def main():
             away_id   = next((t.get("id") for t in top_teams if not t.get("isHomeTeam")), None)
             outcome   = {t.get("id"): t.get("outcome") for t in top_teams}
 
-            schedule  = (g.get("schedule") or [{}])[0]
+            schedule = (g.get("schedule") or [{}])[0]
             game_obj = {
                 "id":       g.get("id"),
                 "season":   SEASON_NAME,
                 "grade":    grade_name,
                 "round":    g.get("_round"),
                 "dateTime": schedule.get("dateTime"),
-                "home":     {"id": home_id, "name": team_lookup.get(home_id,{}).get("name",""),
-                             "score": team_scores.get(home_id, {}), "outcome": outcome.get(home_id)},
-                "away":     {"id": away_id, "name": team_lookup.get(away_id,{}).get("name",""),
-                             "score": team_scores.get(away_id, {}), "outcome": outcome.get(away_id)},
-                "url":      g.get("url"),
+                "home": {
+                    "id": home_id,
+                    "name": team_lookup.get(home_id, {}).get("name", ""),
+                    "score": team_scores.get(home_id, {}),
+                    "outcome": outcome.get(home_id),
+                },
+                "away": {
+                    "id": away_id,
+                    "name": team_lookup.get(away_id, {}).get("name", ""),
+                    "score": team_scores.get(away_id, {}),
+                    "outcome": outcome.get(away_id),
+                },
+                "url": g.get("url"),
             }
             all_games.append(game_obj)
 
-            # pull appearances
+            # pull per-game appearances
             for app in game_summary(g["id"]):
-                app["_gameId"]    = g.get("id")
-                app["_grade"]     = grade_name
-                app["_round"]     = g.get("_round")
-                app["_dateTime"]  = schedule.get("dateTime")
-                app["_teamName"]  = team_lookup.get(app.get("teamID"), {}).get("name", "")
-                app["_won"]       = outcome.get(app.get("teamID")) == "WON"
+                app["_gameId"]   = g.get("id")
+                app["_grade"]    = grade_name
+                app["_round"]    = g.get("_round")
+                app["_dateTime"] = schedule.get("dateTime")
+                app["_teamName"] = team_lookup.get(app.get("teamID"), {}).get("name", "")
+                app["_won"]      = outcome.get(app.get("teamID")) == "WON"
                 appearances.append(app)
 
             if i % 10 == 0:
                 print(f"   …processed {i}/{len(finals)}")
             time.sleep(0.05)
 
-        # also include scheduled (not-yet-played) games for the Dashboard
+        # include scheduled games for the dashboard / fixtures view
         for g in fixtures:
             if (g.get("status") or "").upper() == "FINAL":
                 continue
             top_teams = g.get("teams") or []
-            home_id   = next((t.get("id") for t in top_teams if t.get("isHomeTeam")), None)
-            away_id   = next((t.get("id") for t in top_teams if not t.get("isHomeTeam")), None)
-            schedule  = (g.get("schedule") or [{}])[0]
+            home_id = next((t.get("id") for t in top_teams if t.get("isHomeTeam")), None)
+            away_id = next((t.get("id") for t in top_teams if not t.get("isHomeTeam")), None)
+            schedule = (g.get("schedule") or [{}])[0]
             all_games.append({
                 "id":       g.get("id"),
                 "season":   SEASON_NAME,
                 "grade":    grade_name,
                 "round":    g.get("_round"),
                 "dateTime": schedule.get("dateTime"),
-                "home":     {"id": home_id, "name": team_lookup.get(home_id,{}).get("name","")},
-                "away":     {"id": away_id, "name": team_lookup.get(away_id,{}).get("name","")},
-                "status":   g.get("status"),
+                "home": {"id": home_id, "name": team_lookup.get(home_id, {}).get("name", "")},
+                "away": {"id": away_id, "name": team_lookup.get(away_id, {}).get("name", "")},
+                "status": g.get("status"),
             })
 
     # ---------- Aggregate players ----------
     players = {}
     for app in appearances:
         pid = app.get("id")
-        if not pid: continue
-        goals = sum(s.get("value", 0) for s in (app.get("scoreSubTotal") or [])
-                    if s.get("type") == "6_POINT_SCORE") // 6
-        bog   = app.get("bestPlayer") or 0   # 6=BOG, 5=2nd…1=5th
-        cap   = app.get("captainRole")
+        if not pid:
+            continue
 
-p = players.setdefault(pid, {
-    "id":       pid,
-    "name":     f"{app.get('firstName','')} {app.get('lastName','')}".strip(),
-    "number":   app.get("playerNumber"),
-    "club":     app.get("_teamName"),
-    "grade":    app.get("_grade"),
-    "games":    0,
-    "goals":    0,
-    "bog":      0,
-    "bogFirsts":0,
-    "bestCount":0,           # ← NEW
-    "wins":     0,
-    "captainGames": 0,
-    "history":  [],
-})
+        # PlayHQ stores goals as scoreSubTotal entries of type "6_POINT_SCORE" (×6)
+        goals = sum(
+            s.get("value", 0) for s in (app.get("scoreSubTotal") or [])
+            if s.get("type") == "6_POINT_SCORE"
+        ) // 6
+        bog = app.get("bestPlayer") or 0   # 6=BOG, 5=2nd, … 1=5th
+        cap = app.get("captainRole")
+        won = bool(app.get("_won"))
 
-        p["games"] += 1
-        p["goals"] += goals
-        p["bog"]   += bog
-        if bog == 6: p["bogFirsts"] += 1
-        if app.get("_won"): p["wins"] += 1
-        if cap: p["captainGames"] += 1
+        p = players.setdefault(pid, {
+            "id":           pid,
+            "name":         f"{app.get('firstName','')} {app.get('lastName','')}".strip(),
+            "number":       app.get("playerNumber"),
+            "club":         app.get("_teamName"),
+            "grade":        app.get("_grade"),
+            "games":        0,
+            "goals":        0,
+            "bog":          0,    # sum of vote points (1..6)
+            "bogFirsts":    0,    # count of 6s
+            "bestCount":    0,    # count of games with any vote
+            "wins":         0,
+            "captainGames": 0,
+            "history":      [],
+        })
 
+        p["games"]     += 1
+        p["goals"]     += goals
+        p["bog"]       += bog
+        if bog == 6:
+            p["bogFirsts"] += 1
+        if bog > 0:
+            p["bestCount"] += 1
+        if won:
+            p["wins"] += 1
+        if cap:
+            p["captainGames"] += 1
+
+        # per-game talent score so the front-end form indicator works
+        gs = goals * 5 + bog * 8 + (6 if bog == 6 else 0) + (2 if won else 0)
         p["history"].append({
-gs = goals * 5 + bog * 8 + (6 if bog == 6 else 0) + (2 if app.get("_won") else 0)
-p["history"].append({
-    "date":     (app.get("_dateTime") or "")[:10],
-    "round":    app.get("_round"),
-    "grade":    app.get("_grade"),
-    "opponent": "",
-    "goals":    goals,
-    "bog":      bog,
-    "inBest":   bog > 0,
-    "won":      app.get("_won"),
-    "talentScore": gs,
-})
+            "date":        (app.get("_dateTime") or "")[:10],
+            "round":       app.get("_round"),
+            "grade":       app.get("_grade"),
+            "opponent":    "",   # filled below
+            "goals":       goals,
+            "bog":         bog,
+            "inBest":      bog > 0,
+            "won":         won,
+            "talentScore": gs,
+        })
 
-    # back-fill opponent per history row
+    # back-fill opponent on each history row
     games_by_id = {g["id"]: g for g in all_games}
+    appearance_index = {}    # (player_id, round, grade) → game_id
+    for a in appearances:
+        appearance_index[(a.get("id"), a.get("_round"), a.get("_grade"))] = a.get("_gameId")
     for p in players.values():
         for h in p["history"]:
-            g = games_by_id.get(next((a["_gameId"] for a in appearances
-                                      if a.get("id")==p["id"] and a.get("_round")==h["round"]
-                                      and a.get("_grade")==h["grade"]), None))
-            if not g: continue
+            gid = appearance_index.get((p["id"], h["round"], h["grade"]))
+            g = games_by_id.get(gid)
+            if not g:
+                continue
             tname = p["club"]
-            h["opponent"] = g["away"]["name"] if g["home"]["name"]==tname else g["home"]["name"]
+            home_name = (g.get("home") or {}).get("name", "")
+            away_name = (g.get("away") or {}).get("name", "")
+            h["opponent"] = away_name if home_name == tname else home_name
 
-    # Talent score: BOG-weighted, with goals + win bonus, normalised per game
+    # season-level talent score
     for p in players.values():
         g = max(1, p["games"])
         raw = p["bog"] * 8 + p["goals"] * 5 + p["wins"] * 2 + p["bogFirsts"] * 6
         p["talentScore"] = round(raw / g, 1)
-        # stats block the front-end expects
-        p["stats"] = {"goals": p["goals"], "bog": p["bog"], "wins": p["wins"],
-                      "bogFirsts": p["bogFirsts"], "captainGames": p["captainGames"]}
+        p["stats"] = {
+            "goals":        p["goals"],
+            "bog":          p["bog"],
+            "wins":         p["wins"],
+            "bogFirsts":    p["bogFirsts"],
+            "bestCount":    p["bestCount"],
+            "captainGames": p["captainGames"],
+        }
 
     OUT_GAMES.parent.mkdir(parents=True, exist_ok=True)
     OUT_GAMES.write_text(json.dumps(all_games, indent=2))
@@ -278,6 +312,8 @@ if __name__ == "__main__":
         sys.exit(main())
     except Exception as e:
         print(f"FATAL: {e}")
-        if not OUT_GAMES.exists():   OUT_GAMES.write_text("[]\n")
-        if not OUT_PLAYERS.exists(): OUT_PLAYERS.write_text("[]\n")
+        if not OUT_GAMES.exists():
+            OUT_GAMES.write_text("[]\n")
+        if not OUT_PLAYERS.exists():
+            OUT_PLAYERS.write_text("[]\n")
         sys.exit(0)
