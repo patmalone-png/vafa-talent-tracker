@@ -14,9 +14,12 @@
     const c = (p.club || "").toLowerCase();
     return OWN_CLUB_KEYWORDS.some(kw => c.includes(kw));
   }
+  function isOwnClubName(name) {
+    const c = (name || "").toLowerCase();
+    return OWN_CLUB_KEYWORDS.some(kw => c.includes(kw));
+  }
 
   // ----- Talent Score (fallback if not pre-computed) -----
-  // bog × 8 + bogFirsts × 6 + goals × 5 + wins × 2, divided by √games.
   function talentScore(p) {
     const g = Math.max(1, p.games || 1);
     const raw =
@@ -39,7 +42,7 @@
 
   function formIndicator(p, window) {
     const hist = [...(p.history || [])].sort((a,b) => (a.date||"").localeCompare(b.date||""));
-    if (hist.length < window + 1) return null;
+    if (hist.length < window + 2) return null;
     const recent  = hist.slice(-window);
     const earlier = hist.slice(0, -window);
     const avg = arr => arr.length ? arr.reduce((s,h)=>s+gameTalentScore(h),0)/arr.length : 0;
@@ -83,6 +86,7 @@
     lastSync = localStorage.getItem("vafa_last_render") || new Date().toISOString();
     localStorage.setItem("vafa_last_render", new Date().toISOString());
     populateClubDropdown();
+    populateMatchPrepDropdowns();
     renderAll();
   }
 
@@ -91,6 +95,7 @@
     renderLeaderboards();
     renderPlayerList();
     renderScoutReport();
+    renderMatchPrep();
     renderWatchlist();
     renderSettings();
     const sync = lastSync ? new Date(lastSync).toLocaleString() : "never";
@@ -108,18 +113,15 @@
     document.getElementById(btn.dataset.tab).classList.add("active");
   });
 
-  // ----- Empty state -----
   function emptyState(msg) {
     return '<div class="empty">' + (msg || "No data yet — run the PlayHQ fetch workflow.") + '</div>';
   }
 
-  // ----- Player name link with OBGFC dot -----
   function playerLink(p) {
     const own = isOwnClub(p) ? '<span class="own-club" title="OBGFC">●</span> ' : '';
     return own + '<a href="#" class="player-link" data-pid="' + p.id + '">' + (p.name || "Unknown") + '</a>';
   }
 
-  // ----- Generic Top-5 table -----
   function renderTop5(elId, rows, metricLabel, valueFn, extraCol) {
     const el = document.getElementById(elId);
     if (!el) return;
@@ -156,14 +158,11 @@
     const minGamesForTop = 3;
     const qualified = pool.filter(p => (p.games || 0) >= minGamesForTop);
 
-    // Top 5 — Talent Score (min 3 games)
     const byTalent = [...qualified]
-      .sort((a,b)=>(b.talentScore||0)-(a.talentScore||0))
-      .slice(0,5);
+      .sort((a,b)=>(b.talentScore||0)-(a.talentScore||0)).slice(0,5);
     renderTop5("topTalent", byTalent, "Score", p => p.talentScore || 0,
       {label: "Games", fn: p => p.games || 0});
 
-    // Top 5 — Times in the Best
     const byBest = [...pool]
       .map(p => ({...p, _best: bestCount(p)}))
       .sort((a,b)=> b._best - a._best || (b.talentScore||0)-(a.talentScore||0))
@@ -171,27 +170,23 @@
     renderTop5("topBest", byBest, "In best", p => p._best,
       {label: "Games", fn: p => p.games || 0});
 
-    // Top 5 — Total Goals
     const byGoals = [...pool]
       .sort((a,b)=> (b.goals||0) - (a.goals||0) || (b.talentScore||0)-(a.talentScore||0))
       .slice(0,5);
     renderTop5("topGoals", byGoals, "Goals", p => p.goals || 0,
       {label: "Per game", fn: p => p.games ? (p.goals/p.games).toFixed(2) : "0"});
 
-    // Top 5 — Form Indicator (needs min games)
     const formed = qualified
       .map(p => ({...p, _form: formIndicator(p, fw)}))
       .filter(p => p._form)
       .sort((a,b) => b._form.delta - a._form.delta)
       .slice(0,5);
     renderTop5("topForm", formed, "Δ vs avg",
-      p => '<span style="color:'+(p._form.delta>0?'#7ddc7d':p._form.delta<0?'#f08484':'#c9a44c')+'">'+p._form.trend+' '+p._form.delta+'</span>',
+      p => '<span class="'+(p._form.delta>0?'form-up':p._form.delta<0?'form-down':'form-flat')+'">'+p._form.trend+' '+p._form.delta+'</span>',
       {label: "Last "+fw+" avg", fn: p => p._form.recent});
 
-    // Recent fixtures
     const fx = [...fxPool]
-      .sort((a,b)=> (b.dateTime||"").localeCompare(a.dateTime||""))
-      .slice(0,8);
+      .sort((a,b)=> (b.dateTime||"").localeCompare(a.dateTime||"")).slice(0,8);
     const fEl = document.getElementById("recentFixtures");
     if (!fx.length) { fEl.innerHTML = emptyState(); }
     else {
@@ -375,8 +370,7 @@
     while (sel.options.length > 1) sel.remove(1);
     const clubs = Array.from(new Set(players.map(p=>p.club).filter(Boolean))).sort();
     clubs.forEach(c=>{
-      const o = document.createElement("option");
-      o.value = c; o.textContent = c;
+      const o = document.createElement("option"); o.value = c; o.textContent = c;
       sel.appendChild(o);
     });
   }
@@ -389,15 +383,10 @@
     const squad = players.filter(p => p.club === club).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
     if (!squad.length) { el.innerHTML = emptyState(); return; }
     const recent = games.filter(g => ((g.home||{}).name)===club || ((g.away||{}).name)===club)
-      .sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||""))
-      .slice(0,5);
+      .sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||"")).slice(0,5);
     let html = '<h3>Top 5 danger players</h3><table class="data"><thead><tr><th>Player</th><th>Grade</th><th>Goals</th><th>In best</th><th>Score</th></tr></thead><tbody>';
     squad.slice(0,5).forEach(p=>{
-      html += '<tr><td>'+playerLink(p)+'</td>'
-            + '<td class="muted">'+(p.grade||"")+'</td>'
-            + '<td>'+(p.goals||0)+'</td>'
-            + '<td>'+bestCount(p)+'</td>'
-            + '<td><b>'+(p.talentScore||0)+'</b></td></tr>';
+      html += '<tr><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.goals||0)+'</td><td>'+bestCount(p)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';
     });
     html += '</tbody></table>';
     html += '<h3>Recent fixtures</h3>';
@@ -407,11 +396,7 @@
       recent.forEach(g=>{
         const hs = (g.home && g.home.score) ? (g.home.score.points != null ? g.home.score.points : "–") : "–";
         const as = (g.away && g.away.score) ? (g.away.score.points != null ? g.away.score.points : "–") : "–";
-        html += '<tr><td>'+((g.dateTime||"").slice(0,10))+'</td>'
-              + '<td class="muted">'+(g.grade||"")+'</td>'
-              + '<td>'+(g.round||"")+'</td>'
-              + '<td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td>'
-              + '<td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td></tr>';
+        html += '<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td></tr>';
       });
       html += '</tbody></table>';
     }
@@ -420,6 +405,267 @@
   (function bindScout(){
     const sel = document.getElementById("scoutClub");
     if (sel) sel.addEventListener("change", renderScoutReport);
+  })();
+
+  // ===== MATCH PREP =====
+  function obgfcTeams() {
+    return Array.from(new Set(players
+      .filter(isOwnClub)
+      .map(p => ({club: p.club, grade: p.grade}))
+      .map(o => JSON.stringify(o))))
+      .map(s => JSON.parse(s))
+      .sort((a,b) => (a.grade||"").localeCompare(b.grade||""));
+  }
+
+  function nextFixtureFor(club, grade) {
+    const now = new Date().toISOString();
+    const upcoming = games
+      .filter(g => g.grade === grade)
+      .filter(g => (g.status||"").toUpperCase() !== "FINAL")
+      .filter(g => ((g.home||{}).name === club) || ((g.away||{}).name === club))
+      .filter(g => !g.dateTime || g.dateTime >= now)
+      .sort((a,b) => (a.dateTime||"").localeCompare(b.dateTime||""));
+    return upcoming[0] || null;
+  }
+
+  function lastFixtureFor(club, grade) {
+    const past = games
+      .filter(g => g.grade === grade)
+      .filter(g => (g.status||"").toUpperCase() === "FINAL")
+      .filter(g => ((g.home||{}).name === club) || ((g.away||{}).name === club))
+      .sort((a,b) => (b.dateTime||"").localeCompare(a.dateTime||""));
+    return past[0] || null;
+  }
+
+  function populateMatchPrepDropdowns() {
+    const own = document.getElementById("mpOwnTeam");
+    const opp = document.getElementById("mpOpponent");
+    if (!own || !opp) return;
+
+    while (own.options.length > 1) own.remove(1);
+    obgfcTeams().forEach(t => {
+      const o = document.createElement("option");
+      o.value = JSON.stringify(t);
+      o.textContent = t.grade ? (t.grade + " — " + t.club) : t.club;
+      own.appendChild(o);
+    });
+
+    while (opp.options.length > 1) opp.remove(1);
+    const clubs = Array.from(new Set(players.map(p=>p.club).filter(Boolean)))
+      .filter(c => !isOwnClubName(c))
+      .sort();
+    clubs.forEach(c => {
+      const o = document.createElement("option");
+      o.value = c; o.textContent = c;
+      opp.appendChild(o);
+    });
+  }
+
+  function autoFillOpponent() {
+    const ownSel = document.getElementById("mpOwnTeam");
+    const oppSel = document.getElementById("mpOpponent");
+    if (!ownSel.value) return;
+    const t = JSON.parse(ownSel.value);
+    const nxt = nextFixtureFor(t.club, t.grade) || lastFixtureFor(t.club, t.grade);
+    if (!nxt) return;
+    const opponent = ((nxt.home||{}).name === t.club) ? (nxt.away||{}).name : (nxt.home||{}).name;
+    if (opponent && [...oppSel.options].some(o => o.value === opponent)) {
+      oppSel.value = opponent;
+    }
+  }
+
+  function selectedOwnTeam() {
+    const v = document.getElementById("mpOwnTeam").value;
+    if (!v) return null;
+    try { return JSON.parse(v); } catch(e) { return null; }
+  }
+  function selectedOpponent() {
+    return document.getElementById("mpOpponent").value || "";
+  }
+  function selectedMPFormWindow() {
+    return parseInt(document.getElementById("mpFormWindow").value || "3", 10);
+  }
+
+  function gradeTalentBenchmark(grade, topN) {
+    topN = topN || 20;
+    const ranked = players
+      .filter(p => p.grade === grade && (p.games||0) >= 3)
+      .filter(p => p.name && p.name.trim().toLowerCase() !== "none none")
+      .sort((a,b) => (b.talentScore||0)-(a.talentScore||0))
+      .slice(0, topN);
+    if (!ranked.length) return 0;
+    return ranked[ranked.length-1].talentScore || 0;
+  }
+
+  function renderMatchPrep() {
+    const own = selectedOwnTeam();
+    const opp = selectedOpponent();
+    const fw  = selectedMPFormWindow();
+
+    const showCards = (yes) => {
+      ["mpHeader","mpSummary","mpDanger","mpInForm","mpCrossGrade","mpFullSquad","mpRecent"]
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.toggle("hidden", !yes);
+        });
+    };
+    if (!opp) { showCards(false); return; }
+    showCards(true);
+
+    // Opponent squad — prefer same grade as our team when available
+    let squad = players.filter(p => p.club === opp);
+    if (own) {
+      const sameGrade = squad.filter(p => p.grade === own.grade);
+      if (sameGrade.length) squad = sameGrade;
+    }
+    squad = squad.filter(p => p.name && p.name.trim().toLowerCase() !== "none none");
+    squad.sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+
+    // Fixture header
+    const fixture = own ? (nextFixtureFor(own.club, own.grade) || lastFixtureFor(own.club, own.grade)) : null;
+    document.getElementById("mpFixtureTitle").textContent = own ? (own.club + " vs " + opp) : ("Preview: " + opp);
+    const fixtureMeta = [];
+    if (fixture) {
+      fixtureMeta.push((fixture.dateTime||"").slice(0,10));
+      if (fixture.round) fixtureMeta.push(fixture.round);
+      if (own && own.grade) fixtureMeta.push(own.grade);
+      const status = (fixture.status||"").toUpperCase()==="FINAL" ? "(last meeting)" : "(upcoming)";
+      fixtureMeta.push(status);
+    } else if (own) {
+      fixtureMeta.push(own.grade + " — no scheduled fixture found");
+    }
+    document.getElementById("mpFixtureMeta").textContent = fixtureMeta.join(" · ");
+
+    // Summary tiles
+    const totals = squad.reduce((acc,p) => {
+      acc.players++;
+      acc.games += p.games || 0;
+      acc.goals += p.goals || 0;
+      acc.best  += bestCount(p);
+      return acc;
+    }, {players:0, games:0, goals:0, best:0});
+    const topScore = squad[0] ? squad[0].talentScore : 0;
+    const avgScore = squad.length ? +(squad.reduce((s,p)=>s+(p.talentScore||0),0)/squad.length).toFixed(1) : 0;
+    document.getElementById("mpSummaryTiles").innerHTML = [
+      ["Squad size", totals.players],
+      ["Avg talent score", avgScore],
+      ["Top talent score", topScore],
+      ["Total goals (season)", totals.goals],
+      ["Total times in best", totals.best],
+    ].map(([l,v]) => '<div class="tile"><div class="tile-label">'+l+'</div><div class="tile-value">'+v+'</div></div>').join("");
+
+    // Top 5 danger
+    renderTop5("mpDangerList", squad.slice(0,5), "Score",
+      p => p.talentScore || 0,
+      {label: "Games", fn: p => p.games || 0});
+
+    // Coming into form
+    const inForm = squad
+      .map(p => ({...p, _form: formIndicator(p, fw)}))
+      .filter(p => p._form && p._form.delta > 0)
+      .sort((a,b) => b._form.delta - a._form.delta)
+      .slice(0,5);
+    const fEl = document.getElementById("mpInFormList");
+    if (!inForm.length) { fEl.innerHTML = emptyState("No players currently above season average."); }
+    else {
+      let html = '<table class="data"><thead><tr><th>#</th><th>Player</th><th>Grade</th><th>Δ vs avg</th><th>Last '+fw+' avg</th><th>Season avg</th></tr></thead><tbody>';
+      inForm.forEach((p,i)=>{
+        html += '<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td>'
+              + '<td><span class="form-up">▲ '+p._form.delta+'</span></td>'
+              + '<td>'+p._form.recent+'</td><td>'+p._form.earlier+'</td></tr>';
+      });
+      html += '</tbody></table>';
+      fEl.innerHTML = html;
+    }
+
+    // Cross-grade watch
+    const crossEl = document.getElementById("mpCrossList");
+    if (!own) {
+      crossEl.innerHTML = '<p class="muted">Pick your OBGFC team above to enable cross-grade detection.</p>';
+    } else {
+      const benchmark = gradeTalentBenchmark(own.grade, 20);
+      const allOppPlayers = players.filter(p =>
+        p.club === opp &&
+        p.grade !== own.grade &&
+        p.name && p.name.trim().toLowerCase() !== "none none" &&
+        (p.games||0) >= 3 &&
+        (p.talentScore||0) >= benchmark
+      ).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+
+      if (!allOppPlayers.length) {
+        crossEl.innerHTML = '<p class="muted">No opponent players in other grades currently ranking inside the top 20 of '+own.grade+' (benchmark: '+benchmark+').</p>';
+      } else {
+        let html = '<p class="muted">Benchmark: top-20 cut-off in '+own.grade+' = <b>'+benchmark+'</b>. Players below would rank inside that range if promoted.</p>';
+        html += '<table class="data"><thead><tr><th>Player</th><th>Their grade</th><th>Games</th><th>In best</th><th>Goals</th><th>Score</th></tr></thead><tbody>';
+        allOppPlayers.slice(0,8).forEach(p => {
+          html += '<tr class="cross-grade-row"><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td>'+bestCount(p)+'</td><td>'+(p.goals||0)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';
+        });
+        html += '</tbody></table>';
+        crossEl.innerHTML = html;
+      }
+    }
+
+    // Full squad
+    const fsEl = document.getElementById("mpFullSquadList");
+    if (!squad.length) { fsEl.innerHTML = emptyState(); }
+    else {
+      let html = '<table class="data"><thead><tr>'
+               + '<th>#</th><th>Player</th><th>Grade</th>'
+               + '<th>Games</th><th>In best</th><th>Goals</th><th>Talent</th><th>Form</th>'
+               + '</tr></thead><tbody>';
+      squad.forEach((p,i)=>{
+        const f = formIndicator(p, fw);
+        const formCell = f
+          ? '<span class="'+(f.delta>0?'form-up':f.delta<0?'form-down':'form-flat')+'">'+f.trend+' '+f.delta+'</span>'
+          : '<span class="muted">–</span>';
+        html += '<tr><td>'+(i+1)+'</td>'
+              + '<td>'+playerLink(p)+'</td>'
+              + '<td class="muted">'+(p.grade||"")+'</td>'
+              + '<td>'+(p.games||0)+'</td>'
+              + '<td>'+bestCount(p)+'</td>'
+              + '<td>'+(p.goals||0)+'</td>'
+              + '<td><b>'+(p.talentScore||0)+'</b></td>'
+              + '<td>'+formCell+'</td></tr>';
+      });
+      html += '</tbody></table>';
+      fsEl.innerHTML = html;
+    }
+
+    // Recent results
+    const rEl = document.getElementById("mpRecentList");
+    const recent = games
+      .filter(g => ((g.home||{}).name === opp) || ((g.away||{}).name === opp))
+      .filter(g => (g.status||"").toUpperCase() === "FINAL")
+      .sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||""))
+      .slice(0,6);
+    if (!recent.length) { rEl.innerHTML = emptyState("No recent results."); }
+    else {
+      let html = '<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Result for '+opp+'</th></tr></thead><tbody>';
+      recent.forEach(g=>{
+        const hs = (g.home && g.home.score) ? (g.home.score.points != null ? g.home.score.points : "–") : "–";
+        const as = (g.away && g.away.score) ? (g.away.score.points != null ? g.away.score.points : "–") : "–";
+        const isHome = (g.home||{}).name === opp;
+        const oppOutcome = isHome ? (g.home||{}).outcome : (g.away||{}).outcome;
+        const cls = oppOutcome === "WON" ? "form-up" : oppOutcome === "LOST" ? "form-down" : "form-flat";
+        html += '<tr><td>'+((g.dateTime||"").slice(0,10))+'</td>'
+              + '<td class="muted">'+(g.grade||"")+'</td>'
+              + '<td>'+(g.round||"")+'</td>'
+              + '<td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td>'
+              + '<td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td>'
+              + '<td><span class="'+cls+'">'+(oppOutcome||"–")+'</span></td></tr>';
+      });
+      html += '</tbody></table>';
+      rEl.innerHTML = html;
+    }
+  }
+
+  (function bindMatchPrep(){
+    const own = document.getElementById("mpOwnTeam");
+    const opp = document.getElementById("mpOpponent");
+    const fw  = document.getElementById("mpFormWindow");
+    if (own) own.addEventListener("change", () => { autoFillOpponent(); renderMatchPrep(); });
+    if (opp) opp.addEventListener("change", renderMatchPrep);
+    if (fw)  fw.addEventListener("change", renderMatchPrep);
   })();
 
   // ----- Watchlist -----
@@ -462,7 +708,7 @@
     if (el) el.addEventListener("input", renderDashboard);
   });
 
-  // ----- Talent Score formula toggle -----
+  // ----- Formula toggle -----
   (function bindFormulaToggle(){
     const btn  = document.getElementById("formulaToggle");
     const body = document.getElementById("formulaBody");
@@ -487,7 +733,6 @@
     });
     return rows.join("\n");
   }
-
   function downloadCSV(name, csv) {
     const grade = (selectedGrade() || "all-grades")
       .replace(/[^a-z0-9]+/gi, "-").toLowerCase();
@@ -501,17 +746,13 @@
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
-
   document.addEventListener("click", (e) => {
     const btn = e.target.closest(".csv-btn");
     if (!btn) return;
     const targetId = btn.dataset.csv;
     const name     = btn.dataset.name || "export";
     const table    = document.querySelector("#" + targetId + " table");
-    if (!table) {
-      alert("Nothing to export yet.");
-      return;
-    }
+    if (!table) { alert("Nothing to export yet."); return; }
     downloadCSV(name, tableToCSV(table));
   });
 
