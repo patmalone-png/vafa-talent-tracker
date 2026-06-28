@@ -96,6 +96,41 @@ table.data tr:has(.own-club) td:first-child {
 .cross-grade-row td { background: rgba(192,88,74,.10) !important; }
 .cross-grade-row td:first-child { border-left: 3px solid var(--danger); }
 
+/* ----- OBGFC vs Opponent comparison ----- */
+.vs-table { width: 100%; border-collapse: collapse; }
+.vs-table th, .vs-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: .85rem;
+}
+.vs-table th {
+  background: var(--navy);
+  color: var(--gold);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  text-align: center;
+}
+.vs-table th:first-child,
+.vs-table td:first-child {
+  text-align: left;
+  color: var(--muted);
+}
+.vs-table td {
+  text-align: center;
+  font-weight: 600;
+}
+.vs-table .vs-better { color: #7ddc7d; }
+.vs-table .vs-worse  { color: #f08484; }
+.vs-table .vs-equal  { color: var(--gold); }
+.vs-table .vs-edge {
+  font-size: .7rem;
+  font-weight: 400;
+  color: var(--muted);
+  display: block;
+  margin-top: 2px;
+}
+
 @media(max-width:560px){
   .tile-value{font-size:1.1rem}
 }
