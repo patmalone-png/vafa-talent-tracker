@@ -50,6 +50,28 @@
         </div>
       </div>
 
+      <div class="card formula-card">
+        <button class="formula-toggle" id="formulaToggle" aria-expanded="false">
+          <span class="formula-icon">ℹ️</span>
+          <span>How is Talent Score calculated?</span>
+          <span class="formula-chevron">▾</span>
+        </button>
+        <div class="formula-body hidden" id="formulaBody">
+          <p>Talent Score blends four PlayHQ data points into a single weighted number, then scales it so consistent contributors rise above one-week wonders.</p>
+          <table class="data formula-table">
+            <thead><tr><th>Input</th><th>Weight</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td><b>BOG votes</b> (1–6 per game)</td><td>× 8</td><td>Coach-judged impact — the strongest available signal of match influence.</td></tr>
+              <tr><td><b>BOG firsts</b> (named #1 best)</td><td>+ 6 bonus</td><td>Rewards game-winning performances, not just consistent voting.</td></tr>
+              <tr><td><b>Goals</b></td><td>× 5</td><td>Scoreboard impact — particularly weighted for forwards.</td></tr>
+              <tr><td><b>Wins</b></td><td>× 2</td><td>Small contribution to recognise team success.</td></tr>
+            </tbody>
+          </table>
+          <p class="muted">Total points are divided by <code>√games</code> rather than <code>games</code>, so a player with <b>6 votes from 6 games</b> outranks <b>6 votes from 1 game</b>. A score of <b>25+</b> is elite at VAFA Women's level; <b>40+</b> is competition-defining.</p>
+          <p class="muted">Dashboard Top 5 lists also require a minimum of <b>3 games played</b> to filter out small-sample noise.</p>
+        </div>
+      </div>
+
       <div class="tiles">
         <div class="tile"><div class="tile-label">Games loaded</div><div class="tile-value" id="t-games">–</div></div>
         <div class="tile"><div class="tile-label">Players tracked</div><div class="tile-value" id="t-players">–</div></div>
@@ -57,23 +79,36 @@
         <div class="tile"><div class="tile-label">Last sync</div><div class="tile-value" id="t-sync">–</div></div>
       </div>
 
+      <p class="muted legend-note">
+        <span class="own-club">●</span> indicates an OBGFC player.
+      </p>
+
       <div class="card">
-        <h2>Top 5 — Talent Score</h2>
+        <h2>Top 5 — Talent Score
+          <button class="btn small csv-btn" data-csv="topTalent" data-name="top-talent-score">⬇ CSV</button>
+        </h2>
         <div id="topTalent"></div>
       </div>
 
       <div class="card">
-        <h2>Top 5 — Times in the Best</h2>
+        <h2>Top 5 — Times in the Best
+          <button class="btn small csv-btn" data-csv="topBest" data-name="top-in-best">⬇ CSV</button>
+        </h2>
         <div id="topBest"></div>
       </div>
 
       <div class="card">
-        <h2>Top 5 — Total Goals</h2>
+        <h2>Top 5 — Total Goals
+          <button class="btn small csv-btn" data-csv="topGoals" data-name="top-goals">⬇ CSV</button>
+        </h2>
         <div id="topGoals"></div>
       </div>
 
       <div class="card">
-        <h2>Top 5 — Form Indicator <span class="muted">(recent vs season avg)</span></h2>
+        <h2>Top 5 — Form Indicator
+          <button class="btn small csv-btn" data-csv="topForm" data-name="top-form">⬇ CSV</button>
+        </h2>
+        <p class="muted" style="margin-top:-6px;">recent vs season avg</p>
         <div id="topForm"></div>
       </div>
 
@@ -86,7 +121,9 @@
     <!-- ============ Leaderboards ============ -->
     <section class="panel" id="leaderboards">
       <div class="card">
-        <h2>Leaderboards</h2>
+        <h2>Leaderboards
+          <button class="btn small csv-btn" data-csv="lbTable" data-name="leaderboard">⬇ CSV</button>
+        </h2>
         <div class="controls">
           <label>Grade
             <select id="lbGrade">
@@ -171,7 +208,7 @@
     </section>
   </main>
 
-  <footer>VAFA Talent ID · OBGFC Women's · v1.1</footer>
+  <footer>VAFA Talent ID · OBGFC Women's · v1.2</footer>
   <script src="app.js"></script>
 </body>
 </html>
