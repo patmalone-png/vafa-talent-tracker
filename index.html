@@ -18,6 +18,7 @@
     <button class="tab" data-tab="leaderboards">Leaderboards</button>
     <button class="tab" data-tab="players">Players</button>
     <button class="tab" data-tab="scout">Opposition Scout</button>
+    <button class="tab" data-tab="matchprep">Match Prep</button>
     <button class="tab" data-tab="watchlist">Watchlist</button>
     <button class="tab" data-tab="settings">Settings</button>
   </nav>
@@ -185,6 +186,74 @@
       </div>
     </section>
 
+    <!-- ============ Match Prep ============ -->
+    <section class="panel" id="matchprep">
+      <div class="card">
+        <h2>Match Prep — OBGFC Opponent Preview
+          <button class="btn small csv-btn" data-csv="mpDangerList" data-name="opponent-danger-top5">⬇ CSV</button>
+        </h2>
+        <div class="controls">
+          <label>OBGFC team
+            <select id="mpOwnTeam">
+              <option value="">– select your team –</option>
+            </select>
+          </label>
+          <label>Opponent
+            <select id="mpOpponent">
+              <option value="">– select opponent –</option>
+            </select>
+          </label>
+          <label>Form window
+            <select id="mpFormWindow">
+              <option value="3">Last 3 games</option>
+              <option value="4">Last 4 games</option>
+              <option value="5">Last 5 games</option>
+            </select>
+          </label>
+        </div>
+        <p class="muted">💡 Tip: pick your OBGFC team first to auto-populate the opponent from your next scheduled fixture.</p>
+      </div>
+
+      <div class="card hidden" id="mpHeader">
+        <h2 id="mpFixtureTitle">Fixture</h2>
+        <div id="mpFixtureMeta" class="muted"></div>
+      </div>
+
+      <div class="card hidden" id="mpSummary">
+        <h2>Squad summary</h2>
+        <div id="mpSummaryTiles" class="tiles"></div>
+      </div>
+
+      <div class="card hidden" id="mpDanger">
+        <h2>Top 5 danger players (by Talent Score)</h2>
+        <div id="mpDangerList"></div>
+      </div>
+
+      <div class="card hidden" id="mpInForm">
+        <h2>Coming into form</h2>
+        <p class="muted" style="margin-top:-6px;">Players whose recent run is well above their season average</p>
+        <div id="mpInFormList"></div>
+      </div>
+
+      <div class="card hidden" id="mpCrossGrade">
+        <h2>Cross-grade watch ⚠️</h2>
+        <p class="muted" style="margin-top:-6px;">Opponent players from other grades whose Talent Score would rank in the top 20 of <i>your</i> grade — possible call-ups or hidden senior threats.</p>
+        <div id="mpCrossList"></div>
+      </div>
+
+      <div class="card hidden" id="mpFullSquad">
+        <h2>Full opponent squad
+          <button class="btn small csv-btn" data-csv="mpFullSquadList" data-name="opponent-full-squad">⬇ CSV</button>
+        </h2>
+        <div id="mpFullSquadList"></div>
+      </div>
+
+      <div class="card hidden" id="mpRecent">
+        <h2>Their recent results</h2>
+        <div id="mpRecentList"></div>
+      </div>
+    </section>
+
     <!-- ============ Watchlist ============ -->
     <section class="panel" id="watchlist">
       <div class="card">
@@ -208,7 +277,7 @@
     </section>
   </main>
 
-  <footer>VAFA Talent ID · OBGFC Women's · v1.2</footer>
+  <footer>VAFA Talent ID · OBGFC Women's · v1.3</footer>
   <script src="app.js"></script>
 </body>
 </html>
