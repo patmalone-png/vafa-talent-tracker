@@ -1,37 +1,94 @@
-name: fetch-playhq
+name: Fetch PlayHQ Data
 
 on:
   schedule:
-    - cron: "0 19 * * 0"   # Sundays 19:00 UTC
-  workflow_dispatch:
+    - cron: '0 14 * * *'    # 12:00 AEST daily (14:00 UTC previous day)
+  workflow_dispatch:         # allow manual runs from the Actions tab
+  push:
+    paths:
+      - 'scripts/fetch_playhq.py'
+      - 'requirements.txt'
+      - '.github/workflows/fetch-playhq.yml'
 
 permissions:
   contents: write
 
+concurrency:
+  group: fetch-playhq
+  cancel-in-progress: false
+
 jobs:
   fetch:
+    name: Fetch & publish PlayHQ data
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run PlayHQ fetch
+      - name: Fetch PlayHQ data
+        env:
+          PLAYHQ_API_KEY: ${{ secrets.PLAYHQ_API_KEY }}
+          PLAYHQ_TENANT: afl
         run: python scripts/fetch_playhq.py
 
-      - name: Commit refreshed data
+      - name: Validate output files
         run: |
-          git config user.name  "github-actions[bot]"
+          set -e
+          if [ ! -s data/players.json ]; then
+            echo "❌ data/players.json missing or empty"; exit 1
+          fi
+          if [ ! -s data/games.json ]; then
+            echo "❌ data/games.json missing or empty"; exit 1
+          fi
+          PLAYER_COUNT=$(python -c "import json; print(len(json.load(open('data/players.json'))))")
+          GAME_COUNT=$(python -c "import json; print(len(json.load(open('data/games.json'))))")
+          echo "✅ players.json: $PLAYER_COUNT records"
+          echo "✅ games.json:   $GAME_COUNT records"
+          if [ "$PLAYER_COUNT" -eq 0 ]; then
+            echo "⚠ Warning: players.json contains 0 records"
+          fi
+          if [ "$GAME_COUNT" -eq 0 ]; then
+            echo "⚠ Warning: games.json contains 0 records"
+          fi
+
+      - name: Commit & push updated data
+        run: |
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/games.json data/players.json
-          git diff --cached --quiet || git commit -m "chore(data): refresh PlayHQ VAFA Women's stats"
-          git push
+          git add data/players.json data/games.json
+          if git diff --staged --quiet; then
+            echo "ℹ No data changes to commit."
+          else
+            git commit -m "chore(data): refresh PlayHQ data $(date -u +'%Y-%m-%dT%H:%MZ')"
+            git push
+          fi
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## PlayHQ Fetch Summary"
+            echo ""
+            echo "- **Time (UTC):** $(date -u +'%Y-%m-%d %H:%M:%S')"
+            if [ -f data/players.json ]; then
+              echo "- **Players:** $(python -c "import json; print(len(json.load(open('data/players.json'))))")"
+            fi
+            if [ -f data/games.json ]; then
+              echo "- **Games:** $(python -c "import json; print(len(json.load(open('data/games.json'))))")"
+            fi
+            echo "- **Tenant:** afl"
+          } >> "$GITHUB_STEP_SUMMARY"
