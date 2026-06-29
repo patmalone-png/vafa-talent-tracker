@@ -68,8 +68,9 @@ jobs:
       - name: Commit & push updated data
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/players.json data/games.json
+          git config user.email "github-actions[bot]@users.noreply.github.com"          
+git add data/players.json data/games.json
+git add debug/ 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "ℹ No data changes to commit."
           else
