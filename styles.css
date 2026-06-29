@@ -757,3 +757,38 @@ body {
    ============================================================= */
 .emerging-section { margin-top: 16px; }
 .emerging-header {
+
+/* =============================================================
+   Header colour-scheme hard-set (overrides any leak)
+   ============================================================= */
+.app-header {
+  background: #1d3557 !important;
+  color: #ffffff !important;
+}
+.app-header .brand h1 {
+  color: #ffffff !important;
+}
+.app-header .tag {
+  color: #cbd5e1 !important;
+}
+.app-header .tab-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #e2e8f0 !important;
+}
+.app-header .tab-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+.app-header .tab-btn.active {
+  background: #ffffff !important;
+  color: #1d3557 !important;
+}
+.app-header .badge {
+  background: #f5c518 !important;
+  color: #1f2937 !important;
+}
+
+/* Make sure print rules ONLY apply when actually printing */
+@media print {
+  /* (already scoped — but belt-and-braces) */
+  .app-header { display: none !important; }
+}
