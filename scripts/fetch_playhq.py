@@ -175,3 +175,110 @@ def ensure_player(players, name, team, grade):
 
 def aggregate_competition(label, grade_id, players, games_out):
     fixtures = list_games_for_grade(grade_id)
+    print(f"  ↳ {len(fixtures)} fixtures returned")
+
+    for fx in fixtures:
+        game_id = fx.get("id")
+        if not game_id: continue
+
+        date_iso = (fx.get("schedule") or {}).get("date") or fx.get("date") or fx.get("startDate") or ""
+        home_team = extract_team_name(fx.get("homeTeam") or (fx.get("teams") or [{}, {}])[0])
+        away_team = extract_team_name(fx.get("awayTeam") or (fx.get("teams") or [{}, {}])[1])
+
+        hs = fx.get("homeScore") or (fx.get("scores") or {}).get("home")
+        as_ = fx.get("awayScore") or (fx.get("scores") or {}).get("away")
+        if isinstance(hs, dict): hs = hs.get("total") or hs.get("points")
+        if isinstance(as_, dict): as_ = as_.get("total") or as_.get("points")
+
+        games_out.append({
+            "id": game_id, "grade": label, "date": date_iso,
+            "homeTeam": home_team, "awayTeam": away_team,
+            "homeScore": safe_int(hs) if hs is not None else None,
+            "awayScore": safe_int(as_) if as_ is not None else None,
+        })
+
+        detail = get_game_detail(game_id)
+        if not detail: continue
+        process_game_detail(detail, label, home_team, away_team, date_iso, players)
+
+
+def process_game_detail(detail, label, home_team, away_team, date_iso, players):
+    teams_block = detail.get("teams") or [
+        {"name": home_team, **(detail.get("home") or {})},
+        {"name": away_team, **(detail.get("away") or {})},
+    ]
+
+    for t in teams_block:
+        team_name = extract_team_name(t)
+        opponent = away_team if team_name == home_team else home_team
+
+        best_list = (t.get("bestPlayers") or t.get("best")
+                     or (t.get("awards") or {}).get("bestPlayers") or [])
+        best_names = {(b.get("name") or b.get("playerName") or b.get("fullName") or "").strip()
+                      for b in best_list if (b.get("name") or b.get("playerName") or b.get("fullName"))}
+
+        goals_list = (t.get("goalScorers") or t.get("goals")
+                      or (t.get("stats") or {}).get("goalScorers") or [])
+        goal_map = {}
+        for g in goals_list:
+            nm = (g.get("name") or g.get("playerName") or g.get("fullName") or "").strip()
+            if nm:
+                goal_map[nm] = goal_map.get(nm, 0) + safe_int(g.get("goals") or g.get("count") or 1)
+
+        roster = t.get("players") or t.get("lineup") or t.get("roster") or []
+        if not roster:
+            roster = [{"name": nm} for nm in best_names.union(goal_map.keys())]
+
+        for pl in roster:
+            nm = (pl.get("name") or pl.get("playerName") or pl.get("fullName") or "").strip()
+            if not nm: continue
+            rec = ensure_player(players, nm, team_name, label)
+            rec["games"] += 1
+            in_best = nm in best_names
+            goals = goal_map.get(nm, 0)
+            if in_best: rec["timesInBest"] += 1
+            if goals: rec["goals"] += goals
+            rec["gameLog"].append({"date": date_iso, "opponent": opponent,
+                                   "goals": goals, "inBest": in_best})
+
+
+def compute_form(p):
+    log = sorted(p.get("gameLog", []), key=lambda g: g.get("date", ""), reverse=True)
+    if not log: return 0
+    recent = log[:3]
+    def impact(g): return (1 if g.get("inBest") else 0) + (safe_int(g.get("goals")) * 0.5)
+    ri = sum(impact(g) for g in recent) / len(recent)
+    si = sum(impact(g) for g in log) / len(log)
+    if si == 0 and ri == 0: return 0
+    ratio = (ri / si) if si else 1.0
+    return max(0, min(100, round(ratio * 50 + ri * 25)))
+
+
+def main():
+    banner()
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    players, games_out = {}, []
+
+    for label, gid in COMPETITIONS.items():
+        print(f"\n=== {label} ===")
+        aggregate_competition(label, gid, players, games_out)
+
+    for p in players.values():
+        p["formIndicator"] = compute_form(p)
+
+    players_list = sorted(players.values(),
+                          key=lambda x: (x.get("timesInBest", 0) + x.get("goals", 0) * 0.5),
+                          reverse=True)
+
+    PLAYERS_OUT.write_text(json.dumps(players_list, indent=2, ensure_ascii=False))
+    GAMES_OUT.write_text(json.dumps(games_out, indent=2, ensure_ascii=False))
+
+    print("\n" + "=" * 65)
+    print(f"✅ Wrote {len(players_list)} players → {PLAYERS_OUT}")
+    print(f"✅ Wrote {len(games_out)} games   → {GAMES_OUT}")
+    print("=" * 65)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
