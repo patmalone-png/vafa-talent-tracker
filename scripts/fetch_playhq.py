@@ -11,7 +11,7 @@ import requests
 API_BASE = "https://api.playhq.com/v1"
 TENANT = os.getenv("PLAYHQ_TENANT", "afl")
 API_KEY = os.getenv("PLAYHQ_API_KEY", "").strip()
-DEBUG_DUMP = os.getenv("PLAYHQ_DEBUG", "1") == "1"   # set to "0" to silence
+DEBUG_DUMP = os.getenv("PLAYHQ_DEBUG", "0") == "1"   # set "1" to re-dump samples
 
 ORG_ID    = "1cd834de-fc01-442d-836e-bc11a1a8e042"
 SEASON_ID = "2af0bc11-6f71-4c82-93b5-d46fe9bc739f"
@@ -34,7 +34,7 @@ GAMES_OUT = OUT_DIR / "games.json"
 DEBUG_DIR = pathlib.Path("debug")
 
 REQUEST_TIMEOUT = 60
-REQUEST_DELAY = 0.25
+REQUEST_DELAY = 0.20
 MAX_RETRIES = 3
 RETRY_BACKOFF = 1.5
 
@@ -45,10 +45,8 @@ FIXTURE_PATHS = [
     "/seasons/{season_id}/grades/{grade_id}/games",
 ]
 GAME_DETAIL_PATHS = [
-    "/games/{game_id}",
     "/games/{game_id}/summary",
-    "/games/{game_id}/statistics",
-    "/games/{game_id}/lineups",
+    "/games/{game_id}",
 ]
 
 _resolved_fixture_tpl: Optional[str] = None
@@ -101,7 +99,14 @@ def get(path, params=None, silent_404=False):
             time.sleep(RETRY_BACKOFF ** attempt)
     return None
 
+def unwrap(payload):
+    """PlayHQ wraps everything in {data: ...} — peel one layer if present."""
+    if isinstance(payload, dict) and set(payload.keys()) >= {"data"}:
+        return payload["data"]
+    return payload
+
 def get_paged(path, params=None):
+    """List endpoints. Items live under `data` (list); paging cursor under `metadata`."""
     items, cursor, page = [], None, 0
     while True:
         page += 1
@@ -110,6 +115,8 @@ def get_paged(path, params=None):
         payload = get(path, p)
         if not payload: break
         data = payload.get("data") or []
+        if isinstance(data, dict):
+            data = [data]
         items.extend(data)
         meta = payload.get("metadata") or {}
         cursor = meta.get("nextCursor") or (meta.get("cursor") or {}).get("next")
@@ -117,6 +124,7 @@ def get_paged(path, params=None):
         print(f"    • page {page}: +{len(data)} (total {len(items)})")
         if not has_more or not cursor: break
     return items
+
 
 def resolve_fixture_template(grade_id):
     global _resolved_fixture_tpl
@@ -135,13 +143,10 @@ def resolve_detail_template(game_id):
     if _resolved_detail_tpl: return _resolved_detail_tpl
     print("  🔎 Probing game-detail endpoint variants…")
     for tpl in GAME_DETAIL_PATHS:
-        path = tpl.format(game_id=game_id)
-        payload = get(path, silent_404=True)
-        if payload is not None:
+        if get(tpl.format(game_id=game_id), silent_404=True) is not None:
             print(f"  ✓ Using game-detail endpoint pattern: {tpl}")
             _resolved_detail_tpl = tpl
             return tpl
-    print("  ⚠ No game-detail endpoint variant returned 200")
     return None
 
 def list_games_for_grade(grade_id):
@@ -153,133 +158,158 @@ def list_games_for_grade(grade_id):
 def get_game_detail(game_id, grade_label=None):
     tpl = resolve_detail_template(game_id)
     if not tpl: return None
-    payload = get(tpl.format(game_id=game_id), silent_404=True)
+    raw = get(tpl.format(game_id=game_id), silent_404=True)
+    if not raw: return None
+    detail = unwrap(raw)
 
-    # Debug dump: save first game's full JSON per grade so we can see actual shape
-    if payload and DEBUG_DUMP and grade_label and grade_label not in _debug_dumped_grades:
+    if DEBUG_DUMP and grade_label and grade_label not in _debug_dumped_grades:
         DEBUG_DIR.mkdir(parents=True, exist_ok=True)
         slug = grade_label.replace("'", "").replace(" ", "_").lower()
         out = DEBUG_DIR / f"sample_game_{slug}.json"
-        out.write_text(json.dumps(payload, indent=2, ensure_ascii=False))
-        print(f"  🐛 Wrote debug sample → {out}")
-        print(f"     Top-level keys: {list(payload.keys())}")
+        out.write_text(json.dumps(raw, indent=2, ensure_ascii=False))
+        print(f"  🐛 Debug sample → {out}")
         _debug_dumped_grades.add(grade_label)
-    return payload
+    return detail
 
 
 # =============================================================
 # Aggregation
 # =============================================================
 def player_key(name, team): return f"{(name or '').strip()}__{(team or '').strip()}"
+
 def safe_int(v):
     try: return int(v)
     except (TypeError, ValueError): return 0
-def extract_team_name(t):
-    if not t: return "Unknown"
-    return t.get("name") or t.get("displayName") or (t.get("team") or {}).get("name") or "Unknown"
 
 def ensure_player(players, name, team, grade):
     k = player_key(name, team)
     if k not in players:
-        players[k] = {"name": name.strip(), "team": team.strip(), "grade": grade,
-                      "games": 0, "timesInBest": 0, "goals": 0, "gameLog": []}
+        players[k] = {
+            "name": name.strip(), "team": team.strip(), "grade": grade,
+            "games": 0, "timesInBest": 0, "goals": 0, "gameLog": [],
+        }
     return players[k]
 
 
-def flexible_list(obj, *keys):
-    """Try multiple possible keys, return first non-empty list."""
-    for k in keys:
-        v = obj.get(k) if isinstance(obj, dict) else None
-        if isinstance(v, list) and v:
-            return v
-    return []
+def extract_fixture_meta(fx):
+    """Pull common fields from a fixture row regardless of exact shape."""
+    fx = unwrap(fx) if isinstance(fx, dict) and "data" in fx else fx
+    game_id = fx.get("id")
+    date_iso = (
+        (fx.get("schedule") or {}).get("date")
+        or fx.get("date")
+        or fx.get("startDate")
+        or (fx.get("startTime") or "")[:10]
+        or ""
+    )
 
+    # Try fixture-row shapes for teams + scores
+    home_team = away_team = None
+    home_score = away_score = None
 
-def flexible_name(p):
-    if not isinstance(p, dict): return ""
-    direct = p.get("name") or p.get("playerName") or p.get("fullName") or p.get("displayName")
-    if direct: return direct.strip()
-    first = p.get("firstName") or (p.get("person") or {}).get("firstName") or ""
-    last = p.get("lastName") or (p.get("person") or {}).get("lastName") or ""
-    return f"{first} {last}".strip()
+    competitors = fx.get("competitors") or []
+    if competitors and isinstance(competitors, list):
+        for c in competitors:
+            nm = c.get("name") or (c.get("team") or {}).get("name") or "Unknown"
+            sc = c.get("scoreTotal") or c.get("score") or 0
+            if c.get("isHomeTeam"):
+                home_team, home_score = nm, safe_int(sc)
+            else:
+                away_team, away_score = nm, safe_int(sc)
+
+    if not home_team:
+        ht = fx.get("homeTeam") or (fx.get("teams") or [{}, {}])[0]
+        at = fx.get("awayTeam") or (fx.get("teams") or [{}, {}])[1]
+        home_team = (ht or {}).get("name") or "Unknown"
+        away_team = (at or {}).get("name") or "Unknown"
+
+    status = (fx.get("status") or "").upper()
+    return game_id, date_iso, home_team, away_team, home_score, away_score, status
 
 
 def aggregate_competition(label, grade_id, players, games_out):
     fixtures = list_games_for_grade(grade_id)
     print(f"  ↳ {len(fixtures)} fixtures returned")
 
+    processed, skipped = 0, 0
     for fx in fixtures:
-        game_id = fx.get("id")
-        if not game_id: continue
+        game_id, date_iso, home_team, away_team, hs, as_, status = extract_fixture_meta(fx)
+        if not game_id:
+            continue
 
-        date_iso = (fx.get("schedule") or {}).get("date") or fx.get("date") or fx.get("startDate") or ""
-        home_team = extract_team_name(fx.get("homeTeam") or (fx.get("teams") or [{}, {}])[0])
-        away_team = extract_team_name(fx.get("awayTeam") or (fx.get("teams") or [{}, {}])[1])
+        # Pull detail (also gives definitive team names + scores via `competitors`)
+        detail = get_game_detail(game_id, label)
+        if not detail:
+            skipped += 1
+            continue
 
-        hs = fx.get("homeScore") or (fx.get("scores") or {}).get("home")
-        as_ = fx.get("awayScore") or (fx.get("scores") or {}).get("away")
-        if isinstance(hs, dict): hs = hs.get("total") or hs.get("points")
-        if isinstance(as_, dict): as_ = as_.get("total") or as_.get("points")
+        # Override team names / scores from detail if available (more reliable)
+        det_competitors = detail.get("competitors") or []
+        team_map = {}
+        for c in det_competitors:
+            tid = c.get("id")
+            name = c.get("name")
+            if tid and name:
+                team_map[tid] = name
+            if c.get("isHomeTeam") and name:
+                home_team = name
+                hs = safe_int(c.get("scoreTotal")) if c.get("scoreTotal") is not None else hs
+            elif not c.get("isHomeTeam") and name:
+                away_team = name
+                as_ = safe_int(c.get("scoreTotal")) if c.get("scoreTotal") is not None else as_
+
+        det_status = (detail.get("status") or status or "").upper()
 
         games_out.append({
             "id": game_id, "grade": label, "date": date_iso,
             "homeTeam": home_team, "awayTeam": away_team,
-            "homeScore": safe_int(hs) if hs is not None else None,
-            "awayScore": safe_int(as_) if as_ is not None else None,
+            "homeScore": hs, "awayScore": as_,
+            "status": det_status,
         })
 
-        detail = get_game_detail(game_id, label)
-        if not detail: continue
-        process_game_detail(detail, label, home_team, away_team, date_iso, players)
+        # Only process player stats for FINAL games
+        if det_status != "FINAL":
+            continue
 
+        appearances = detail.get("appearances") or []
+        for app in appearances:
+            if app.get("roleType") != "Player":
+                continue
+            first = (app.get("firstName") or "").strip()
+            last  = (app.get("lastName")  or "").strip()
+            name = f"{first} {last}".strip()
+            if not name:
+                continue
 
-def process_game_detail(detail, label, home_team, away_team, date_iso, players):
-    teams_block = (
-        flexible_list(detail, "teams")
-        or [
-            {"name": home_team, **(detail.get("home") or detail.get("homeTeam") or {})},
-            {"name": away_team, **(detail.get("away") or detail.get("awayTeam") or {})},
-        ]
-    )
+            tid = app.get("teamID")
+            team_name = team_map.get(tid, "Unknown")
+            opponent = next((n for t, n in team_map.items() if t != tid), "Unknown")
 
-    for t in teams_block:
-        team_name = extract_team_name(t)
-        opponent = away_team if team_name == home_team else home_team
+            # Goals: scoreSubTotal entry of type 6_POINT_SCORE, divided by 6
+            goals = 0
+            for sub in (app.get("scoreSubTotal") or []):
+                if sub.get("type") == "6_POINT_SCORE":
+                    goals = safe_int(sub.get("value")) // 6
+                    break
 
-        best_list = flexible_list(t, "bestPlayers", "best",
-                                  *([(t.get("awards") or {}).get("bestPlayers") and "awards"] or []))
-        if not best_list:
-            best_list = (t.get("awards") or {}).get("bestPlayers") or []
+            best_rank = app.get("bestPlayer")  # 1..6 or None
+            in_best = best_rank is not None
 
-        best_names = {flexible_name(b) for b in best_list if flexible_name(b)}
-
-        goals_list = flexible_list(t, "goalScorers", "goals")
-        if not goals_list:
-            goals_list = (t.get("stats") or {}).get("goalScorers") or []
-
-        goal_map = {}
-        for g in goals_list:
-            nm = flexible_name(g)
-            if nm:
-                goal_map[nm] = goal_map.get(nm, 0) + safe_int(
-                    g.get("goals") or g.get("count") or g.get("score") or 1
-                )
-
-        roster = flexible_list(t, "players", "lineup", "roster", "squad")
-        if not roster:
-            roster = [{"name": nm} for nm in best_names.union(goal_map.keys())]
-
-        for pl in roster:
-            nm = flexible_name(pl)
-            if not nm: continue
-            rec = ensure_player(players, nm, team_name, label)
+            rec = ensure_player(players, name, team_name, label)
             rec["games"] += 1
-            in_best = nm in best_names
-            goals = goal_map.get(nm, 0)
             if in_best: rec["timesInBest"] += 1
-            if goals: rec["goals"] += goals
-            rec["gameLog"].append({"date": date_iso, "opponent": opponent,
-                                   "goals": goals, "inBest": in_best})
+            if goals:   rec["goals"] += goals
+            rec["gameLog"].append({
+                "date": date_iso,
+                "opponent": opponent,
+                "goals": goals,
+                "inBest": in_best,
+                "bestRank": best_rank,
+            })
+
+        processed += 1
+
+    print(f"  ✓ Processed {processed} FINAL games  ({skipped} skipped, {len(fixtures)-processed-skipped} not yet played)")
 
 
 def compute_form(p):
@@ -306,9 +336,11 @@ def main():
     for p in players.values():
         p["formIndicator"] = compute_form(p)
 
-    players_list = sorted(players.values(),
-                          key=lambda x: (x.get("timesInBest", 0) + x.get("goals", 0) * 0.5),
-                          reverse=True)
+    players_list = sorted(
+        players.values(),
+        key=lambda x: (x.get("timesInBest", 0) + x.get("goals", 0) * 0.5),
+        reverse=True,
+    )
 
     PLAYERS_OUT.write_text(json.dumps(players_list, indent=2, ensure_ascii=False))
     GAMES_OUT.write_text(json.dumps(games_out, indent=2, ensure_ascii=False))
@@ -316,7 +348,11 @@ def main():
     print("\n" + "=" * 65)
     print(f"✅ Wrote {len(players_list)} players → {PLAYERS_OUT}")
     print(f"✅ Wrote {len(games_out)} games   → {GAMES_OUT}")
-    print(f"📁 Debug samples written to: {DEBUG_DIR}/ (commit + share with me)")
+    if players_list:
+        top = players_list[:5]
+        print("\n🏆 Top 5 by raw impact:")
+        for p in top:
+            print(f"   {p['name']:25} ({p['team'][:30]:30}) — Best {p['timesInBest']:>2} · Goals {p['goals']:>3} · Games {p['games']:>2}")
     print("=" * 65)
     return 0
 
