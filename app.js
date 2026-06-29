@@ -109,9 +109,10 @@ function setupTabs() {
 // ---------- Filters / Toolbar ----------
 function setupFilters() {
   document.getElementById("gradeFilter").addEventListener("change", e => {
-    currentGrade = e.target.value;
-    renderAll();
-  });
+  currentGrade = e.target.value;
+  populateOpponentFilter();   // ← add this line
+  renderAll();
+});
   document.getElementById("opponentSelect").addEventListener("change", e => {
     currentOpponent = e.target.value;
     renderOpponentComparison();
@@ -136,15 +137,25 @@ function populateGradeFilter() {
 function populateOpponentFilter() {
   const sel = document.getElementById("opponentSelect");
   const teams = new Set();
-  games.forEach(g => {
+
+  const relevantGames = (currentGrade === "all")
+    ? games
+    : games.filter(g => g.grade === currentGrade);
+
+  relevantGames.forEach(g => {
     if (g.homeTeam && g.homeTeam !== OBGFC) teams.add(g.homeTeam);
     if (g.awayTeam && g.awayTeam !== OBGFC) teams.add(g.awayTeam);
   });
+
+  // Rebuild dropdown
+  const current = sel.value;
+  sel.innerHTML = `<option value="">Select opponent…</option>`;
   Array.from(teams).sort().forEach(t => {
     const opt = document.createElement("option");
     opt.value = t; opt.textContent = t;
     sel.appendChild(opt);
   });
+  if (Array.from(teams).includes(current)) sel.value = current;
 }
 
 function filteredPlayers() {
