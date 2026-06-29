@@ -35,8 +35,18 @@ SEASON_ID = "2af0bc11"       # current season
 
 # Competitions to pull (label -> PlayHQ grade UUID)
 COMPETITIONS: Dict[str, str] = {
-    "Premier A Women": "2ed24d43",
-    "Premier Women's Reserves": "REPLACE_WITH_RESERVES_UUID",
+    # Senior women's grades — 2026 VAFA season
+    "William Buck Premier Women's":   "2ed24d43-8720-42aa-9483-c0e8e65be568",
+    "Premier Women's Reserve":        "bbcf04d5-ec88-4f37-90f8-460ddcc71cc9",
+    "Premier B Women's":              "972de8ed-8555-42ce-91de-660850b3e7ea",
+    "Division 1 Women's":             "dae84ac0-533d-4dee-8518-10db71bbf0e3",
+    "Division 2 Women's":             "a63e5b85-0505-4423-8d49-0c31bb0a4343",
+    "Division 3 Women's":             "55ad642b-5f09-48a4-b147-77b89639b968",
+    "Division 4 Women's":             "5d67b06e-119c-4180-8dfc-82387a955e61",
+    "Division 5 Women's":             "6c9deafe-cc66-48f0-9f0f-0b69c594ea50",
+
+    # Junior women's pathway
+    "Holmesglen U19 Premier Women's": "5a70a2ff-9d02-486a-b7fe-c7f991d367e5",
 }
 
 OUT_DIR = pathlib.Path("data")
