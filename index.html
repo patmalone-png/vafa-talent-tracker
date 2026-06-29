@@ -54,6 +54,29 @@
         </ul>
         <p class="muted">Scores are normalised 0–100 within the current grade filter so players compare fairly.</p>
       </div>
+      <div class="info-card">
+  <h3>How the Form Indicator is calculated</h3>
+  <p>
+    The <strong>Form Indicator</strong> (0–100) measures how a player has performed
+    in their <strong>last 3 games</strong> compared to their season average — surfacing
+    who's heating up and who's cooled off, regardless of their overall talent score.
+  </p>
+  <p>It combines two signals from each player's recent games:</p>
+  <ul>
+    <li><strong>Best player appearances</strong> – each "in the best" finish counts as <em>1 impact point</em></li>
+    <li><strong>Goals kicked</strong> – each goal counts as <em>0.5 impact points</em></li>
+  </ul>
+  <p>The final score is a blend of two ratios:</p>
+  <ul>
+    <li><strong>Trend (50%)</strong> – recent impact ÷ season impact (am I improving or fading?)</li>
+    <li><strong>Volume (50%)</strong> – raw recent impact (am I actually doing it on the field right now?)</li>
+  </ul>
+  <p class="muted">
+    A score of <strong>50</strong> = performing at season average ·
+    <strong>75+</strong> = clearly trending up (in form) ·
+    <strong>under 30</strong> = trending down (cold). Players with fewer than 3 games show their available form.
+  </p>
+</div>
 
       <div class="leaderboard-grid">
         <div class="leaderboard-card" id="lb-talent"><h3>Top 5 – Talent Score</h3><div class="lb-body"></div></div>
@@ -84,7 +107,7 @@
                 <th class="num">GP</th>
                 <th class="num">Best</th>
                 <th class="num">Goals</th>
-                <th class="num">Form</th>
+                <th class="num" title="Last 3 games vs season average. 50 = par, 75+ = hot, under 30 = cold.">Form ⓘ</th>
                 <th class="num">Talent</th>
               </tr>
             </thead>
@@ -110,7 +133,7 @@
                 <th class="num">GP</th>
                 <th class="num">Best</th>
                 <th class="num">Goals</th>
-                <th class="num">Form</th>
+                <th class="num" title="Last 3 games vs season average. 50 = par, 75+ = hot, under 30 = cold.">Form ⓘ</th>
                 <th class="num">Talent</th>
                 <th>Notes</th>
               </tr>
