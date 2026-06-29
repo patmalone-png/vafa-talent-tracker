@@ -1,0 +1,890 @@
+{
+  "data": {
+    "id": "d4598dc2-0514-4c60-8677-7d03857c9560",
+    "status": "FINAL",
+    "appearances": [
+      {
+        "id": "4ec68eae-e69e-40ac-99a7-6739192f33c1",
+        "firstName": "Tiarna",
+        "lastName": "Jericho",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "2",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 6,
+        "bestPlayer": 3,
+        "scoreSubTotal": [
+          {
+            "type": "6_POINT_SCORE",
+            "value": 6
+          }
+        ]
+      },
+      {
+        "id": "52e7419c-5b1c-4710-815b-79cf58772af0",
+        "firstName": "Sarah-Jade",
+        "lastName": "Rose",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "27",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 6,
+        "bestPlayer": 2,
+        "scoreSubTotal": [
+          {
+            "type": "6_POINT_SCORE",
+            "value": 6
+          }
+        ]
+      },
+      {
+        "id": "d17d8016-17dd-4055-b037-e2aff4c097dc",
+        "firstName": "Zoe",
+        "lastName": "Pratt",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "4",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 6,
+        "bestPlayer": null,
+        "scoreSubTotal": [
+          {
+            "type": "6_POINT_SCORE",
+            "value": 6
+          }
+        ]
+      },
+      {
+        "id": "613db733-58a1-4f31-9f6f-8efc29239883",
+        "firstName": "Charlotte",
+        "lastName": "Newman",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "3",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "fdebebce-51c7-43ad-9146-563dcea4e59e",
+        "firstName": "Emily",
+        "lastName": "Chea",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "87",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "4d508b4c-b464-4209-960d-027207da60af",
+        "firstName": "Alice",
+        "lastName": "McGinty",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "13",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "63e1699f-6904-48d9-aba4-e90637361d7c",
+        "firstName": "Skye",
+        "lastName": "Blackshaw",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "18",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "b7949869-01ad-433e-9ef1-7724201883ae",
+        "firstName": "Tessa",
+        "lastName": "Zangalis",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "88",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "f3ed2aee-e8ea-404b-a1fb-8f7b0185d4c1",
+        "firstName": "Tiarna",
+        "lastName": "Byrnes",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "50",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": 6,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "f8ff6251-1b51-4fc6-b530-3dfd3e58da22",
+        "firstName": "Emily",
+        "lastName": "Conroy",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "20",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": 4,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "6556f9ec-f67f-49ae-a416-6c706ba82d7c",
+        "firstName": "Charlotte",
+        "lastName": "Fowler",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "85",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "f829c663-e530-442b-8d75-28c9aa7bb70a",
+        "firstName": "Gabrielle",
+        "lastName": "Perry",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "8",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": 1,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "a5280dc4-69c0-4f71-b8bf-fec965d84b2f",
+        "firstName": "Sienna",
+        "lastName": "Walker",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "82",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "35b0471b-e4a8-47ac-ba42-45cc0695b33b",
+        "firstName": "Bonnie",
+        "lastName": "Peacocke",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "95",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "f1ff92af-c48f-4ca1-b453-9f2982115d21",
+        "firstName": "Megan",
+        "lastName": "Dore",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "26",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "4299bf02-61da-4456-8f65-1755713859e8",
+        "firstName": "Jade",
+        "lastName": "Hawks",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "29",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "1634a6ad-a77d-45d9-a4d4-d017693d64d2",
+        "firstName": "Kirrily",
+        "lastName": "Bruce",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "81",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "bc45fa97-3fd2-40bd-9aab-cc073e9c12ff",
+        "firstName": "Anna",
+        "lastName": "Purtill",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "1",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": 5,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "18101896-2579-4ee2-8693-d6f3a85381bf",
+        "firstName": "Samantha",
+        "lastName": "Rodgers",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "22",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "cb41cce7-e34e-4ec5-a42c-a9c6a6a3a0a4",
+        "firstName": "Jacqui",
+        "lastName": "Greer",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "68",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "624fc5b2-a9f9-481c-82ce-08194900b832",
+        "firstName": "Sydney",
+        "lastName": "Lock",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "5",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "3c55b53a-83e4-4664-beaa-0944d7b22082",
+        "firstName": "Rhi",
+        "lastName": "Hetherington",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "98",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "04e9e7f3-ad08-46a3-8a61-beb618e8d00c",
+        "firstName": "Anja",
+        "lastName": "Maeder",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": true,
+        "isEmergency": false,
+        "playerNumber": "86",
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "74d76979-f037-4cc0-978a-13d41018a851",
+        "firstName": "Grace",
+        "lastName": "Chappell",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "9",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "76b94a79-4733-4da4-9c71-5be88474142c",
+        "firstName": "Juliette",
+        "lastName": "Grasso",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "13",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "efb1bc55-adaa-4b59-a6bb-0aa45d03338a",
+        "firstName": "Rose",
+        "lastName": "Chiaramonte",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "35",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": 3,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "15e110c7-2364-44eb-bfef-44486a3f4993",
+        "firstName": "Zara",
+        "lastName": "Purcell",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "18",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": 4,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "cd744dcc-60ff-4108-87cf-793389589882",
+        "firstName": "Lucy",
+        "lastName": "Wynne",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "22",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": 6,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "38810023-2b64-4447-811b-0a89da53a223",
+        "firstName": "Emily",
+        "lastName": "Cirulis",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "33",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "4abcfeb3-f8ae-4fc0-8111-5807c54dcf78",
+        "firstName": "Chloe",
+        "lastName": "Grisinski",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "1",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "005fe05a-9ab2-4f0e-99da-14c2f6844cf1",
+        "firstName": "Mahlia",
+        "lastName": "Tarrant",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "23",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": 1,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "8dbf1f13-af63-4426-8005-0582b54c0f01",
+        "firstName": "sadie",
+        "lastName": "chun",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "54",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "82e360c3-c9b2-4a99-b295-572eccdf1bc6",
+        "firstName": "Olivia",
+        "lastName": "Rabl",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "52",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "f907fb4d-aa13-4c7f-b570-d920d71fecc2",
+        "firstName": "Kellie",
+        "lastName": "McLeod",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "6",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "ae90c277-723a-4ffb-b19b-b33b14d14671",
+        "firstName": "Lani",
+        "lastName": "Sutherland",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "10",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": 5,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "3288602f-8fdc-4c79-9bf6-4f5dd6e562f7",
+        "firstName": "Jemima",
+        "lastName": "Alexander",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "7",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "7830b721-e182-4219-831a-d2338c546e71",
+        "firstName": "Francesca",
+        "lastName": "Anderson",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "50",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "259a5c35-7438-47ee-81d2-1c83f82e664b",
+        "firstName": "Ally",
+        "lastName": "Forrest",
+        "roleType": "Player",
+        "captainRole": "CAPTAIN",
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "16",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "97f1cc94-aaf2-47ad-851b-b0dfd41577fe",
+        "firstName": "elin",
+        "lastName": "simpson",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "11",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "651bbd22-37f2-42d7-ba7b-a1e0dfe66a15",
+        "firstName": "Sarah",
+        "lastName": "Grummitt",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "21",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "6a5d1ea2-503d-4584-bc09-0657a94c4560",
+        "firstName": "Lauren",
+        "lastName": "Magiatzis",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "31",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "1b1344c2-3191-418d-9fb6-a82b4a81c0f4",
+        "firstName": "Kathryn",
+        "lastName": "Steel",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "81",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "04465a3e-ec76-43a2-9ef0-eaeac99ea855",
+        "firstName": "Lia",
+        "lastName": "Kelvie",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "14",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": 2,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "ff1c18d4-0658-4240-8f7e-fd69ba73ef1b",
+        "firstName": "Lucy",
+        "lastName": "Woolhouse",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "46",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "19513ce3-d3c8-43c4-afe5-a8f7af3cc3c4",
+        "firstName": "Lucia",
+        "lastName": "Macrae",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "32",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "083bc534-c4ba-4a98-9f08-4fc0b66ac4a1",
+        "firstName": "Hayley",
+        "lastName": "Mckee",
+        "roleType": "Player",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": "40",
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "adeaee21-90f9-49de-8e85-a11031738ae1",
+        "firstName": "Shane",
+        "lastName": "Chapman",
+        "roleType": "Coach",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": null,
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "17b4a8dc-1b85-48f0-8b36-cc438f65c70c",
+        "firstName": "Andrew",
+        "lastName": "Harwood",
+        "roleType": "Coach",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": null,
+        "playerPosition": null,
+        "teamID": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      },
+      {
+        "id": "8ba540a4-a235-4b00-94f3-923d9835ec4e",
+        "firstName": "Nicholas",
+        "lastName": "Henderson",
+        "roleType": "Coach",
+        "captainRole": null,
+        "isFillIn": false,
+        "isEmergency": false,
+        "playerNumber": null,
+        "playerPosition": null,
+        "teamID": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "scoreTotal": 0,
+        "bestPlayer": null,
+        "scoreSubTotal": []
+      }
+    ],
+    "competitors": [
+      {
+        "id": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+        "name": "Old Carey Senior Women's",
+        "isHomeTeam": false,
+        "outcome": "LOST",
+        "scoreTotal": 9,
+        "scoreSubTotal": [
+          {
+            "type": "TOTAL_GOALS",
+            "value": 1
+          },
+          {
+            "type": "TOTAL_BEHINDS",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": "14089275-6394-4c3c-9b52-0f0da8379201",
+        "name": "Monash Blues Senior Women's",
+        "isHomeTeam": true,
+        "outcome": "WON",
+        "scoreTotal": 18,
+        "scoreSubTotal": [
+          {
+            "type": "TOTAL_GOALS",
+            "value": 2
+          },
+          {
+            "type": "TOTAL_BEHINDS",
+            "value": 6
+          }
+        ]
+      }
+    ],
+    "periods": [
+      {
+        "name": "FIRST_QTR",
+        "competitors": [
+          {
+            "id": "14089275-6394-4c3c-9b52-0f0da8379201",
+            "scoreTotals": 7,
+            "scoreSubtotals": [
+              {
+                "type": "6_POINT_SCORE",
+                "value": 1
+              },
+              {
+                "type": "1_POINT_SCORE",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+            "scoreTotals": 2,
+            "scoreSubtotals": [
+              {
+                "type": "1_POINT_SCORE",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SECOND_QTR",
+        "competitors": [
+          {
+            "id": "14089275-6394-4c3c-9b52-0f0da8379201",
+            "scoreTotals": 3,
+            "scoreSubtotals": [
+              {
+                "type": "1_POINT_SCORE",
+                "value": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "THIRD_QTR",
+        "competitors": [
+          {
+            "id": "14089275-6394-4c3c-9b52-0f0da8379201",
+            "scoreTotals": 2,
+            "scoreSubtotals": [
+              {
+                "type": "1_POINT_SCORE",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "id": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+            "scoreTotals": 1,
+            "scoreSubtotals": [
+              {
+                "type": "1_POINT_SCORE",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "FOURTH_QTR",
+        "competitors": [
+          {
+            "id": "14089275-6394-4c3c-9b52-0f0da8379201",
+            "scoreTotals": 6,
+            "scoreSubtotals": [
+              {
+                "type": "6_POINT_SCORE",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "ff267091-4e7a-4a9e-a832-a3d879ff7d36",
+            "scoreTotals": 6,
+            "scoreSubtotals": [
+              {
+                "type": "6_POINT_SCORE",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
