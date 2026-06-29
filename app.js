@@ -383,7 +383,11 @@ function getTeamLast3(allGames, teamName) {
   if (!allGames || !Array.isArray(allGames)) return [];
   return allGames
     .filter(g => g.homeTeam === teamName || g.awayTeam === teamName)
-    .filter(g => g.homeScore != null && g.awayScore != null)
+    .filter(g =>
+      g.homeScore != null && g.awayScore != null &&
+      !(g.homeScore === 0 && g.awayScore === 0) &&     // skip "null both" / unplayed
+      (g.status ? g.status === "FINAL" : true)         // honour status when present
+    )
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3);
 }
