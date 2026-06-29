@@ -1,0 +1,19 @@
+name: Discover PlayHQ IDs
+
+on:
+  workflow_dispatch:    # only runs when you click "Run workflow"
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Run discovery
+        env:
+          PLAYHQ_API_KEY: ${{ secrets.PLAYHQ_API_KEY }}
+          PLAYHQ_TENANT: afl
+        run: python scripts/discover_playhq.py
