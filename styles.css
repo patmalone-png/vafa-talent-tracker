@@ -528,3 +528,208 @@ body {
   .container { padding: 14px; }
   .profile-stats { grid-template-columns: repeat(3, 1fr); }
 }
+/* =============================================================
+   OBGFC tab
+   =============================================================px; margin-bottom: 16px;   ============================================================= */
+}
+.obgfc-header h2 { margin: 0; color: var(--brand); }
+.obgfc-summary-bar {
+  display: flex; gap: 14px; flex-wrap: wrap;
+}
+.obgfc-summary-bar .summary-pill {
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.obgfc-summary-bar .summary-pill span {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.obgfc-summary-bar .summary-pill strong {
+  font-size: 17px;
+  color: var(--brand);
+}
+.subsection-title {
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 22px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.recent-mini {
+  display: flex; gap: 4px;
+}
+.recent-mini .mini-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px;
+  border-radius: 4px;
+  font-size: 11px; font-weight: 700; color: #fff;
+}
+
+/* =============================================================
+   Coach's Brief
+   ============================================================= */
+.brief-wrap {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  max-width: 980px;
+  margin: 0 auto;
+}
+.brief-header {
+  border-bottom: 2px solid var(--brand);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+.brief-header h1 {
+  margin: 0 0 4px;
+  color: var(--brand);
+  font-size: 26px;
+}
+.brief-header .brief-sub {
+  color: var(--muted);
+  font-size: 14px;
+}
+.brief-section { margin-bottom: 22px; }
+.brief-section h2 {
+  font-size: 16px;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+  margin: 0 0 12px;
+}
+.brief-section p { line-height: 1.55; margin: 6px 0; }
+.brief-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.brief-callout {
+  background: var(--soft);
+  border-left: 4px solid var(--brand-2);
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.brief-callout.callout-warn {
+  border-left-color: #ea580c;
+  background: #fff7ed;
+  color: #7c2d12;
+}
+.brief-callout.callout-good {
+  border-left-color: #15803d;
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.brief-results-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.brief-results-table th, .brief-results-table td {
+  padding: 8px 10px; border-bottom: 1px solid #f1f5f9; text-align: left;
+}
+.brief-results-table th {
+  background: var(--soft);
+  color: var(--muted);
+  font-weight: 600; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
+.brief-results-table .result-w { color: var(--green); font-weight: 700; }
+.brief-results-table .result-l { color: var(--red); font-weight: 700; }
+.brief-results-table .result-d { color: var(--grey); font-weight: 700; }
+.brief-results-table .num { text-align: right; }
+.brief-results-table .quality-tag {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.quality-tag.rq-great   { background: #dcfce7; color: #14532d; }
+.quality-tag.rq-good    { background: #ecfccb; color: #365314; }
+.quality-tag.rq-neutral { background: #f1f5f9; color: #475569; }
+.quality-tag.rq-poor    { background: #fff7ed; color: #7c2d12; }
+.quality-tag.rq-bad     { background: #fee2e2; color: #7f1d1d; }
+
+.brief-threats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.brief-threat-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.brief-threat-card h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: var(--brand);
+}
+.brief-threat-card .threat-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.brief-threat-card .threat-stats {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  font-size: 12px;
+}
+.brief-threat-card .threat-stats span {
+  background: var(--soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.brief-form-explainer {
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--soft);
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.brief-form-explainer .explainer-row {
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.brief-form-explainer .dot {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 800px) {
+  .brief-grid-2 { grid-template-columns: 1fr; }
+  .obgfc-summary-bar .summary-pill { padding: 6px 10px; }
+}
+
+/* =============================================================
+   Print styles for Coach's Brief
+   ============================================================= */
+@media print {
+  body { background: #fff; }
+  .app-header, .filters-bar, .tabs, .modal-backdrop { display: none !important; }
+  .tab-panel { display: none !important; }
+  #tab-brief { display: block !important; }
+  .container { padding: 0; max-width: 100%; }
+  .brief-wrap {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+  }
+  .brief-section { page-break-inside: avoid; }
+  a { color: var(--ink); text-decoration: none; }
+}
+.obgfc-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
