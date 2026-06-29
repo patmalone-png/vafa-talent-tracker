@@ -15,7 +15,7 @@ let currentGrade = "all";
 let currentOpponent = "";
 let watchlist = new Set();
 let notes = {};
-let autoSelectedMeta = null;  // tracks when opponent was auto-picked
+let autoSelectedMeta = null;
 
 // =============================================================
 // Boot
@@ -48,7 +48,7 @@ async function loadData() {
 }
 
 // =============================================================
-// Enrichment — derive missing fields if fetch script didn't supply them
+// Enrichment
 // =============================================================
 function enrichPlayersInPlace() {
   players.forEach(p => {
@@ -123,7 +123,7 @@ function setupFilters() {
 
   document.getElementById("opponentSelect").addEventListener("change", e => {
     currentOpponent = e.target.value;
-    autoSelectedMeta = null;   // user override clears auto-pick banner
+    autoSelectedMeta = null;
     renderOpponentComparison();
   });
 
@@ -139,7 +139,6 @@ function setupFilters() {
 function populateGradeFilter() {
   const sel = document.getElementById("gradeFilter");
   const grades = Array.from(new Set(players.map(p => p.grade).filter(Boolean))).sort();
-  // Clear existing options except "All Grades"
   sel.innerHTML = `<option value="all">All Grades</option>`;
   grades.forEach(g => {
     const opt = document.createElement("option");
@@ -171,7 +170,6 @@ function populateOpponentFilter() {
     sel.appendChild(opt);
   });
 
-  // Preserve selection if still relevant
   if (Array.from(teams).includes(previous)) {
     sel.value = previous;
   } else {
@@ -327,7 +325,7 @@ function renderPlayersTable() {
       </td>
       <td>
         ${p.team === OBGFC ? '<span class="dot-obgfc" title="OBGFC player"></span>' : ""}
-        " class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
+        <a href="#" class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
       </td>
       <td>${escapeHtml(p.team || "")}</td>
       <td>${escapeHtml(p.grade || "")}</td>
@@ -554,7 +552,7 @@ function findNextOBGFCOpponent() {
 }
 
 function autoSelectNextOpponent() {
-  if (currentOpponent) return;     // user already picked
+  if (currentOpponent) return;
   const next = findNextOBGFCOpponent();
   if (!next) return;
   const sel = document.getElementById("opponentSelect");
@@ -651,7 +649,7 @@ function renderTopPlayersTable(title, list, isOBGFC) {
     <tr class="${isOBGFC ? "row-obgfc" : ""}">
       <td>
         ${isOBGFC ? '<span class="dot-obgfc"></span>' : ""}
-        " class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
+        <a href="#" class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
       </td>
       <td class="num">${p.games || 0}</td>
       <td class="num">${p.timesInBest || 0}</td>
