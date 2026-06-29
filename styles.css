@@ -28,7 +28,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Header */
+/* =============================================================
+   Header
+   ============================================================= */
 .app-header {
   background: var(--brand);
   color: #fff;
@@ -63,12 +65,16 @@ body {
   border-radius: 999px;
 }
 
-/* Layout */
+/* =============================================================
+   Layout
+   ============================================================= */
 .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-/* Filters bar */
+/* =============================================================
+   Filters bar
+   ============================================================= */
 .filters-bar {
   display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
   background: var(--card);
@@ -100,7 +106,22 @@ body {
 .btn-secondary:hover { background: var(--soft); }
 .data-meta { margin-left: auto; color: var(--muted); font-size: 12px; }
 
-/* Info card */
+/* =============================================================
+   Info cards (Talent Score / Form Indicator descriptors)
+   ============================================================= */
+.info-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.info-card h3 { margin: 0 0 8px; }
+.info-card p { margin: 6px 0; line-height: 1.5; }
+.info-card ul { margin: 6px 0 10px; padding-left: 20px; }
+.info-card .muted, .muted { color: var(--muted); font-size: 13px; }
+
 /* Collapsible info cards */
 .info-card.collapsible {
   padding: 0;
@@ -110,7 +131,6 @@ body {
 .info-card.collapsible[open] {
   box-shadow: var(--shadow), 0 0 0 1px rgba(37, 99, 235, 0.08);
 }
-
 .info-card.collapsible summary {
   list-style: none;
   cursor: pointer;
@@ -124,7 +144,6 @@ body {
 }
 .info-card.collapsible summary::-webkit-details-marker { display: none; }
 .info-card.collapsible summary:hover { background: var(--soft); }
-
 .info-card.collapsible summary strong {
   flex: 1;
   font-size: 15px;
@@ -136,10 +155,7 @@ body {
   font-size: 14px;
   transition: transform 0.2s ease;
 }
-.info-card.collapsible[open] .chev {
-  transform: rotate(180deg);
-}
-
+.info-card.collapsible[open] .chev { transform: rotate(180deg); }
 .info-card .info-body {
   padding: 0 18px 16px;
   border-top: 1px solid var(--line);
@@ -150,7 +166,9 @@ body {
 .info-card .info-body p { margin: 8px 0; line-height: 1.5; }
 .info-card .info-body ul { margin: 6px 0 10px; padding-left: 22px; }
 
-/* Leaderboard */
+/* =============================================================
+   Leaderboard
+   ============================================================= */
 .leaderboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -186,7 +204,68 @@ body {
 .lb-name small { color: var(--muted); font-size: 12px; }
 .lb-val { font-weight: 700; }
 
-/* Section */
+/* =============================================================
+   Players You Should Know (Emerging Talent)
+   ============================================================= */
+.emerging-section { margin-top: 16px; }
+.emerging-header {
+  display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px;
+}
+.emerging-header h3 { margin: 0; color: var(--brand); }
+.emerging-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.emerging-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.emerging-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15,23,42,0.08);
+}
+.emerging-card.card-obgfc {
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+.emerging-head {
+  display: flex; align-items: center; gap: 6px;
+  font-weight: 600; font-size: 14px;
+}
+.emerging-team { color: var(--muted); font-size: 12px; }
+.emerging-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  background: var(--soft);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+.emerging-stats > div {
+  display: flex; flex-direction: column; align-items: center;
+}
+.emerging-stats span {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.emerging-stats strong { font-size: 14px; color: var(--ink); }
+.emerging-tag {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-2);
+  padding: 3px 0;
+}
+
+/* =============================================================
+   Section blocks
+   ============================================================= */
 .section {
   background: var(--card);
   border: 1px solid var(--line);
@@ -197,7 +276,9 @@ body {
 }
 .section h2 { margin: 0 0 14px; color: var(--brand); }
 
-/* Players table */
+/* =============================================================
+   Players table
+   ============================================================= */
 .players-toolbar {
   margin-bottom: 12px;
   display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
@@ -228,6 +309,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.4px;
 }
+.data-table th[title] { cursor: help; }
 .data-table .num { text-align: right; }
 .data-table tbody tr:hover { background: #fafbff; }
 .row-obgfc { background: var(--gold-soft); }
@@ -268,10 +350,31 @@ body {
   font: inherit; font-size: 13px;
 }
 
-/* Empty */
-.empty { color: var(--muted); text-align: center; padding: 18px; font-style: italic; }
+/* Empty placeholder */
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 18px;
+  font-style: italic;
+}
 
-/* Opponent comparison */
+/* =============================================================
+   Auto-loaded banner (Opponent Comparison)
+   ============================================================= */
+.auto-banner {
+  background: linear-gradient(135deg, #fef3c7 0%, #fff7d6 100%);
+  border: 1px solid #f5c518;
+  color: #78350f;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+.auto-banner strong { color: #92400e; }
+
+/* =============================================================
+   Opponent comparison — form cards
+   ============================================================= */
 .form-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
   margin: 12px 0 20px;
@@ -284,11 +387,23 @@ body {
   box-shadow: var(--shadow);
 }
 .form-card.card-obgfc { border-color: var(--gold); background: var(--gold-soft); }
-.form-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.form-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
 .form-header h3 { margin: 0; font-size: 15px; }
 .form-trend { font-weight: 600; }
+
+.ladder-pos {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
 .form-chips { display: flex; gap: 6px; margin: 6px 0 10px; }
 .form-chip {
+  position: relative;
   width: 28px; height: 28px; border-radius: 6px;
   display: inline-flex; align-items: center; justify-content: center;
   font-weight: 700; color: #fff; font-size: 13px;
@@ -296,8 +411,43 @@ body {
 .chip-w { background: var(--green); }
 .chip-l { background: var(--red); }
 .chip-d { background: var(--grey); }
-.form-meta { display: flex; gap: 14px; color: #4b5563; font-size: 13px; flex-wrap: wrap; }
 
+/* Quality dot indicator on each form chip */
+.quality-mark {
+  position: absolute;
+  bottom: -3px; right: -3px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+.rq-great   { background: #15803d; }
+.rq-good    { background: #65a30d; }
+.rq-neutral { background: #94a3b8; }
+.rq-poor    { background: #ea580c; }
+.rq-bad     { background: #b91c1c; }
+
+.form-meta {
+  display: flex; gap: 14px;
+  color: #4b5563; font-size: 13px; flex-wrap: wrap;
+}
+
+.form-quality {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  background: var(--soft);
+  border-left: 3px solid var(--grey);
+}
+.form-quality.rq-great   { background: #dcfce7; border-left-color: #15803d; color: #14532d; }
+.form-quality.rq-good    { background: #ecfccb; border-left-color: #65a30d; color: #365314; }
+.form-quality.rq-neutral { background: var(--soft); border-left-color: var(--grey); }
+.form-quality.rq-poor    { background: #fff7ed; border-left-color: #ea580c; color: #7c2d12; }
+.form-quality.rq-bad     { background: #fee2e2; border-left-color: #b91c1c; color: #7f1d1d; }
+
+/* =============================================================
+   Opponent comparison — Top 5 tables
+   ============================================================= */
 .compare-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
   margin-bottom: 16px;
@@ -322,9 +472,12 @@ body {
   padding: 10px 14px;
   border-radius: 6px;
   font-size: 14px;
+  line-height: 1.5;
 }
 
-/* Modal */
+/* =============================================================
+   Modal (Player Profile)
+   ============================================================= */
 .modal-backdrop {
   position: fixed; inset: 0;
   background: rgba(15,23,42,0.55);
@@ -342,7 +495,8 @@ body {
 }
 .modal-close {
   position: absolute; top: 10px; right: 12px;
-  background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted);
+  background: none; border: none; font-size: 26px;
+  cursor: pointer; color: var(--muted);
 }
 .modal h2 { margin: 0 0 4px; color: var(--brand); }
 .profile-stats {
@@ -355,11 +509,19 @@ body {
   padding: 8px 10px;
   text-align: center;
 }
-.profile-stats span { display: block; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; }
+.profile-stats span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
 .profile-stats strong { font-size: 18px; }
 .profile-actions { margin-bottom: 16px; }
 
-/* Responsive */
+/* =============================================================
+   Responsive
+   ============================================================= */
 @media (max-width: 800px) {
   .form-grid, .compare-grid { grid-template-columns: 1fr; }
   .brand h1 { font-size: 18px; }
