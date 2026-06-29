@@ -29,11 +29,11 @@ API_BASE = "https://api.playhq.com/v1"
 TENANT = os.getenv("PLAYHQ_TENANT", "afl")
 API_KEY = os.getenv("PLAYHQ_API_KEY", "").strip()
 
-# VAFA identifiers (from prior chat)
+# VAFA identifiers
 ORG_ID = "1cd834de"          # Victorian Amateur Football Association
 SEASON_ID = "2af0bc11"       # current season
 
-# Competitions to pull (label -> PlayHQ competition/grade UUID)
+# Competitions to pull (label -> PlayHQ grade UUID)
 COMPETITIONS: Dict[str, str] = {
     "Premier A Women": "2ed24d43",
     "Premier Women's Reserves": "REPLACE_WITH_RESERVES_UUID",
@@ -43,14 +43,15 @@ OUT_DIR = pathlib.Path("data")
 PLAYERS_OUT = OUT_DIR / "players.json"
 GAMES_OUT = OUT_DIR / "games.json"
 
-REQUEST_DELAY = 0.25  # seconds — be polite to PlayHQ
+REQUEST_DELAY = 0.25
 MAX_RETRIES = 3
 RETRY_BACKOFF = 1.5
+
 
 # =============================================================
 # HTTP helpers
 # =============================================================
-def banner():
+def banner() -> None:
     print("=" * 65)
     print("  OBGFC Talent Tracker — PlayHQ Fetch")
     print(f"  Time   : {datetime.now(timezone.utc).isoformat(timespec='seconds')}")
@@ -72,7 +73,6 @@ def headers() -> Dict[str, str]:
 
 
 def get(path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
-    """GET with retry + paging-friendly return of raw JSON."""
     url = f"{API_BASE}{path}"
     for attempt in range(1, MAX_RETRIES + 1):
         try:
@@ -80,6 +80,9 @@ def get(path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str
             if r.status_code == 200:
                 time.sleep(REQUEST_DELAY)
                 return r.json()
+            if r.status_code in (401, 403):
+                print(f"❌ Auth failure {r.status_code} on {path}. Check PLAYHQ_API_KEY / tenant.")
+                sys.exit(2)
             if r.status_code in (429, 502, 503, 504):
                 wait = RETRY_BACKOFF ** attempt
                 print(f"  ⚠ {r.status_code} on {path} — retry {attempt}/{MAX_RETRIES} in {wait:.1f}s")
@@ -94,7 +97,6 @@ def get(path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str
 
 
 def get_paged(path: str, params: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
-    """Walks PlayHQ cursor-style pagination, returns flat list of `data` items."""
     items: List[Dict[str, Any]] = []
     cursor = None
     page = 0
@@ -109,7 +111,7 @@ def get_paged(path: str, params: Optional[Dict[str, Any]] = None) -> List[Dict[s
         data = payload.get("data") or []
         items.extend(data)
         meta = payload.get("metadata") or {}
-        cursor = meta.get("nextCursor") or meta.get("cursor", {}).get("next")
+        cursor = meta.get("nextCursor") or (meta.get("cursor") or {}).get("next")
         has_more = meta.get("hasMore") if "hasMore" in meta else bool(cursor)
         print(f"  • page {page}: +{len(data)} (total {len(items)})")
         if not has_more or not cursor:
@@ -126,7 +128,6 @@ def list_games_for_grade(grade_id: str) -> List[Dict[str, Any]]:
 
 
 def get_game_summary(game_id: str) -> Optional[Dict[str, Any]]:
-    """Game summary includes best players + goal scorers per team."""
     return get(f"/games/{game_id}/summary")
 
 
@@ -174,13 +175,12 @@ def aggregate_competition(grade_label: str, grade_id: str,
         if not game_id:
             continue
 
-        date_iso = fx.get("schedule", {}).get("date") or fx.get("date") or ""
-        home_team = extract_team_name(fx.get("homeTeam") or fx.get("teams", [{}, {}])[0])
-        away_team = extract_team_name(fx.get("awayTeam") or fx.get("teams", [{}, {}])[1])
+        date_iso = (fx.get("schedule") or {}).get("date") or fx.get("date") or ""
+        home_team = extract_team_name(fx.get("homeTeam") or (fx.get("teams") or [{}, {}])[0])
+        away_team = extract_team_name(fx.get("awayTeam") or (fx.get("teams") or [{}, {}])[1])
 
-        # Score totals
-        home_score = fx.get("homeScore") or fx.get("scores", {}).get("home")
-        away_score = fx.get("awayScore") or fx.get("scores", {}).get("away")
+        home_score = fx.get("homeScore") or (fx.get("scores") or {}).get("home")
+        away_score = fx.get("awayScore") or (fx.get("scores") or {}).get("away")
         if isinstance(home_score, dict):
             home_score = home_score.get("total") or home_score.get("points")
         if isinstance(away_score, dict):
@@ -196,21 +196,15 @@ def aggregate_competition(grade_label: str, grade_id: str,
             "awayScore": safe_int(away_score) if away_score is not None else None,
         })
 
-        # Pull per-game player detail
         summary = get_game_summary(game_id)
         if not summary:
             continue
-
         process_game_summary(summary, fx, grade_label, home_team, away_team, date_iso, players)
 
 
 def process_game_summary(summary: Dict[str, Any], fixture: Dict[str, Any],
                          grade_label: str, home_team: str, away_team: str,
                          date_iso: str, players: Dict[str, Dict[str, Any]]) -> None:
-    """
-    Walks the game summary structure and updates per-player aggregates.
-    Handles both `teams[]` shape and `homeTeam`/`awayTeam` shapes from PlayHQ.
-    """
     teams_block = summary.get("teams")
     if not teams_block:
         teams_block = [
@@ -222,7 +216,6 @@ def process_game_summary(summary: Dict[str, Any], fixture: Dict[str, Any],
         team_name = extract_team_name(t)
         opponent = away_team if team_name == home_team else home_team
 
-        # ---- Best players ----
         best_list = (
             t.get("bestPlayers")
             or t.get("best")
@@ -235,7 +228,6 @@ def process_game_summary(summary: Dict[str, Any], fixture: Dict[str, Any],
             if nm:
                 best_names.add(nm.strip())
 
-        # ---- Goal scorers ----
         goals_list = (
             t.get("goalScorers")
             or t.get("goals")
@@ -250,7 +242,6 @@ def process_game_summary(summary: Dict[str, Any], fixture: Dict[str, Any],
             cnt = safe_int(g.get("goals") or g.get("count") or 1)
             goal_map[nm.strip()] = goal_map.get(nm.strip(), 0) + cnt
 
-        # ---- Roster (everyone who played) ----
         roster = (
             t.get("players")
             or t.get("lineup")
@@ -258,7 +249,6 @@ def process_game_summary(summary: Dict[str, Any], fixture: Dict[str, Any],
             or []
         )
         if not roster:
-            # If no roster supplied, seed from best + goal scorers so we still capture them
             roster = [{"name": nm} for nm in best_names.union(goal_map.keys())]
 
         for pl in roster:
@@ -282,7 +272,7 @@ def process_game_summary(summary: Dict[str, Any], fixture: Dict[str, Any],
 
 
 # =============================================================
-# Form indicator (server-side; client will also recompute if missing)
+# Form indicator
 # =============================================================
 def compute_form(p: Dict[str, Any]) -> int:
     log = sorted(p.get("gameLog", []), key=lambda g: g.get("date", ""), reverse=True)
@@ -316,13 +306,14 @@ def main() -> int:
         print(f"\n=== {label} ===")
         aggregate_competition(label, grade_id, players, games_out)
 
-    # Finalise
     for p in players.values():
         p["formIndicator"] = compute_form(p)
 
-    players_list = sorted(players.values(),
-                          key=lambda x: (x.get("timesInBest", 0) + x.get("goals", 0) * 0.5),
-                          reverse=True)
+    players_list = sorted(
+        players.values(),
+        key=lambda x: (x.get("timesInBest", 0) + x.get("goals", 0) * 0.5),
+        reverse=True,
+    )
 
     PLAYERS_OUT.write_text(json.dumps(players_list, indent=2, ensure_ascii=False))
     GAMES_OUT.write_text(json.dumps(games_out, indent=2, ensure_ascii=False))
