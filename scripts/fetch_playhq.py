@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 OBGFC Talent Tracker — PlayHQ fetch
-Pulls VAFA women's competitions and writes data/players.json + data/games.json.
 """
 
 import os, sys, json, time, pathlib
@@ -12,13 +11,12 @@ import requests
 API_BASE = "https://api.playhq.com/v1"
 TENANT = os.getenv("PLAYHQ_TENANT", "afl")
 API_KEY = os.getenv("PLAYHQ_API_KEY", "").strip()
+DEBUG_DUMP = os.getenv("PLAYHQ_DEBUG", "1") == "1"   # set to "0" to silence
 
-# === Full UUIDs from discovery ===
 ORG_ID    = "1cd834de-fc01-442d-836e-bc11a1a8e042"
 SEASON_ID = "2af0bc11-6f71-4c82-93b5-d46fe9bc739f"
 
 COMPETITIONS: Dict[str, str] = {
-    # Senior women's
     "William Buck Premier Women's":   "2ed24d43-8720-42aa-9483-c0e8e65be568",
     "Premier Women's Reserve":        "bbcf04d5-ec88-4f37-90f8-460ddcc71cc9",
     "Premier B Women's":              "972de8ed-8555-42ce-91de-660850b3e7ea",
@@ -27,19 +25,19 @@ COMPETITIONS: Dict[str, str] = {
     "Division 3 Women's":             "55ad642b-5f09-48a4-b147-77b89639b968",
     "Division 4 Women's":             "5d67b06e-119c-4180-8dfc-82387a955e61",
     "Division 5 Women's":             "6c9deafe-cc66-48f0-9f0f-0b69c594ea50",
-    # Junior women's pathway
     "Holmesglen U19 Premier Women's": "5a70a2ff-9d02-486a-b7fe-c7f991d367e5",
 }
 
 OUT_DIR = pathlib.Path("data")
 PLAYERS_OUT = OUT_DIR / "players.json"
 GAMES_OUT = OUT_DIR / "games.json"
+DEBUG_DIR = pathlib.Path("debug")
 
+REQUEST_TIMEOUT = 60
 REQUEST_DELAY = 0.25
 MAX_RETRIES = 3
 RETRY_BACKOFF = 1.5
 
-# Candidate fixture-list endpoints (PlayHQ has shipped both shapes over time)
 FIXTURE_PATHS = [
     "/grades/{grade_id}/fixture",
     "/grades/{grade_id}/games",
@@ -49,14 +47,17 @@ FIXTURE_PATHS = [
 GAME_DETAIL_PATHS = [
     "/games/{game_id}",
     "/games/{game_id}/summary",
+    "/games/{game_id}/statistics",
+    "/games/{game_id}/lineups",
 ]
 
-# Cache of the winning fixture-path template once discovered
 _resolved_fixture_tpl: Optional[str] = None
+_resolved_detail_tpl: Optional[str] = None
+_debug_dumped_grades: set = set()
 
 
 # =============================================================
-# HTTP helpers
+# HTTP
 # =============================================================
 def banner():
     print("=" * 65)
@@ -64,8 +65,8 @@ def banner():
     print(f"  Time   : {datetime.now(timezone.utc).isoformat(timespec='seconds')}")
     print(f"  Tenant : {TENANT}")
     print(f"  Key len: {len(API_KEY)} (expected 36)")
+    print(f"  Debug  : {DEBUG_DUMP}")
     print("=" * 65)
-
 
 def headers():
     if not API_KEY:
@@ -77,32 +78,28 @@ def headers():
         "User-Agent": "OBGFC-Talent-Tracker/1.0",
     }
 
-
 def get(path, params=None, silent_404=False):
     url = f"{API_BASE}{path}"
     for attempt in range(1, MAX_RETRIES + 1):
         try:
-            r = requests.get(url, headers=headers(), params=params, timeout=30)
+            r = requests.get(url, headers=headers(), params=params, timeout=REQUEST_TIMEOUT)
             if r.status_code == 200:
                 time.sleep(REQUEST_DELAY)
                 return r.json()
             if r.status_code in (401, 403):
                 print(f"❌ Auth {r.status_code} on {path}: {r.text[:200]}"); sys.exit(2)
             if r.status_code == 404:
-                if not silent_404:
-                    print(f"  ❌ 404 on {path}")
+                if not silent_404: print(f"  ❌ 404 on {path}")
                 return None
             if r.status_code in (429, 502, 503, 504):
                 wait = RETRY_BACKOFF ** attempt
                 print(f"  ⚠ {r.status_code} on {path} — retry {attempt}/{MAX_RETRIES} in {wait:.1f}s")
                 time.sleep(wait); continue
-            print(f"  ❌ {r.status_code} on {path}: {r.text[:200]}")
-            return None
+            print(f"  ❌ {r.status_code} on {path}: {r.text[:200]}"); return None
         except requests.RequestException as e:
-            print(f"  ❌ network error {e} on {path} (attempt {attempt})")
+            print(f"  ⚠ network error on {path} (attempt {attempt}): {e}")
             time.sleep(RETRY_BACKOFF ** attempt)
     return None
-
 
 def get_paged(path, params=None):
     items, cursor, page = [], None, 0
@@ -121,39 +118,53 @@ def get_paged(path, params=None):
         if not has_more or not cursor: break
     return items
 
-
-def resolve_fixture_template(grade_id: str) -> Optional[str]:
-    """Probe candidate endpoints once and cache the working one."""
+def resolve_fixture_template(grade_id):
     global _resolved_fixture_tpl
-    if _resolved_fixture_tpl:
-        return _resolved_fixture_tpl
+    if _resolved_fixture_tpl: return _resolved_fixture_tpl
     print("  🔎 Probing fixture endpoint variants…")
     for tpl in FIXTURE_PATHS:
         path = tpl.format(grade_id=grade_id, season_id=SEASON_ID)
-        payload = get(path, silent_404=True)
-        if payload is not None:
+        if get(path, silent_404=True) is not None:
             print(f"  ✓ Using fixture endpoint pattern: {tpl}")
             _resolved_fixture_tpl = tpl
             return tpl
-    print("  ❌ No fixture endpoint variant returned 200 for this grade.")
     return None
 
+def resolve_detail_template(game_id):
+    global _resolved_detail_tpl
+    if _resolved_detail_tpl: return _resolved_detail_tpl
+    print("  🔎 Probing game-detail endpoint variants…")
+    for tpl in GAME_DETAIL_PATHS:
+        path = tpl.format(game_id=game_id)
+        payload = get(path, silent_404=True)
+        if payload is not None:
+            print(f"  ✓ Using game-detail endpoint pattern: {tpl}")
+            _resolved_detail_tpl = tpl
+            return tpl
+    print("  ⚠ No game-detail endpoint variant returned 200")
+    return None
 
 def list_games_for_grade(grade_id):
     print(f"→ Fetching fixture for grade {grade_id}…")
     tpl = resolve_fixture_template(grade_id)
     if not tpl: return []
-    path = tpl.format(grade_id=grade_id, season_id=SEASON_ID)
-    return get_paged(path)
+    return get_paged(tpl.format(grade_id=grade_id, season_id=SEASON_ID))
 
+def get_game_detail(game_id, grade_label=None):
+    tpl = resolve_detail_template(game_id)
+    if not tpl: return None
+    payload = get(tpl.format(game_id=game_id), silent_404=True)
 
-def get_game_detail(game_id):
-    for tpl in GAME_DETAIL_PATHS:
-        path = tpl.format(game_id=game_id)
-        payload = get(path, silent_404=True)
-        if payload is not None:
-            return payload
-    return None
+    # Debug dump: save first game's full JSON per grade so we can see actual shape
+    if payload and DEBUG_DUMP and grade_label and grade_label not in _debug_dumped_grades:
+        DEBUG_DIR.mkdir(parents=True, exist_ok=True)
+        slug = grade_label.replace("'", "").replace(" ", "_").lower()
+        out = DEBUG_DIR / f"sample_game_{slug}.json"
+        out.write_text(json.dumps(payload, indent=2, ensure_ascii=False))
+        print(f"  🐛 Wrote debug sample → {out}")
+        print(f"     Top-level keys: {list(payload.keys())}")
+        _debug_dumped_grades.add(grade_label)
+    return payload
 
 
 # =============================================================
@@ -163,7 +174,9 @@ def player_key(name, team): return f"{(name or '').strip()}__{(team or '').strip
 def safe_int(v):
     try: return int(v)
     except (TypeError, ValueError): return 0
-def extract_team_name(t): return (t or {}).get("name") or (t or {}).get("displayName") or "Unknown"
+def extract_team_name(t):
+    if not t: return "Unknown"
+    return t.get("name") or t.get("displayName") or (t.get("team") or {}).get("name") or "Unknown"
 
 def ensure_player(players, name, team, grade):
     k = player_key(name, team)
@@ -171,6 +184,24 @@ def ensure_player(players, name, team, grade):
         players[k] = {"name": name.strip(), "team": team.strip(), "grade": grade,
                       "games": 0, "timesInBest": 0, "goals": 0, "gameLog": []}
     return players[k]
+
+
+def flexible_list(obj, *keys):
+    """Try multiple possible keys, return first non-empty list."""
+    for k in keys:
+        v = obj.get(k) if isinstance(obj, dict) else None
+        if isinstance(v, list) and v:
+            return v
+    return []
+
+
+def flexible_name(p):
+    if not isinstance(p, dict): return ""
+    direct = p.get("name") or p.get("playerName") or p.get("fullName") or p.get("displayName")
+    if direct: return direct.strip()
+    first = p.get("firstName") or (p.get("person") or {}).get("firstName") or ""
+    last = p.get("lastName") or (p.get("person") or {}).get("lastName") or ""
+    return f"{first} {last}".strip()
 
 
 def aggregate_competition(label, grade_id, players, games_out):
@@ -197,40 +228,49 @@ def aggregate_competition(label, grade_id, players, games_out):
             "awayScore": safe_int(as_) if as_ is not None else None,
         })
 
-        detail = get_game_detail(game_id)
+        detail = get_game_detail(game_id, label)
         if not detail: continue
         process_game_detail(detail, label, home_team, away_team, date_iso, players)
 
 
 def process_game_detail(detail, label, home_team, away_team, date_iso, players):
-    teams_block = detail.get("teams") or [
-        {"name": home_team, **(detail.get("home") or {})},
-        {"name": away_team, **(detail.get("away") or {})},
-    ]
+    teams_block = (
+        flexible_list(detail, "teams")
+        or [
+            {"name": home_team, **(detail.get("home") or detail.get("homeTeam") or {})},
+            {"name": away_team, **(detail.get("away") or detail.get("awayTeam") or {})},
+        ]
+    )
 
     for t in teams_block:
         team_name = extract_team_name(t)
         opponent = away_team if team_name == home_team else home_team
 
-        best_list = (t.get("bestPlayers") or t.get("best")
-                     or (t.get("awards") or {}).get("bestPlayers") or [])
-        best_names = {(b.get("name") or b.get("playerName") or b.get("fullName") or "").strip()
-                      for b in best_list if (b.get("name") or b.get("playerName") or b.get("fullName"))}
+        best_list = flexible_list(t, "bestPlayers", "best",
+                                  *([(t.get("awards") or {}).get("bestPlayers") and "awards"] or []))
+        if not best_list:
+            best_list = (t.get("awards") or {}).get("bestPlayers") or []
 
-        goals_list = (t.get("goalScorers") or t.get("goals")
-                      or (t.get("stats") or {}).get("goalScorers") or [])
+        best_names = {flexible_name(b) for b in best_list if flexible_name(b)}
+
+        goals_list = flexible_list(t, "goalScorers", "goals")
+        if not goals_list:
+            goals_list = (t.get("stats") or {}).get("goalScorers") or []
+
         goal_map = {}
         for g in goals_list:
-            nm = (g.get("name") or g.get("playerName") or g.get("fullName") or "").strip()
+            nm = flexible_name(g)
             if nm:
-                goal_map[nm] = goal_map.get(nm, 0) + safe_int(g.get("goals") or g.get("count") or 1)
+                goal_map[nm] = goal_map.get(nm, 0) + safe_int(
+                    g.get("goals") or g.get("count") or g.get("score") or 1
+                )
 
-        roster = t.get("players") or t.get("lineup") or t.get("roster") or []
+        roster = flexible_list(t, "players", "lineup", "roster", "squad")
         if not roster:
             roster = [{"name": nm} for nm in best_names.union(goal_map.keys())]
 
         for pl in roster:
-            nm = (pl.get("name") or pl.get("playerName") or pl.get("fullName") or "").strip()
+            nm = flexible_name(pl)
             if not nm: continue
             rec = ensure_player(players, nm, team_name, label)
             rec["games"] += 1
@@ -276,6 +316,7 @@ def main():
     print("\n" + "=" * 65)
     print(f"✅ Wrote {len(players_list)} players → {PLAYERS_OUT}")
     print(f"✅ Wrote {len(games_out)} games   → {GAMES_OUT}")
+    print(f"📁 Debug samples written to: {DEBUG_DIR}/ (commit + share with me)")
     print("=" * 65)
     return 0
 
