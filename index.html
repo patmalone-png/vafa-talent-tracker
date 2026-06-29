@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OBGFC Talent Tracker</title>
-  <link rel="stylesheet" href="styles.css" />
+  styles.css
 </head>
 <body>
   <header class="app-header">
@@ -15,6 +15,7 @@
     <nav class="tabs">
       <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
       <button class="tab-btn" data-tab="players">Players</button>
+      <button class="tab-btn" data-tab="watchlist">Watchlist <span class="badge" id="watchCount">0</span></button>
       <button class="tab-btn" data-tab="opponent">Opponent Comparison</button>
       <button class="tab-btn" data-tab="about">About</button>
     </nav>
@@ -36,6 +37,7 @@
           <option value="">Select opponent…</option>
         </select>
       </label>
+      <button class="btn-secondary" id="exportCsvBtn">⬇ Export CSV</button>
       <span class="data-meta" id="dataMeta"></span>
     </section>
 
@@ -43,39 +45,21 @@
     <section id="tab-dashboard" class="tab-panel active">
       <div class="info-card">
         <h3>How the Talent Score is calculated</h3>
-        <p>
-          The <strong>Talent Score</strong> is a weighted index designed to surface standout performers
-          across the season. It blends four signals:
-        </p>
+        <p>The <strong>Talent Score</strong> is a weighted index that surfaces standout performers across the season:</p>
         <ul>
           <li><strong>Times in the Best (40%)</strong> – consistency of impact</li>
           <li><strong>Goals scored (25%)</strong> – attacking output</li>
           <li><strong>Games played (15%)</strong> – availability & reliability</li>
           <li><strong>Recent form (20%)</strong> – performance over last 3 games vs season average</li>
         </ul>
-        <p class="muted">
-          Scores are normalised to a 0–100 range within each grade so players can be compared fairly
-          regardless of competition level.
-        </p>
+        <p class="muted">Scores are normalised 0–100 within the current grade filter so players compare fairly.</p>
       </div>
 
       <div class="leaderboard-grid">
-        <div class="leaderboard-card" id="lb-talent">
-          <h3>Top 5 – Talent Score</h3>
-          <div class="lb-body"></div>
-        </div>
-        <div class="leaderboard-card" id="lb-best">
-          <h3>Top 5 – Times in the Best</h3>
-          <div class="lb-body"></div>
-        </div>
-        <div class="leaderboard-card" id="lb-goals">
-          <h3>Top 5 – Total Goals</h3>
-          <div class="lb-body"></div>
-        </div>
-        <div class="leaderboard-card" id="lb-form">
-          <h3>Top 5 – Form Indicator</h3>
-          <div class="lb-body"></div>
-        </div>
+        <div class="leaderboard-card" id="lb-talent"><h3>Top 5 – Talent Score</h3><div class="lb-body"></div></div>
+        <div class="leaderboard-card" id="lb-best"><h3>Top 5 – Times in the Best</h3><div class="lb-body"></div></div>
+        <div class="leaderboard-card" id="lb-goals"><h3>Top 5 – Total Goals</h3><div class="lb-body"></div></div>
+        <div class="leaderboard-card" id="lb-form"><h3>Top 5 – Form Indicator</h3><div class="lb-body"></div></div>
       </div>
     </section>
 
@@ -84,11 +68,16 @@
       <div class="section">
         <div class="players-toolbar">
           <input type="text" id="playerSearch" placeholder="Search players or teams…" />
+          <label class="check-inline">
+            <input type="checkbox" id="hideOBGFC" />
+            Hide OBGFC players
+          </label>
         </div>
         <div class="table-wrap">
           <table class="data-table" id="playersTable">
             <thead>
               <tr>
+                <th></th>
                 <th>Player</th>
                 <th>Team</th>
                 <th>Grade</th>
@@ -97,6 +86,33 @@
                 <th class="num">Goals</th>
                 <th class="num">Form</th>
                 <th class="num">Talent</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Watchlist tab -->
+    <section id="tab-watchlist" class="tab-panel">
+      <div class="section">
+        <h2>Watchlist</h2>
+        <p class="muted">Players you've starred for follow-up. Stored locally in your browser.</p>
+        <div class="table-wrap">
+          <table class="data-table" id="watchlistTable">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Player</th>
+                <th>Team</th>
+                <th>Grade</th>
+                <th class="num">GP</th>
+                <th class="num">Best</th>
+                <th class="num">Goals</th>
+                <th class="num">Form</th>
+                <th class="num">Talent</th>
+                <th>Notes</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -114,16 +130,21 @@
     <section id="tab-about" class="tab-panel">
       <div class="info-card">
         <h3>About this app</h3>
-        <p>
-          Built for the OBGFC women's football program to surface emerging talent across the VAFA,
-          using data pulled live from PlayHQ. Refreshes nightly via GitHub Actions.
-        </p>
+        <p>Built for the OBGFC women's football program to surface emerging talent across the VAFA, using data pulled live from PlayHQ. Refreshes nightly via GitHub Actions.</p>
         <p class="muted">© Pat Malone · Old Brighton GFC</p>
       </div>
     </section>
 
   </main>
 
-  <script src="app.js"></script>
+  <!-- Player Profile Modal -->
+  <div class="modal-backdrop" id="profileModal" style="display:none;">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  app.js
 </body>
 </html>
