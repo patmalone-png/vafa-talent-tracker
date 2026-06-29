@@ -204,7 +204,7 @@ function updateWatchBadge() {
 }
 
 // =============================================================
-// Ladder + Form Quality
+// Ladder + Form Quality (with venue adjustment)
 // =============================================================
 function buildLadder(allGames, gradeFilter = null) {
   const stats = {};
@@ -243,7 +243,9 @@ function getTeamLadderEntry(ladder, teamName) {
   return ladder.find(t => t.team === teamName) || null;
 }
 
-function rateResult(result, opponentEntry, ladderSize) {function rateResult(result, opponentEntry,  ladder data)", cls: "rq-neutral", tier: "unknown", venueAdj: 0 };
+function rateResult(result, opponentEntry, ladderSize) {
+  if (!opponentEntry || !ladderSize || ladderSize < 2) {
+    return { score: 0, label: "Unrated (no ladder data)", cls: "rq-neutral", tier: "unknown", venueAdj: 0 };
   }
   const oppStrength = 1 - ((opponentEntry.position - 1) / (ladderSize - 1));
   const tier = oppStrength >= 0.66 ? "strong" : oppStrength >= 0.33 ? "mid" : "weak";
@@ -281,25 +283,24 @@ function rateResult(result, opponentEntry, ladderSize) {function rateResult(resu
   }
 
   // -------- Venue adjustment --------
-  // Wins on the road are harder; losses at home are worse.
   let venueAdj = 0;
-  if (isAway && result.result === "W") venueAdj = +1;            // away wins always carry weight
-  else if (isHome && result.result === "L" && tier === "weak") venueAdj = -1;  // home loss to a bottom side compounds the failure
-  else if (isHome && result.result === "L" && tier === "mid") venueAdj = -0.5; // home loss to mid is concerning
-  else if (isAway && result.result === "L" && tier === "strong") venueAdj = +0.5; // away loss to top side is even more excusable
-  else if (isAway && result.result === "D" && tier === "strong") venueAdj = +1;  // away draw vs top = quality
-  else if (isHome && result.result === "D" && tier === "weak") venueAdj = -1;    // home draw vs bottom = poor
+  if (isAway && result.result === "W") venueAdj = +1;
+  else if (isHome && result.result === "L" && tier === "weak") venueAdj = -1;
+  else if (isHome && result.result === "L" && tier === "mid") venueAdj = -0.5;
+  else if (isAway && result.result === "L" && tier === "strong") venueAdj = +0.5;
+  else if (isAway && result.result === "D" && tier === "strong") venueAdj = +1;
+  else if (isHome && result.result === "D" && tier === "weak") venueAdj = -1;
 
   const finalScore = score + venueAdj;
 
-  // Upgrade/downgrade label if venue adjustment is meaningful
+  // Label venue note when adjustment is meaningful
   let venueNote = "";
   if (venueAdj >= 1) venueNote = " (away)";
   else if (venueAdj <= -1) venueNote = " (at home)";
   else if (venueAdj > 0) venueNote = " (away)";
   else if (venueAdj < 0) venueNote = " (at home)";
 
-  // Promote class if venue adjustment shifts result tier
+  // Promote/demote class if venue adjustment shifts tier
   if (finalScore >= 3 && cls !== "rq-great") cls = "rq-great";
   else if (finalScore <= -3 && cls !== "rq-bad") cls = "rq-bad";
 
@@ -312,8 +313,6 @@ function rateResult(result, opponentEntry, ladderSize) {function rateResult(resu
     venue: isHome ? "H" : isAway ? "A" : "?",
   };
 }
-  if (!opponentEntry || !ladderSize || ladderSize < 2) {
-
 
 function summariseFormQuality(rated) {
   if (rated.length === 0) return { total: 0, label: "—", cls: "rq-neutral" };
@@ -356,7 +355,7 @@ function emergingTag(p) {
 }
 
 // =============================================================
-// Team Form
+// Team Form (carries isHome / venue)
 // =============================================================
 function getTeamLastN(allGames, teamName, n = 3) {
   if (!allGames || !Array.isArray(allGames)) return [];
@@ -529,16 +528,35 @@ function renderOBGFCSummary() {
   const bar = document.getElementById("obgfcSummaryBar");
   if (!bar) return;
   const squad = players.filter(p => p.team === OBGFC);
-  const games = squad.reduce((s, p) => Math.max(s, p.games || 0), 0);
+  const gameCount = squad.reduce((s, p) => Math.max(s, p.games || 0), 0);
   const totalBest = squad.reduce((s, p) => s + (p.timesInBest || 0), 0);
   const totalGoals = squad.reduce((s, p) => s + (p.goals || 0), 0);
   const avgForm = squad.length ? Math.round(squad.reduce((s, p) => s + (p.formIndicator || 0), 0) / squad.length) : 0;
+
+  // Home / away split for the team
+  const teamGames = games.filter(g =>
+    (g.homeTeam === OBGFC || g.awayTeam === OBGFC) &&
+    g.homeScore != null && g.awayScore != null &&
+    !(g.homeScore === 0 && g.awayScore === 0) &&
+    (g.status ? g.status === "FINAL" : true)
+  );
+  let hW = 0, hL = 0, aW = 0, aL = 0;
+  teamGames.forEach(g => {
+    const isHome = g.homeTeam === OBGFC;
+    const teamScore = isHome ? g.homeScore : g.awayScore;
+    const oppScore = isHome ? g.awayScore : g.homeScore;
+    if (isHome) { teamScore > oppScore ? hW++ : (teamScore < oppScore ? hL++ : 0); }
+    else { teamScore > oppScore ? aW++ : (teamScore < oppScore ? aL++ : 0); }
+  });
+
   bar.innerHTML = `
     <div class="summary-pill"><span>Squad</span><strong>${squad.length}</strong></div>
-    <div class="summary-pill"><span>Games</span><strong>${games}</strong></div>
+    <div class="summary-pill"><span>Games</span><strong>${gameCount}</strong></div>
     <div class="summary-pill"><span>Total Bests</span><strong>${totalBest}</strong></div>
     <div class="summary-pill"><span>Total Goals</span><strong>${totalGoals}</strong></div>
     <div class="summary-pill"><span>Avg Form</span><strong>${avgForm}</strong></div>
+    <div class="summary-pill"><span>Home</span><strong>${hW}W-${hL}L</strong></div>
+    <div class="summary-pill"><span>Away</span><strong>${aW}W-${aL}L</strong></div>
   `;
 }
 
@@ -554,7 +572,8 @@ function renderOBGFCFormBlock() {
   }));
   const chips = ratedResults.map(r => {
     const cls = r.result === "W" ? "chip-w" : r.result === "L" ? "chip-l" : "chip-d";
-    return `<span class="form-chip ${cls}" title="${r.date} vs ${escapeHtml(r.opponent)} (${r.teamScore}-${r.oppScore}) — ${r.quality.label}">${r.result}<span class="quality-mark ${r.quality.cls}"></span></span>`;
+    const venueTag = r.isHome ? "H" : "A";
+    return `<span class="form-chip ${cls}" title="${r.date} ${venueTag} vs ${escapeHtml(r.opponent)} (${r.teamScore}-${r.oppScore}) — ${r.quality.label}">${r.result}<span class="venue-mark">${venueTag}</span><span class="quality-mark ${r.quality.cls}"></span></span>`;
   }).join("");
   const quality = summariseFormQuality(ratedResults.map(r => r.quality));
   const ladderInfo = ladderEntry
@@ -829,7 +848,8 @@ function renderFormCard(teamName, form, isOBGFC, ladder) {
   }));
   const chips = ratedResults.map(r => {
     const cls = r.result === "W" ? "chip-w" : r.result === "L" ? "chip-l" : "chip-d";
-    return `<span class="form-chip ${cls}" title="${r.date} vs ${escapeHtml(r.opponent)} (${r.teamScore}-${r.oppScore}) — ${r.quality.label}">${r.result}<span class="quality-mark ${r.quality.cls}"></span></span>`;
+    const venueTag = r.isHome ? "H" : "A";
+    return `<span class="form-chip ${cls}" title="${r.date} ${venueTag} vs ${escapeHtml(r.opponent)} (${r.teamScore}-${r.oppScore}) — ${r.quality.label}">${r.result}<span class="venue-mark">${venueTag}</span><span class="quality-mark ${r.quality.cls}"></span></span>`;
   }).join("");
   const quality = summariseFormQuality(ratedResults.map(r => r.quality));
   const ladderInfo = ladderEntry
@@ -927,7 +947,6 @@ function renderCoachBrief() {
   const obgfcEntry = getTeamLadderEntry(ladder, OBGFC);
   const ladderSize = ladder.length;
 
-  // Last 5 games for opponent
   const oppLast5 = getTeamLastN(games, opponent, 5);
   const ratedLast5 = oppLast5.map(g => {
     const isHome = g.homeTeam === opponent;
@@ -936,22 +955,15 @@ function renderCoachBrief() {
     const oppOf = isHome ? g.awayTeam : g.homeTeam;
     const margin = teamScore - oppScore;
     const result = margin > 0 ? "W" : margin < 0 ? "L" : "D";
-    const r = { date: g.date, opponent: oppOf, teamScore, oppScore, margin, result };
+    const r = { date: g.date, opponent: oppOf, teamScore, oppScore, margin, result, isHome, venue: isHome ? "H" : "A" };
     return { ...r, quality: rateResult(r, getTeamLadderEntry(ladder, oppOf), ladderSize) };
   });
   const last3Form = getTeamFormSummary(games, opponent, 3);
-
-  // Their key threats
   const oppTop5 = topPlayersForTeam(withTalent(players), opponent, 5);
-
-  // Match meta
   const matchDate = autoSelectedMeta?.date || "TBC";
   const matchType = autoSelectedMeta?.type === "upcoming" ? "Upcoming match" : "Most recent encounter";
-
-  // Form explainer
   const formExplainer = buildFormExplainer(ratedLast5.slice(0, 3));
 
-  // Ladder context
   let ladderRead = "";
   if (ladderEntry) {
     const posPercent = Math.round((1 - (ladderEntry.position - 1) / Math.max(1, ladderSize - 1)) * 100);
@@ -960,7 +972,6 @@ function renderCoachBrief() {
     else ladderRead = `<strong>${escapeHtml(opponent)}</strong> sit at <strong>#${ladderEntry.position} of ${ladderSize}</strong> in ${escapeHtml(matchupGrade || "this grade")} — bottom-tier outfit (${ladderEntry.percentage}% scoring ratio, ${ladderEntry.w}W-${ladderEntry.l}L-${ladderEntry.d}D). Expectation is a comfortable win.`;
   }
 
-  // Matchup verdict
   let verdict = { cls: "brief-callout", text: "Even contest on paper." };
   if (obgfcEntry && ladderEntry) {
     const diff = ladderEntry.position - obgfcEntry.position;
@@ -971,19 +982,18 @@ function renderCoachBrief() {
     else verdict = { cls: "brief-callout", text: `Closely matched (#${obgfcEntry.position} vs #${ladderEntry.position}) — game on paper. First 10 minutes will set the tone.` };
   }
 
-  // Last 5 results table
   const last5Rows = ratedLast5.length ? ratedLast5.map(r => `
     <tr>
       <td>${escapeHtml(r.date || "")}</td>
+      <td>${r.isHome ? "H" : "A"}</td>
       <td>${escapeHtml(r.opponent || "")}</td>
       <td class="result-${r.result.toLowerCase()}">${r.result}</td>
       <td class="num">${r.teamScore}–${r.oppScore}</td>
       <td class="num">${r.margin > 0 ? "+" : ""}${r.margin}</td>
       <td><span class="quality-tag ${r.quality.cls}">${escapeHtml(r.quality.label)}</span></td>
     </tr>
-  `).join("") : `<tr><td colspan="6" class="empty">No completed games on record.</td></tr>`;
+  `).join("") : `<tr><td colspan="7" class="empty">No completed games on record.</td></tr>`;
 
-  // Threats grid
   const threats = oppTop5.map(p => `
     <div class="brief-threat-card">
       <h4>${escapeHtml(p.name)}</h4>
@@ -1019,7 +1029,7 @@ function renderCoachBrief() {
         <h2>📅 Last 5 games for ${escapeHtml(opponent)}</h2>
         <table class="brief-results-table">
           <thead>
-            <tr><th>Date</th><th>Opponent</th><th>Result</th><th class="num">Score</th><th class="num">Margin</th><th>Quality</th></tr>
+            <tr><th>Date</th><th>H/A</th><th>Opponent</th><th>Result</th><th class="num">Score</th><th class="num">Margin</th><th>Quality</th></tr>
           </thead>
           <tbody>${last5Rows}</tbody>
         </table>
@@ -1039,7 +1049,7 @@ function renderCoachBrief() {
       <div class="brief-section">
         <h2>📝 Coach's notes</h2>
         <div class="brief-callout">
-          Print this brief and add hand-written tactical notes for the match committee — strong sides need their top players covered early, mid-table outfits often fade in the third quarter, and bottom sides will throw the kitchen sink at the first 10 minutes.
+          Print this brief and add hand-written tactical notes for the match committee — strong sides need their top players covered early, mid-table outfits often fade in the third quarter, and bottom sides will throw the kitchen sink at the first 10 minutes. Away wins always carry extra weight — factor venue when assessing form.
         </div>
       </div>
     </div>
@@ -1054,6 +1064,7 @@ function buildFormExplainer(rated) {
       <div>
         <strong>${r.result === "W" ? "Win" : r.result === "L" ? "Loss" : "Draw"}</strong>
         ${r.margin !== 0 ? ` by ${Math.abs(r.margin)}` : ""}
+        ${r.isHome ? "at home" : "away"}
         vs <strong>${escapeHtml(r.opponent)}</strong>
         — <em>${escapeHtml(r.quality.label)}</em>.
         ${describeQuality(r)}
@@ -1065,44 +1076,39 @@ function buildFormExplainer(rated) {
 
 function describeQuality(r) {
   const t = r.quality.tier;
-  const venue = r.isHome ? "at home" : "away";
-  const venueAdj = r.quality.venueAdj || 0;
-
   if (r.result === "W") {
     if (t === "strong") {
-      if (!r.isHome) return `Beating a top-half side ${venue} is a real statement — confidence is earned, not given.`;
-      return `Beating a top side at home is the expectation when it matters — execution paid off.`;
+      if (!r.isHome) return "Beating a top-half side on the road is a real statement — confidence is earned, not given.";
+      return "Beating a top side at home is the expectation when it matters — execution paid off.";
     }
     if (t === "mid") {
-      if (!r.isHome) return `Picking up the win ${venue} against a mid-table side is solid — road wins always carry extra weight.`;
-      return `Held serve at home against a mid-table side — expected, executed.`;
+      if (!r.isHome) return "Picking up the win away against a mid-table side is solid — road wins always carry extra weight.";
+      return "Held serve at home against a mid-table side — expected, executed.";
     }
-    if (!r.isHome) return `Win on the road, even against a bottom side, is never a given.`;
-    return `Home win against a bottom side — flatters the form line a touch.`;
+    if (!r.isHome) return "Win on the road, even against a bottom side, is never a given.";
+    return "Home win against a bottom side — flatters the form line a touch.";
   }
-
   if (r.result === "L") {
     if (t === "strong") {
-      if (!r.isHome) return `Loss to a top side ${venue} is highly excusable — focus is on the next one.`;
-      return `Loss to a top side at home is disappointing but not alarming — they're meant to beat us.`;
+      if (!r.isHome) return "Loss to a top side on the road is highly excusable — focus is on the next one.";
+      return "Loss to a top side at home is disappointing but not alarming — they're meant to beat us.";
     }
     if (t === "mid") {
-      if (r.isHome) return `Losing at home to a mid-table side raises real questions — home form is concerning.`;
-      return `Mid-table loss on the road — frustrating but recoverable.`;
+      if (r.isHome) return "Losing at home to a mid-table side raises real questions — home form is concerning.";
+      return "Mid-table loss on the road — frustrating but recoverable.";
     }
-    if (r.isHome) return `Losing at home to a bottom side is a five-alarm fire — major vulnerability to exploit.`;
-    return `Loss to a bottom side, even away, is a red flag worth pressing on.`;
+    if (r.isHome) return "Losing at home to a bottom side is a five-alarm fire — major vulnerability to exploit.";
+    return "Loss to a bottom side, even away, is a red flag worth pressing on.";
   }
-
   if (t === "strong") {
-    if (!r.isHome) return `Drawing with a top side on their deck is genuinely creditable — they'd have expected the win.`;
-    return `Holding a top side to a draw at home is a missed opportunity to push them.`;
+    if (!r.isHome) return "Drawing with a top side on their deck is genuinely creditable — they'd have expected the win.";
+    return "Holding a top side to a draw at home is a missed opportunity to push them.";
   }
   if (t === "weak") {
-    if (r.isHome) return `Drawing with a bottom side at home suggests form may be soft — they should be putting these sides away.`;
-    return `Disappointing draw with a bottom side on the road.`;
+    if (r.isHome) return "Drawing with a bottom side at home suggests form may be soft — they should be putting these sides away.";
+    return "Disappointing draw with a bottom side on the road.";
   }
-  return `Coin-flip result against an evenly matched opponent — venue ${venue}.`;
+  return "Coin-flip result against an evenly matched opponent.";
 }
 
 // =============================================================
