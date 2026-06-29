@@ -8,14 +8,18 @@ const DATA_GAMES = "data/games.json";
 const WATCH_KEY = "obgfc_watchlist_v1";
 const NOTES_KEY = "obgfc_notes_v1";
 
+// ---------- State ----------
 let players = [];
 let games = [];
 let currentGrade = "all";
 let currentOpponent = "";
 let watchlist = new Set();
 let notes = {};
+let autoSelectedMeta = null;  // tracks when opponent was auto-picked
 
-// ---------- Boot ----------
+// =============================================================
+// Boot
+// =============================================================
 document.addEventListener("DOMContentLoaded", async () => {
   loadWatchlist();
   loadNotes();
@@ -38,31 +42,27 @@ async function loadData() {
     if (meta) meta.textContent = `${players.length} players · ${games.length} games`;
   } catch (err) {
     console.error("Data load failed:", err);
-    players = []; games = [];
+    players = [];
+    games = [];
   }
 }
 
-// ---------- Enrichment (derives missing fields if fetch script didn't supply them) ----------
+// =============================================================
+// Enrichment — derive missing fields if fetch script didn't supply them
+// =============================================================
 function enrichPlayersInPlace() {
   players.forEach(p => {
     if (!Array.isArray(p.gameLog)) p.gameLog = [];
 
-    // Fallback: derive timesInBest from gameLog if not provided
     if (p.timesInBest == null) {
       p.timesInBest = p.gameLog.filter(g => g.inBest === true || g.bestPlayer === true).length;
     }
-
-    // Fallback: derive games count if missing
     if (p.games == null) {
       p.games = p.gameLog.length || 0;
     }
-
-    // Fallback: derive goals if missing
     if (p.goals == null) {
       p.goals = p.gameLog.reduce((sum, g) => sum + (Number(g.goals) || 0), 0);
     }
-
-    // Compute Form Indicator if missing (0–100)
     if (p.formIndicator == null) {
       p.formIndicator = computeFormIndicator(p);
     }
@@ -74,18 +74,19 @@ function computeFormIndicator(p) {
   const sorted = [...p.gameLog].sort((a, b) => new Date(b.date) - new Date(a.date));
   const recent = sorted.slice(0, 3);
   if (recent.length === 0) return 0;
-  const recentImpact = recent.reduce((s, g) =>
-    s + ((g.inBest || g.bestPlayer) ? 1 : 0) + ((Number(g.goals) || 0) * 0.5), 0
-  ) / recent.length;
-  const seasonImpact = sorted.reduce((s, g) =>
-    s + ((g.inBest || g.bestPlayer) ? 1 : 0) + ((Number(g.goals) || 0) * 0.5), 0
-  ) / sorted.length;
+
+  const impact = g => ((g.inBest || g.bestPlayer) ? 1 : 0) + ((Number(g.goals) || 0) * 0.5);
+  const recentImpact = recent.reduce((s, g) => s + impact(g), 0) / recent.length;
+  const seasonImpact = sorted.reduce((s, g) => s + impact(g), 0) / sorted.length;
+
   if (seasonImpact === 0 && recentImpact === 0) return 0;
   const ratio = seasonImpact === 0 ? 1 : recentImpact / seasonImpact;
   return Math.max(0, Math.min(100, Math.round(ratio * 50 + recentImpact * 25)));
 }
 
-// ---------- Tabs ----------
+// =============================================================
+// Tabs
+// =============================================================
 function setupTabs() {
   document.querySelectorAll(".tab-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -98,7 +99,10 @@ function setupTabs() {
       const oppWrap = document.getElementById("opponentFilterWrap");
       oppWrap.style.display = (tab === "opponent") ? "" : "none";
 
-      if (tab === "opponent") renderOpponentComparison();
+      if (tab === "opponent") {
+        autoSelectNextOpponent();
+        renderOpponentComparison();
+      }
       if (tab === "players") renderPlayersTable();
       if (tab === "watchlist") renderWatchlist();
       if (tab === "dashboard") renderDashboard();
@@ -106,30 +110,41 @@ function setupTabs() {
   });
 }
 
-// ---------- Filters / Toolbar ----------
+// =============================================================
+// Filters / Toolbar
+// =============================================================
 function setupFilters() {
   document.getElementById("gradeFilter").addEventListener("change", e => {
-  currentGrade = e.target.value;
-  populateOpponentFilter();   // ← add this line
-  renderAll();
-});
+    currentGrade = e.target.value;
+    populateOpponentFilter();
+    autoSelectedMeta = null;
+    renderAll();
+  });
+
   document.getElementById("opponentSelect").addEventListener("change", e => {
     currentOpponent = e.target.value;
+    autoSelectedMeta = null;   // user override clears auto-pick banner
     renderOpponentComparison();
   });
+
   const search = document.getElementById("playerSearch");
   if (search) search.addEventListener("input", renderPlayersTable);
+
   const hide = document.getElementById("hideOBGFC");
   if (hide) hide.addEventListener("change", renderPlayersTable);
+
   document.getElementById("exportCsvBtn").addEventListener("click", exportCsv);
 }
 
 function populateGradeFilter() {
   const sel = document.getElementById("gradeFilter");
   const grades = Array.from(new Set(players.map(p => p.grade).filter(Boolean))).sort();
+  // Clear existing options except "All Grades"
+  sel.innerHTML = `<option value="all">All Grades</option>`;
   grades.forEach(g => {
     const opt = document.createElement("option");
-    opt.value = g; opt.textContent = g;
+    opt.value = g;
+    opt.textContent = g;
     sel.appendChild(opt);
   });
 }
@@ -147,15 +162,21 @@ function populateOpponentFilter() {
     if (g.awayTeam && g.awayTeam !== OBGFC) teams.add(g.awayTeam);
   });
 
-  // Rebuild dropdown
-  const current = sel.value;
+  const previous = sel.value;
   sel.innerHTML = `<option value="">Select opponent…</option>`;
   Array.from(teams).sort().forEach(t => {
     const opt = document.createElement("option");
-    opt.value = t; opt.textContent = t;
+    opt.value = t;
+    opt.textContent = t;
     sel.appendChild(opt);
   });
-  if (Array.from(teams).includes(current)) sel.value = current;
+
+  // Preserve selection if still relevant
+  if (Array.from(teams).includes(previous)) {
+    sel.value = previous;
+  } else {
+    currentOpponent = "";
+  }
 }
 
 function filteredPlayers() {
@@ -163,50 +184,77 @@ function filteredPlayers() {
   return players.filter(p => p.grade === currentGrade);
 }
 
-// ---------- Talent Score ----------
+// =============================================================
+// Talent Score
+// =============================================================
 function calcTalentScore(p, pool) {
   if (!p) return 0;
-  const maxBest  = Math.max(1, ...pool.map(x => x.timesInBest || 0));
+  const maxBest = Math.max(1, ...pool.map(x => x.timesInBest || 0));
   const maxGoals = Math.max(1, ...pool.map(x => x.goals || 0));
   const maxGames = Math.max(1, ...pool.map(x => x.games || 0));
-  const bestN  = (p.timesInBest || 0) / maxBest;
+  const bestN = (p.timesInBest || 0) / maxBest;
   const goalsN = (p.goals || 0) / maxGoals;
   const gamesN = (p.games || 0) / maxGames;
-  const formN  = Math.max(0, Math.min(1, (p.formIndicator || 0) / 100));
+  const formN = Math.max(0, Math.min(1, (p.formIndicator || 0) / 100));
   const score = (bestN * 0.40) + (goalsN * 0.25) + (gamesN * 0.15) + (formN * 0.20);
   return Math.round(score * 1000) / 10;
 }
+
 function withTalent(pool) {
   return pool.map(p => ({ ...p, talentScore: calcTalentScore(p, pool) }));
 }
 
-// ---------- Watchlist persistence ----------
+// =============================================================
+// Watchlist persistence
+// =============================================================
 function loadWatchlist() {
-  try { watchlist = new Set(JSON.parse(localStorage.getItem(WATCH_KEY) || "[]")); }
-  catch { watchlist = new Set(); }
+  try {
+    watchlist = new Set(JSON.parse(localStorage.getItem(WATCH_KEY) || "[]"));
+  } catch {
+    watchlist = new Set();
+  }
 }
+
 function saveWatchlist() {
   localStorage.setItem(WATCH_KEY, JSON.stringify([...watchlist]));
   updateWatchBadge();
 }
+
 function loadNotes() {
-  try { notes = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}"); }
-  catch { notes = {}; }
+  try {
+    notes = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}");
+  } catch {
+    notes = {};
+  }
 }
-function saveNotes() { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); }
-function playerKey(p) { return `${p.name}__${p.team}`; }
-function isWatched(p) { return watchlist.has(playerKey(p)); }
+
+function saveNotes() {
+  localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+}
+
+function playerKey(p) {
+  return `${p.name}__${p.team}`;
+}
+
+function isWatched(p) {
+  return watchlist.has(playerKey(p));
+}
+
 function toggleWatch(p) {
   const k = playerKey(p);
-  if (watchlist.has(k)) watchlist.delete(k); else watchlist.add(k);
+  if (watchlist.has(k)) watchlist.delete(k);
+  else watchlist.add(k);
   saveWatchlist();
 }
+
 function updateWatchBadge() {
   const b = document.getElementById("watchCount");
   if (b) b.textContent = watchlist.size;
 }
 
-// ---------- Renderers ----------
+// =============================================================
+// Renderers
+// =============================================================
 function renderAll() {
   updateWatchBadge();
   renderDashboard();
@@ -230,7 +278,12 @@ function fillLeaderboard(cardId, pool, key, fmt = v => v) {
     .filter(p => (p[key] ?? 0) > 0)
     .sort((a, b) => (b[key] || 0) - (a[key] || 0))
     .slice(0, 5);
-  if (top.length === 0) { body.innerHTML = `<div class="empty">No data</div>`; return; }
+
+  if (top.length === 0) {
+    body.innerHTML = `<div class="empty">No data</div>`;
+    return;
+  }
+
   body.innerHTML = top.map((p, i) => `
     <div class="lb-row ${p.team === OBGFC ? "is-obgfc" : ""}">
       <span class="lb-rank">${i + 1}</span>
@@ -241,8 +294,12 @@ function fillLeaderboard(cardId, pool, key, fmt = v => v) {
       <span class="lb-val">${fmt(p[key] || 0)}</span>
     </div>
   `).join("");
+
   body.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      openProfileByKey(a.dataset.player);
+    })
   );
 }
 
@@ -253,7 +310,9 @@ function renderPlayersTable() {
   const hideOBGFC = document.getElementById("hideOBGFC")?.checked;
   const pool = withTalent(filteredPlayers())
     .filter(p => !(hideOBGFC && p.team === OBGFC))
-    .filter(p => !search || (p.name || "").toLowerCase().includes(search) || (p.team || "").toLowerCase().includes(search))
+    .filter(p => !search ||
+      (p.name || "").toLowerCase().includes(search) ||
+      (p.team || "").toLowerCase().includes(search))
     .sort((a, b) => (b.talentScore || 0) - (a.talentScore || 0));
 
   if (pool.length === 0) {
@@ -268,7 +327,7 @@ function renderPlayersTable() {
       </td>
       <td>
         ${p.team === OBGFC ? '<span class="dot-obgfc" title="OBGFC player"></span>' : ""}
-        <a href="#" class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
+        " class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
       </td>
       <td>${escapeHtml(p.team || "")}</td>
       <td>${escapeHtml(p.grade || "")}</td>
@@ -281,14 +340,21 @@ function renderPlayersTable() {
   `).join("");
 
   tbody.querySelectorAll(".star-btn").forEach(b =>
-    b.addEventListener("click", e => {
+    b.addEventListener("click", () => {
       const k = b.dataset.key;
       const p = players.find(x => playerKey(x) === k);
-      if (p) { toggleWatch(p); renderPlayersTable(); renderWatchlist(); }
+      if (p) {
+        toggleWatch(p);
+        renderPlayersTable();
+        renderWatchlist();
+      }
     })
   );
   tbody.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      openProfileByKey(a.dataset.player);
+    })
   );
 }
 
@@ -296,10 +362,12 @@ function renderWatchlist() {
   const tbody = document.querySelector("#watchlistTable tbody");
   if (!tbody) return;
   const pool = withTalent(players).filter(isWatched);
+
   if (pool.length === 0) {
     tbody.innerHTML = `<tr><td colspan="10" class="empty">No players in your watchlist yet. Star a player from the Players tab.</td></tr>`;
     return;
   }
+
   tbody.innerHTML = pool.map(p => {
     const k = playerKey(p);
     const note = notes[k] || "";
@@ -325,38 +393,56 @@ function renderWatchlist() {
   tbody.querySelectorAll(".star-btn").forEach(b =>
     b.addEventListener("click", () => {
       const p = players.find(x => playerKey(x) === b.dataset.key);
-      if (p) { toggleWatch(p); renderWatchlist(); renderPlayersTable(); }
+      if (p) {
+        toggleWatch(p);
+        renderWatchlist();
+        renderPlayersTable();
+      }
     })
   );
   tbody.querySelectorAll(".note-input").forEach(inp =>
-    inp.addEventListener("change", () => { notes[inp.dataset.key] = inp.value; saveNotes(); })
+    inp.addEventListener("change", () => {
+      notes[inp.dataset.key] = inp.value;
+      saveNotes();
+    })
   );
   tbody.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      openProfileByKey(a.dataset.player);
+    })
   );
 }
 
-// ---------- Player Profile Modal ----------
+// =============================================================
+// Player Profile Modal
+// =============================================================
 function setupModal() {
   document.getElementById("modalClose").addEventListener("click", closeModal);
   document.getElementById("profileModal").addEventListener("click", e => {
     if (e.target.id === "profileModal") closeModal();
   });
 }
-function closeModal() { document.getElementById("profileModal").style.display = "none"; }
+
+function closeModal() {
+  document.getElementById("profileModal").style.display = "none";
+}
+
 function openProfileByKey(key) {
   const p = players.find(x => playerKey(x) === key);
   if (!p) return;
   const enriched = withTalent(players).find(x => playerKey(x) === key) || p;
   const log = [...(p.gameLog || [])].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const rows = log.length ? log.map(g => `
-    <tr>
-      <td>${escapeHtml(g.date || "")}</td>
-      <td>${escapeHtml(g.opponent || "")}</td>
-      <td class="num">${g.goals ?? 0}</td>
-      <td>${(g.inBest || g.bestPlayer) ? "✅" : ""}</td>
-    </tr>
-  `).join("") : `<tr><td colspan="4" class="empty">No game log available.</td></tr>`;
+  const rows = log.length
+    ? log.map(g => `
+        <tr>
+          <td>${escapeHtml(g.date || "")}</td>
+          <td>${escapeHtml(g.opponent || "")}</td>
+          <td class="num">${g.goals ?? 0}</td>
+          <td>${(g.inBest || g.bestPlayer) ? "✅" : ""}</td>
+        </tr>
+      `).join("")
+    : `<tr><td colspan="4" class="empty">No game log available.</td></tr>`;
 
   const k = playerKey(p);
   document.getElementById("modalBody").innerHTML = `
@@ -384,24 +470,28 @@ function openProfileByKey(key) {
   document.getElementById("profileModal").style.display = "flex";
   document.getElementById("modalWatchBtn").addEventListener("click", () => {
     toggleWatch(p);
-    renderPlayersTable(); renderWatchlist();
+    renderPlayersTable();
+    renderWatchlist();
     openProfileByKey(k);
   });
 }
 
-// ---------- Team Form (last 3 games) ----------
+// =============================================================
+// Team Form (last 3 played games)
+// =============================================================
 function getTeamLast3(allGames, teamName) {
   if (!allGames || !Array.isArray(allGames)) return [];
   return allGames
     .filter(g => g.homeTeam === teamName || g.awayTeam === teamName)
     .filter(g =>
       g.homeScore != null && g.awayScore != null &&
-      !(g.homeScore === 0 && g.awayScore === 0) &&     // skip "null both" / unplayed
-      (g.status ? g.status === "FINAL" : true)         // honour status when present
+      !(g.homeScore === 0 && g.awayScore === 0) &&
+      (g.status ? g.status === "FINAL" : true)
     )
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3);
 }
+
 function getTeamFormSummary(allGames, teamName) {
   const last3 = getTeamLast3(allGames, teamName);
   if (last3.length === 0) {
@@ -411,9 +501,9 @@ function getTeamFormSummary(allGames, teamName) {
   const results = last3.map(g => {
     const isHome = g.homeTeam === teamName;
     const teamScore = isHome ? Number(g.homeScore) : Number(g.awayScore);
-    const oppScore  = isHome ? Number(g.awayScore) : Number(g.homeScore);
-    const opponent  = isHome ? g.awayTeam : g.homeTeam;
-    const margin    = teamScore - oppScore;
+    const oppScore = isHome ? Number(g.awayScore) : Number(g.homeScore);
+    const opponent = isHome ? g.awayTeam : g.homeTeam;
+    const margin = teamScore - oppScore;
     marginTotal += margin;
     let r = "D";
     if (margin > 0) { r = "W"; wins++; }
@@ -423,43 +513,111 @@ function getTeamFormSummary(allGames, teamName) {
   });
   const marginAvg = Math.round(marginTotal / last3.length);
   let trend = "Mixed form", emoji = "➖";
-  if (wins >= 2 && marginAvg > 0)        { trend = "In form";     emoji = "🔥"; }
+  if (wins >= 2 && marginAvg > 0) { trend = "In form"; emoji = "🔥"; }
   else if (losses >= 2 && marginAvg < 0) { trend = "Out of form"; emoji = "❄️"; }
   return { results, wins, losses, draws, marginAvg, trend, emoji, gamesCounted: last3.length };
 }
 
-// ---------- Opponent Comparison ----------
+// =============================================================
+// Auto-select OBGFC's next opponent
+// =============================================================
+function findNextOBGFCOpponent() {
+  const today = new Date().toISOString().slice(0, 10);
+  const obgfcGames = games.filter(g => {
+    const isOurs = g.homeTeam === OBGFC || g.awayTeam === OBGFC;
+    const gradeMatch = (currentGrade === "all") || (g.grade === currentGrade);
+    return isOurs && gradeMatch;
+  });
+
+  const upcoming = obgfcGames
+    .filter(g => g.date && g.date >= today)
+    .filter(g => g.status !== "FINAL")
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  if (upcoming.length > 0) {
+    const next = upcoming[0];
+    const opp = next.homeTeam === OBGFC ? next.awayTeam : next.homeTeam;
+    return { opponent: opp, date: next.date, type: "upcoming" };
+  }
+
+  const past = obgfcGames
+    .filter(g => g.date)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  if (past.length > 0) {
+    const last = past[0];
+    const opp = last.homeTeam === OBGFC ? last.awayTeam : last.homeTeam;
+    return { opponent: opp, date: last.date, type: "recent" };
+  }
+
+  return null;
+}
+
+function autoSelectNextOpponent() {
+  if (currentOpponent) return;     // user already picked
+  const next = findNextOBGFCOpponent();
+  if (!next) return;
+  const sel = document.getElementById("opponentSelect");
+  const exists = Array.from(sel.options).some(o => o.value === next.opponent);
+  if (exists) {
+    sel.value = next.opponent;
+    currentOpponent = next.opponent;
+    autoSelectedMeta = next;
+  }
+}
+
+// =============================================================
+// Opponent Comparison
+// =============================================================
 function renderOpponentComparison() {
   const root = document.getElementById("tab-opponent");
   if (!root) return;
   const opponent = currentOpponent;
+
   if (!opponent) {
     root.innerHTML = `<div class="empty">Select an opponent to view the comparison.</div>`;
     return;
   }
+
   const obgfcForm = getTeamFormSummary(games, OBGFC);
-  const oppForm   = getTeamFormSummary(games, opponent);
+  const oppForm = getTeamFormSummary(games, opponent);
+
   const pool = withTalent(players);
   const obgfcTop5 = topPlayersForTeam(pool, OBGFC, 5);
-  const oppTop5   = topPlayersForTeam(pool, opponent, 5);
+  const oppTop5 = topPlayersForTeam(pool, opponent, 5);
+
+  const banner = (autoSelectedMeta && autoSelectedMeta.opponent === opponent)
+    ? `<div class="auto-banner">
+         ${autoSelectedMeta.type === "upcoming"
+           ? `📅 Auto-loaded next match: <strong>${escapeHtml(opponent)}</strong> on ${escapeHtml(autoSelectedMeta.date)}`
+           : `📋 No upcoming match — showing most recent opponent: <strong>${escapeHtml(opponent)}</strong> (${escapeHtml(autoSelectedMeta.date)})`}
+       </div>`
+    : "";
 
   root.innerHTML = `
     <div class="section">
+      ${banner}
       <h2>OBGFC vs ${escapeHtml(opponent)}</h2>
+
       <div class="form-grid">
         ${renderFormCard(OBGFC, obgfcForm, true)}
         ${renderFormCard(opponent, oppForm, false)}
       </div>
+
       <div class="compare-grid">
-        ${renderTopPlayersTable(`${OBGFC} – Top 5`, obgfcTop5, true)}
+        ${renderTopPlayersTable(`${escapeHtml(OBGFC)} – Top 5`, obgfcTop5, true)}
         ${renderTopPlayersTable(`${escapeHtml(opponent)} – Top 5`, oppTop5, false)}
       </div>
+
       <div class="matchup-note">${buildMatchupNote(obgfcForm, oppForm)}</div>
     </div>
   `;
 
   root.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      openProfileByKey(a.dataset.player);
+    })
   );
 }
 
@@ -468,6 +626,7 @@ function renderFormCard(teamName, form, isOBGFC) {
     const cls = r.result === "W" ? "chip-w" : r.result === "L" ? "chip-l" : "chip-d";
     return `<span class="form-chip ${cls}" title="${r.date} vs ${escapeHtml(r.opponent)} (${r.teamScore}-${r.oppScore})">${r.result}</span>`;
   }).join("");
+
   return `
     <div class="form-card ${isOBGFC ? "card-obgfc" : ""}">
       <div class="form-header">
@@ -490,18 +649,24 @@ function renderTopPlayersTable(title, list, isOBGFC) {
   }
   const rows = list.map(p => `
     <tr class="${isOBGFC ? "row-obgfc" : ""}">
-      <td>${isOBGFC ? '<span class="dot-obgfc"></span>' : ""}<a href="#" class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a></td>
+      <td>
+        ${isOBGFC ? '<span class="dot-obgfc"></span>' : ""}
+        " class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
+      </td>
       <td class="num">${p.games || 0}</td>
       <td class="num">${p.timesInBest || 0}</td>
       <td class="num">${p.goals || 0}</td>
       <td class="num">${(p.talentScore || 0).toFixed(1)}</td>
     </tr>
   `).join("");
+
   return `
     <div class="top-table">
       <h3>${title}</h3>
       <table>
-        <thead><tr><th>Player</th><th class="num">GP</th><th class="num">Best</th><th class="num">Goals</th><th class="num">Talent</th></tr></thead>
+        <thead>
+          <tr><th>Player</th><th class="num">GP</th><th class="num">Best</th><th class="num">Goals</th><th class="num">Talent</th></tr>
+        </thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
@@ -525,11 +690,13 @@ function buildMatchupNote(obgfc, opp) {
   return `<strong>Form read:</strong> ${lean}`;
 }
 
-// ---------- Export CSV ----------
+// =============================================================
+// Export CSV
+// =============================================================
 function exportCsv() {
   const pool = withTalent(filteredPlayers())
     .sort((a, b) => (b.talentScore || 0) - (a.talentScore || 0));
-  const headers = ["Watchlist","Name","Team","Grade","Games","TimesInBest","Goals","FormIndicator","TalentScore","Notes"];
+  const headers = ["Watchlist", "Name", "Team", "Grade", "Games", "TimesInBest", "Goals", "FormIndicator", "TalentScore", "Notes"];
   const rows = pool.map(p => [
     isWatched(p) ? "Yes" : "",
     p.name || "",
@@ -549,18 +716,26 @@ function exportCsv() {
   const stamp = new Date().toISOString().slice(0, 10);
   a.href = url;
   a.download = `obgfc-talent-${stamp}.csv`;
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a); URL.revokeObjectURL(url);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
+
 function csvCell(v) {
   const s = String(v ?? "");
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
-// ---------- Utility ----------
+// =============================================================
+// Utility
+// =============================================================
 function escapeHtml(s) {
   return String(s ?? "").replace(/[&<>"']/g, c => (
-    { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
   ));
 }
-function escapeAttr(s) { return escapeHtml(s); }
+
+function escapeAttr(s) {
+  return escapeHtml(s);
+}
