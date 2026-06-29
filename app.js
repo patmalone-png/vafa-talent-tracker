@@ -2,7 +2,7 @@
 // OBGFC Talent Tracker — app.js
 // =============================================================
 
-const OBGFC = "Old Brighton";
+const OBGFC = "Old Brighton Senior Women's";
 const DATA_PLAYERS = "data/players.json";
 const DATA_GAMES = "data/games.json";
 const WATCH_KEY = "obgfc_watchlist_v1";
