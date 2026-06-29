@@ -497,13 +497,89 @@
     return ranked[ranked.length-1].talentScore || 0;
   }
 
+  // ---- OBGFC vs Opponent comparison ----
+  function squadSummary(squad) {
+    if (!squad.length) return { size:0, avgScore:0, topScore:0, goals:0, best:0, topName:"–" };
+    const goals = squad.reduce((s,p)=>s+(p.goals||0),0);
+    const best  = squad.reduce((s,p)=>s+bestCount(p),0);
+    const sorted = [...squad].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+    const top   = sorted[0];
+    return {
+      size:     squad.length,
+      avgScore: +(squad.reduce((s,p)=>s+(p.talentScore||0),0)/squad.length).toFixed(1),
+      topScore: top.talentScore || 0,
+      topName:  top.name || "–",
+      goals,
+      best,
+    };
+  }
+
+  function renderVersusComparison(own, opp, opponentSquad) {
+    const card    = document.getElementById("mpVersus");
+    const verdict = document.getElementById("mpVersusVerdict");
+    if (!card) return;
+    if (!own || !opp) { card.classList.add("hidden"); return; }
+
+    const ourSquad = players.filter(p =>
+      isOwnClub(p) && p.grade === own.grade &&
+      p.name && p.name.trim().toLowerCase() !== "none none"
+    );
+
+    if (!ourSquad.length) { card.classList.add("hidden"); return; }
+    card.classList.remove("hidden");
+    document.getElementById("mpVersusOpponent").textContent = opp;
+
+    const us = squadSummary(ourSquad);
+    const th = squadSummary(opponentSquad);
+
+    const metrics = [
+      { label: "Squad size",           a: us.size,     b: th.size,     fmt: v => v },
+      { label: "Avg talent score",     a: us.avgScore, b: th.avgScore, fmt: v => v },
+      { label: "Top talent score",     a: us.topScore, b: th.topScore, fmt: v => v, suffix: { a: us.topName, b: th.topName } },
+      { label: "Total goals (season)", a: us.goals,    b: th.goals,    fmt: v => v },
+      { label: "Total times in best",  a: us.best,     b: th.best,     fmt: v => v },
+    ];
+
+    let html = '<table class="vs-table"><thead><tr><th>Metric</th><th>OBGFC</th><th>'+opp+'</th></tr></thead><tbody>';
+    let oursAhead = 0, theirsAhead = 0;
+    metrics.forEach(m => {
+      const aBetter = m.a > m.b, bBetter = m.b > m.a;
+      if (aBetter) oursAhead++; else if (bBetter) theirsAhead++;
+      const aCls = aBetter ? "vs-better" : bBetter ? "vs-worse" : "vs-equal";
+      const bCls = bBetter ? "vs-better" : aBetter ? "vs-worse" : "vs-equal";
+      html += '<tr><td>'+m.label+'</td>'
+            + '<td><span class="'+aCls+'">'+m.fmt(m.a)+'</span>'
+            + (m.suffix ? '<span class="vs-edge">'+m.suffix.a+'</span>' : '') + '</td>'
+            + '<td><span class="'+bCls+'">'+m.fmt(m.b)+'</span>'
+            + (m.suffix ? '<span class="vs-edge">'+m.suffix.b+'</span>' : '') + '</td></tr>';
+    });
+    html += '</tbody></table>';
+    document.getElementById("mpVersusTable").innerHTML = html;
+
+    let line;
+    if (oursAhead > theirsAhead) {
+      line = `🟢 OBGFC ahead in ${oursAhead} of ${metrics.length} metrics — favourable matchup on paper.`;
+    } else if (theirsAhead > oursAhead) {
+      line = `🔴 ${opp} ahead in ${theirsAhead} of ${metrics.length} metrics — work to do.`;
+    } else {
+      line = `🟡 Even matchup — ${oursAhead}-${theirsAhead} across ${metrics.length} metrics.`;
+    }
+    const topGap = th.topScore - us.topScore;
+    if (Math.abs(topGap) >= 5) {
+      line += topGap > 0
+        ? ` Their best (${th.topName}) outranks ours by ${topGap.toFixed(1)} — plan to tag.`
+        : ` Our best (${us.topName}) outranks theirs by ${(-topGap).toFixed(1)} — own that matchup.`;
+    }
+    verdict.textContent = line;
+  }
+
   function renderMatchPrep() {
     const own = selectedOwnTeam();
     const opp = selectedOpponent();
     const fw  = selectedMPFormWindow();
 
     const showCards = (yes) => {
-      ["mpHeader","mpSummary","mpDanger","mpInForm","mpCrossGrade","mpFullSquad","mpRecent"]
+      ["mpHeader","mpVersus","mpSummary","mpDanger","mpInForm","mpCrossGrade","mpFullSquad","mpRecent"]
         .forEach(id => {
           const el = document.getElementById(id);
           if (el) el.classList.toggle("hidden", !yes);
@@ -535,6 +611,9 @@
       fixtureMeta.push(own.grade + " — no scheduled fixture found");
     }
     document.getElementById("mpFixtureMeta").textContent = fixtureMeta.join(" · ");
+
+    // OBGFC vs Opponent comparison
+    renderVersusComparison(own, opp, squad);
 
     // Summary tiles
     const totals = squad.reduce((acc,p) => {
