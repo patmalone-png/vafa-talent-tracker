@@ -243,28 +243,77 @@ function getTeamLadderEntry(ladder, teamName) {
   return ladder.find(t => t.team === teamName) || null;
 }
 
-function rateResult(result, opponentEntry, ladderSize) {
-  if (!opponentEntry || !ladderSize || ladderSize < 2) {
-    return { score: 0, label: "Unrated (no ladder data)", cls: "rq-neutral", tier: "unknown" };
+function rateResult(result, opponentEntry, ladderSize) {function rateResult(result, opponentEntry,  ladder data)", cls: "rq-neutral", tier: "unknown", venueAdj: 0 };
   }
   const oppStrength = 1 - ((opponentEntry.position - 1) / (ladderSize - 1));
   const tier = oppStrength >= 0.66 ? "strong" : oppStrength >= 0.33 ? "mid" : "weak";
   const margin = Math.abs(result.margin || 0);
   const bigMargin = margin > 40;
+  const isHome = result.isHome === true;
+  const isAway = result.isHome === false;
+
+  let score = 0, label = "", cls = "rq-neutral";
+
   if (result.result === "W") {
-    if (tier === "strong") return { score: bigMargin ? +3 : +2, label: bigMargin ? "Statement win vs top side" : "Quality win vs top side", cls: "rq-great", tier };
-    if (tier === "mid") return { score: +1, label: "Solid win vs mid-table", cls: "rq-good", tier };
-    return { score: 0, label: "Expected win vs bottom side", cls: "rq-neutral", tier };
+    if (tier === "strong") {
+      score = bigMargin ? +3 : +2;
+      label = bigMargin ? "Statement win vs top side" : "Quality win vs top side";
+      cls = "rq-great";
+    } else if (tier === "mid") {
+      score = +1; label = "Solid win vs mid-table"; cls = "rq-good";
+    } else {
+      score = 0; label = "Expected win vs bottom side"; cls = "rq-neutral";
+    }
+  } else if (result.result === "L") {
+    if (tier === "weak") {
+      score = bigMargin ? -3 : -2;
+      label = bigMargin ? "Embarrassing loss vs bottom side" : "Bad loss vs bottom side";
+      cls = "rq-bad";
+    } else if (tier === "mid") {
+      score = -1; label = "Concerning loss vs mid-table"; cls = "rq-poor";
+    } else {
+      score = 0; label = "Tough loss vs top side"; cls = "rq-neutral";
+    }
+  } else {
+    if (tier === "strong") { score = +1; label = "Creditable draw vs top side"; cls = "rq-good"; }
+    else if (tier === "weak") { score = -1; label = "Disappointing draw vs bottom side"; cls = "rq-poor"; }
+    else { score = 0; label = "Even draw vs mid-table"; cls = "rq-neutral"; }
   }
-  if (result.result === "L") {
-    if (tier === "weak") return { score: bigMargin ? -3 : -2, label: bigMargin ? "Embarrassing loss vs bottom side" : "Bad loss vs bottom side", cls: "rq-bad", tier };
-    if (tier === "mid") return { score: -1, label: "Concerning loss vs mid-table", cls: "rq-poor", tier };
-    return { score: 0, label: "Tough loss vs top side", cls: "rq-neutral", tier };
-  }
-  if (tier === "strong") return { score: +1, label: "Creditable draw vs top side", cls: "rq-good", tier };
-  if (tier === "weak") return { score: -1, label: "Disappointing draw vs bottom side", cls: "rq-poor", tier };
-  return { score: 0, label: "Even draw vs mid-table", cls: "rq-neutral", tier };
+
+  // -------- Venue adjustment --------
+  // Wins on the road are harder; losses at home are worse.
+  let venueAdj = 0;
+  if (isAway && result.result === "W") venueAdj = +1;            // away wins always carry weight
+  else if (isHome && result.result === "L" && tier === "weak") venueAdj = -1;  // home loss to a bottom side compounds the failure
+  else if (isHome && result.result === "L" && tier === "mid") venueAdj = -0.5; // home loss to mid is concerning
+  else if (isAway && result.result === "L" && tier === "strong") venueAdj = +0.5; // away loss to top side is even more excusable
+  else if (isAway && result.result === "D" && tier === "strong") venueAdj = +1;  // away draw vs top = quality
+  else if (isHome && result.result === "D" && tier === "weak") venueAdj = -1;    // home draw vs bottom = poor
+
+  const finalScore = score + venueAdj;
+
+  // Upgrade/downgrade label if venue adjustment is meaningful
+  let venueNote = "";
+  if (venueAdj >= 1) venueNote = " (away)";
+  else if (venueAdj <= -1) venueNote = " (at home)";
+  else if (venueAdj > 0) venueNote = " (away)";
+  else if (venueAdj < 0) venueNote = " (at home)";
+
+  // Promote class if venue adjustment shifts result tier
+  if (finalScore >= 3 && cls !== "rq-great") cls = "rq-great";
+  else if (finalScore <= -3 && cls !== "rq-bad") cls = "rq-bad";
+
+  return {
+    score: finalScore,
+    label: label + venueNote,
+    cls,
+    tier,
+    venueAdj,
+    venue: isHome ? "H" : isAway ? "A" : "?",
+  };
 }
+  if (!opponentEntry || !ladderSize || ladderSize < 2) {
+
 
 function summariseFormQuality(rated) {
   if (rated.length === 0) return { total: 0, label: "—", cls: "rq-neutral" };
@@ -339,7 +388,7 @@ function getTeamFormSummary(allGames, teamName, n = 3) {
     if (margin > 0) { r = "W"; wins++; }
     else if (margin < 0) { r = "L"; losses++; }
     else { draws++; }
-    return { date: g.date, opponent, teamScore, oppScore, margin, result: r };
+    return { date: g.date, opponent, teamScore, oppScore, margin, result: r, isHome, venue: isHome ? "H" : "A" };
   });
   const marginAvg = Math.round(marginTotal / lastN.length);
   let trend = "Mixed form", emoji = "➖";
@@ -1016,19 +1065,44 @@ function buildFormExplainer(rated) {
 
 function describeQuality(r) {
   const t = r.quality.tier;
+  const venue = r.isHome ? "at home" : "away";
+  const venueAdj = r.quality.venueAdj || 0;
+
   if (r.result === "W") {
-    if (t === "strong") return "Beating a top-half side carries real weight — confidence boost.";
-    if (t === "mid") return "Expected against mid-table, but executed well.";
-    return "Win against a bottom side — flatters the form line.";
+    if (t === "strong") {
+      if (!r.isHome) return `Beating a top-half side ${venue} is a real statement — confidence is earned, not given.`;
+      return `Beating a top side at home is the expectation when it matters — execution paid off.`;
+    }
+    if (t === "mid") {
+      if (!r.isHome) return `Picking up the win ${venue} against a mid-table side is solid — road wins always carry extra weight.`;
+      return `Held serve at home against a mid-table side — expected, executed.`;
+    }
+    if (!r.isHome) return `Win on the road, even against a bottom side, is never a given.`;
+    return `Home win against a bottom side — flatters the form line a touch.`;
   }
+
   if (r.result === "L") {
-    if (t === "strong") return "Loss to a top side is excusable — don't read too much into it.";
-    if (t === "mid") return "Loss to a mid-table side raises questions about consistency.";
-    return "Loss to a bottom side is a major red flag — possible vulnerability we can exploit.";
+    if (t === "strong") {
+      if (!r.isHome) return `Loss to a top side ${venue} is highly excusable — focus is on the next one.`;
+      return `Loss to a top side at home is disappointing but not alarming — they're meant to beat us.`;
+    }
+    if (t === "mid") {
+      if (r.isHome) return `Losing at home to a mid-table side raises real questions — home form is concerning.`;
+      return `Mid-table loss on the road — frustrating but recoverable.`;
+    }
+    if (r.isHome) return `Losing at home to a bottom side is a five-alarm fire — major vulnerability to exploit.`;
+    return `Loss to a bottom side, even away, is a red flag worth pressing on.`;
   }
-  if (t === "strong") return "Draw against a top side is genuinely creditable.";
-  if (t === "weak") return "Draw against a bottom side suggests form may be soft.";
-  return "Coin-flip result against an evenly matched opponent.";
+
+  if (t === "strong") {
+    if (!r.isHome) return `Drawing with a top side on their deck is genuinely creditable — they'd have expected the win.`;
+    return `Holding a top side to a draw at home is a missed opportunity to push them.`;
+  }
+  if (t === "weak") {
+    if (r.isHome) return `Drawing with a bottom side at home suggests form may be soft — they should be putting these sides away.`;
+    return `Disappointing draw with a bottom side on the road.`;
+  }
+  return `Coin-flip result against an evenly matched opponent — venue ${venue}.`;
 }
 
 // =============================================================
