@@ -1490,7 +1490,7 @@
     "name": "Olivia Smith",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 9,
+    "games": 10,
     "timesInBest": 4,
     "goals": 14,
     "gameLog": [
@@ -1556,9 +1556,16 @@
         "goals": 0,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 55
+    "formIndicator": 47
   },
   {
     "name": "Molly Goldsworthy",
@@ -3153,7 +3160,7 @@
     "name": "Isabel Koster",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 10,
+    "games": 11,
     "timesInBest": 6,
     "goals": 6,
     "gameLog": [
@@ -3226,9 +3233,16 @@
         "goals": 0,
         "inBest": true,
         "bestRank": 5
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 67
+    "formIndicator": 72
   },
   {
     "name": "romy klooger",
@@ -3657,7 +3671,7 @@
     "name": "Katelyn Randall",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 8,
+    "games": 9,
     "timesInBest": 7,
     "goals": 3,
     "gameLog": [
@@ -3716,9 +3730,16 @@
         "goals": 0,
         "inBest": true,
         "bestRank": 2
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 72
+    "formIndicator": 52
   },
   {
     "name": "Amelie Menegola",
@@ -6389,7 +6410,7 @@
     "name": "Mia Ursprung",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 9,
+    "games": 10,
     "timesInBest": 4,
     "goals": 7,
     "gameLog": [
@@ -6455,9 +6476,16 @@
         "goals": 1,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 71
+    "formIndicator": 61
   },
   {
     "name": "Eimear Scally",
@@ -7877,7 +7905,7 @@
     "name": "Cassandra Newman",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 9,
+    "games": 10,
     "timesInBest": 6,
     "goals": 2,
     "gameLog": [
@@ -7943,9 +7971,16 @@
         "goals": 0,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 74
+    "formIndicator": 48
   },
   {
     "name": "Anabelle Gangi",
@@ -19437,7 +19472,7 @@
     "name": "Sarah Collins",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 9,
+    "games": 10,
     "timesInBest": 4,
     "goals": 2,
     "gameLog": [
@@ -19503,9 +19538,16 @@
         "goals": 1,
         "inBest": true,
         "bestRank": 4
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 77
+    "formIndicator": 83
   },
   {
     "name": "Aoife Nic a Bhaird",
@@ -35501,7 +35543,7 @@
     "name": "Ruby Raymond",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 9,
+    "games": 10,
     "timesInBest": 3,
     "goals": 1,
     "gameLog": [
@@ -35567,9 +35609,16 @@
         "goals": 0,
         "inBest": true,
         "bestRank": 6
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 51
+    "formIndicator": 56
   },
   {
     "name": "Charli McClure",
@@ -41463,7 +41512,7 @@
     "name": "Claire Weiss",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 10,
+    "games": 11,
     "timesInBest": 1,
     "goals": 4,
     "gameLog": [
@@ -41536,9 +41585,16 @@
         "goals": 0,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 32
+    "formIndicator": 35
   },
   {
     "name": "Eden Ackland",
@@ -49729,7 +49785,7 @@
     "name": "Sophie Crofts",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 6,
+    "games": 7,
     "timesInBest": 2,
     "goals": 1,
     "gameLog": [
@@ -49771,6 +49827,13 @@
       {
         "date": "2026-06-20",
         "opponent": "Port Melbourne Chargers Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
         "goals": 0,
         "inBest": false,
         "bestRank": null
@@ -56800,7 +56863,7 @@
     "name": "Livinia Stockdale",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 10,
+    "games": 11,
     "timesInBest": 2,
     "goals": 0,
     "gameLog": [
@@ -56873,6 +56936,13 @@
         "goals": 0,
         "inBest": true,
         "bestRank": 1
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
     "formIndicator": 100
@@ -56881,7 +56951,7 @@
     "name": "Anna Sutcliffe",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 10,
+    "games": 11,
     "timesInBest": 2,
     "goals": 0,
     "gameLog": [
@@ -56954,6 +57024,13 @@
         "goals": 0,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
     "formIndicator": 0
@@ -56962,7 +57039,7 @@
     "name": "Skye Shipton",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 10,
+    "games": 11,
     "timesInBest": 2,
     "goals": 0,
     "gameLog": [
@@ -57035,9 +57112,16 @@
         "goals": 0,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 92
+    "formIndicator": 100
   },
   {
     "name": "Eve Conlan",
@@ -69059,7 +69143,7 @@
     "name": "Jacinta boyd",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 6,
+    "games": 7,
     "timesInBest": 1,
     "goals": 1,
     "gameLog": [
@@ -69104,9 +69188,16 @@
         "goals": 0,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 37
+    "formIndicator": 43
   },
   {
     "name": "Emma Cafferkey",
@@ -69172,7 +69263,7 @@
     "name": "Piper Phelan",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 4,
+    "games": 5,
     "timesInBest": 1,
     "goals": 1,
     "gameLog": [
@@ -69203,9 +69294,16 @@
         "goals": 0,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 53
+    "formIndicator": 64
   },
   {
     "name": "Rhi Hetherington",
@@ -77493,7 +77591,7 @@
     "name": "Zali Reynolds",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 9,
+    "games": 10,
     "timesInBest": 1,
     "goals": 0,
     "gameLog": [
@@ -77556,6 +77654,13 @@
       {
         "date": "2026-06-20",
         "opponent": "Port Melbourne Chargers Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
         "goals": 0,
         "inBest": false,
         "bestRank": null
@@ -78836,7 +78941,7 @@
     "name": "Zoe Smith",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 2,
+    "games": 3,
     "timesInBest": 1,
     "goals": 0,
     "gameLog": [
@@ -78853,9 +78958,16 @@
         "goals": 0,
         "inBest": true,
         "bestRank": 3
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 62
+    "formIndicator": 58
   },
   {
     "name": "Gabrielle Perry",
@@ -93178,7 +93290,7 @@
     "name": "Asha Smith",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 1,
+    "games": 2,
     "timesInBest": 0,
     "goals": 1,
     "gameLog": [
@@ -93188,9 +93300,16 @@
         "goals": 1,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 62
+    "formIndicator": 56
   },
   {
     "name": "Zoe Pratt",
@@ -104480,7 +104599,7 @@
     "name": "Nikia Tucker",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 9,
+    "games": 10,
     "timesInBest": 0,
     "goals": 0,
     "gameLog": [
@@ -104543,6 +104662,13 @@
       {
         "date": "2026-06-27",
         "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
         "goals": 0,
         "inBest": false,
         "bestRank": null
@@ -105692,7 +105818,7 @@
     "name": "Ysabella Gavin",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 2,
+    "games": 3,
     "timesInBest": 0,
     "goals": 0,
     "gameLog": [
@@ -105706,6 +105832,13 @@
       {
         "date": "2026-06-27",
         "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
         "goals": 0,
         "inBest": false,
         "bestRank": null
@@ -106045,7 +106178,7 @@
     "name": "Lucy Page",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
-    "games": 2,
+    "games": 3,
     "timesInBest": 0,
     "goals": 0,
     "gameLog": [
@@ -106059,6 +106192,13 @@
       {
         "date": "2026-06-27",
         "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Old Melburnians Senior Women's",
         "goals": 0,
         "inBest": false,
         "bestRank": null
