@@ -446,8 +446,8 @@
     "homeTeam": "Old Geelong Senior Women's",
     "awayTeam": "Old Scotch Senior Women's",
     "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "awayScore": 106,
+    "status": "FINAL"
   },
   {
     "id": "96055930-7faa-4f83-9213-e6d5e266ca1e",
@@ -455,9 +455,9 @@
     "date": "2026-07-04",
     "homeTeam": "West Brunswick Senior Women's",
     "awayTeam": "Westbourne Grammarians Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 22,
+    "awayScore": 15,
+    "status": "FINAL"
   },
   {
     "id": "695c411e-a513-4771-a832-7132e4671713",
@@ -465,9 +465,9 @@
     "date": "2026-07-04",
     "homeTeam": "Kew Senior Women's",
     "awayTeam": "Caulfield Grammarians Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 10,
+    "awayScore": 28,
+    "status": "FINAL"
   },
   {
     "id": "6743986e-cc7a-49f0-a598-e844199f28c7",
@@ -475,9 +475,9 @@
     "date": "2026-07-04",
     "homeTeam": "Old Brighton Senior Women's",
     "awayTeam": "Fitzroy Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 39,
+    "awayScore": 23,
+    "status": "FINAL"
   },
   {
     "id": "4d0a8f51-7142-4b41-a89d-f3c4de20e74c",
@@ -1077,7 +1077,7 @@
     "awayTeam": "Caulfield Grammarians Reserve Women's",
     "homeScore": 0,
     "awayScore": 0,
-    "status": "UPCOMING"
+    "status": "PENDING"
   },
   {
     "id": "9e906c4c-8018-4f47-a3fb-1c18ea1b10d3",
@@ -1085,9 +1085,9 @@
     "date": "2026-07-04",
     "homeTeam": "Old Geelong Reserve Women's",
     "awayTeam": "Old Scotch Reserve Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 6,
+    "awayScore": 106,
+    "status": "FINAL"
   },
   {
     "id": "78b6f6e1-7752-45f0-8a89-5e0d47ad0ac7",
@@ -1095,9 +1095,9 @@
     "date": "2026-07-04",
     "homeTeam": "West Brunswick Reserve Women's",
     "awayTeam": "Westbourne Grammarians Reserve Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 92,
+    "awayScore": 7,
+    "status": "FINAL"
   },
   {
     "id": "606cd997-cf55-4331-b8f4-7c6fbea0f86c",
@@ -1735,9 +1735,9 @@
     "date": "2026-07-04",
     "homeTeam": "Old Yarra Cobras Senior Women's",
     "awayTeam": "Old Xaverians Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 25,
+    "awayScore": 73,
+    "status": "FINAL"
   },
   {
     "id": "4797fb38-d64c-4630-8966-fe50509f7e07",
@@ -1745,9 +1745,9 @@
     "date": "2026-07-04",
     "homeTeam": "Port Melbourne Chargers Senior Women's",
     "awayTeam": "Glen Eira / Old McKinnon Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 44,
+    "awayScore": 48,
+    "status": "FINAL"
   },
   {
     "id": "eab2c63d-aa1b-4b3e-843b-ee473296f3aa",
@@ -1755,9 +1755,9 @@
     "date": "2026-07-04",
     "homeTeam": "Parkside Senior Women's",
     "awayTeam": "Williamstown CYMS Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 74,
+    "awayScore": 8,
+    "status": "FINAL"
   },
   {
     "id": "0cdc70a9-e307-429d-ad59-d46534790021",
@@ -2365,9 +2365,9 @@
     "date": "2026-07-04",
     "homeTeam": "Whitefriars Senior Women's",
     "awayTeam": "Old Carey Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 20,
+    "awayScore": 17,
+    "status": "FINAL"
   },
   {
     "id": "d3a1b510-76ee-4c4c-97e9-7340701aa67b",
@@ -2375,9 +2375,9 @@
     "date": "2026-07-04",
     "homeTeam": "La Trobe University Senior Women's",
     "awayTeam": "Oakleigh Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 10,
+    "awayScore": 8,
+    "status": "FINAL"
   },
   {
     "id": "b4e4f2bb-d6ec-452a-bbef-649865aa3913",
@@ -2385,9 +2385,9 @@
     "date": "2026-07-04",
     "homeTeam": "Power House Senior Women's",
     "awayTeam": "Marcellin OC Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 24,
+    "awayScore": 31,
+    "status": "FINAL"
   },
   {
     "id": "ca8e89f9-11da-4dc3-ac70-54f753f3ab2f",
@@ -2395,9 +2395,9 @@
     "date": "2026-07-04",
     "homeTeam": "Monash Blues Senior Women's",
     "awayTeam": "Ormond Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 15,
+    "awayScore": 21,
+    "status": "FINAL"
   },
   {
     "id": "d5fc802e-09c6-47ed-acb1-ae2df543f9d3",
@@ -3005,9 +3005,9 @@
     "date": "2026-07-04",
     "homeTeam": "MCCFC Senior Women's",
     "awayTeam": "Old Camberwell Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 11,
+    "awayScore": 37,
+    "status": "FINAL"
   },
   {
     "id": "c5ea166e-28fb-433b-bfcc-167096a0105a",
@@ -3015,9 +3015,9 @@
     "date": "2026-07-04",
     "homeTeam": "St Mary's Salesian Senior Women's",
     "awayTeam": "De La Salle Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 23,
+    "awayScore": 22,
+    "status": "FINAL"
   },
   {
     "id": "070bf1b5-ada7-499b-976d-f34c66c25d2c",
@@ -3025,9 +3025,9 @@
     "date": "2026-07-04",
     "homeTeam": "Beaumaris Senior Women's 2",
     "awayTeam": "UHS-VU Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 93,
+    "awayScore": 3,
+    "status": "FINAL"
   },
   {
     "id": "277b0aea-18ec-4f76-a519-a4a788f63699",
@@ -3035,9 +3035,9 @@
     "date": "2026-07-04",
     "homeTeam": "Hampton Rovers Senior Women's",
     "awayTeam": "Richmond Central Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 17,
+    "awayScore": 46,
+    "status": "FINAL"
   },
   {
     "id": "57c425da-af8b-4446-89c8-1a97f8027f26",
@@ -3587,7 +3587,7 @@
     "awayTeam": "Hawthorn Senior Women's",
     "homeScore": 0,
     "awayScore": 0,
-    "status": "UPCOMING"
+    "status": "FINAL"
   },
   {
     "id": "91caa16b-bc98-484a-90b0-25097f299642",
@@ -3595,9 +3595,9 @@
     "date": "2026-07-04",
     "homeTeam": "Old Yarra Cobras Senior Women's 2",
     "awayTeam": "Old Haileybury Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 20,
+    "awayScore": 80,
+    "status": "FINAL"
   },
   {
     "id": "22d61f7a-dc45-42db-8756-f791778abb66",
@@ -3607,7 +3607,7 @@
     "awayTeam": "Caulfield Grammarians Senior Women's 3",
     "homeScore": 0,
     "awayScore": 0,
-    "status": "UPCOMING"
+    "status": "PENDING"
   },
   {
     "id": "bb1aa505-77b6-43a8-84de-73d4e3986f58",
@@ -4225,9 +4225,9 @@
     "date": "2026-07-04",
     "homeTeam": "North Brunswick Senior Women's",
     "awayTeam": "MUWFC Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 21,
+    "awayScore": 13,
+    "status": "FINAL"
   },
   {
     "id": "680c552a-d3ed-435c-958a-25713a77b096",
@@ -4235,9 +4235,9 @@
     "date": "2026-07-04",
     "homeTeam": "Mazenod Senior Women's",
     "awayTeam": "Wattle Park Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 2,
+    "awayScore": 9,
+    "status": "FINAL"
   },
   {
     "id": "24208e3f-ba35-400f-a0a7-b681ac5a7c1b",
@@ -4245,9 +4245,9 @@
     "date": "2026-07-04",
     "homeTeam": "Old Xaverians Senior Women's 2",
     "awayTeam": "Aquinas Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 12,
+    "awayScore": 32,
+    "status": "FINAL"
   },
   {
     "id": "c346e9fd-0619-41a4-afaa-4cc0a0eb6071",
@@ -4255,9 +4255,9 @@
     "date": "2026-07-04",
     "homeTeam": "Brunswick Senior Women's",
     "awayTeam": "Canterbury Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 19,
+    "awayScore": 30,
+    "status": "FINAL"
   },
   {
     "id": "18cc58a8-4f41-413b-8663-2e5f36b568eb",
@@ -4265,9 +4265,9 @@
     "date": "2026-07-04",
     "homeTeam": "Albert Park Senior Women's",
     "awayTeam": "Fitzroy Senior Women's 3",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 27,
+    "awayScore": 32,
+    "status": "FINAL"
   },
   {
     "id": "fcdb489e-2108-485b-bb84-cc0aec202871",
@@ -5025,9 +5025,9 @@
     "date": "2026-07-04",
     "homeTeam": "Parkside Senior Women's 2",
     "awayTeam": "South Melbourne Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 12,
+    "awayScore": 37,
+    "status": "FINAL"
   },
   {
     "id": "cb50219d-6e1c-4969-9270-8c6b15af1cce",
@@ -5035,9 +5035,9 @@
     "date": "2026-07-04",
     "homeTeam": "Ormond Senior Women's 2",
     "awayTeam": "Elsternwick Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 29,
+    "awayScore": 16,
+    "status": "FINAL"
   },
   {
     "id": "b0c596b1-b014-4d0f-abb7-4f0b5685bc97",
@@ -5045,9 +5045,9 @@
     "date": "2026-07-04",
     "homeTeam": "Monash Blues Senior Women's 2",
     "awayTeam": "Preston Bullants Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 12,
+    "awayScore": 34,
+    "status": "FINAL"
   },
   {
     "id": "363044d0-6277-4985-9e08-01de507a03dd",
@@ -5055,9 +5055,9 @@
     "date": "2026-07-04",
     "homeTeam": "West Brunswick Senior Women's 3",
     "awayTeam": "De La Salle Senior Women's 2",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 98,
+    "awayScore": 1,
+    "status": "FINAL"
   },
   {
     "id": "be158343-8e76-4bb9-b3d5-7f560325671b",
@@ -5065,9 +5065,9 @@
     "date": "2026-07-04",
     "homeTeam": "Glen Eira / Old McKinnon Senior Women's 2",
     "awayTeam": "St Kevin's Senior Women's 3",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 6,
+    "awayScore": 52,
+    "status": "FINAL"
   },
   {
     "id": "ac8b6634-ba6b-4d6f-bbac-b3757cde504c",
