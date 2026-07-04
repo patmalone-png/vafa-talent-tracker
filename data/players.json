@@ -25777,6 +25777,147 @@
     "formIndicator": 42
   },
   {
+    "name": "Ruby-Rose Gibson-Haywood",
+    "team": "North Brunswick Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 8,
+    "timesInBest": 3,
+    "goals": 4,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-03",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Albert Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 4
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
+    "name": "Delfina Estrada",
+    "team": "North Brunswick Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 9,
+    "timesInBest": 5,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Old Xaverians Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 77
+  },
+  {
     "name": "Daisy Sudholz",
     "team": "MUWFC Senior Women's",
     "grade": "Division 4 Women's",
@@ -36183,147 +36324,6 @@
     "formIndicator": 67
   },
   {
-    "name": "Ruby-Rose Gibson-Haywood",
-    "team": "North Brunswick Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 8,
-    "timesInBest": 2,
-    "goals": 4,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-03",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Albert Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 2,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 100
-  },
-  {
-    "name": "Delfina Estrada",
-    "team": "North Brunswick Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 9,
-    "timesInBest": 4,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Old Xaverians Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 46
-  },
-  {
     "name": "Denver Adams",
     "team": "North Brunswick Senior Women's",
     "grade": "Division 4 Women's",
@@ -36622,6 +36622,66 @@
       }
     ],
     "formIndicator": 33
+  },
+  {
+    "name": "Orla Minogue",
+    "team": "North Brunswick Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 7,
+    "timesInBest": 4,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-05-09",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Albert Park Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      }
+    ],
+    "formIndicator": 75
   },
   {
     "name": "Nina Bagaric",
@@ -52407,66 +52467,6 @@
       }
     ],
     "formIndicator": 58
-  },
-  {
-    "name": "Orla Minogue",
-    "team": "North Brunswick Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 7,
-    "timesInBest": 3,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-05-09",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Albert Park Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 47
   },
   {
     "name": "Maddison Noack",
@@ -71119,6 +71119,38 @@
       }
     ],
     "formIndicator": 0
+  },
+  {
+    "name": "Ella Robinson",
+    "team": "North Brunswick Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 3,
+    "timesInBest": 2,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-06-20",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      }
+    ],
+    "formIndicator": 67
   },
   {
     "name": "Jessy Brown",
@@ -94284,6 +94316,66 @@
     "formIndicator": 0
   },
   {
+    "name": "Emily Steiner",
+    "team": "North Brunswick Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 7,
+    "timesInBest": 1,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Albert Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Gabrielle Jackson",
     "team": "North Brunswick Senior Women's",
     "grade": "Division 4 Women's",
@@ -95131,36 +95223,29 @@
     "formIndicator": 75
   },
   {
-    "name": "Ella Robinson",
+    "name": "Tahlia Shields-Bathgate",
     "team": "North Brunswick Senior Women's",
     "grade": "Division 4 Women's",
-    "games": 3,
+    "games": 2,
     "timesInBest": 1,
     "goals": 0,
     "gameLog": [
       {
-        "date": "2026-06-20",
-        "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
         "date": "2026-06-27",
         "opponent": "Aquinas Senior Women's",
         "goals": 0,
-        "inBest": true,
-        "bestRank": 3
+        "inBest": false,
+        "bestRank": null
       },
       {
         "date": "2026-07-04",
         "opponent": "MUWFC Senior Women's",
         "goals": 0,
-        "inBest": false,
-        "bestRank": null
+        "inBest": true,
+        "bestRank": 1
       }
     ],
-    "formIndicator": 58
+    "formIndicator": 62
   },
   {
     "name": "Ceara Kaschula",
@@ -128486,66 +128571,6 @@
     "formIndicator": 0
   },
   {
-    "name": "Emily Steiner",
-    "team": "North Brunswick Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 7,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Albert Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
     "name": "Katie Rogers",
     "team": "North Brunswick Senior Women's",
     "grade": "Division 4 Women's",
@@ -130521,31 +130546,6 @@
     "gameLog": [
       {
         "date": "2026-06-28",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
-    "name": "Tahlia Shields-Bathgate",
-    "team": "North Brunswick Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 2,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-06-27",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
         "opponent": "MUWFC Senior Women's",
         "goals": 0,
         "inBest": false,
