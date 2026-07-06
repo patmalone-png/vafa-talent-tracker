@@ -1,235 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OBGFC Talent Tracker</title>
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VAFA Talent ID</title>
+styles.css
+&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="app-header">
-    <div class="brand">
-      <h1>OBGFC Talent Tracker</h1>
-      <span class="tag">VAFA · Powered by PlayHQ</span>
-    </div>
-    <nav class="tabs">
-      <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
-      <button class="tab-btn" data-tab="obgfc">🟡 OBGFC</button>
-      <button class="tab-btn" data-tab="players">Players</button>
-      <button class="tab-btn" data-tab="watchlist">Watchlist <span class="badge" id="watchCount">0</span></button>
-      <button class="tab-btn" data-tab="opponent">Opponent Comparison</button>
-      <button class="tab-btn" data-tab="brief">📋 Coach's Brief</button>
-      <button class="tab-btn" data-tab="about">About</button>
-    </nav>
+  <header class="topbar">
+    <h1>VAFA Talent ID</h1>
+    <div class="last-sync" id="lastSync">Loading…</div>
   </header>
 
-  <main class="container">
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="leaderboards">Leaderboards</button>
+    <button class="tab" data-tab="players">Players</button>
+    <button class="tab" data-tab="scout">Opposition Scout</button>
+    <button class="tab" data-tab="matchprep">Match Prep</button>
+    <button class="tab" data-tab="roundlog">Round Log</button>
+    <button class="tab" data-tab="finals">Finals Path</button>
+    <button class="tab" data-tab="watchlist">Watchlist</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </nav>
 
-    <!-- Filters bar -->
-    <section class="filters-bar">
-      <label>
-        Grade:
-        <select id="gradeFilter">
-          <option value="all">All Grades</option>
-        </select>
-      </label>
-      <label id="opponentFilterWrap" style="display:none;">
-        Opponent:
-        <select id="opponentSelect">
-          <option value="">Select opponent…</option>
-        </select>
-      </label>
-      <button class="btn-secondary" id="exportCsvBtn">⬇ Export CSV</button>
-      <button class="btn-secondary" id="printBriefBtn" style="display:none;">🖨 Print Brief</button>
-      <span class="data-meta" id="dataMeta"></span>
-    </section>
-
-    <!-- Dashboard tab -->
-    <section id="tab-dashboard" class="tab-panel active">
-      <details class="info-card collapsible">
-        <summary>
-          <span class="info-icon">📊</span>
-          <strong>How the Talent Score is calculated</strong>
-          <span class="chev">▾</span>
-        </summary>
-        <div class="info-body">
-          <p>The <strong>Talent Score</strong> is a weighted index that surfaces standout performers across the season:</p>
-          <ul>
-            <li><strong>Times in the Best (40%)</strong> – consistency of impact</li>
-            <li><strong>Goals scored (25%)</strong> – attacking output</li>
-            <li><strong>Games played (15%)</strong> – availability & reliability</li>
-            <li><strong>Recent form (20%)</strong> – performance over last 3 games vs season average</li>
-          </ul>
-          <p class="muted">Scores are normalised 0–100 within the current grade filter so players compare fairly.</p>
-        </div>
-      </details>
-
-      <details class="info-card collapsible">
-        <summary>
-          <span class="info-icon">🔥</span>
-          <strong>How the Form Indicator is calculated</strong>
-          <span class="chev">▾</span>
-        </summary>
-        <div class="info-body">
-          <p>The <strong>Form Indicator</strong> (0–100) measures how a player has performed in their <strong>last 3 games</strong> compared to their season average.</p>
-          <ul>
-            <li><strong>Best player appearances</strong> – each "in the best" finish counts as <em>1 impact point</em></li>
-            <li><strong>Goals kicked</strong> – each goal counts as <em>0.5 impact points</em></li>
-          </ul>
-          <p>The final score blends <strong>Trend (50%)</strong> recent ÷ season impact, and <strong>Volume (50%)</strong> raw recent impact.</p>
-          <p class="muted"><strong>50</strong> = season average · <strong>75+</strong> = trending up · <strong>under 30</strong> = trending down.</p>
-        </div>
-      </details>
-
-      <div class="info-card emerging-section">
-        <div class="emerging-header">
-          <h3>👀 Players You Should Know</h3>
-          <span class="muted">Emerging talent — recent impact, lower game count, on the rise</span>
-        </div>
-        <div class="emerging-grid" id="emergingGrid"></div>
-      </div>
-
-      <div class="leaderboard-grid">
-        <div class="leaderboard-card" id="lb-talent"><h3>Top 5 – Talent Score</h3><div class="lb-body"></div></div>
-        <div class="leaderboard-card" id="lb-best"><h3>Top 5 – Times in the Best</h3><div class="lb-body"></div></div>
-        <div class="leaderboard-card" id="lb-goals"><h3>Top 5 – Total Goals</h3><div class="lb-body"></div></div>
-        <div class="leaderboard-card" id="lb-form"><h3>Top 5 – Form Indicator</h3><div class="lb-body"></div></div>
-      </div>
-    </section>
-
-    <!-- OBGFC tab -->
-    <section id="tab-obgfc" class="tab-panel">
-      <div class="section">
-        <div class="obgfc-header">
-          <h2>🟡 Old Brighton Senior Women's</h2>
-          <div id="obgfcSummaryBar" class="obgfc-summary-bar"></div>
-        </div>
-
-        <h3 class="subsection-title">Team form snapshot</h3>
-        <div id="obgfcFormBlock"></div>
-
-        <h3 class="subsection-title">Squad — all players who have appeared</h3>
-        <div class="players-toolbar">
-          <input type="text" id="obgfcSearch" placeholder="Search OBGFC players…" />
-          <label class="check-inline">
-            Sort by:
-            <select id="obgfcSort">
-              <option value="talent">Talent Score</option>
-              <option value="best">Times in the Best</option>
-              <option value="goals">Goals</option>
-              <option value="form">Form</option>
-              <option value="games">Games Played</option>
-              <option value="name">Name (A–Z)</option>
+  <main>
+    <!-- ============ Dashboard ============ -->
+    <section class="panel active" id="dashboard">
+      <div class="card">
+        <div class="controls">
+          <label>Grade
+            <select id="gradeFilter">
+              <option value="">All Women's grades</option>
+              <option>Premier A Women's</option>
+              <option>Premier A Women's Reserve</option>
+              <option>Premier B Women's</option>
+              <option>Division 1 Women's</option>
+              <option>Division 2 Women's</option>
+              <option>Division 3 Women's</option>
+              <option>Division 4 Women's</option>
+              <option>Division 5 Women's</option>
+            </select>
+          </label>
+          <label>Form window
+            <select id="formWindow">
+              <option value="3">Last 3 games</option>
+              <option value="4">Last 4 games</option>
+              <option value="5">Last 5 games</option>
             </select>
           </label>
         </div>
-        <div class="table-wrap">
-          <table class="data-table" id="obgfcTable">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Player</th>
-                <th class="num">GP</th>
-                <th class="num">Best</th>
-                <th class="num">Goals</th>
-                <th class="num">Form</th>
-                <th class="num">Talent</th>
-                <th>Recent games</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
+      </div>
+
+      <div class="card formula-card">
+        <button class="formula-toggle" id="formulaToggle" aria-expanded="false">
+          <span class="formula-icon">ℹ️</span>
+          <span>How is Talent Score calculated?</span>
+          <span class="formula-chevron">▾</span>
+        </button>
+        <div class="formula-body hidden" id="formulaBody">
+          <p>Talent Score blends four PlayHQ data points into a single weighted number, then scales it so consistent contributors rise above one-week wonders.</p>
+          <table class="data formula-table">
+            <thead><tr><th>Input</th><th>Weight</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td><b>BOG votes</b> (1–6 per game)</td><td>× 8</td><td>Coach-judged impact — the strongest available signal of match influence.</td></tr>
+              <tr><td><b>BOG firsts</b> (named #1 best)</td><td>+ 6 bonus</td><td>Rewards game-winning performances, not just consistent voting.</td></tr>
+              <tr><td><b>Goals</b></td><td>× 5</td><td>Scoreboard impact — particularly weighted for forwards.</td></tr>
+              <tr><td><b>Wins</b></td><td>× 2</td><td>Small contribution to recognise team success.</td></tr>
+            </tbody>
           </table>
+          <p class="muted">Total points are divided by <code>√games</code> rather than <code>games</code>, so a player with <b>6 votes from 6 games</b> outranks <b>6 votes from 1 game</b>. A score of <b>25+</b> is elite at VAFA Women's level; <b>40+</b> is competition-defining.</p>
+          <p class="muted">Dashboard Top 5 lists also require a minimum of <b>3 games played</b> to filter out small-sample noise.</p>
         </div>
+      </div>
+
+      <div class="tiles">
+        <div class="tile"><div class="tile-label">Games loaded</div><div class="tile-value" id="t-games">–</div></div>
+        <div class="tile"><div class="tile-label">Players tracked</div><div class="tile-value" id="t-players">–</div></div>
+        <div class="tile"><div class="tile-label">Top talent score</div><div class="tile-value" id="t-top">–</div></div>
+        <div class="tile"><div class="tile-label">Last sync</div><div class="tile-value" id="t-sync">–</div></div>
+      </div>
+
+      <p class="muted legend-note">
+        <span class="own-club">●</span> indicates an OBGFC player.
+      </p>
+
+      <div class="card">
+        <h2>Top 5 — Talent Score
+          <button class="btn small csv-btn" data-csv="topTalent" data-name="top-talent-score">⬇ CSV</button>
+        </h2>
+        <div id="topTalent"></div>
+      </div>
+
+      <div class="card">
+        <h2>Top 5 — Times in the Best
+          <button class="btn small csv-btn" data-csv="topBest" data-name="top-in-best">⬇ CSV</button>
+        </h2>
+        <div id="topBest"></div>
+      </div>
+
+      <div class="card">
+        <h2>Top 5 — Total Goals
+          <button class="btn small csv-btn" data-csv="topGoals" data-name="top-goals">⬇ CSV</button>
+        </h2>
+        <div id="topGoals"></div>
+      </div>
+
+      <div class="card">
+        <h2>Top 5 — Form Indicator
+          <button class="btn small csv-btn" data-csv="topForm" data-name="top-form">⬇ CSV</button>
+        </h2>
+        <p class="muted" style="margin-top:-6px;">recent vs season avg</p>
+        <div id="topForm"></div>
+      </div>
+
+      <div class="card">
+        <h2>Recent fixtures</h2>
+        <div id="recentFixtures"></div>
       </div>
     </section>
 
-    <!-- Players tab -->
-    <section id="tab-players" class="tab-panel">
-      <div class="section">
-        <div class="players-toolbar">
-          <input type="text" id="playerSearch" placeholder="Search players or teams…" />
-          <label class="check-inline">
-            <input type="checkbox" id="hideOBGFC" />
-            Hide OBGFC players
+    <!-- ============ Leaderboards ============ -->
+    <section class="panel" id="leaderboards">
+      <div class="card">
+        <h2>Leaderboards
+          <button class="btn small csv-btn" data-csv="lbTable" data-name="leaderboard">⬇ CSV</button>
+        </h2>
+        <div class="controls">
+          <label>Grade
+            <select id="lbGrade">
+              <option value="">All Women's grades</option>
+              <option>Premier A Women's</option>
+              <option>Premier A Women's Reserve</option>
+              <option>Premier B Women's</option>
+              <option>Division 1 Women's</option>
+              <option>Division 2 Women's</option>
+              <option>Division 3 Women's</option>
+              <option>Division 4 Women's</option>
+              <option>Division 5 Women's</option>
+            </select>
+          </label>
+          <label>Metric
+            <select id="lbMetric">
+              <option value="talentScore">Talent score</option>
+              <option value="bestCount">Times in the Best</option>
+              <option value="bog">BOG votes (total)</option>
+              <option value="bogFirsts">Best on ground (count)</option>
+              <option value="goals">Goals</option>
+              <option value="wins">Wins</option>
+            </select>
+          </label>
+          <label>Min games
+            <input type="number" id="lbMinGames" value="1" min="1" />
           </label>
         </div>
-        <div class="table-wrap">
-          <table class="data-table" id="playersTable">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Player</th>
-                <th>Team</th>
-                <th>Grade</th>
-                <th class="num">GP</th>
-                <th class="num">Best</th>
-                <th class="num">Goals</th>
-                <th class="num">Form</th>
-                <th class="num">Talent</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+        <div id="lbTable"></div>
       </div>
     </section>
 
-    <!-- Watchlist tab -->
-    <section id="tab-watchlist" class="tab-panel">
-      <div class="section">
+    <!-- ============ Players ============ -->
+    <section class="panel" id="players">
+      <div class="card">
+        <h2>Players</h2>
+        <input type="text" id="playerSearch" placeholder="Search by name or club…" />
+        <div id="playerList"></div>
+      </div>
+      <div class="card hidden" id="playerProfile">
+        <button class="btn small" id="backToList">← Back to list</button>
+        <h2 id="profileName"></h2>
+        <div id="profileMeta" class="muted"></div>
+        <div id="profileStats"></div>
+        <canvas id="profileChart" width="600" height="160"></canvas>
+        <h3>Per-game</h3>
+        <div id="profileGames"></div>
+      </div>
+    </section>
+
+    <!-- ============ Opposition Scout ============ -->
+    <section class="panel" id="scout">
+      <div class="card">
+        <h2>Opposition Scout</h2>
+        <label>Club
+          <select id="scoutClub"><option value="">– select –</option></select>
+        </label>
+        <div id="scoutReport"></div>
+      </div>
+    </section>
+
+    <!-- ============ Match Prep ============ -->
+    <section class="panel" id="matchprep">
+      <div class="card">
+        <h2>Match Prep — OBGFC Opponent Preview
+          <button class="btn small csv-btn" data-csv="mpDangerList" data-name="opponent-danger-top5">⬇ CSV</button>
+        </h2>
+        <div class="controls">
+          <label>OBGFC team
+            <select id="mpOwnTeam">
+              <option value="">– select your team –</option>
+            </select>
+          </label>
+          <label>Opponent
+            <select id="mpOpponent">
+              <option value="">– select opponent –</option>
+            </select>
+          </label>
+          <label>Form window
+            <select id="mpFormWindow">
+              <option value="3">Last 3 games</option>
+              <option value="4">Last 4 games</option>
+              <option value="5">Last 5 games</option>
+            </select>
+          </label>
+        </div>
+        <p class="muted">💡 Tip: pick your OBGFC team first to auto-populate the opponent from your next scheduled fixture.</p>
+      </div>
+
+      <div class="card hidden" id="mpHeader">
+        <h2 id="mpFixtureTitle">Fixture</h2>
+        <div id="mpFixtureMeta" class="muted"></div>
+      </div>
+
+      <div class="card hidden" id="mpVersus">
+        <h2>OBGFC vs <span id="mpVersusOpponent">Opponent</span>
+          <button class="btn small csv-btn" data-csv="mpVersusTable" data-name="obgfc-vs-opponent">⬇ CSV</button>
+        </h2>
+        <div id="mpVersusTable"></div>
+        <p class="muted" id="mpVersusVerdict" style="margin-top:8px;"></p>
+      </div>
+
+      <div class="card hidden" id="mpSummary">
+        <h2>Squad summary</h2>
+        <div id="mpSummaryTiles" class="tiles"></div>
+      </div>
+
+      <div class="card hidden" id="mpDanger">
+        <h2>Top 5 danger players (by Talent Score)</h2>
+        <div id="mpDangerList"></div>
+      </div>
+
+      <div class="card hidden" id="mpInForm">
+        <h2>Coming into form</h2>
+        <p class="muted" style="margin-top:-6px;">Players whose recent run is well above their season average</p>
+        <div id="mpInFormList"></div>
+      </div>
+
+      <div class="card hidden" id="mpCrossGrade">
+        <h2>Cross-grade watch ⚠️</h2>
+        <p class="muted" style="margin-top:-6px;">Opponent players from other grades whose Talent Score would rank in the top 20 of <i>your</i> grade — possible call-ups or hidden senior threats.</p>
+        <div id="mpCrossList"></div>
+      </div>
+
+      <div class="card hidden" id="mpFullSquad">
+        <h2>Full opponent squad
+          <button class="btn small csv-btn" data-csv="mpFullSquadList" data-name="opponent-full-squad">⬇ CSV</button>
+        </h2>
+        <div id="mpFullSquadList"></div>
+      </div>
+
+      <div class="card hidden" id="mpRecent">
+        <h2>Their recent results</h2>
+        <div id="mpRecentList"></div>
+      </div>
+    </section>
+
+    <!-- ============ Round Log ============ -->
+    <section class="panel" id="roundlog">
+      <div class="card">
+        <h2>Round-by-Round Changelog</h2>
+        <p class="muted" style="margin-top:-6px;">What shifted last round — team form trends, player movers, and new elite entrants. Updated every PlayHQ sync.</p>
+        <div class="controls">
+          <label>Grade
+            <select id="rlGrade">
+              <option value="">All Women's grades</option>
+              <option>Premier A Women's</option>
+              <option>Premier A Women's Reserve</option>
+              <option>Premier B Women's</option>
+              <option>Division 1 Women's</option>
+              <option>Division 2 Women's</option>
+              <option>Division 3 Women's</option>
+              <option>Division 4 Women's</option>
+              <option>Division 5 Women's</option>
+            </select>
+          </label>
+          <label>Form window
+            <select id="rlFormWindow">
+              <option value="3">Last 3 games</option>
+              <option value="4">Last 4 games</option>
+              <option value="5">Last 5 games</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Team Form Trend
+          <button class="btn small csv-btn" data-csv="rlTeamForm" data-name="team-form-trend">⬇ CSV</button>
+        </h2>
+        <p class="muted" style="margin-top:-6px;">Recent results visualised — W = win, L = loss, D = draw. Sorted by who's hottest right now.</p>
+        <div id="rlTeamForm"></div>
+      </div>
+
+      <div class="card">
+        <h2>Player Movers — Climbers ▲
+          <button class="btn small csv-btn" data-csv="rlClimbers" data-name="climbers">⬇ CSV</button>
+        </h2>
+        <p class="muted" style="margin-top:-6px;">Biggest week-on-week jumps in per-game Talent Score</p>
+        <div id="rlClimbers"></div>
+      </div>
+
+      <div class="card">
+        <h2>Player Movers — Faders ▼
+          <button class="btn small csv-btn" data-csv="rlFaders" data-name="faders">⬇ CSV</button>
+        </h2>
+        <p class="muted" style="margin-top:-6px;">Biggest week-on-week declines — watch for tagged-out stars</p>
+        <div id="rlFaders"></div>
+      </div>
+
+      <div class="card">
+        <h2>New Entrants to the Elite ⚡
+          <button class="btn small csv-btn" data-csv="rlNewElite" data-name="new-elite-entrants">⬇ CSV</button>
+        </h2>
+        <p class="muted" style="margin-top:-6px;">Players whose latest game pushed their season Talent Score into the top 20 of their grade for the first time. The "call them now" list.</p>
+        <div id="rlNewElite"></div>
+      </div>
+
+      <div class="card">
+        <h2>Biggest results — last round</h2>
+        <div id="rlBigResults"></div>
+      </div>
+    </section>
+
+    <!-- ============ Finals Path ============ -->
+    <section class="panel" id="finals">
+      <div class="card">
+        <h2>Finals Path Estimator</h2>
+        <p class="muted" style="margin-top:-6px;">Where each team sits, where the finals cut-off is likely to land, and exactly what OBGFC needs to do to earn their spot.</p>
+        <div class="controls">
+          <label>Grade
+            <select id="fpGrade">
+              <option>Premier A Women's</option>
+              <option>Premier A Women's Reserve</option>
+              <option>Premier B Women's</option>
+              <option>Division 1 Women's</option>
+              <option>Division 2 Women's</option>
+              <option>Division 3 Women's</option>
+              <option>Division 4 Women's</option>
+              <option>Division 5 Women's</option>
+            </select>
+          </label>
+          <label>Finals berths
+            <select id="fpFinalsSpots">
+              <option value="4" selected>Top 4</option>
+              <option value="5">Top 5</option>
+              <option value="6">Top 6</option>
+              <option value="8">Top 8</option>
+            </select>
+          </label>
+          <label>Points per win
+            <input type="number" id="fpPtsWin" value="4" min="1" max="4" />
+          </label>
+        </div>
+      </div>
+
+      <div class="card" id="fpLadderCard">
+        <h2>Current ladder projection
+          <button class="btn small csv-btn" data-csv="fpLadder" data-name="finals-ladder-projection">⬇ CSV</button>
+        </h2>
+        <p class="muted" style="margin-top:-6px;">Green = projected finals berth · Red = elimination probability rising · Gold ● = OBGFC</p>
+        <div id="fpLadder"></div>
+      </div>
+
+      <div class="card" id="fpVerdictCard">
+        <h2>🎯 OBGFC finals verdict</h2>
+        <div id="fpVerdict"></div>
+      </div>
+
+      <div class="card" id="fpScenariosCard">
+        <h2>Scenario paths for OBGFC</h2>
+        <p class="muted" style="margin-top:-6px;">Three ways this can play out from here</p>
+        <div id="fpScenarios"></div>
+      </div>
+
+      <div class="card" id="fpRemainingCard">
+        <h2>OBGFC remaining fixtures
+          <button class="btn small csv-btn" data-csv="fpRemaining" data-name="obgfc-run-home">⬇ CSV</button>
+        </h2>
+        <div id="fpRemaining"></div>
+      </div>
+
+      <div class="card" id="fpKeyFixturesCard">
+        <h2>Key fixtures elsewhere ⚠️</h2>
+        <p class="muted" style="margin-top:-6px;">Matches between teams around the finals cut-off that impact your chances</p>
+        <div id="fpKeyFixtures"></div>
+      </div>
+    </section>
+
+    <!-- ============ Watchlist ============ -->
+    <section class="panel" id="watchlist">
+      <div class="card">
         <h2>Watchlist</h2>
-        <p class="muted">Players you've starred for follow-up. Stored locally in your browser.</p>
-        <div class="table-wrap">
-          <table class="data-table" id="watchlistTable">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Player</th>
-                <th>Team</th>
-                <th>Grade</th>
-                <th class="num">GP</th>
-                <th class="num">Best</th>
-                <th class="num">Goals</th>
-                <th class="num">Form</th>
-                <th class="num">Talent</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+        <p class="muted">Star players from the Players tab to add them here.</p>
+        <div id="watchlistView"></div>
       </div>
     </section>
 
-    <!-- Opponent Comparison tab -->
-    <section id="tab-opponent" class="tab-panel">
-      <div class="empty">Select an opponent to view the comparison.</div>
-    </section>
-
-    <!-- Coach's Brief tab -->
-    <section id="tab-brief" class="tab-panel">
-      <div id="briefContent"></div>
-    </section>
-
-    <!-- About tab -->
-    <section id="tab-about" class="tab-panel">
-      <div class="info-card">
-        <h3>About this app</h3>
-        <p>Built for the OBGFC women's football program to surface emerging talent across the VAFA, using data pulled live from PlayHQ. Refreshes weekly on Mondays via GitHub Actions.</p>
-        <p class="muted">© Pat Malone · Old Brighton GFC</p>
+    <!-- ============ Settings ============ -->
+    <section class="panel" id="settings">
+      <div class="card">
+        <h2>Settings</h2>
+        <p><strong>App:</strong> VAFA Talent Identification</p>
+        <p><strong>Data source:</strong> PlayHQ REST API (tenant <code>afl</code>)</p>
+        <p><strong>API key:</strong> baked into <code>scripts/fetch_playhq.py</code> (<code>bc7f…930</code>)</p>
+        <p><strong>Last sync:</strong> <span id="setLastSync">–</span></p>
+        <button class="btn primary" id="refreshBtn">Reload local data</button>
+        <p class="muted">To pull fresh data from PlayHQ, run the <code>fetch-playhq</code> GitHub Action.</p>
       </div>
     </section>
-
   </main>
 
-  <!-- Player Profile Modal -->
-  <div class="modal-backdrop" id="profileModal" style="display:none;">
-    <div class="modal">
-      <button class="modal-close" id="modalClose">×</button>
-      <div id="modalBody"></div>
-    </div>
-  </div>
-
+  <footer>VAFA Talent ID · OBGFC Women's · v1.6</footer>
   <script src="app.js"></script>
 </body>
 </html>
