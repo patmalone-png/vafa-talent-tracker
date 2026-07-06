@@ -683,8 +683,8 @@
     "id": "cf253b03-7ab5-486f-972c-1512c2ff8de1",
     "grade": "William Buck Premier Women's",
     "date": "2026-08-22",
-    "homeTeam": "St Kevin's Senior Women's",
-    "awayTeam": "Westbourne Grammarians Senior Women's",
+    "homeTeam": "Westbourne Grammarians Senior Women's",
+    "awayTeam": "St Kevin's Senior Women's",
     "homeScore": 0,
     "awayScore": 0,
     "status": "UPCOMING"
@@ -1263,8 +1263,8 @@
     "id": "296805b7-d0cb-4f43-8901-4b726fd58c39",
     "grade": "Premier Women's Reserve",
     "date": "2026-08-22",
-    "homeTeam": "St Kevin's Reserve Women's",
-    "awayTeam": "Westbourne Grammarians Reserve Women's",
+    "homeTeam": "Westbourne Grammarians Reserve Women's",
+    "awayTeam": "St Kevin's Reserve Women's",
     "homeScore": 0,
     "awayScore": 0,
     "status": "UPCOMING"
