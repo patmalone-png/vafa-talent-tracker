@@ -1,1152 +1,771 @@
-// =============================================================
-// OBGFC Talent Tracker — app.js
-// =============================================================
+// VAFA Talent ID — vanilla JS, no modules, no JSX
+(function () {
+  "use strict";
 
-const OBGFC = "Old Brighton Senior Women's";
-const DATA_PLAYERS = "data/players.json";
-const DATA_GAMES = "data/games.json";
-const WATCH_KEY = "obgfc_watchlist_v1";
-const NOTES_KEY = "obgfc_notes_v1";
+  // ----- State -----
+  let games = [];
+  let players = [];
+  let lastSync = null;
+  let watchlist = JSON.parse(localStorage.getItem("vafa_watchlist") || "[]");
 
-// ---------- State ----------
-let players = [];
-let games = [];
-let currentGrade = "all";
-let currentOpponent = "";
-let watchlist = new Set();
-let notes = {};
-let autoSelectedMeta = null;
-
-// =============================================================
-// Boot
-// =============================================================
-document.addEventListener("DOMContentLoaded", async () => {
-  loadWatchlist();
-  loadNotes();
-  setupTabs();
-  setupFilters();
-  setupModal();
-  await loadData();
-  enrichPlayersInPlace();
-  populateGradeFilter();
-  populateOpponentFilter();
-  renderAll();
-});
-
-async function loadData() {
-  try {
-    const [pRes, gRes] = await Promise.all([fetch(DATA_PLAYERS), fetch(DATA_GAMES)]);
-    players = pRes.ok ? await pRes.json() : [];
-    games = gRes.ok ? await gRes.json() : [];
-    const meta = document.getElementById("dataMeta");
-    if (meta) meta.textContent = `${players.length} players · ${games.length} games`;
-  } catch (err) {
-    console.error("Data load failed:", err);
-    players = []; games = [];
+  // ----- OBGFC own-club detection -----
+  const OWN_CLUB_KEYWORDS = ["old brighton"];
+  function isOwnClub(p) {
+    const c = (p.club || "").toLowerCase();
+    return OWN_CLUB_KEYWORDS.some(kw => c.includes(kw));
   }
-}
+  function isOwnClubName(name) {
+    const c = (name || "").toLowerCase();
+    return OWN_CLUB_KEYWORDS.some(kw => c.includes(kw));
+  }
 
-// =============================================================
-// Enrichment
-// =============================================================
-function enrichPlayersInPlace() {
-  players.forEach(p => {
-    if (!Array.isArray(p.gameLog)) p.gameLog = [];
-    if (p.timesInBest == null) {
-      p.timesInBest = p.gameLog.filter(g => g.inBest === true || g.bestPlayer === true).length;
+  // ----- Talent Score helpers -----
+  function talentScore(p) {
+    const g = Math.max(1, p.games || 1);
+    const raw = ((p.bog||0)*8) + ((p.bogFirsts||0)*6) + ((p.goals||0)*5) + ((p.wins||0)*2);
+    return +(raw / Math.sqrt(g)).toFixed(1);
+  }
+  function bestCount(p) {
+    if (typeof p.bestCount === "number") return p.bestCount;
+    return (p.history || []).filter(h => (h.bog || 0) > 0 || h.inBest).length;
+  }
+  function gameTalentScore(h) {
+    if (typeof h.talentScore === "number") return h.talentScore;
+    return (h.goals || 0)*5 + (h.bog || 0)*8 + ((h.bog===6)?6:0) + (h.won?2:0);
+  }
+  function formIndicator(p, window) {
+    const hist = [...(p.history || [])].sort((a,b) => (a.date||"").localeCompare(b.date||""));
+    if (hist.length < window + 2) return null;
+    const recent = hist.slice(-window), earlier = hist.slice(0, -window);
+    const avg = arr => arr.length ? arr.reduce((s,h)=>s+gameTalentScore(h),0)/arr.length : 0;
+    const r = avg(recent), e = avg(earlier);
+    const delta = +(r - e).toFixed(1);
+    const trend = delta > 1 ? "▲" : delta < -1 ? "▼" : "▬";
+    return { recent: +r.toFixed(1), earlier: +e.toFixed(1), delta, trend };
+  }
+
+  function selectedGrade() { const el = document.getElementById("gradeFilter"); return el ? (el.value || "") : ""; }
+  function selectedFormWindow() { const el = document.getElementById("formWindow"); return el ? parseInt(el.value || "3", 10) : 3; }
+  function applyGrade(list, key) {
+    const g = selectedGrade();
+    if (!g) return list;
+    return list.filter(x => (x[key || "grade"] || "") === g);
+  }
+
+  async function loadData() {
+    try {
+      const [gRes, pRes] = await Promise.all([
+        fetch("data/games.json", {cache: "no-store"}),
+        fetch("data/players.json", {cache: "no-store"})
+      ]);
+      games   = gRes.ok ? await gRes.json() : [];
+      players = pRes.ok ? await pRes.json() : [];
+    } catch (e) {
+      console.warn("Data load failed", e);
+      games = []; players = [];
     }
-    if (p.games == null) p.games = p.gameLog.length || 0;
-    if (p.goals == null) {
-      p.goals = p.gameLog.reduce((sum, g) => sum + (Number(g.goals) || 0), 0);
-    }
-    if (p.formIndicator == null) p.formIndicator = computeFormIndicator(p);
-  });
-}
-
-function computeFormIndicator(p) {
-  if (!Array.isArray(p.gameLog) || p.gameLog.length === 0) return 0;
-  const sorted = [...p.gameLog].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const recent = sorted.slice(0, 3);
-  if (recent.length === 0) return 0;
-  const impact = g => ((g.inBest || g.bestPlayer) ? 1 : 0) + ((Number(g.goals) || 0) * 0.5);
-  const recentImpact = recent.reduce((s, g) => s + impact(g), 0) / recent.length;
-  const seasonImpact = sorted.reduce((s, g) => s + impact(g), 0) / sorted.length;
-  if (seasonImpact === 0 && recentImpact === 0) return 0;
-  const ratio = seasonImpact === 0 ? 1 : recentImpact / seasonImpact;
-  return Math.max(0, Math.min(100, Math.round(ratio * 50 + recentImpact * 25)));
-}
-
-// =============================================================
-// Tabs
-// =============================================================
-function setupTabs() {
-  document.querySelectorAll(".tab-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-      const tab = btn.dataset.tab;
-      document.getElementById(`tab-${tab}`).classList.add("active");
-      document.getElementById("opponentFilterWrap").style.display = (tab === "opponent") ? "" : "none";
-      document.getElementById("printBriefBtn").style.display = (tab === "brief") ? "" : "none";
-      if (tab === "opponent") { autoSelectNextOpponent(); renderOpponentComparison(); }
-      if (tab === "players") renderPlayersTable();
-      if (tab === "watchlist") renderWatchlist();
-      if (tab === "dashboard") renderDashboard();
-      if (tab === "obgfc") renderOBGFCPage();
-      if (tab === "brief") { autoSelectNextOpponent(); renderCoachBrief(); }
+    players.forEach(p => {
+      if (typeof p.talentScore !== "number") p.talentScore = talentScore(p);
     });
-  });
-}
-
-// =============================================================
-// Filters
-// =============================================================
-function setupFilters() {
-  document.getElementById("gradeFilter").addEventListener("change", e => {
-    currentGrade = e.target.value;
-    populateOpponentFilter();
-    autoSelectedMeta = null;
+    lastSync = localStorage.getItem("vafa_last_render") || new Date().toISOString();
+    localStorage.setItem("vafa_last_render", new Date().toISOString());
+    populateClubDropdown();
+    populateMatchPrepDropdowns();
     renderAll();
+  }
+
+  function renderAll() {
+    renderDashboard(); renderLeaderboards(); renderPlayerList();
+    renderScoutReport(); renderMatchPrep(); renderRoundLog();
+    renderFinalsPath(); renderWatchlist(); renderSettings();
+    const sync = lastSync ? new Date(lastSync).toLocaleString() : "never";
+    const ls = document.getElementById("lastSync");
+    if (ls) ls.textContent = "Last sync: " + sync;
+  }
+
+  document.getElementById("tabs").addEventListener("click", (e) => {
+    const btn = e.target.closest(".tab");
+    if (!btn) return;
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.tab).classList.add("active");
   });
-  document.getElementById("opponentSelect").addEventListener("change", e => {
-    currentOpponent = e.target.value;
-    autoSelectedMeta = null;
-    renderOpponentComparison();
-    renderCoachBrief();
+
+  function emptyState(msg) { return '<div class="empty">' + (msg || "No data yet — run the PlayHQ fetch workflow.") + '</div>'; }
+
+  function playerLink(p) {
+    const own = isOwnClub(p) ? '<span class="own-club" title="OBGFC">●</span> ' : '';
+    return own + '#';
+  }
+
+  function renderTop5(elId, rows, metricLabel, valueFn, extraCol) {
+    const el = document.getElementById(elId); if (!el) return;
+    if (!rows.length) { el.innerHTML = emptyState(); return; }
+    let html = '<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>'+metricLabel+'</th>'+(extraCol?'<th>'+extraCol.label+'</th>':'')+'</tr></thead><tbody>';
+    rows.forEach((p,i)=>{
+      html += '<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+valueFn(p)+'</b></td>'+(extraCol?'<td>'+extraCol.fn(p)+'</td>':'')+'</tr>';
+    });
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+
+  function renderDashboard() {
+    const pool = applyGrade(players).filter(p => p.name && p.name.trim() && p.name.trim().toLowerCase() !== "none none");
+    const fxPool = applyGrade(games);
+    const fw = selectedFormWindow();
+    document.getElementById("t-games").textContent = fxPool.length || "0";
+    document.getElementById("t-players").textContent = pool.length || "0";
+    const top = [...pool].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0))[0];
+    document.getElementById("t-top").textContent = top ? top.talentScore : "–";
+    document.getElementById("t-sync").textContent = lastSync ? new Date(lastSync).toLocaleDateString() : "–";
+    const minGamesForTop = 3;
+    const qualified = pool.filter(p => (p.games || 0) >= minGamesForTop);
+    renderTop5("topTalent", [...qualified].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0)).slice(0,5),
+      "Score", p => p.talentScore || 0, {label: "Games", fn: p => p.games || 0});
+    renderTop5("topBest",
+      [...pool].map(p => ({...p, _best: bestCount(p)}))
+        .sort((a,b)=> b._best - a._best || (b.talentScore||0)-(a.talentScore||0)).slice(0,5),
+      "In best", p => p._best, {label: "Games", fn: p => p.games || 0});
+    renderTop5("topGoals",
+      [...pool].sort((a,b)=> (b.goals||0) - (a.goals||0) || (b.talentScore||0)-(a.talentScore||0)).slice(0,5),
+      "Goals", p => p.goals || 0, {label: "Per game", fn: p => p.games ? (p.goals/p.games).toFixed(2) : "0"});
+    const formed = qualified.map(p => ({...p, _form: formIndicator(p, fw)}))
+      .filter(p => p._form).sort((a,b) => b._form.delta - a._form.delta).slice(0,5);
+    renderTop5("topForm", formed, "Δ vs avg",
+      p => '<span class="'+(p._form.delta>0?'form-up':p._form.delta<0?'form-down':'form-flat')+'">'+p._form.trend+' '+p._form.delta+'</span>',
+      {label: "Last "+fw+" avg", fn: p => p._form.recent});
+    const fx = [...fxPool].sort((a,b)=> (b.dateTime||"").localeCompare(a.dateTime||"")).slice(0,8);
+    const fEl = document.getElementById("recentFixtures");
+    if (!fx.length) { fEl.innerHTML = emptyState(); }
+    else {
+      let html = '<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th></tr></thead><tbody>';
+      fx.forEach(g=>{
+        const hs = (g.home && g.home.score) ? (g.home.score.points != null ? g.home.score.points : "–") : "–";
+        const as = (g.away && g.away.score) ? (g.away.score.points != null ? g.away.score.points : "–") : "–";
+        html += '<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td></tr>';
+      });
+      html += '</tbody></table>';
+      fEl.innerHTML = html;
+    }
+  }
+
+  function renderLeaderboards() {
+    const metric = (document.getElementById("lbMetric")||{}).value || "talentScore";
+    const positionE = document.getElementById("lbPosition");
+    const position = positionE ? positionE.value : "";
+    const minGames = parseInt((document.getElementById("lbMinGames")||{}).value || "1", 10);
+    const grade = (document.getElementById("lbGrade")||{}).value || "";
+    let pool = players.filter(p => (p.games || 0) >= minGames && p.name && p.name.trim() && p.name.trim().toLowerCase() !== "none none");
+    if (position) pool = pool.filter(p => (p.position||"") === position);
+    if (grade) pool = pool.filter(p => p.grade === grade);
+    const getVal = (p) => {
+      if (metric === "talentScore") return p.talentScore || 0;
+      if (metric === "bog") return p.bog || 0;
+      if (metric === "bogFirsts") return p.bogFirsts || 0;
+      if (metric === "bestCount") return bestCount(p);
+      if (metric === "goals") return p.goals || 0;
+      if (metric === "wins") return p.wins || 0;
+      return 0;
+    };
+    pool.sort((a,b)=>getVal(b)-getVal(a));
+    const el = document.getElementById("lbTable");
+    if (!pool.length) { el.innerHTML = emptyState(); return; }
+    let html = '<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>Games</th><th>'+metric+'</th></tr></thead><tbody>';
+    pool.slice(0,30).forEach((p,i)=>{
+      html += '<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td><b>'+getVal(p)+'</b></td></tr>';
+    });
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+
+  function renderPlayerList() {
+    const q = (document.getElementById("playerSearch").value || "").toLowerCase();
+    const el = document.getElementById("playerList");
+    const filtered = players.filter(p => p.name && p.name.trim() && p.name.trim().toLowerCase() !== "none none" && (!q || (p.name||"").toLowerCase().includes(q) || (p.club||"").toLowerCase().includes(q))).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+    if (!filtered.length) { el.innerHTML = emptyState(); return; }
+    let html = '<table class="data"><thead><tr><th></th><th>Player</th><th>Club</th><th>Grade</th><th>Score</th><th></th></tr></thead><tbody>';
+    filtered.slice(0,200).forEach(p=>{
+      const starred = watchlist.includes(p.id);
+      html += '<tr><td><button class="star" data-pid="'+p.id+'">'+(starred?'★':'☆')+'</button></td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="btn small" data-pid="'+p.id+'" data-action="open">View</button></td></tr>';
+    });
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+  document.getElementById("playerSearch").addEventListener("input", renderPlayerList);
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest(".player-link, [data-action='open']");
+    if (link) { e.preventDefault(); openProfile(link.dataset.pid); return; }
+    const star = e.target.closest(".star");
+    if (star) {
+      const id = star.dataset.pid;
+      if (watchlist.includes(id)) watchlist = watchlist.filter(x=>x!==id);
+      else watchlist.push(id);
+      localStorage.setItem("vafa_watchlist", JSON.stringify(watchlist));
+      renderPlayerList(); renderWatchlist(); renderDashboard();
+    }
   });
-  const search = document.getElementById("playerSearch");
-  if (search) search.addEventListener("input", renderPlayersTable);
-  const hide = document.getElementById("hideOBGFC");
-  if (hide) hide.addEventListener("change", renderPlayersTable);
-  const obgfcSearch = document.getElementById("obgfcSearch");
-  if (obgfcSearch) obgfcSearch.addEventListener("input", renderOBGFCSquadTable);
-  const obgfcSort = document.getElementById("obgfcSort");
-  if (obgfcSort) obgfcSort.addEventListener("change", renderOBGFCSquadTable);
-  document.getElementById("exportCsvBtn").addEventListener("click", exportCsv);
-  document.getElementById("printBriefBtn").addEventListener("click", () => window.print());
-}
-
-function populateGradeFilter() {
-  const sel = document.getElementById("gradeFilter");
-  const grades = Array.from(new Set(players.map(p => p.grade).filter(Boolean))).sort();
-  sel.innerHTML = `<option value="all">All Grades</option>`;
-  grades.forEach(g => {
-    const opt = document.createElement("option");
-    opt.value = g; opt.textContent = g;
-    sel.appendChild(opt);
+  document.getElementById("backToList").addEventListener("click", () => {
+    document.getElementById("playerProfile").classList.add("hidden");
+    document.getElementById("playerList").classList.remove("hidden");
+    document.querySelector('.tab[data-tab="players"]').click();
   });
-}
 
-function populateOpponentFilter() {
-  const sel = document.getElementById("opponentSelect");
-  const teams = new Set();
-  const relevantGames = (currentGrade === "all") ? games : games.filter(g => g.grade === currentGrade);
-  relevantGames.forEach(g => {
-    if (g.homeTeam && g.homeTeam !== OBGFC) teams.add(g.homeTeam);
-    if (g.awayTeam && g.awayTeam !== OBGFC) teams.add(g.awayTeam);
-  });
-  const previous = sel.value;
-  sel.innerHTML = `<option value="">Select opponent…</option>`;
-  Array.from(teams).sort().forEach(t => {
-    const opt = document.createElement("option");
-    opt.value = t; opt.textContent = t;
-    sel.appendChild(opt);
-  });
-  if (Array.from(teams).includes(previous)) sel.value = previous;
-  else currentOpponent = "";
-}
+  function openProfile(pid) {
+    const p = players.find(x => x.id === pid);
+    if (!p) return;
+    document.querySelector('.tab[data-tab="players"]').click();
+    document.getElementById("playerList").classList.add("hidden");
+    const prof = document.getElementById("playerProfile");
+    prof.classList.remove("hidden");
+    document.getElementById("profileName").textContent = p.name;
+    document.getElementById("profileMeta").textContent =
+      [p.club, p.grade, "#"+(p.number||""), (p.games||0)+" games","Goals: "+(p.goals||0),"In best: "+bestCount(p),"Talent score: "+(p.talentScore||0)].filter(Boolean).join(" · ");
+    const tiles = [
+      ["Goals", p.goals || 0, p.games ? (p.goals/p.games).toFixed(2) : "0"],
+      ["BOG votes", p.bog || 0, p.games ? (p.bog/p.games).toFixed(2) : "0"],
+      ["BOG firsts", p.bogFirsts || 0, ""],
+      ["In best", bestCount(p), ""],
+      ["Wins", p.wins || 0, ""],
+      ["Captain games", p.captainGames || 0, ""],
+    ].map(([label,total,pg]) =>
+      '<div class="tile"><div class="tile-label">'+label+'</div><div class="tile-value">'+total+'</div>'+(pg ? '<div class="muted">'+pg+' / game</div>' : '')+'</div>'
+    ).join("");
+    document.getElementById("profileStats").innerHTML = '<div class="tiles">'+tiles+'</div>';
+    const hist = [...(p.history || [])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));
+    drawSparkline("profileChart", hist.map(h => gameTalentScore(h)));
+    const gEl = document.getElementById("profileGames");
+    if (!hist.length) { gEl.innerHTML = emptyState("No per-game data available."); return; }
+    let html = '<table class="data"><thead><tr><th>Date</th><th>Round</th><th>Grade</th><th>Opp</th><th>G</th><th>BOG</th><th>W</th><th>Score</th></tr></thead><tbody>';
+    hist.forEach(h=>{
+      html += '<tr><td>'+(h.date||"")+'</td><td>'+(h.round||"")+'</td><td class="muted">'+(h.grade||"")+'</td><td>'+(h.opponent||"")+'</td><td>'+(h.goals||0)+'</td><td>'+(h.bog||0)+'</td><td>'+(h.won?"✓":"")+'</td><td><b>'+gameTalentScore(h)+'</b></td></tr>';
+    });
+    html += '</tbody></table>';
+    gEl.innerHTML = html;
+  }
 
-function filteredPlayers() {
-  if (currentGrade === "all") return players;
-  return players.filter(p => p.grade === currentGrade);
-}
+  function drawSparkline(id, data) {
+    const c = document.getElementById(id);
+    if (!c || !c.getContext) return;
+    const ctx = c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height);
+    if (!data.length) return;
+    const max = Math.max(...data, 1), min = Math.min(...data, 0);
+    const pad = 10, w = c.width - pad*2, h = c.height - pad*2;
+    ctx.strokeStyle = "#c9a44c"; ctx.lineWidth = 2; ctx.beginPath();
+    data.forEach((v,i)=>{
+      const x = pad + (i/(Math.max(1,data.length-1)))*w;
+      const y = pad + h - ((v-min)/Math.max(0.001,max-min))*h;
+      if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    ctx.fillStyle = "#c9a44c";
+    data.forEach((v,i)=>{
+      const x = pad + (i/(Math.max(1,data.length-1)))*w;
+      const y = pad + h - ((v-min)/Math.max(0.001,max-min))*h;
+      ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill();
+    });
+  }
 
-// =============================================================
-// Talent Score
-// =============================================================
-function calcTalentScore(p, pool) {
-  if (!p) return 0;
-  const maxBest = Math.max(1, ...pool.map(x => x.timesInBest || 0));
-  const maxGoals = Math.max(1, ...pool.map(x => x.goals || 0));
-  const maxGames = Math.max(1, ...pool.map(x => x.games || 0));
-  const bestN = (p.timesInBest || 0) / maxBest;
-  const goalsN = (p.goals || 0) / maxGoals;
-  const gamesN = (p.games || 0) / maxGames;
-  const formN = Math.max(0, Math.min(1, (p.formIndicator || 0) / 100));
-  return Math.round(((bestN * 0.40) + (goalsN * 0.25) + (gamesN * 0.15) + (formN * 0.20)) * 1000) / 10;
-}
+  function populateClubDropdown() {
+    const sel = document.getElementById("scoutClub");
+    if (!sel) return;
+    while (sel.options.length > 1) sel.remove(1);
+    Array.from(new Set(players.map(p=>p.club).filter(Boolean))).sort().forEach(c=>{
+      const o = document.createElement("option"); o.value = c; o.textContent = c;
+      sel.appendChild(o);
+    });
+  }
+  function renderScoutReport() {
+    const sel = document.getElementById("scoutClub"); if (!sel) return;
+    const club = sel.value;
+    const el = document.getElementById("scoutReport");
+    if (!club) { el.innerHTML = '<p class="muted">Pick a club to generate a scouting report.</p>'; return; }
+    const squad = players.filter(p => p.club === club).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+    if (!squad.length) { el.innerHTML = emptyState(); return; }
+    const recent = games.filter(g => ((g.home||{}).name)===club || ((g.away||{}).name)===club)
+      .sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||"")).slice(0,5);
+    let html = '<h3>Top 5 danger players</h3><table class="data"><thead><tr><th>Player</th><th>Grade</th><th>Goals</th><th>In best</th><th>Score</th></tr></thead><tbody>';
+    squad.slice(0,5).forEach(p=>{
+      html += '<tr><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.goals||0)+'</td><td>'+bestCount(p)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';
+    });
+    html += '</tbody></table><h3>Recent fixtures</h3>';
+    if (!recent.length) html += emptyState("No recent fixtures.");
+    else {
+      html += '<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th></tr></thead><tbody>';
+      recent.forEach(g=>{
+        const hs = (g.home && g.home.score) ? (g.home.score.points != null ? g.home.score.points : "–") : "–";
+        const as = (g.away && g.away.score) ? (g.away.score.points != null ? g.away.score.points : "–") : "–";
+        html += '<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td></tr>';
+      });
+      html += '</tbody></table>';
+    }
+    el.innerHTML = html;
+  }
+  (function bindScout(){
+    const sel = document.getElementById("scoutClub");
+    if (sel) sel.addEventListener("change", renderScoutReport);
+  })();
 
-function withTalent(pool) {
-  return pool.map(p => ({ ...p, talentScore: calcTalentScore(p, pool) }));
-}
-
-// =============================================================
-// Watchlist
-// =============================================================
-function loadWatchlist() {
-  try { watchlist = new Set(JSON.parse(localStorage.getItem(WATCH_KEY) || "[]")); }
-  catch { watchlist = new Set(); }
-}
-function saveWatchlist() { localStorage.setItem(WATCH_KEY, JSON.stringify([...watchlist])); updateWatchBadge(); }
-function loadNotes() { try { notes = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}"); } catch { notes = {}; } }
-function saveNotes() { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); }
-function playerKey(p) { return `${p.name}__${p.team}`; }
-function isWatched(p) { return watchlist.has(playerKey(p)); }
-function toggleWatch(p) {
-  const k = playerKey(p);
-  if (watchlist.has(k)) watchlist.delete(k); else watchlist.add(k);
-  saveWatchlist();
-}
-function updateWatchBadge() {
-  const b = document.getElementById("watchCount");
-  if (b) b.textContent = watchlist.size;
-}
-
-// =============================================================
-// Ladder + Form Quality (with venue adjustment)
-// =============================================================
-function buildLadder(allGames, gradeFilter = null) {
-  const stats = {};
-  allGames.forEach(g => {
-    if (gradeFilter && g.grade !== gradeFilter) return;
-    if (g.status && g.status !== "FINAL") return;
-    if (g.homeScore == null || g.awayScore == null) return;
-    if (g.homeScore === 0 && g.awayScore === 0) return;
-    [
-      { name: g.homeTeam, score: g.homeScore, oppScore: g.awayScore },
-      { name: g.awayTeam, score: g.awayScore, oppScore: g.homeScore }
-    ].forEach(t => {
-      if (!t.name) return;
-      if (!stats[t.name]) {
-        stats[t.name] = { team: t.name, grade: g.grade, w: 0, l: 0, d: 0, pf: 0, pa: 0, games: 0, points: 0 };
+  // ===== MATCH PREP =====
+  function obgfcTeams() {
+    return Array.from(new Set(players.filter(isOwnClub)
+      .map(p => ({club: p.club, grade: p.grade})).map(o => JSON.stringify(o))))
+      .map(s => JSON.parse(s)).sort((a,b) => (a.grade||"").localeCompare(b.grade||""));
+  }
+  function nextFixtureFor(club, grade) {
+    const now = new Date().toISOString();
+    return games.filter(g => g.grade === grade)
+      .filter(g => (g.status||"").toUpperCase() !== "FINAL")
+      .filter(g => ((g.home||{}).name === club) || ((g.away||{}).name === club))
+      .filter(g => !g.dateTime || g.dateTime >= now)
+      .sort((a,b) => (a.dateTime||"").localeCompare(b.dateTime||""))[0] || null;
+  }
+  function lastFixtureFor(club, grade) {
+    return games.filter(g => g.grade === grade)
+      .filter(g => (g.status||"").toUpperCase() === "FINAL")
+      .filter(g => ((g.home||{}).name === club) || ((g.away||{}).name === club))
+      .sort((a,b) => (b.dateTime||"").localeCompare(a.dateTime||""))[0] || null;
+  }
+  function populateMatchPrepDropdowns() {
+    const own = document.getElementById("mpOwnTeam");
+    const opp = document.getElementById("mpOpponent");
+    if (!own || !opp) return;
+    while (own.options.length > 1) own.remove(1);
+    obgfcTeams().forEach(t => {
+      const o = document.createElement("option");
+      o.value = JSON.stringify(t);
+      o.textContent = t.grade ? (t.grade + " — " + t.club) : t.club;
+      own.appendChild(o);
+    });
+    while (opp.options.length > 1) opp.remove(1);
+    Array.from(new Set(players.map(p=>p.club).filter(Boolean)))
+      .filter(c => !isOwnClubName(c)).sort()
+      .forEach(c => {
+        const o = document.createElement("option"); o.value = c; o.textContent = c;
+        opp.appendChild(o);
+      });
+  }
+  function autoFillOpponent() {
+    const ownSel = document.getElementById("mpOwnTeam");
+    const oppSel = document.getElementById("mpOpponent");
+    if (!ownSel.value) return;
+    const t = JSON.parse(ownSel.value);
+    const nxt = nextFixtureFor(t.club, t.grade) || lastFixtureFor(t.club, t.grade);
+    if (!nxt) return;
+    const opponent = ((nxt.home||{}).name === t.club) ? (nxt.away||{}).name : (nxt.home||{}).name;
+    if (opponent && [...oppSel.options].some(o => o.value === opponent)) oppSel.value = opponent;
+  }
+  function selectedOwnTeam() {
+    const v = document.getElementById("mpOwnTeam").value;
+    if (!v) return null;
+    try { return JSON.parse(v); } catch(e) { return null; }
+  }
+  function selectedOpponent() { return document.getElementById("mpOpponent").value || ""; }
+  function selectedMPFormWindow() { return parseInt(document.getElementById("mpFormWindow").value || "3", 10); }
+  function gradeTalentBenchmark(grade, topN) {
+    topN = topN || 20;
+    const ranked = players.filter(p => p.grade === grade && (p.games||0) >= 3)
+      .filter(p => p.name && p.name.trim().toLowerCase() !== "none none")
+      .sort((a,b) => (b.talentScore||0)-(a.talentScore||0)).slice(0, topN);
+    if (!ranked.length) return 0;
+    return ranked[ranked.length-1].talentScore || 0;
+  }
+  function squadSummary(squad) {
+    if (!squad.length) return { size:0, avgScore:0, topScore:0, goals:0, best:0, topName:"–" };
+    const goals = squad.reduce((s,p)=>s+(p.goals||0),0);
+    const best = squad.reduce((s,p)=>s+bestCount(p),0);
+    const sorted = [...squad].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+    const top = sorted[0];
+    return {
+      size: squad.length,
+      avgScore: +(squad.reduce((s,p)=>s+(p.talentScore||0),0)/squad.length).toFixed(1),
+      topScore: top.talentScore || 0, topName: top.name || "–", goals, best,
+    };
+  }
+  function renderVersusComparison(own, opp, opponentSquad) {
+    const card = document.getElementById("mpVersus");
+    const verdict = document.getElementById("mpVersusVerdict");
+    if (!card) return;
+    if (!own || !opp) { card.classList.add("hidden"); return; }
+    const ourSquad = players.filter(p => isOwnClub(p) && p.grade === own.grade && p.name && p.name.trim().toLowerCase() !== "none none");
+    if (!ourSquad.length) { card.classList.add("hidden"); return; }
+    card.classList.remove("hidden");
+    document.getElementById("mpVersusOpponent").textContent = opp;
+    const us = squadSummary(ourSquad), th = squadSummary(opponentSquad);
+    const metrics = [
+      { label: "Squad size", a: us.size, b: th.size, fmt: v => v },
+      { label: "Avg talent score", a: us.avgScore, b: th.avgScore, fmt: v => v },
+      { label: "Top talent score", a: us.topScore, b: th.topScore, fmt: v => v, suffix: { a: us.topName, b: th.topName } },
+      { label: "Total goals (season)", a: us.goals, b: th.goals, fmt: v => v },
+      { label: "Total times in best", a: us.best, b: th.best, fmt: v => v },
+    ];
+    let html = '<table class="vs-table"><thead><tr><th>Metric</th><th>OBGFC</th><th>'+opp+'</th></tr></thead><tbody>';
+    let oursAhead = 0, theirsAhead = 0;
+    metrics.forEach(m => {
+      const aBetter = m.a > m.b, bBetter = m.b > m.a;
+      if (aBetter) oursAhead++; else if (bBetter) theirsAhead++;
+      const aCls = aBetter ? "vs-better" : bBetter ? "vs-worse" : "vs-equal";
+      const bCls = bBetter ? "vs-better" : aBetter ? "vs-worse" : "vs-equal";
+      html += '<tr><td>'+m.label+'</td><td><span class="'+aCls+'">'+m.fmt(m.a)+'</span>'+(m.suffix ? '<span class="vs-edge">'+m.suffix.a+'</span>' : '')+'</td><td><span class="'+bCls+'">'+m.fmt(m.b)+'</span>'+(m.suffix ? '<span class="vs-edge">'+m.suffix.b+'</span>' : '')+'</td></tr>';
+    });
+    html += '</tbody></table>';
+    document.getElementById("mpVersusTable").innerHTML = html;
+    let line;
+    if (oursAhead > theirsAhead) line = `🟢 OBGFC ahead in ${oursAhead} of ${metrics.length} metrics — favourable matchup on paper.`;
+    else if (theirsAhead > oursAhead) line = `🔴 ${opp} ahead in ${theirsAhead} of ${metrics.length} metrics — work to do.`;
+    else line = `🟡 Even matchup — ${oursAhead}-${theirsAhead} across ${metrics.length} metrics.`;
+    const topGap = th.topScore - us.topScore;
+    if (Math.abs(topGap) >= 5) {
+      line += topGap > 0
+        ? ` Their best (${th.topName}) outranks ours by ${topGap.toFixed(1)} — plan to tag.`
+        : ` Our best (${us.topName}) outranks theirs by ${(-topGap).toFixed(1)} — own that matchup.`;
+    }
+    verdict.textContent = line;
+  }
+  function renderMatchPrep() {
+    const own = selectedOwnTeam(), opp = selectedOpponent(), fw = selectedMPFormWindow();
+    const showCards = (yes) => {
+      ["mpHeader","mpVersus","mpSummary","mpDanger","mpInForm","mpCrossGrade","mpFullSquad","mpRecent"].forEach(id => {
+        const el = document.getElementById(id); if (el) el.classList.toggle("hidden", !yes);
+      });
+    };
+    if (!opp) { showCards(false); return; }
+    showCards(true);
+    let squad = players.filter(p => p.club === opp);
+    if (own) { const sameGrade = squad.filter(p => p.grade === own.grade); if (sameGrade.length) squad = sameGrade; }
+    squad = squad.filter(p => p.name && p.name.trim().toLowerCase() !== "none none");
+    squad.sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+    const fixture = own ? (nextFixtureFor(own.club, own.grade) || lastFixtureFor(own.club, own.grade)) : null;
+    document.getElementById("mpFixtureTitle").textContent = own ? (own.club + " vs " + opp) : ("Preview: " + opp);
+    const fixtureMeta = [];
+    if (fixture) {
+      fixtureMeta.push((fixture.dateTime||"").slice(0,10));
+      if (fixture.round) fixtureMeta.push(fixture.round);
+      if (own && own.grade) fixtureMeta.push(own.grade);
+      const status = (fixture.status||"").toUpperCase()==="FINAL" ? "(last meeting)" : "(upcoming)";
+      fixtureMeta.push(status);
+    } else if (own) fixtureMeta.push(own.grade + " — no scheduled fixture found");
+    document.getElementById("mpFixtureMeta").textContent = fixtureMeta.join(" · ");
+    renderVersusComparison(own, opp, squad);
+    const totals = squad.reduce((acc,p) => {
+      acc.players++; acc.games += p.games || 0; acc.goals += p.goals || 0; acc.best += bestCount(p);
+      return acc;
+    }, {players:0, games:0, goals:0, best:0});
+    const topScore = squad[0] ? squad[0].talentScore : 0;
+    const avgScore = squad.length ? +(squad.reduce((s,p)=>s+(p.talentScore||0),0)/squad.length).toFixed(1) : 0;
+    document.getElementById("mpSummaryTiles").innerHTML = [
+      ["Squad size", totals.players], ["Avg talent score", avgScore],
+      ["Top talent score", topScore], ["Total goals (season)", totals.goals],
+      ["Total times in best", totals.best],
+    ].map(([l,v]) => '<div class="tile"><div class="tile-label">'+l+'</div><div class="tile-value">'+v+'</div></div>').join("");
+    renderTop5("mpDangerList", squad.slice(0,5), "Score", p => p.talentScore || 0, {label: "Games", fn: p => p.games || 0});
+    const inForm = squad.map(p => ({...p, _form: formIndicator(p, fw)}))
+      .filter(p => p._form && p._form.delta > 0)
+      .sort((a,b) => b._form.delta - a._form.delta).slice(0,5);
+    const fEl = document.getElementById("mpInFormList");
+    if (!inForm.length) { fEl.innerHTML = emptyState("No players currently above season average."); }
+    else {
+      let html = '<table class="data"><thead><tr><th>#</th><th>Player</th><th>Grade</th><th>Δ vs avg</th><th>Last '+fw+' avg</th><th>Season avg</th></tr></thead><tbody>';
+      inForm.forEach((p,i)=>{
+        html += '<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td><span class="form-up">▲ '+p._form.delta+'</span></td><td>'+p._form.recent+'</td><td>'+p._form.earlier+'</td></tr>';
+      });
+      html += '</tbody></table>';
+      fEl.innerHTML = html;
+    }
+    const crossEl = document.getElementById("mpCrossList");
+    if (!own) crossEl.innerHTML = '<p class="muted">Pick your OBGFC team above to enable cross-grade detection.</p>';
+    else {
+      const benchmark = gradeTalentBenchmark(own.grade, 20);
+      const allOppPlayers = players.filter(p => p.club === opp && p.grade !== own.grade && p.name && p.name.trim().toLowerCase() !== "none none" && (p.games||0) >= 3 && (p.talentScore||0) >= benchmark)
+        .sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+      if (!allOppPlayers.length) crossEl.innerHTML = '<p class="muted">No opponent players in other grades currently ranking inside the top 20 of '+own.grade+' (benchmark: '+benchmark+').</p>';
+      else {
+        let html = '<p class="muted">Benchmark: top-20 cut-off in '+own.grade+' = <b>'+benchmark+'</b>. Players below would rank inside that range if promoted.</p><table class="data"><thead><tr><th>Player</th><th>Their grade</th><th>Games</th><th>In best</th><th>Goals</th><th>Score</th></tr></thead><tbody>';
+        allOppPlayers.slice(0,8).forEach(p => {
+          html += '<tr class="cross-grade-row"><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td>'+bestCount(p)+'</td><td>'+(p.goals||0)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';
+        });
+        html += '</tbody></table>';
+        crossEl.innerHTML = html;
       }
-      const s = stats[t.name];
-      s.games++;
-      s.pf += Number(t.score) || 0;
-      s.pa += Number(t.oppScore) || 0;
-      if (t.score > t.oppScore) { s.w++; s.points += 4; }
-      else if (t.score < t.oppScore) { s.l++; }
-      else { s.d++; s.points += 2; }
+    }
+    const fsEl = document.getElementById("mpFullSquadList");
+    if (!squad.length) fsEl.innerHTML = emptyState();
+    else {
+      let html = '<table class="data"><thead><tr><th>#</th><th>Player</th><th>Grade</th><th>Games</th><th>In best</th><th>Goals</th><th>Talent</th><th>Form</th></tr></thead><tbody>';
+      squad.forEach((p,i)=>{
+        const f = formIndicator(p, fw);
+        const formCell = f ? '<span class="'+(f.delta>0?'form-up':f.delta<0?'form-down':'form-flat')+'">'+f.trend+' '+f.delta+'</span>' : '<span class="muted">–</span>';
+        html += '<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td>'+bestCount(p)+'</td><td>'+(p.goals||0)+'</td><td><b>'+(p.talentScore||0)+'</b></td><td>'+formCell+'</td></tr>';
+      });
+      html += '</tbody></table>';
+      fsEl.innerHTML = html;
+    }
+    const rEl = document.getElementById("mpRecentList");
+    const recent = games.filter(g => ((g.home||{}).name === opp) || ((g.away||{}).name === opp))
+      .filter(g => (g.status||"").toUpperCase() === "FINAL")
+      .sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||"")).slice(0,6);
+    if (!recent.length) rEl.innerHTML = emptyState("No recent results.");
+    else {
+      let html = '<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Result for '+opp+'</th></tr></thead><tbody>';
+      recent.forEach(g=>{
+        const hs = (g.home && g.home.score) ? (g.home.score.points != null ? g.home.score.points : "–") : "–";
+        const as = (g.away && g.away.score) ? (g.away.score.points != null ? g.away.score.points : "–") : "–";
+        const isHome = (g.home||{}).name === opp;
+        const oppOutcome = isHome ? (g.home||{}).outcome : (g.away||{}).outcome;
+        const cls = oppOutcome === "WON" ? "form-up" : oppOutcome === "LOST" ? "form-down" : "form-flat";
+        html += '<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td><td><span class="'+cls+'">'+(oppOutcome||"–")+'</span></td></tr>';
+      });
+      html += '</tbody></table>';
+      rEl.innerHTML = html;
+    }
+  }
+  (function bindMatchPrep(){
+    const own = document.getElementById("mpOwnTeam");
+    const opp = document.getElementById("mpOpponent");
+    const fw = document.getElementById("mpFormWindow");
+    if (own) own.addEventListener("change", () => { autoFillOpponent(); renderMatchPrep(); });
+    if (opp) opp.addEventListener("change", renderMatchPrep);
+    if (fw) fw.addEventListener("change", renderMatchPrep);
+  })();
+
+  // ===== ROUND LOG =====
+  function selectedRLGrade() { const el = document.getElementById("rlGrade"); return el ? (el.value || "") : ""; }
+  function selectedRLFormWindow() { const el = document.getElementById("rlFormWindow"); return el ? parseInt(el.value || "3", 10) : 3; }
+
+  function buildTeamForm(grade, window) {
+    const completed = games.filter(g => (g.status||"").toUpperCase() === "FINAL")
+      .filter(g => !grade || g.grade === grade)
+      .sort((a,b)=>(a.dateTime||"").localeCompare(b.dateTime||""));
+    const byTeam = {};
+    completed.forEach(g => {
+      const home = g.home || {}, away = g.away || {};
+      const hScore = (home.score && home.score.points) || 0;
+      const aScore = (away.score && away.score.points) || 0;
+      function record(side, opp, scoreFor, scoreAgainst, outcome) {
+        if (!side.name) return;
+        const k = side.name + "||" + g.grade;
+        if (!byTeam[k]) byTeam[k] = { team: side.name, grade: g.grade, results: [] };
+        const result = outcome === "WON" ? "W" : outcome === "LOST" ? "L" : outcome === "DRAW" ? "D" : "?";
+        byTeam[k].results.push({
+          date: (g.dateTime||"").slice(0,10),
+          round: g.round, opponent: opp.name || "",
+          scoreFor, scoreAgainst, result,
+        });
+      }
+      record(home, away, hScore, aScore, home.outcome);
+      record(away, home, aScore, hScore, away.outcome);
     });
-  });
-  const list = Object.values(stats).map(s => ({
-    ...s,
-    percentage: s.pa === 0 ? 0 : Math.round((s.pf / s.pa) * 100 * 10) / 10,
-  }));
-  list.sort((a, b) => b.points - a.points || b.percentage - a.percentage);
-  list.forEach((t, i) => { t.position = i + 1; });
-  return list;
-}
-
-function getTeamLadderEntry(ladder, teamName) {
-  return ladder.find(t => t.team === teamName) || null;
-}
-
-function rateResult(result, opponentEntry, ladderSize) {
-  if (!opponentEntry || !ladderSize || ladderSize < 2) {
-    return { score: 0, label: "Unrated (no ladder data)", cls: "rq-neutral", tier: "unknown", venueAdj: 0 };
+    return Object.values(byTeam).map(t => {
+      const lastN = t.results.slice(-window);
+      const wins = lastN.filter(r => r.result === "W").length;
+      const losses = lastN.filter(r => r.result === "L").length;
+      const draws = lastN.filter(r => r.result === "D").length;
+      const pts = wins * 3 + draws;
+      const max = lastN.length * 3;
+      const pct = max ? +((pts / max) * 100).toFixed(0) : 0;
+      const trend = pct >= 67 ? "hot" : pct <= 33 ? "cold" : "even";
+      const totalFor = lastN.reduce((s,r)=>s+r.scoreFor,0);
+      const totalAgainst = lastN.reduce((s,r)=>s+r.scoreAgainst,0);
+      const avgMargin = lastN.length ? +(((totalFor - totalAgainst)/lastN.length)).toFixed(0) : 0;
+      return { team: t.team, grade: t.grade, results: lastN, wins, losses, draws, pts, pct, trend, avgMargin, gamesPlayed: t.results.length };
+    }).sort((a,b) => b.pct - a.pct || b.avgMargin - a.avgMargin || b.wins - a.wins);
   }
-  const oppStrength = 1 - ((opponentEntry.position - 1) / (ladderSize - 1));
-  const tier = oppStrength >= 0.66 ? "strong" : oppStrength >= 0.33 ? "mid" : "weak";
-  const margin = Math.abs(result.margin || 0);
-  const bigMargin = margin > 40;
-  const isHome = result.isHome === true;
-  const isAway = result.isHome === false;
 
-  let score = 0, label = "", cls = "rq-neutral";
+  function renderFormBlocks(results, window) {
+    const blocks = [...results];
+    while (blocks.length < window) blocks.unshift({result: "tbd"});
+    return '<span class="form-blocks">'
+      + blocks.map(r => {
+          const cls = r.result === "W" ? "win" : r.result === "L" ? "loss" : r.result === "D" ? "draw" : "tbd";
+          const letter = r.result && r.result !== "tbd" ? r.result : "·";
+          const tip = r.round ? `${r.round}: ${r.result} vs ${r.opponent} (${r.scoreFor}-${r.scoreAgainst})` : "no data";
+          return `<span class="form-block ${cls}" title="${tip}">${letter}</span>`;
+        }).join("")
+      + '</span>';
+  }
 
-  if (result.result === "W") {
-    if (tier === "strong") {
-      score = bigMargin ? +3 : +2;
-      label = bigMargin ? "Statement win vs top side" : "Quality win vs top side";
-      cls = "rq-great";
-    } else if (tier === "mid") {
-      score = +1; label = "Solid win vs mid-table"; cls = "rq-good";
-    } else {
-      score = 0; label = "Expected win vs bottom side"; cls = "rq-neutral";
+  function renderTeamFormBoard(grade, window) {
+    const teams = buildTeamForm(grade, window);
+    const el = document.getElementById("rlTeamForm");
+    if (!teams.length) { el.innerHTML = emptyState("No completed games yet."); return; }
+    let html = '<table class="data"><thead><tr><th>#</th><th>Team</th>'
+             + (grade ? '' : '<th>Grade</th>')
+             + '<th>Last '+window+'</th><th>Form pts</th><th>Form %</th><th>Avg margin</th><th>W-D-L</th></tr></thead><tbody>';
+    teams.forEach((t,i) => {
+      const own = isOwnClubName(t.team);
+      const cls = t.trend === "hot" ? "hot" : t.trend === "cold" ? "cold" : "";
+      const ownDot = own ? '<span class="own-club" title="OBGFC">●</span> ' : '';
+      html += `<tr class="team-form-row ${cls}">`
+            + `<td>${i+1}</td><td class="team-name">${ownDot}${t.team}</td>`
+            + (grade ? '' : `<td class="muted">${t.grade}</td>`)
+            + `<td>${renderFormBlocks(t.results, window)}</td>`
+            + `<td>${t.pts} / ${window*3}</td>`
+            + `<td class="form-pct">${t.pct}%</td>`
+            + `<td>${t.avgMargin > 0 ? "+" : ""}${t.avgMargin}</td>`
+            + `<td>${t.wins}-${t.draws}-${t.losses}</td>`
+            + `</tr>`;
+    });
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+
+  function buildPlayerMovers(grade) {
+    const pool = players.filter(p =>
+      p.name && p.name.trim().toLowerCase() !== "none none" &&
+      (!grade || p.grade === grade) && (p.history || []).length >= 2);
+    return pool.map(p => {
+      const hist = [...(p.history || [])].sort((a,b) => (a.date||"").localeCompare(b.date||""));
+      const last = hist[hist.length - 1];
+      const prior = hist.slice(0, -1);
+      const lastTs = gameTalentScore(last);
+      const priorAvg = prior.length ? prior.reduce((s,h)=>s+gameTalentScore(h),0)/prior.length : 0;
+      return {
+        ...p, _lastTs: lastTs, _priorAvg: +priorAvg.toFixed(1),
+        _delta: +(lastTs - priorAvg).toFixed(1),
+        _lastRound: last.round, _lastDate: last.date, _lastOpp: last.opponent,
+      };
+    });
+  }
+
+  function renderPlayerMovers(grade) {
+    const movers = buildPlayerMovers(grade);
+    const climbers = [...movers].sort((a,b)=>b._delta-a._delta).slice(0,10);
+    const faders = [...movers].sort((a,b)=>a._delta-b._delta).slice(0,10);
+    function renderMoverTable(elId, rows, className) {
+      const el = document.getElementById(elId);
+      if (!rows.length) { el.innerHTML = emptyState("Need at least 2 games to measure movement."); return; }
+      let html = '<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>Last round</th><th>This game</th><th>Prior avg</th><th>Δ</th></tr></thead><tbody>';
+      rows.forEach((p,i) => {
+        const deltaCls = p._delta > 0 ? "form-up" : p._delta < 0 ? "form-down" : "form-flat";
+        const trendSym = p._delta > 0 ? "▲" : p._delta < 0 ? "▼" : "▬";
+        html += `<tr class="${className}"><td>${i+1}</td><td>${playerLink(p)}</td><td>${p.club || ""}</td><td class="muted">${p.grade || ""}</td><td>${p._lastRound || ""} <span class="muted">vs ${p._lastOpp || "?"}</span></td><td>${p._lastTs}</td><td>${p._priorAvg}</td><td><span class="${deltaCls}">${trendSym} ${p._delta > 0 ? "+" : ""}${p._delta}</span></td></tr>`;
+      });
+      html += '</tbody></table>';
+      el.innerHTML = html;
     }
-  } else if (result.result === "L") {
-    if (tier === "weak") {
-      score = bigMargin ? -3 : -2;
-      label = bigMargin ? "Embarrassing loss vs bottom side" : "Bad loss vs bottom side";
-      cls = "rq-bad";
-    } else if (tier === "mid") {
-      score = -1; label = "Concerning loss vs mid-table"; cls = "rq-poor";
-    } else {
-      score = 0; label = "Tough loss vs top side"; cls = "rq-neutral";
+    renderMoverTable("rlClimbers", climbers, "mover-up");
+    renderMoverTable("rlFaders", faders, "mover-down");
+  }
+
+  function renderNewElite(grade) {
+    const el = document.getElementById("rlNewElite");
+    const grades = grade ? [grade] : Array.from(new Set(players.map(p=>p.grade).filter(Boolean)));
+    const out = [];
+    grades.forEach(g => {
+      const pool = players.filter(p => p.grade === g && p.name && p.name.trim().toLowerCase() !== "none none" && (p.history || []).length >= 2);
+      if (!pool.length) return;
+      const benchmark = gradeTalentBenchmark(g, 20);
+      if (!benchmark) return;
+      pool.forEach(p => {
+        const hist = [...(p.history || [])].sort((a,b) => (a.date||"").localeCompare(b.date||""));
+        const last = hist[hist.length - 1];
+        const prior = hist.slice(0, -1);
+        const priorTotals = prior.reduce((acc, h) => {
+          acc.bog += (h.bog || 0); acc.goals += (h.goals || 0);
+          acc.wins += h.won ? 1 : 0; acc.bogFirsts += (h.bog === 6 ? 1 : 0);
+          return acc;
+        }, {bog:0, goals:0, wins:0, bogFirsts:0});
+        const priorGames = Math.max(1, prior.length);
+        const priorScore = +(((priorTotals.bog * 8) + (priorTotals.bogFirsts * 6) + (priorTotals.goals * 5) + (priorTotals.wins * 2)) / Math.sqrt(priorGames)).toFixed(1);
+        const currScore = p.talentScore || 0;
+        if (priorScore < benchmark && currScore >= benchmark) {
+          out.push({ ...p, _priorScore: priorScore, _benchmark: benchmark, _lastRound: last.round, _lastOpp: last.opponent, _lastTs: gameTalentScore(last) });
+        }
+      });
+    });
+    if (!out.length) { el.innerHTML = '<p class="muted">No new entrants this round. The top 20 of each grade was stable.</p>'; return; }
+    out.sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+    let html = '<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>Last round</th><th>Game TS</th><th>Now</th><th>Was</th><th>Benchmark</th></tr></thead><tbody>';
+    out.forEach((p,i) => {
+      html += `<tr class="elite-new"><td>${i+1}</td><td>${playerLink(p)}</td><td>${p.club || ""}</td><td class="muted">${p.grade || ""}</td><td>${p._lastRound || ""} <span class="muted">vs ${p._lastOpp || "?"}</span></td><td>${p._lastTs}</td><td><b>${p.talentScore || 0}</b></td><td>${p._priorScore}</td><td class="muted">${p._benchmark}</td></tr>`;
+    });
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+
+  function renderBigResults(grade) {
+    const el = document.getElementById("rlBigResults");
+    let pool = games.filter(g => (g.status||"").toUpperCase() === "FINAL").filter(g => !grade || g.grade === grade);
+    const sorted = [...pool].sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||""));
+    if (!sorted.length) { el.innerHTML = emptyState("No completed games yet."); return; }
+    const latestDate = (sorted[0].dateTime||"").slice(0,10);
+    const cutoff = new Date(latestDate); cutoff.setDate(cutoff.getDate() - 6);
+    const cutoffStr = cutoff.toISOString().slice(0,10);
+    const lastRound = pool.filter(g => (g.dateTime||"").slice(0,10) >= cutoffStr);
+    const ranked = lastRound.map(g => {
+      const hs = (g.home && g.home.score && g.home.score.points) || 0;
+      const as = (g.away && g.away.score && g.away.score.points) || 0;
+      return {...g, _margin: Math.abs(hs - as), _hs: hs, _as: as};
+    }).sort((a,b)=>b._margin-a._margin).slice(0,8);
+    if (!ranked.length) { el.innerHTML = emptyState("No big results in the last round."); return; }
+    let html = '<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Margin</th></tr></thead><tbody>';
+    ranked.forEach(g => {
+      html += '<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+g._hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+g._as+'</b></td><td><b>'+g._margin+'</b></td></tr>';
+    });
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+
+  function renderRoundLog() {
+    const grade = selectedRLGrade(), fw = selectedRLFormWindow();
+    renderTeamFormBoard(grade, fw); renderPlayerMovers(grade);
+    renderNewElite(grade); renderBigResults(grade);
+  }
+  ["rlGrade","rlFormWindow"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("change", renderRoundLog);
+  });
+
+  // ===== FINALS PATH ESTIMATOR =====
+  function selectedFPGrade() {
+    const el = document.getElementById("fpGrade");
+    return el ? (el.value || "Premier A Women's") : "Premier A Women's";
+  }
+  function selectedFPFinalsSpots() {
+    const el = document.getElementById("fpFinalsSpots");
+    return el ? parseInt(el.value || "4", 10) : 4;
+  }
+  function selectedFPPtsWin() {
+    const el = document.getElementById("fpPtsWin");
+    const v = el ? parseInt(el.value || "4", 10) : 4;
+    return Math.max(1, Math.min(4, v));
+  }
+
+  // Build a full team-level ladder for a grade
+  function buildLadder(grade, ptsPerWin) {
+    ptsPerWin = ptsPerWin || 4;
+    const ptsPerDraw = Math.floor(ptsPerWin / 2);
+    const completed = games.filter(g => (g.status||"").toUpperCase() === "FINAL" && g.grade === grade)
+      .sort((a,b)=>(a.dateTime||"").localeCompare(b.dateTime||""));
+    const upcoming = games.filter(g => (g.status||"").toUpperCase() !== "FINAL" && g.grade === grade);
+    const byTeam = {};
+
+    function ensure(name) {
+      if (!name) return null;
+      if (!byTeam[name]) byTeam[name] = {
+        team: name, played:0, wins:0, losses:0, draws:0, pointsFor:0, pointsAgainst:0,
+        results:[], upcomingCount:0, upcomingOpponents:[]
+      };
+      return byTeam[name];
     }
-  } else {
-    if (tier === "strong") { score = +1; label = "Creditable draw vs top side"; cls = "rq-good"; }
-    else if (tier === "weak") { score = -1; label = "Disappointing draw vs bottom side"; cls = "rq-poor"; }
-    else { score = 0; label = "Even draw vs mid-table"; cls = "rq-neutral"; }
-  }
 
-  // -------- Venue adjustment --------
-  let venueAdj = 0;
-  if (isAway && result.result === "W") venueAdj = +1;
-  else if (isHome && result.result === "L" && tier === "weak") venueAdj = -1;
-  else if (isHome && result.result === "L" && tier === "mid") venueAdj = -0.5;
-  else if (isAway && result.result === "L" && tier === "strong") venueAdj = +0.5;
-  else if (isAway && result.result === "D" && tier === "strong") venueAdj = +1;
-  else if (isHome && result.result === "D" && tier === "weak") venueAdj = -1;
-
-  const finalScore = score + venueAdj;
-
-  // Label venue note when adjustment is meaningful
-  let venueNote = "";
-  if (venueAdj >= 1) venueNote = " (away)";
-  else if (venueAdj <= -1) venueNote = " (at home)";
-  else if (venueAdj > 0) venueNote = " (away)";
-  else if (venueAdj < 0) venueNote = " (at home)";
-
-  // Promote/demote class if venue adjustment shifts tier
-  if (finalScore >= 3 && cls !== "rq-great") cls = "rq-great";
-  else if (finalScore <= -3 && cls !== "rq-bad") cls = "rq-bad";
-
-  return {
-    score: finalScore,
-    label: label + venueNote,
-    cls,
-    tier,
-    venueAdj,
-    venue: isHome ? "H" : isAway ? "A" : "?",
-  };
-}
-
-function summariseFormQuality(rated) {
-  if (rated.length === 0) return { total: 0, label: "—", cls: "rq-neutral" };
-  const total = rated.reduce((s, r) => s + r.score, 0);
-  if (total >= 4)  return { total, label: "Form genuinely earned vs strong opposition", cls: "rq-great" };
-  if (total >= 1)  return { total, label: "Form backed by quality results", cls: "rq-good" };
-  if (total === 0) return { total, label: "Form on par with ladder expectations", cls: "rq-neutral" };
-  if (total >= -2) return { total, label: "Form weaker than ladder position suggests", cls: "rq-poor" };
-  return { total, label: "Form masks poor results vs lesser teams", cls: "rq-bad" };
-}
-
-// =============================================================
-// Emerging Players
-// =============================================================
-function findEmergingPlayers(pool, n = 6) {
-  const enriched = withTalent(pool).map(p => {
-    const f = p.formIndicator || 0;
-    const b = p.timesInBest || 0;
-    const g = p.games || 0;
-    return { ...p, emergeScore: (f * 1.0) + (b * 6) - (g * 1.5) };
-  });
-  return enriched
-    .filter(p => (p.formIndicator || 0) >= 40)
-    .filter(p => (p.games || 0) >= 3 && (p.games || 0) <= 7)
-    .filter(p => (p.timesInBest || 0) >= 1)
-    .sort((a, b) => b.emergeScore - a.emergeScore)
-    .slice(0, n);
-}
-
-function emergingTag(p) {
-  const f = p.formIndicator || 0;
-  const b = p.timesInBest || 0;
-  const g = p.games || 0;
-  const ratio = g > 0 ? b / g : 0;
-  if (ratio >= 0.5 && g <= 6) return "🔥 Breakout best player";
-  if (f >= 75) return "📈 Trending up sharply";
-  if (b >= 3) return "⭐ Consistent impact";
-  if ((p.goals || 0) >= 5) return "🎯 Emerging goal threat";
-  return "👀 One to watch";
-}
-
-// =============================================================
-// Team Form (carries isHome / venue)
-// =============================================================
-function getTeamLastN(allGames, teamName, n = 3) {
-  if (!allGames || !Array.isArray(allGames)) return [];
-  return allGames
-    .filter(g => g.homeTeam === teamName || g.awayTeam === teamName)
-    .filter(g =>
-      g.homeScore != null && g.awayScore != null &&
-      !(g.homeScore === 0 && g.awayScore === 0) &&
-      (g.status ? g.status === "FINAL" : true)
-    )
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, n);
-}
-
-function getTeamFormSummary(allGames, teamName, n = 3) {
-  const lastN = getTeamLastN(allGames, teamName, n);
-  if (lastN.length === 0) {
-    return { results: [], wins: 0, losses: 0, draws: 0, marginAvg: 0, trend: "No data", emoji: "❔", gamesCounted: 0 };
-  }
-  let wins = 0, losses = 0, draws = 0, marginTotal = 0;
-  const results = lastN.map(g => {
-    const isHome = g.homeTeam === teamName;
-    const teamScore = isHome ? Number(g.homeScore) : Number(g.awayScore);
-    const oppScore = isHome ? Number(g.awayScore) : Number(g.homeScore);
-    const opponent = isHome ? g.awayTeam : g.homeTeam;
-    const margin = teamScore - oppScore;
-    marginTotal += margin;
-    let r = "D";
-    if (margin > 0) { r = "W"; wins++; }
-    else if (margin < 0) { r = "L"; losses++; }
-    else { draws++; }
-    return { date: g.date, opponent, teamScore, oppScore, margin, result: r, isHome, venue: isHome ? "H" : "A" };
-  });
-  const marginAvg = Math.round(marginTotal / lastN.length);
-  let trend = "Mixed form", emoji = "➖";
-  if (wins >= 2 && marginAvg > 0) { trend = "In form"; emoji = "🔥"; }
-  else if (losses >= 2 && marginAvg < 0) { trend = "Out of form"; emoji = "❄️"; }
-  return { results, wins, losses, draws, marginAvg, trend, emoji, gamesCounted: lastN.length };
-}
-
-// =============================================================
-// Auto-select next opponent
-// =============================================================
-function findNextOBGFCOpponent() {
-  const today = new Date().toISOString().slice(0, 10);
-  const obgfcGames = games.filter(g => {
-    const isOurs = g.homeTeam === OBGFC || g.awayTeam === OBGFC;
-    const gradeMatch = (currentGrade === "all") || (g.grade === currentGrade);
-    return isOurs && gradeMatch;
-  });
-  const upcoming = obgfcGames
-    .filter(g => g.date && g.date >= today)
-    .filter(g => g.status !== "FINAL")
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
-  if (upcoming.length > 0) {
-    const next = upcoming[0];
-    return { opponent: next.homeTeam === OBGFC ? next.awayTeam : next.homeTeam, date: next.date, type: "upcoming" };
-  }
-  const past = obgfcGames.filter(g => g.date).sort((a, b) => new Date(b.date) - new Date(a.date));
-  if (past.length > 0) {
-    const last = past[0];
-    return { opponent: last.homeTeam === OBGFC ? last.awayTeam : last.homeTeam, date: last.date, type: "recent" };
-  }
-  return null;
-}
-
-function autoSelectNextOpponent() {
-  if (currentOpponent) return;
-  const next = findNextOBGFCOpponent();
-  if (!next) return;
-  const sel = document.getElementById("opponentSelect");
-  if (Array.from(sel.options).some(o => o.value === next.opponent)) {
-    sel.value = next.opponent;
-    currentOpponent = next.opponent;
-    autoSelectedMeta = next;
-  }
-}
-
-function findMatchupGrade(opponent) {
-  const oppGames = games.filter(g => g.homeTeam === opponent || g.awayTeam === opponent);
-  if (oppGames.length === 0) return null;
-  const counts = {};
-  oppGames.forEach(g => { if (g.grade) counts[g.grade] = (counts[g.grade] || 0) + 1; });
-  return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || null;
-}
-
-// =============================================================
-// Renderers
-// =============================================================
-function renderAll() {
-  updateWatchBadge();
-  renderDashboard();
-  renderOBGFCPage();
-  renderPlayersTable();
-  renderWatchlist();
-  renderOpponentComparison();
-  renderCoachBrief();
-}
-
-function renderDashboard() {
-  const pool = withTalent(filteredPlayers());
-  fillLeaderboard("lb-talent", pool, "talentScore", v => v.toFixed(1));
-  fillLeaderboard("lb-best", pool, "timesInBest");
-  fillLeaderboard("lb-goals", pool, "goals");
-  fillLeaderboard("lb-form", pool, "formIndicator", v => Math.round(v));
-  renderEmergingPlayers();
-}
-
-function renderEmergingPlayers() {
-  const container = document.getElementById("emergingGrid");
-  if (!container) return;
-  const pool = findEmergingPlayers(filteredPlayers(), 6);
-  if (pool.length === 0) {
-    container.innerHTML = `<div class="empty">No emerging players to surface yet.</div>`; return;
-  }
-  container.innerHTML = pool.map(p => `
-    <div class="emerging-card ${p.team === OBGFC ? "card-obgfc" : ""}">
-      <div class="emerging-head">
-        ${p.team === OBGFC ? '<span class="dot-obgfc"></span>' : ""}
-        <a href="#" class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
-      </div>
-      <div class="emerging-team">${escapeHtml(p.team || "")}</div>
-      <div class="emerging-stats">
-        <div><span>Form</span><strong>${Math.round(p.formIndicator || 0)}</strong></div>
-        <div><span>GP</span><strong>${p.games || 0}</strong></div>
-        <div><span>Best</span><strong>${p.timesInBest || 0}</strong></div>
-        <div><span>Goals</span><strong>${p.goals || 0}</strong></div>
-      </div>
-      <div class="emerging-tag">${emergingTag(p)}</div>
-    </div>
-  `).join("");
-  container.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
-  );
-}
-
-function fillLeaderboard(cardId, pool, key, fmt = v => v) {
-  const body = document.querySelector(`#${cardId} .lb-body`);
-  if (!body) return;
-  const top = [...pool]
-    .filter(p => (p[key] ?? 0) > 0)
-    .sort((a, b) => (b[key] || 0) - (a[key] || 0))
-    .slice(0, 5);
-  if (top.length === 0) { body.innerHTML = `<div class="empty">No data</div>`; return; }
-  body.innerHTML = top.map((p, i) => `
-    <div class="lb-row ${p.team === OBGFC ? "is-obgfc" : ""}">
-      <span class="lb-rank">${i + 1}</span>
-      <span class="lb-name">
-        <a href="#" data-player="${escapeAttr(playerKey(p))}" class="player-link">${escapeHtml(p.name)}</a>
-        <small>${escapeHtml(p.team || "")}</small>
-      </span>
-      <span class="lb-val">${fmt(p[key] || 0)}</span>
-    </div>
-  `).join("");
-  body.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
-  );
-}
-
-// =============================================================
-// OBGFC Tab
-// =============================================================
-function renderOBGFCPage() {
-  renderOBGFCSummary();
-  renderOBGFCFormBlock();
-  renderOBGFCSquadTable();
-}
-
-function renderOBGFCSummary() {
-  const bar = document.getElementById("obgfcSummaryBar");
-  if (!bar) return;
-  const squad = players.filter(p => p.team === OBGFC);
-  const gameCount = squad.reduce((s, p) => Math.max(s, p.games || 0), 0);
-  const totalBest = squad.reduce((s, p) => s + (p.timesInBest || 0), 0);
-  const totalGoals = squad.reduce((s, p) => s + (p.goals || 0), 0);
-  const avgForm = squad.length ? Math.round(squad.reduce((s, p) => s + (p.formIndicator || 0), 0) / squad.length) : 0;
-
-  // Home / away split for the team
-  const teamGames = games.filter(g =>
-    (g.homeTeam === OBGFC || g.awayTeam === OBGFC) &&
-    g.homeScore != null && g.awayScore != null &&
-    !(g.homeScore === 0 && g.awayScore === 0) &&
-    (g.status ? g.status === "FINAL" : true)
-  );
-  let hW = 0, hL = 0, aW = 0, aL = 0;
-  teamGames.forEach(g => {
-    const isHome = g.homeTeam === OBGFC;
-    const teamScore = isHome ? g.homeScore : g.awayScore;
-    const oppScore = isHome ? g.awayScore : g.homeScore;
-    if (isHome) { teamScore > oppScore ? hW++ : (teamScore < oppScore ? hL++ : 0); }
-    else { teamScore > oppScore ? aW++ : (teamScore < oppScore ? aL++ : 0); }
-  });
-
-  bar.innerHTML = `
-    <div class="summary-pill"><span>Squad</span><strong>${squad.length}</strong></div>
-    <div class="summary-pill"><span>Games</span><strong>${gameCount}</strong></div>
-    <div class="summary-pill"><span>Total Bests</span><strong>${totalBest}</strong></div>
-    <div class="summary-pill"><span>Total Goals</span><strong>${totalGoals}</strong></div>
-    <div class="summary-pill"><span>Avg Form</span><strong>${avgForm}</strong></div>
-    <div class="summary-pill"><span>Home</span><strong>${hW}W-${hL}L</strong></div>
-    <div class="summary-pill"><span>Away</span><strong>${aW}W-${aL}L</strong></div>
-  `;
-}
-
-function renderOBGFCFormBlock() {
-  const block = document.getElementById("obgfcFormBlock");
-  if (!block) return;
-  const obgfcGrade = findMatchupGrade(OBGFC);
-  const ladder = buildLadder(games, obgfcGrade);
-  const form = getTeamFormSummary(games, OBGFC, 5);
-  const ladderEntry = getTeamLadderEntry(ladder, OBGFC);
-  const ratedResults = form.results.map(r => ({
-    ...r, quality: rateResult(r, getTeamLadderEntry(ladder, r.opponent), ladder.length)
-  }));
-  const chips = ratedResults.map(r => {
-    const cls = r.result === "W" ? "chip-w" : r.result === "L" ? "chip-l" : "chip-d";
-    const venueTag = r.isHome ? "H" : "A";
-    return `<span class="form-chip ${cls}" title="${r.date} ${venueTag} vs ${escapeHtml(r.opponent)} (${r.teamScore}-${r.oppScore}) — ${r.quality.label}">${r.result}<span class="venue-mark">${venueTag}</span><span class="quality-mark ${r.quality.cls}"></span></span>`;
-  }).join("");
-  const quality = summariseFormQuality(ratedResults.map(r => r.quality));
-  const ladderInfo = ladderEntry
-    ? `<div class="ladder-pos">📊 #${ladderEntry.position} of ${ladder.length} · ${ladderEntry.w}W-${ladderEntry.l}L-${ladderEntry.d}D · ${ladderEntry.percentage}%</div>`
-    : "";
-  block.innerHTML = `
-    <div class="form-card card-obgfc">
-      <div class="form-header">
-        <h3><span class="dot-obgfc"></span>${escapeHtml(OBGFC)}</h3>
-        <span class="form-trend">${form.emoji} ${form.trend}</span>
-      </div>
-      ${ladderInfo}
-      <div class="form-chips">${chips || '<em>No recent games</em>'}</div>
-      <div class="form-meta">
-        <span>W ${form.wins} – L ${form.losses} – D ${form.draws}</span>
-        <span>Avg margin: ${form.marginAvg > 0 ? "+" : ""}${form.marginAvg}</span>
-        <span>Last ${form.gamesCounted} games</span>
-      </div>
-      <div class="form-quality ${quality.cls}">
-        <strong>Quality of form:</strong> ${quality.label}
-      </div>
-    </div>
-  `;
-}
-
-function renderOBGFCSquadTable() {
-  const tbody = document.querySelector("#obgfcTable tbody");
-  if (!tbody) return;
-  const search = (document.getElementById("obgfcSearch")?.value || "").toLowerCase();
-  const sortBy = document.getElementById("obgfcSort")?.value || "talent";
-  const squad = withTalent(players).filter(p => p.team === OBGFC);
-  const sortKey = {
-    talent: p => -(p.talentScore || 0),
-    best: p => -(p.timesInBest || 0),
-    goals: p => -(p.goals || 0),
-    form: p => -(p.formIndicator || 0),
-    games: p => -(p.games || 0),
-    name: p => p.name || "",
-  }[sortBy];
-  const pool = squad
-    .filter(p => !search || (p.name || "").toLowerCase().includes(search))
-    .sort((a, b) => {
-      const va = sortKey(a), vb = sortKey(b);
-      if (typeof va === "string") return va.localeCompare(vb);
-      return va - vb;
+    completed.forEach(g => {
+      const home = g.home || {}, away = g.away || {};
+      const hName = home.name, aName = away.name;
+      if (!hName || !aName) return;
+      const hScore = (home.score && home.score.points) || 0;
+      const aScore = (away.score && away.score.points) || 0;
+      const h = ensure(hName), a = ensure(aName);
+      h.played++; a.played++;
+      h.pointsFor += hScore; h.pointsAgainst += aScore;
+      a.pointsFor += aScore; a.pointsAgainst += hScore;
+      if (home.outcome === "WON") { h.wins++; a.losses++; }
+      else if (away.outcome === "WON") { a.wins++; h.losses++; }
+      else if (home.outcome === "DRAW" || away.outcome === "DRAW") { h.draws++; a.draws++; }
+      h.results.push({date: (g.dateTime||"").slice(0,10), round: g.round, opponent: aName, scoreFor: hScore, scoreAgainst: aScore, result: home.outcome==="WON"?"W":away.outcome==="WON"?"L":"D", home: true});
+      a.results.push({date: (g.dateTime||"").slice(0,10), round: g.round, opponent: hName, scoreFor: aScore, scoreAgainst: hScore, result: away.outcome==="WON"?"W":home.outcome==="WON"?"L":"D", home: false});
     });
 
-  if (pool.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8" class="empty">No OBGFC players in the data yet.</td></tr>`; return;
-  }
-
-  tbody.innerHTML = pool.map(p => {
-    const log = [...(p.gameLog || [])].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
-    const recent = log.map(g => {
-      const inBest = g.inBest || g.bestPlayer;
-      const cls = inBest ? "chip-w" : (g.goals > 0 ? "chip-d" : "chip-l");
-      const lbl = inBest ? "B" : (g.goals > 0 ? `${g.goals}` : "·");
-      return `<span class="mini-chip ${cls}" title="${escapeHtml(g.date)} vs ${escapeHtml(g.opponent)}: ${inBest ? "in best" : ""}${g.goals ? ` ${g.goals} goals` : (inBest ? "" : " no impact")}">${lbl}</span>`;
-    }).join("");
-    return `
-      <tr>
-        <td><button class="star-btn ${isWatched(p) ? "on" : ""}" data-key="${escapeAttr(playerKey(p))}">★</button></td>
-        <td><a href="#" class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a></td>
-        <td class="num">${p.games || 0}</td>
-        <td class="num">${p.timesInBest || 0}</td>
-        <td class="num">${p.goals || 0}</td>
-        <td class="num">${Math.round(p.formIndicator || 0)}</td>
-        <td class="num"><strong>${(p.talentScore || 0).toFixed(1)}</strong></td>
-        <td><div class="recent-mini">${recent || '<em class="muted">—</em>'}</div></td>
-      </tr>
-    `;
-  }).join("");
-
-  tbody.querySelectorAll(".star-btn").forEach(b =>
-    b.addEventListener("click", () => {
-      const p = players.find(x => playerKey(x) === b.dataset.key);
-      if (p) { toggleWatch(p); renderOBGFCSquadTable(); renderPlayersTable(); renderWatchlist(); }
-    })
-  );
-  tbody.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
-  );
-}
-
-// =============================================================
-// Players Table
-// =============================================================
-function renderPlayersTable() {
-  const tbody = document.querySelector("#playersTable tbody");
-  if (!tbody) return;
-  const search = (document.getElementById("playerSearch")?.value || "").toLowerCase();
-  const hideOBGFC = document.getElementById("hideOBGFC")?.checked;
-  const pool = withTalent(filteredPlayers())
-    .filter(p => !(hideOBGFC && p.team === OBGFC))
-    .filter(p => !search ||
-      (p.name || "").toLowerCase().includes(search) ||
-      (p.team || "").toLowerCase().includes(search))
-    .sort((a, b) => (b.talentScore || 0) - (a.talentScore || 0));
-  if (pool.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="9" class="empty">No players match the current filter.</td></tr>`; return;
-  }
-  tbody.innerHTML = pool.map(p => `
-    <tr class="${p.team === OBGFC ? "row-obgfc" : ""}">
-      <td class="cell-watch">
-        <button class="star-btn ${isWatched(p) ? "on" : ""}" data-key="${escapeAttr(playerKey(p))}">★</button>
-      </td>
-      <td>
-        ${p.team === OBGFC ? '<span class="dot-obgfc"></span>' : ""}
-        <a href="#" class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
-      </td>
-      <td>${escapeHtml(p.team || "")}</td>
-      <td>${escapeHtml(p.grade || "")}</td>
-      <td class="num">${p.games || 0}</td>
-      <td class="num">${p.timesInBest || 0}</td>
-      <td class="num">${p.goals || 0}</td>
-      <td class="num">${Math.round(p.formIndicator || 0)}</td>
-      <td class="num"><strong>${(p.talentScore || 0).toFixed(1)}</strong></td>
-    </tr>
-  `).join("");
-  tbody.querySelectorAll(".star-btn").forEach(b =>
-    b.addEventListener("click", () => {
-      const p = players.find(x => playerKey(x) === b.dataset.key);
-      if (p) { toggleWatch(p); renderPlayersTable(); renderWatchlist(); renderOBGFCSquadTable(); }
-    })
-  );
-  tbody.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
-  );
-}
-
-function renderWatchlist() {
-  const tbody = document.querySelector("#watchlistTable tbody");
-  if (!tbody) return;
-  const pool = withTalent(players).filter(isWatched);
-  if (pool.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="10" class="empty">No players in your watchlist yet.</td></tr>`; return;
-  }
-  tbody.innerHTML = pool.map(p => {
-    const k = playerKey(p);
-    const note = notes[k] || "";
-    return `
-      <tr class="${p.team === OBGFC ? "row-obgfc" : ""}">
-        <td><button class="star-btn on" data-key="${escapeAttr(k)}">★</button></td>
-        <td>
-          ${p.team === OBGFC ? '<span class="dot-obgfc"></span>' : ""}
-          <a href="#" class="player-link" data-player="${escapeAttr(k)}">${escapeHtml(p.name)}</a>
-        </td>
-        <td>${escapeHtml(p.team || "")}</td>
-        <td>${escapeHtml(p.grade || "")}</td>
-        <td class="num">${p.games || 0}</td>
-        <td class="num">${p.timesInBest || 0}</td>
-        <td class="num">${p.goals || 0}</td>
-        <td class="num">${Math.round(p.formIndicator || 0)}</td>
-        <td class="num"><strong>${(p.talentScore || 0).toFixed(1)}</strong></td>
-        <td><input type="text" class="note-input" data-key="${escapeAttr(k)}" value="${escapeAttr(note)}" placeholder="Add note…" /></td>
-      </tr>
-    `;
-  }).join("");
-  tbody.querySelectorAll(".star-btn").forEach(b =>
-    b.addEventListener("click", () => {
-      const p = players.find(x => playerKey(x) === b.dataset.key);
-      if (p) { toggleWatch(p); renderWatchlist(); renderPlayersTable(); renderOBGFCSquadTable(); }
-    })
-  );
-  tbody.querySelectorAll(".note-input").forEach(inp =>
-    inp.addEventListener("change", () => { notes[inp.dataset.key] = inp.value; saveNotes(); })
-  );
-  tbody.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
-  );
-}
-
-// =============================================================
-// Modal
-// =============================================================
-function setupModal() {
-  document.getElementById("modalClose").addEventListener("click", closeModal);
-  document.getElementById("profileModal").addEventListener("click", e => {
-    if (e.target.id === "profileModal") closeModal();
-  });
-}
-function closeModal() { document.getElementById("profileModal").style.display = "none"; }
-
-function openProfileByKey(key) {
-  const p = players.find(x => playerKey(x) === key);
-  if (!p) return;
-  const enriched = withTalent(players).find(x => playerKey(x) === key) || p;
-  const log = [...(p.gameLog || [])].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const rows = log.length
-    ? log.map(g => `
-        <tr>
-          <td>${escapeHtml(g.date || "")}</td>
-          <td>${escapeHtml(g.opponent || "")}</td>
-          <td class="num">${g.goals ?? 0}</td>
-          <td>${(g.inBest || g.bestPlayer) ? "✅" : ""}</td>
-        </tr>`).join("")
-    : `<tr><td colspan="4" class="empty">No game log available.</td></tr>`;
-  const k = playerKey(p);
-  document.getElementById("modalBody").innerHTML = `
-    <h2>${p.team === OBGFC ? '<span class="dot-obgfc"></span>' : ""}${escapeHtml(p.name)}</h2>
-    <p class="muted">${escapeHtml(p.team || "")} · ${escapeHtml(p.grade || "")}</p>
-    <div class="profile-stats">
-      <div><span>GP</span><strong>${p.games || 0}</strong></div>
-      <div><span>Best</span><strong>${p.timesInBest || 0}</strong></div>
-      <div><span>Goals</span><strong>${p.goals || 0}</strong></div>
-      <div><span>Form</span><strong>${Math.round(p.formIndicator || 0)}</strong></div>
-      <div><span>Talent</span><strong>${(enriched.talentScore || 0).toFixed(1)}</strong></div>
-    </div>
-    <div class="profile-actions">
-      <button class="btn-secondary" id="modalWatchBtn">${isWatched(p) ? "★ Remove from watchlist" : "☆ Add to watchlist"}</button>
-    </div>
-    <h3>Game log</h3>
-    <table class="data-table">
-      <thead><tr><th>Date</th><th>Opponent</th><th class="num">Goals</th><th>Best</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
-  document.getElementById("profileModal").style.display = "flex";
-  document.getElementById("modalWatchBtn").addEventListener("click", () => {
-    toggleWatch(p); renderPlayersTable(); renderWatchlist(); renderOBGFCSquadTable(); openProfileByKey(k);
-  });
-}
-
-// =============================================================
-// Opponent Comparison
-// =============================================================
-function renderOpponentComparison() {
-  const root = document.getElementById("tab-opponent");
-  if (!root) return;
-  const opponent = currentOpponent;
-  if (!opponent) {
-    root.innerHTML = `<div class="empty">Select an opponent to view the comparison.</div>`; return;
-  }
-  const matchupGrade = findMatchupGrade(opponent);
-  const ladder = buildLadder(games, matchupGrade);
-  const obgfcForm = getTeamFormSummary(games, OBGFC, 3);
-  const oppForm = getTeamFormSummary(games, opponent, 3);
-  const pool = withTalent(players);
-  const obgfcTop5 = topPlayersForTeam(pool, OBGFC, 5);
-  const oppTop5 = topPlayersForTeam(pool, opponent, 5);
-  const banner = (autoSelectedMeta && autoSelectedMeta.opponent === opponent)
-    ? `<div class="auto-banner">
-         ${autoSelectedMeta.type === "upcoming"
-           ? `📅 Auto-loaded next match: <strong>${escapeHtml(opponent)}</strong> on ${escapeHtml(autoSelectedMeta.date)}`
-           : `📋 No upcoming match — showing most recent opponent: <strong>${escapeHtml(opponent)}</strong> (${escapeHtml(autoSelectedMeta.date)})`}
-       </div>` : "";
-  root.innerHTML = `
-    <div class="section">
-      ${banner}
-      <h2>OBGFC vs ${escapeHtml(opponent)}</h2>
-      <div class="form-grid">
-        ${renderFormCard(OBGFC, obgfcForm, true, ladder)}
-        ${renderFormCard(opponent, oppForm, false, ladder)}
-      </div>
-      <div class="compare-grid">
-        ${renderTopPlayersTable(`${escapeHtml(OBGFC)} – Top 5`, obgfcTop5, true)}
-        ${renderTopPlayersTable(`${escapeHtml(opponent)} – Top 5`, oppTop5, false)}
-      </div>
-      <div class="matchup-note">${buildMatchupNote(obgfcForm, oppForm, ladder)}</div>
-    </div>
-  `;
-  root.querySelectorAll(".player-link").forEach(a =>
-    a.addEventListener("click", e => { e.preventDefault(); openProfileByKey(a.dataset.player); })
-  );
-}
-
-function renderFormCard(teamName, form, isOBGFC, ladder) {
-  const ladderEntry = getTeamLadderEntry(ladder, teamName);
-  const ladderSize = ladder.length;
-  const ratedResults = form.results.map(r => ({
-    ...r, quality: rateResult(r, getTeamLadderEntry(ladder, r.opponent), ladderSize)
-  }));
-  const chips = ratedResults.map(r => {
-    const cls = r.result === "W" ? "chip-w" : r.result === "L" ? "chip-l" : "chip-d";
-    const venueTag = r.isHome ? "H" : "A";
-    return `<span class="form-chip ${cls}" title="${r.date} ${venueTag} vs ${escapeHtml(r.opponent)} (${r.teamScore}-${r.oppScore}) — ${r.quality.label}">${r.result}<span class="venue-mark">${venueTag}</span><span class="quality-mark ${r.quality.cls}"></span></span>`;
-  }).join("");
-  const quality = summariseFormQuality(ratedResults.map(r => r.quality));
-  const ladderInfo = ladderEntry
-    ? `<div class="ladder-pos">📊 #${ladderEntry.position} of ${ladderSize} · ${ladderEntry.w}W-${ladderEntry.l}L-${ladderEntry.d}D · ${ladderEntry.percentage}%</div>`
-    : "";
-  return `
-    <div class="form-card ${isOBGFC ? "card-obgfc" : ""}">
-      <div class="form-header">
-        <h3>${isOBGFC ? '<span class="dot-obgfc"></span>' : ""}${escapeHtml(teamName)}</h3>
-        <span class="form-trend">${form.emoji} ${form.trend}</span>
-      </div>
-      ${ladderInfo}
-      <div class="form-chips">${chips || '<em>No recent games</em>'}</div>
-      <div class="form-meta">
-        <span>W ${form.wins} – L ${form.losses} – D ${form.draws}</span>
-        <span>Avg margin: ${form.marginAvg > 0 ? "+" : ""}${form.marginAvg}</span>
-        <span>Last ${form.gamesCounted} games</span>
-      </div>
-      <div class="form-quality ${quality.cls}">
-        <strong>Quality of form:</strong> ${quality.label}
-      </div>
-    </div>
-  `;
-}
-
-function renderTopPlayersTable(title, list, isOBGFC) {
-  if (!list || list.length === 0) {
-    return `<div class="top-table"><h3>${title}</h3><div class="empty">No data</div></div>`;
-  }
-  const rows = list.map(p => `
-    <tr class="${isOBGFC ? "row-obgfc" : ""}">
-      <td>
-        ${isOBGFC ? '<span class="dot-obgfc"></span>' : ""}
-        <a href="#" class="player-link" data-player="${escapeAttr(playerKey(p))}">${escapeHtml(p.name)}</a>
-      </td>
-      <td class="num">${p.games || 0}</td>
-      <td class="num">${p.timesInBest || 0}</td>
-      <td class="num">${p.goals || 0}</td>
-      <td class="num">${(p.talentScore || 0).toFixed(1)}</td>
-    </tr>
-  `).join("");
-  return `
-    <div class="top-table">
-      <h3>${title}</h3>
-      <table>
-        <thead><tr><th>Player</th><th class="num">GP</th><th class="num">Best</th><th class="num">Goals</th><th class="num">Talent</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    </div>
-  `;
-}
-
-function topPlayersForTeam(allPlayers, teamName, n) {
-  return (allPlayers || [])
-    .filter(p => p.team === teamName)
-    .sort((a, b) => (b.talentScore || 0) - (a.talentScore || 0))
-    .slice(0, n);
-}
-
-function buildMatchupNote(obgfc, opp, ladder) {
-  const obgfcEntry = getTeamLadderEntry(ladder, OBGFC);
-  const oppEntry = getTeamLadderEntry(ladder, currentOpponent);
-  const formDiff = (obgfc.marginAvg || 0) - (opp.marginAvg || 0);
-  let formRead = "Even contest based on recent form.";
-  if (formDiff > 15) formRead = "OBGFC clearly the form side — press the advantage early.";
-  else if (formDiff > 5) formRead = "OBGFC slight edge on form — game on our terms if we start well.";
-  else if (formDiff < -15) formRead = "Opponent in strong form — disciplined defensive setup required.";
-  else if (formDiff < -5) formRead = "Opponent has the form edge — neutralise early, build into the game.";
-  let ladderRead = "";
-  if (obgfcEntry && oppEntry) {
-    const posDiff = oppEntry.position - obgfcEntry.position;
-    if (posDiff > 4) ladderRead = ` Ladder favours OBGFC (#${obgfcEntry.position} vs #${oppEntry.position}) — match expectation is a win.`;
-    else if (posDiff > 1) ladderRead = ` OBGFC slightly favoured by ladder (#${obgfcEntry.position} vs #${oppEntry.position}).`;
-    else if (posDiff < -4) ladderRead = ` Ladder favours opponent (#${oppEntry.position} vs #${obgfcEntry.position}) — upset would be huge.`;
-    else if (posDiff < -1) ladderRead = ` Opponent slightly favoured by ladder (#${oppEntry.position} vs #${obgfcEntry.position}).`;
-    else ladderRead = ` Closely matched on ladder (#${obgfcEntry.position} vs #${oppEntry.position}) — coin-flip on paper.`;
-  }
-  return `<strong>Form read:</strong> ${formRead}${ladderRead}`;
-}
-
-// =============================================================
-// Coach's Brief
-// =============================================================
-function renderCoachBrief() {
-  const root = document.getElementById("briefContent");
-  if (!root) return;
-  if (!currentOpponent) {
-    root.innerHTML = `<div class="empty">Switch to the Opponent Comparison tab first, or pick an opponent above — the brief auto-loads OBGFC's next match.</div>`;
-    return;
-  }
-  const opponent = currentOpponent;
-  const matchupGrade = findMatchupGrade(opponent);
-  const ladder = buildLadder(games, matchupGrade);
-  const ladderEntry = getTeamLadderEntry(ladder, opponent);
-  const obgfcEntry = getTeamLadderEntry(ladder, OBGFC);
-  const ladderSize = ladder.length;
-
-  const oppLast5 = getTeamLastN(games, opponent, 5);
-  const ratedLast5 = oppLast5.map(g => {
-    const isHome = g.homeTeam === opponent;
-    const teamScore = isHome ? Number(g.homeScore) : Number(g.awayScore);
-    const oppScore = isHome ? Number(g.awayScore) : Number(g.homeScore);
-    const oppOf = isHome ? g.awayTeam : g.homeTeam;
-    const margin = teamScore - oppScore;
-    const result = margin > 0 ? "W" : margin < 0 ? "L" : "D";
-    const r = { date: g.date, opponent: oppOf, teamScore, oppScore, margin, result, isHome, venue: isHome ? "H" : "A" };
-    return { ...r, quality: rateResult(r, getTeamLadderEntry(ladder, oppOf), ladderSize) };
-  });
-  const last3Form = getTeamFormSummary(games, opponent, 3);
-  const oppTop5 = topPlayersForTeam(withTalent(players), opponent, 5);
-  const matchDate = autoSelectedMeta?.date || "TBC";
-  const matchType = autoSelectedMeta?.type === "upcoming" ? "Upcoming match" : "Most recent encounter";
-  const formExplainer = buildFormExplainer(ratedLast5.slice(0, 3));
-
-  let ladderRead = "";
-  if (ladderEntry) {
-    const posPercent = Math.round((1 - (ladderEntry.position - 1) / Math.max(1, ladderSize - 1)) * 100);
-    if (posPercent >= 70) ladderRead = `<strong>${escapeHtml(opponent)}</strong> sit at <strong>#${ladderEntry.position} of ${ladderSize}</strong> in ${escapeHtml(matchupGrade || "this grade")} — a genuine top-tier outfit (${ladderEntry.percentage}% scoring ratio, ${ladderEntry.w}W-${ladderEntry.l}L-${ladderEntry.d}D).`;
-    else if (posPercent >= 40) ladderRead = `<strong>${escapeHtml(opponent)}</strong> are mid-table at <strong>#${ladderEntry.position} of ${ladderSize}</strong> in ${escapeHtml(matchupGrade || "this grade")} (${ladderEntry.percentage}% scoring ratio, ${ladderEntry.w}W-${ladderEntry.l}L-${ladderEntry.d}D) — a winnable matchup if we execute.`;
-    else ladderRead = `<strong>${escapeHtml(opponent)}</strong> sit at <strong>#${ladderEntry.position} of ${ladderSize}</strong> in ${escapeHtml(matchupGrade || "this grade")} — bottom-tier outfit (${ladderEntry.percentage}% scoring ratio, ${ladderEntry.w}W-${ladderEntry.l}L-${ladderEntry.d}D). Expectation is a comfortable win.`;
-  }
-
-  let verdict = { cls: "brief-callout", text: "Even contest on paper." };
-  if (obgfcEntry && ladderEntry) {
-    const diff = ladderEntry.position - obgfcEntry.position;
-    if (diff > 4) verdict = { cls: "brief-callout callout-good", text: `Ladder strongly favours OBGFC (#${obgfcEntry.position} vs #${ladderEntry.position}). This is a four-pointer we should win — focus on execution and percentage building.` };
-    else if (diff > 1) verdict = { cls: "brief-callout callout-good", text: `OBGFC slightly favoured (#${obgfcEntry.position} vs #${ladderEntry.position}). Start well and the result follows.` };
-    else if (diff < -4) verdict = { cls: "brief-callout callout-warn", text: `Ladder strongly favours opponent (#${ladderEntry.position} vs #${obgfcEntry.position}). Set up to nullify their strengths and hunt mistakes — an upset here is gold.` };
-    else if (diff < -1) verdict = { cls: "brief-callout callout-warn", text: `Opponent slightly favoured (#${ladderEntry.position} vs #${obgfcEntry.position}). Disciplined first half is the key.` };
-    else verdict = { cls: "brief-callout", text: `Closely matched (#${obgfcEntry.position} vs #${ladderEntry.position}) — game on paper. First 10 minutes will set the tone.` };
-  }
-
-  const last5Rows = ratedLast5.length ? ratedLast5.map(r => `
-    <tr>
-      <td>${escapeHtml(r.date || "")}</td>
-      <td>${r.isHome ? "H" : "A"}</td>
-      <td>${escapeHtml(r.opponent || "")}</td>
-      <td class="result-${r.result.toLowerCase()}">${r.result}</td>
-      <td class="num">${r.teamScore}–${r.oppScore}</td>
-      <td class="num">${r.margin > 0 ? "+" : ""}${r.margin}</td>
-      <td><span class="quality-tag ${r.quality.cls}">${escapeHtml(r.quality.label)}</span></td>
-    </tr>
-  `).join("") : `<tr><td colspan="7" class="empty">No completed games on record.</td></tr>`;
-
-  const threats = oppTop5.map(p => `
-    <div class="brief-threat-card">
-      <h4>${escapeHtml(p.name)}</h4>
-      <div class="threat-meta">${escapeHtml(p.team || "")}</div>
-      <div class="threat-stats">
-        <span>GP ${p.games || 0}</span>
-        <span>Best ${p.timesInBest || 0}</span>
-        <span>Goals ${p.goals || 0}</span>
-        <span>Form ${Math.round(p.formIndicator || 0)}</span>
-        <span><strong>Talent ${(p.talentScore || 0).toFixed(1)}</strong></span>
-      </div>
-    </div>
-  `).join("");
-
-  root.innerHTML = `
-    <div class="brief-wrap">
-      <div class="brief-header">
-        <h1>Coach's Brief — OBGFC vs ${escapeHtml(opponent)}</h1>
-        <div class="brief-sub">${escapeHtml(matchType)} · ${escapeHtml(matchDate)} · ${escapeHtml(matchupGrade || "")}</div>
-      </div>
-
-      <div class="brief-section">
-        <h2>🎯 Bottom line up front</h2>
-        <div class="${verdict.cls}">${verdict.text}</div>
-      </div>
-
-      <div class="brief-section">
-        <h2>📊 Ladder context</h2>
-        <p>${ladderRead || "No ladder data available."}</p>
-      </div>
-
-      <div class="brief-section">
-        <h2>📅 Last 5 games for ${escapeHtml(opponent)}</h2>
-        <table class="brief-results-table">
-          <thead>
-            <tr><th>Date</th><th>H/A</th><th>Opponent</th><th>Result</th><th class="num">Score</th><th class="num">Margin</th><th>Quality</th></tr>
-          </thead>
-          <tbody>${last5Rows}</tbody>
-        </table>
-      </div>
-
-      <div class="brief-section">
-        <h2>🔥 Form read — last 3 games</h2>
-        <p><strong>${escapeHtml(opponent)}:</strong> ${last3Form.emoji} <strong>${escapeHtml(last3Form.trend)}</strong> · ${last3Form.wins}W-${last3Form.losses}L-${last3Form.draws}D · Avg margin ${last3Form.marginAvg > 0 ? "+" : ""}${last3Form.marginAvg}</p>
-        ${formExplainer}
-      </div>
-
-      <div class="brief-section">
-        <h2>⚠️ Players to neutralise</h2>
-        <div class="brief-threats">${threats || '<div class="empty">No player data.</div>'}</div>
-      </div>
-
-      <div class="brief-section">
-        <h2>📝 Coach's notes</h2>
-        <div class="brief-callout">
-          Print this brief and add hand-written tactical notes for the match committee — strong sides need their top players covered early, mid-table outfits often fade in the third quarter, and bottom sides will throw the kitchen sink at the first 10 minutes. Away wins always carry extra weight — factor venue when assessing form.
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function buildFormExplainer(rated) {
-  if (!rated || rated.length === 0) return '<p class="muted">No recent results to explain.</p>';
-  const rows = rated.map(r => `
-    <div class="explainer-row">
-      <span class="dot ${r.quality.cls}"></span>
-      <div>
-        <strong>${r.result === "W" ? "Win" : r.result === "L" ? "Loss" : "Draw"}</strong>
-        ${r.margin !== 0 ? ` by ${Math.abs(r.margin)}` : ""}
-        ${r.isHome ? "at home" : "away"}
-        vs <strong>${escapeHtml(r.opponent)}</strong>
-        — <em>${escapeHtml(r.quality.label)}</em>.
-        ${describeQuality(r)}
-      </div>
-    </div>
-  `).join("");
-  return `<div class="brief-form-explainer">${rows}</div>`;
-}
-
-function describeQuality(r) {
-  const t = r.quality.tier;
-  if (r.result === "W") {
-    if (t === "strong") {
-      if (!r.isHome) return "Beating a top-half side on the road is a real statement — confidence is earned, not given.";
-      return "Beating a top side at home is the expectation when it matters — execution paid off.";
-    }
-    if (t === "mid") {
-      if (!r.isHome) return "Picking up the win away against a mid-table side is solid — road wins always carry extra weight.";
-      return "Held serve at home against a mid-table side — expected, executed.";
-    }
-    if (!r.isHome) return "Win on the road, even against a bottom side, is never a given.";
-    return "Home win against a bottom side — flatters the form line a touch.";
-  }
-  if (r.result === "L") {
-    if (t === "strong") {
-      if (!r.isHome) return "Loss to a top side on the road is highly excusable — focus is on the next one.";
-      return "Loss to a top side at home is disappointing but not alarming — they're meant to beat us.";
-    }
-    if (t === "mid") {
-      if (r.isHome) return "Losing at home to a mid-table side raises real questions — home form is concerning.";
-      return "Mid-table loss on the road — frustrating but recoverable.";
-    }
-    if (r.isHome) return "Losing at home to a bottom side is a five-alarm fire — major vulnerability to exploit.";
-    return "Loss to a bottom side, even away, is a red flag worth pressing on.";
-  }
-  if (t === "strong") {
-    if (!r.isHome) return "Drawing with a top side on their deck is genuinely creditable — they'd have expected the win.";
-    return "Holding a top side to a draw at home is a missed opportunity to push them.";
-  }
-  if (t === "weak") {
-    if (r.isHome) return "Drawing with a bottom side at home suggests form may be soft — they should be putting these sides away.";
-    return "Disappointing draw with a bottom side on the road.";
-  }
-  return "Coin-flip result against an evenly matched opponent.";
-}
-
-// =============================================================
-// Export CSV
-// =============================================================
-function exportCsv() {
-  const pool = withTalent(filteredPlayers())
-    .sort((a, b) => (b.talentScore || 0) - (a.talentScore || 0));
-  const headers = ["Watchlist", "Name", "Team", "Grade", "Games", "TimesInBest", "Goals", "FormIndicator", "TalentScore", "Notes"];
-  const rows = pool.map(p => [
-    isWatched(p) ? "Yes" : "",
-    p.name || "", p.team || "", p.grade || "",
-    p.games || 0, p.timesInBest || 0, p.goals || 0,
-    Math.round(p.formIndicator || 0),
-    (p.talentScore || 0).toFixed(1),
-    notes[playerKey(p)] || ""
-  ]);
-  const csv = [headers, ...rows].map(r => r.map(csvCell).join(",")).join("\n");
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `obgfc-talent-${new Date().toISOString().slice(0, 10)}.csv`;
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a); URL.revokeObjectURL(url);
-}
-
-function csvCell(v) {
-  const s = String(v ?? "");
-  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-}
-
-// =============================================================
-// Utility
-// =============================================================
-function escapeHtml(s) {
-  return String(s ?? "").replace(/[&<>"']/g, c => (
-    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
-  ));
-}
-function escapeAttr(s) { return escapeHtml(s); }
+    upcoming.forEach(g => {
+      const home = g.home || {}, away = g.away || {};
