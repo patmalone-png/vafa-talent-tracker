@@ -6692,6 +6692,87 @@
     "formIndicator": 56
   },
   {
+    "name": "Lucy Eales",
+    "team": "Wattle Park Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 10,
+    "timesInBest": 8,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 84
+  },
+  {
     "name": "Jaime Tucker",
     "team": "St Kevin's Senior Women's 3",
     "grade": "Division 5 Women's",
@@ -10059,87 +10140,6 @@
       }
     ],
     "formIndicator": 82
-  },
-  {
-    "name": "Lucy Eales",
-    "team": "Wattle Park Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 10,
-    "timesInBest": 7,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 61
   },
   {
     "name": "Susanna Ryan",
@@ -26006,6 +26006,66 @@
     "formIndicator": 77
   },
   {
+    "name": "jemima clancy",
+    "team": "Wattle Park Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 7,
+    "timesInBest": 4,
+    "goals": 2,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      }
+    ],
+    "formIndicator": 95
+  },
+  {
     "name": "Isabelle Brennan",
     "team": "North Brunswick Senior Women's",
     "grade": "Division 4 Women's",
@@ -30944,6 +31004,73 @@
       }
     ],
     "formIndicator": 95
+  },
+  {
+    "name": "Rani Knight",
+    "team": "Wattle Park Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 8,
+    "timesInBest": 4,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-25",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 5
+      }
+    ],
+    "formIndicator": 100
   },
   {
     "name": "Mia Tan",
@@ -37152,26 +37279,26 @@
     "formIndicator": 50
   },
   {
-    "name": "jemima clancy",
+    "name": "Laura Sonnemann",
     "team": "Wattle Park Senior Women's",
     "grade": "Division 4 Women's",
-    "games": 7,
-    "timesInBest": 3,
-    "goals": 2,
+    "games": 8,
+    "timesInBest": 4,
+    "goals": 0,
     "gameLog": [
       {
         "date": "2026-04-18",
         "opponent": "North Brunswick Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
       },
       {
         "date": "2026-05-02",
         "opponent": "Canterbury Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
       },
       {
         "date": "2026-05-09",
@@ -37181,35 +37308,42 @@
         "bestRank": null
       },
       {
-        "date": "2026-05-16",
-        "opponent": "Brunswick Senior Women's",
+        "date": "2026-05-30",
+        "opponent": "Aquinas Senior Women's",
         "goals": 0,
         "inBest": true,
         "bestRank": 5
       },
       {
+        "date": "2026-06-13",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
         "date": "2026-06-20",
         "opponent": "MUWFC Senior Women's",
         "goals": 0,
-        "inBest": true,
-        "bestRank": 6
+        "inBest": false,
+        "bestRank": null
       },
       {
         "date": "2026-06-27",
         "opponent": "Canterbury Senior Women's",
         "goals": 0,
-        "inBest": true,
-        "bestRank": 6
+        "inBest": false,
+        "bestRank": null
       },
       {
         "date": "2026-07-04",
         "opponent": "Mazenod Senior Women's",
         "goals": 0,
-        "inBest": false,
-        "bestRank": null
+        "inBest": true,
+        "bestRank": 6
       }
     ],
-    "formIndicator": 75
+    "formIndicator": 42
   },
   {
     "name": "Maegan Dick",
@@ -53349,73 +53483,6 @@
     "formIndicator": 83
   },
   {
-    "name": "Laura Sonnemann",
-    "team": "Wattle Park Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 8,
-    "timesInBest": 3,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
     "name": "Fiona Spitzkowsky",
     "team": "North Brunswick Senior Women's",
     "grade": "Division 4 Women's",
@@ -53467,73 +53534,6 @@
       }
     ],
     "formIndicator": 83
-  },
-  {
-    "name": "Rani Knight",
-    "team": "Wattle Park Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 8,
-    "timesInBest": 3,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-25",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 100
   },
   {
     "name": "clara lovell",
@@ -71713,6 +71713,80 @@
       }
     ],
     "formIndicator": 0
+  },
+  {
+    "name": "Caitlin Power",
+    "team": "Wattle Park Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 9,
+    "timesInBest": 2,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "MUWFC Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      }
+    ],
+    "formIndicator": 83
   },
   {
     "name": "Charlotte Norton",
@@ -95248,7 +95322,7 @@
     "formIndicator": 0
   },
   {
-    "name": "Caitlin Power",
+    "name": "Tegan Murphy",
     "team": "Wattle Park Senior Women's",
     "grade": "Division 4 Women's",
     "games": 9,
@@ -95265,13 +95339,6 @@
       {
         "date": "2026-04-25",
         "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Canterbury Senior Women's",
         "goals": 0,
         "inBest": false,
         "bestRank": null
@@ -95294,8 +95361,15 @@
         "date": "2026-05-30",
         "opponent": "Aquinas Senior Women's",
         "goals": 0,
-        "inBest": true,
-        "bestRank": 6
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       },
       {
         "date": "2026-06-20",
@@ -95315,11 +95389,11 @@
         "date": "2026-07-04",
         "opponent": "Mazenod Senior Women's",
         "goals": 0,
-        "inBest": false,
-        "bestRank": null
+        "inBest": true,
+        "bestRank": 2
       }
     ],
-    "formIndicator": 0
+    "formIndicator": 100
   },
   {
     "name": "Amy-Kate Cooper",
@@ -128600,80 +128674,6 @@
       {
         "date": "2026-05-16",
         "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
-    "name": "Tegan Murphy",
-    "team": "Wattle Park Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 9,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "MUWFC Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Mazenod Senior Women's",
         "goals": 0,
         "inBest": false,
         "bestRank": null
