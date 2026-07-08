@@ -546,7 +546,7 @@ function renderPlayerMovers(grade){
 }
 function renderNewElite(grade){
   const el=sel("rlNewElite");
-  const gs=grade?Array.from(new Set(players.map(p=>p.grade).filter(Boolean)));
+  const gs=grade?"Array.from(new Set(players.map(p=>p.grade).filter(Boolean)));
   const out=[];
   gs.forEach(g=>{
     const pool=players.filter(p=>p.grade===g&&p.name&&p.name.trim().toLowerCase()!=="none none"&&(p.history||[]).length>=2);
