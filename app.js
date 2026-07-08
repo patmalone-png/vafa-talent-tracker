@@ -1,4 +1,4 @@
-// VAFA Talent ID v1.7 - vanilla JS, no modules
+// VAFA Talent ID v1.8 - schema-aligned to actual PlayHQ output
 (function(){
 "use strict";
 
@@ -9,22 +9,53 @@ const OWN_CLUB_KEYWORDS=["old brighton"];
 function isOwnClub(p){return OWN_CLUB_KEYWORDS.some(kw=>(p.club||"").toLowerCase().includes(kw));}
 function isOwnClubName(n){return OWN_CLUB_KEYWORDS.some(kw=>(n||"").toLowerCase().includes(kw));}
 
+function gameHome(g){ return g.homeTeam || (g.home&&g.home.name) || ""; }
+function gameAway(g){ return g.awayTeam || (g.away&&g.away.name) || ""; }
+function gameHomeScore(g){
+  if(typeof g.homeScore==="number") return g.homeScore;
+  if(g.home && g.home.score && g.home.score.points!=null) return g.home.score.points;
+  return null;
+}
+function gameAwayScore(g){
+  if(typeof g.awayScore==="number") return g.awayScore;
+  if(g.away && g.away.score && g.away.score.points!=null) return g.away.score.points;
+  return null;
+}
+function gameDateStr(g){ return (g.date || g.dateTime || "").slice(0,10); }
+function gameDateTime(g){ return g.dateTime || g.date || ""; }
+function isFinal(g){ return (g.status||"").toUpperCase()==="FINAL"; }
+function homeOutcome(g){
+  const hs=gameHomeScore(g), as=gameAwayScore(g);
+  if(hs==null || as==null) return null;
+  if(hs>as) return "WON";
+  if(hs<as) return "LOST";
+  return "DRAW";
+}
+function awayOutcome(g){
+  const o=homeOutcome(g);
+  if(o==="WON") return "LOST";
+  if(o==="LOST") return "WON";
+  if(o==="DRAW") return "DRAW";
+  return null;
+}
+function gameInvolves(g,club){ return gameHome(g)===club || gameAway(g)===club; }
+
 function talentScore(p){
   const g=Math.max(1,p.games||1);
   const raw=((p.bog||0)*8)+((p.bogFirsts||0)*6)+((p.goals||0)*5)+((p.wins||0)*2);
   return +(raw/Math.sqrt(g)).toFixed(1);
 }
 function bestCount(p){
-  if(typeof p.bestCount==="number")return p.bestCount;
+  if(typeof p.bestCount==="number") return p.bestCount;
   return (p.history||[]).filter(h=>(h.bog||0)>0||h.inBest).length;
 }
 function gameTalentScore(h){
-  if(typeof h.talentScore==="number")return h.talentScore;
+  if(typeof h.talentScore==="number") return h.talentScore;
   return (h.goals||0)*5+(h.bog||0)*8+((h.bog===6)?6:0)+(h.won?2:0);
 }
 function formIndicator(p,window){
   const hist=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-  if(hist.length<window+2)return null;
+  if(hist.length<window+2) return null;
   const recent=hist.slice(-window), earlier=hist.slice(0,-window);
   const avg=arr=>arr.length?arr.reduce((s,h)=>s+gameTalentScore(h),0)/arr.length:0;
   const r=avg(recent), e=avg(earlier);
@@ -38,6 +69,38 @@ function selectedGrade(){const e=sel("gradeFilter");return e?(e.value||""):"";}
 function selectedFormWindow(){const e=sel("formWindow");return e?parseInt(e.value||"3",10):3;}
 function applyGrade(list){const g=selectedGrade();return g?list.filter(x=>(x.grade||"")===g):list;}
 
+function discoverGrades(){
+  const set=new Set();
+  games.forEach(g=>{ if(g.grade) set.add(g.grade); });
+  players.forEach(p=>{ if(p.grade) set.add(p.grade); });
+  return Array.from(set).sort();
+}
+function populateGradeDropdown(id, includeAllOption){
+  const dd=sel(id);
+  if(!dd) return;
+  const currentValue=dd.value;
+  while(dd.options.length) dd.remove(0);
+  if(includeAllOption){
+    const o=document.createElement("option");
+    o.value=""; o.textContent="All Women's grades";
+    dd.appendChild(o);
+  }
+  discoverGrades().forEach(g=>{
+    const o=document.createElement("option");
+    o.value=g; o.textContent=g;
+    dd.appendChild(o);
+  });
+  if(currentValue && [...dd.options].some(o=>o.value===currentValue)){
+    dd.value=currentValue;
+  }
+}
+function populateAllGradeDropdowns(){
+  populateGradeDropdown("gradeFilter", true);
+  populateGradeDropdown("lbGrade", true);
+  populateGradeDropdown("rlGrade", true);
+  populateGradeDropdown("fpGrade", false);
+}
+
 async function loadData(){
   try{
     const [gR,pR]=await Promise.all([
@@ -50,6 +113,7 @@ async function loadData(){
   players.forEach(p=>{if(typeof p.talentScore!=="number")p.talentScore=talentScore(p);});
   lastSync=localStorage.getItem("vafa_last_render")||new Date().toISOString();
   localStorage.setItem("vafa_last_render",new Date().toISOString());
+  populateAllGradeDropdowns();
   populateClubDropdown();
   populateMatchPrepDropdowns();
   renderAll();
@@ -101,14 +165,13 @@ function renderDashboard(){
   renderTop5("topGoals",[...pool].sort((a,b)=>(b.goals||0)-(a.goals||0)||(b.talentScore||0)-(a.talentScore||0)).slice(0,5),"Goals",p=>p.goals||0,{label:"Per game",fn:p=>p.games?(p.goals/p.games).toFixed(2):"0"});
   const formed=q.map(p=>({...p,_form:formIndicator(p,fw)})).filter(p=>p._form).sort((a,b)=>b._form.delta-a._form.delta).slice(0,5);
   renderTop5("topForm",formed,"\u0394 vs avg",p=>'<span class="'+(p._form.delta>0?'form-up':p._form.delta<0?'form-down':'form-flat')+'">'+p._form.trend+' '+p._form.delta+'</span>',{label:"Last "+fw+" avg",fn:p=>p._form.recent});
-  const fx=[...fxPool].sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||"")).slice(0,8);
+  const fx=[...fxPool].sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a))).slice(0,8);
   const fEl=sel("recentFixtures");
   if(!fx.length){fEl.innerHTML=emptyState();return;}
   let h='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th></tr></thead><tbody>';
   fx.forEach(g=>{
-    const hs=(g.home&&g.home.score)?(g.home.score.points!=null?g.home.score.points:"-"):"-";
-    const as=(g.away&&g.away.score)?(g.away.score.points!=null?g.away.score.points:"-"):"-";
-    h+='<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td></tr>';
+    const hs=gameHomeScore(g); const as=gameAwayScore(g);
+    h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(hs!=null?hs:"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(as!=null?as:"-")+'</b></td></tr>';
   });
   h+='</tbody></table>';fEl.innerHTML=h;
 }
@@ -145,7 +208,7 @@ function renderPlayerList(){
   if(!filtered.length){el.innerHTML=emptyState();return;}
   let h='<table class="data"><thead><tr><th></th><th>Player</th><th>Club</th><th>Grade</th><th>Score</th><th></th></tr></thead><tbody>';
   filtered.slice(0,200).forEach(p=>{
-    const st=watchlist.includes(p.id);
+    const st=watchlist.indexOf(p.id)>=0;
     h+='<tr><td><button class="star" data-pid="'+p.id+'">'+(st?'\u2605':'\u2606')+'</button></td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="btn small" data-pid="'+p.id+'" data-action="open">View</button></td></tr>';
   });
   h+='</tbody></table>';el.innerHTML=h;
@@ -157,7 +220,7 @@ document.addEventListener("click",e=>{
   const star=e.target.closest(".star");
   if(star){
     const id=star.dataset.pid;
-    if(watchlist.includes(id))watchlist=watchlist.filter(x=>x!==id);
+    if(watchlist.indexOf(id)>=0)watchlist=watchlist.filter(x=>x!==id);
     else watchlist.push(id);
     localStorage.setItem("vafa_watchlist",JSON.stringify(watchlist));
     renderPlayerList();renderWatchlist();renderDashboard();
@@ -221,7 +284,7 @@ function renderScoutReport(){
   if(!club){el.innerHTML='<p class="muted">Pick a club.</p>';return;}
   const squad=players.filter(p=>p.club===club).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
   if(!squad.length){el.innerHTML=emptyState();return;}
-  const recent=games.filter(g=>((g.home||{}).name)===club||((g.away||{}).name)===club).sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||"")).slice(0,5);
+  const recent=games.filter(g=>gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a))).slice(0,5);
   let h='<h3>Top 5 danger players</h3><table class="data"><thead><tr><th>Player</th><th>Grade</th><th>Goals</th><th>In best</th><th>Score</th></tr></thead><tbody>';
   squad.slice(0,5).forEach(p=>{
     h+='<tr><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.goals||0)+'</td><td>'+bestCount(p)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';
@@ -231,9 +294,8 @@ function renderScoutReport(){
   else{
     h+='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th></tr></thead><tbody>';
     recent.forEach(g=>{
-      const hs=(g.home&&g.home.score)?(g.home.score.points!=null?g.home.score.points:"-"):"-";
-      const as=(g.away&&g.away.score)?(g.away.score.points!=null?g.away.score.points:"-"):"-";
-      h+='<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td></tr>';
+      const hs=gameHomeScore(g); const as=gameAwayScore(g);
+      h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(hs!=null?hs:"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(as!=null?as:"-")+'</b></td></tr>';
     });
     h+='</tbody></table>';
   }
@@ -246,10 +308,10 @@ function obgfcTeams(){
 }
 function nextFixtureFor(club,grade){
   const now=new Date().toISOString();
-  return games.filter(g=>g.grade===grade).filter(g=>(g.status||"").toUpperCase()!=="FINAL").filter(g=>((g.home||{}).name===club)||((g.away||{}).name===club)).filter(g=>!g.dateTime||g.dateTime>=now).sort((a,b)=>(a.dateTime||"").localeCompare(b.dateTime||""))[0]||null;
+  return games.filter(g=>g.grade===grade).filter(g=>!isFinal(g)).filter(g=>gameInvolves(g,club)).filter(g=>{const dt=gameDateTime(g);return !dt||dt>=now;}).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)))[0]||null;
 }
 function lastFixtureFor(club,grade){
-  return games.filter(g=>g.grade===grade).filter(g=>(g.status||"").toUpperCase()==="FINAL").filter(g=>((g.home||{}).name===club)||((g.away||{}).name===club)).sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||""))[0]||null;
+  return games.filter(g=>g.grade===grade).filter(g=>isFinal(g)).filter(g=>gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)))[0]||null;
 }
 function populateMatchPrepDropdowns(){
   const own=sel("mpOwnTeam"),opp=sel("mpOpponent");
@@ -270,7 +332,7 @@ function autoFillOpponent(){
   const t=JSON.parse(oS.value);
   const nxt=nextFixtureFor(t.club,t.grade)||lastFixtureFor(t.club,t.grade);
   if(!nxt)return;
-  const o=((nxt.home||{}).name===t.club)?(nxt.away||{}).name:(nxt.home||{}).name;
+  const o=(gameHome(nxt)===t.club)?gameAway(nxt):gameHome(nxt);
   if(o&&[...pS.options].some(x=>x.value===o))pS.value=o;
 }
 function selectedOwnTeam(){const v=sel("mpOwnTeam").value;if(!v)return null;try{return JSON.parse(v);}catch(e){return null;}}
@@ -339,10 +401,10 @@ function renderMatchPrep(){
   sel("mpFixtureTitle").textContent=own?(own.club+" vs "+opp):("Preview: "+opp);
   const fm=[];
   if(fx){
-    fm.push((fx.dateTime||"").slice(0,10));
+    fm.push(gameDateStr(fx));
     if(fx.round)fm.push(fx.round);
     if(own&&own.grade)fm.push(own.grade);
-    fm.push((fx.status||"").toUpperCase()==="FINAL"?"(last meeting)":"(upcoming)");
+    fm.push(isFinal(fx)?"(last meeting)":"(upcoming)");
   }else if(own)fm.push(own.grade+" - no scheduled fixture");
   sel("mpFixtureMeta").textContent=fm.join(" \u00B7 ");
   renderVersusComparison(own,opp,squad);
@@ -387,17 +449,16 @@ function renderMatchPrep(){
     h+='</tbody></table>';fsEl.innerHTML=h;
   }
   const rEl=sel("mpRecentList");
-  const rec=games.filter(g=>((g.home||{}).name===opp)||((g.away||{}).name===opp)).filter(g=>(g.status||"").toUpperCase()==="FINAL").sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||"")).slice(0,6);
+  const rec=games.filter(g=>gameInvolves(g,opp)).filter(g=>isFinal(g)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a))).slice(0,6);
   if(!rec.length)rEl.innerHTML=emptyState("No recent results.");
   else{
     let h='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Result</th></tr></thead><tbody>';
     rec.forEach(g=>{
-      const hs=(g.home&&g.home.score)?(g.home.score.points!=null?g.home.score.points:"-"):"-";
-      const as=(g.away&&g.away.score)?(g.away.score.points!=null?g.away.score.points:"-"):"-";
-      const iH=(g.home||{}).name===opp;
-      const oc=iH?(g.home||{}).outcome:(g.away||{}).outcome;
+      const hs=gameHomeScore(g); const as=gameAwayScore(g);
+      const iH=gameHome(g)===opp;
+      const oc=iH?homeOutcome(g):awayOutcome(g);
       const cl=oc==="WON"?"form-up":oc==="LOST"?"form-down":"form-flat";
-      h+='<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+as+'</b></td><td><span class="'+cl+'">'+(oc||"-")+'</span></td></tr>';
+      h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(hs!=null?hs:"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(as!=null?as:"-")+'</b></td><td><span class="'+cl+'">'+(oc||"-")+'</span></td></tr>';
     });
     h+='</tbody></table>';rEl.innerHTML=h;
   }
@@ -412,19 +473,20 @@ function renderMatchPrep(){
 function selectedRLGrade(){const e=sel("rlGrade");return e?(e.value||""):"";}
 function selectedRLFormWindow(){const e=sel("rlFormWindow");return e?parseInt(e.value||"3",10):3;}
 function buildTeamForm(grade,window){
-  const done=games.filter(g=>(g.status||"").toUpperCase()==="FINAL").filter(g=>!grade||g.grade===grade).sort((a,b)=>(a.dateTime||"").localeCompare(b.dateTime||""));
+  const done=games.filter(g=>isFinal(g)).filter(g=>!grade||g.grade===grade).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)));
   const byT={};
   done.forEach(g=>{
-    const h=g.home||{},a=g.away||{};
-    const hS=(h.score&&h.score.points)||0,aS=(a.score&&a.score.points)||0;
-    const rec=(side,opp,sF,sA,oc)=>{
-      if(!side.name)return;
-      const k=side.name+"||"+g.grade;
-      if(!byT[k])byT[k]={team:side.name,grade:g.grade,results:[]};
+    const hName=gameHome(g), aName=gameAway(g);
+    const hS=gameHomeScore(g)||0, aS=gameAwayScore(g)||0;
+    const hOut=homeOutcome(g), aOut=awayOutcome(g);
+    const rec=(sideName,oppName,sF,sA,oc)=>{
+      if(!sideName)return;
+      const k=sideName+"||"+g.grade;
+      if(!byT[k])byT[k]={team:sideName,grade:g.grade,results:[]};
       const r=oc==="WON"?"W":oc==="LOST"?"L":oc==="DRAW"?"D":"?";
-      byT[k].results.push({date:(g.dateTime||"").slice(0,10),round:g.round,opponent:opp.name||"",scoreFor:sF,scoreAgainst:sA,result:r});
+      byT[k].results.push({date:gameDateStr(g),round:g.round,opponent:oppName||"",scoreFor:sF,scoreAgainst:sA,result:r});
     };
-    rec(h,a,hS,aS,h.outcome);rec(a,h,aS,hS,a.outcome);
+    rec(hName,aName,hS,aS,hOut);rec(aName,hName,aS,hS,aOut);
   });
   return Object.values(byT).map(t=>{
     const lN=t.results.slice(-window);
@@ -484,7 +546,7 @@ function renderPlayerMovers(grade){
 }
 function renderNewElite(grade){
   const el=sel("rlNewElite");
-  const gs=grade?[grade]:Array.from(new Set(players.map(p=>p.grade).filter(Boolean)));
+  const gs=grade?Array.from(new Set(players.map(p=>p.grade).filter(Boolean)));
   const out=[];
   gs.forEach(g=>{
     const pool=players.filter(p=>p.grade===g&&p.name&&p.name.trim().toLowerCase()!=="none none"&&(p.history||[]).length>=2);
@@ -512,22 +574,21 @@ function renderNewElite(grade){
 }
 function renderBigResults(grade){
   const el=sel("rlBigResults");
-  const pool=games.filter(g=>(g.status||"").toUpperCase()==="FINAL").filter(g=>!grade||g.grade===grade);
-  const sorted=[...pool].sort((a,b)=>(b.dateTime||"").localeCompare(a.dateTime||""));
+  const pool=games.filter(g=>isFinal(g)).filter(g=>!grade||g.grade===grade);
+  const sorted=[...pool].sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)));
   if(!sorted.length){el.innerHTML=emptyState("No completed games.");return;}
-  const ld=(sorted[0].dateTime||"").slice(0,10);
+  const ld=gameDateStr(sorted[0]);
   const co=new Date(ld);co.setDate(co.getDate()-6);
   const cs=co.toISOString().slice(0,10);
-  const last=pool.filter(g=>(g.dateTime||"").slice(0,10)>=cs);
+  const last=pool.filter(g=>gameDateStr(g)>=cs);
   const rk=last.map(g=>{
-    const hs=(g.home&&g.home.score&&g.home.score.points)||0;
-    const as=(g.away&&g.away.score&&g.away.score.points)||0;
+    const hs=gameHomeScore(g)||0,as=gameAwayScore(g)||0;
     return{...g,_m:Math.abs(hs-as),_hs:hs,_as:as};
   }).sort((a,b)=>b._m-a._m).slice(0,8);
   if(!rk.length){el.innerHTML=emptyState("No big results.");return;}
   let h='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Margin</th></tr></thead><tbody>';
   rk.forEach(g=>{
-    h+='<tr><td>'+((g.dateTime||"").slice(0,10))+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+((g.home||{}).name||"")+'</td><td><b>'+g._hs+'</b></td><td>'+((g.away||{}).name||"")+'</td><td><b>'+g._as+'</b></td><td><b>'+g._m+'</b></td></tr>';
+    h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+g._hs+'</b></td><td>'+gameAway(g)+'</td><td><b>'+g._as+'</b></td><td><b>'+g._m+'</b></td></tr>';
   });
   h+='</tbody></table>';el.innerHTML=h;
 }
@@ -537,39 +598,39 @@ function renderRoundLog(){
 }
 ["rlGrade","rlFormWindow"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("change",renderRoundLog);});
 
-function selectedFPGrade(){const e=sel("fpGrade");return e?(e.value||"Premier A Women's"):"Premier A Women's";}
+function selectedFPGrade(){const e=sel("fpGrade");return e?(e.value||""):"";}
 function selectedFPFinalsSpots(){const e=sel("fpFinalsSpots");return e?parseInt(e.value||"4",10):4;}
 function selectedFPPtsWin(){const e=sel("fpPtsWin");const v=e?parseInt(e.value||"4",10):4;return Math.max(1,Math.min(4,v));}
-
 function buildLadder(grade,ptsPerWin){
   ptsPerWin=ptsPerWin||4;
   const ptsPerDraw=Math.floor(ptsPerWin/2);
-  const done=games.filter(g=>(g.status||"").toUpperCase()==="FINAL"&&g.grade===grade);
-  const upc=games.filter(g=>(g.status||"").toUpperCase()!=="FINAL"&&g.grade===grade);
+  const done=games.filter(g=>isFinal(g)&&g.grade===grade);
+  const upc=games.filter(g=>!isFinal(g)&&g.grade===grade);
   const bT={};
   const ens=n=>{
     if(!n)return null;
-    if(!bT[n])bT[n]={team:n,played:0,wins:0,losses:0,draws:0,pointsFor:0,pointsAgainst:0,results:[],upcoming:[]};
+    if(!bT[n])bT[n]={team:n,played:0,wins:0,losses:0,draws:0,pointsFor:0,pointsAgainst:0,upcoming:[]};
     return bT[n];
   };
   done.forEach(g=>{
-    const h=g.home||{},a=g.away||{};
-    if(!h.name||!a.name)return;
-    const hS=(h.score&&h.score.points)||0,aS=(a.score&&a.score.points)||0;
-    const hT=ens(h.name),aT=ens(a.name);
+    const hName=gameHome(g),aName=gameAway(g);
+    if(!hName||!aName)return;
+    const hS=gameHomeScore(g)||0,aS=gameAwayScore(g)||0;
+    const hT=ens(hName),aT=ens(aName);
     hT.played++;aT.played++;
     hT.pointsFor+=hS;hT.pointsAgainst+=aS;
     aT.pointsFor+=aS;aT.pointsAgainst+=hS;
-    if(h.outcome==="WON"){hT.wins++;aT.losses++;}
-    else if(a.outcome==="WON"){aT.wins++;hT.losses++;}
-    else if(h.outcome==="DRAW"||a.outcome==="DRAW"){hT.draws++;aT.draws++;}
+    const hOut=homeOutcome(g);
+    if(hOut==="WON"){hT.wins++;aT.losses++;}
+    else if(hOut==="LOST"){aT.wins++;hT.losses++;}
+    else if(hOut==="DRAW"){hT.draws++;aT.draws++;}
   });
   upc.forEach(g=>{
-    const h=g.home||{},a=g.away||{};
-    if(!h.name||!a.name)return;
-    const hT=ens(h.name),aT=ens(a.name);
-    hT.upcoming.push({opponent:a.name,date:g.dateTime,round:g.round,home:true});
-    aT.upcoming.push({opponent:h.name,date:g.dateTime,round:g.round,home:false});
+    const hName=gameHome(g),aName=gameAway(g);
+    if(!hName||!aName)return;
+    const hT=ens(hName),aT=ens(aName);
+    hT.upcoming.push({opponent:aName,date:gameDateTime(g),round:g.round,home:true});
+    aT.upcoming.push({opponent:hName,date:gameDateTime(g),round:g.round,home:false});
   });
   return Object.values(bT).map(t=>{
     t.ladderPts=t.wins*ptsPerWin+t.draws*ptsPerDraw;
@@ -579,7 +640,6 @@ function buildLadder(grade,ptsPerWin){
     return t;
   }).sort((a,b)=>b.ladderPts-a.ladderPts||b.percentage-a.percentage);
 }
-
 function projectCutline(ladder,spots,ptsPerWin){
   if(ladder.length<spots)return 0;
   const cutTeam=ladder[spots-1];
@@ -588,14 +648,12 @@ function projectCutline(ladder,spots,ptsPerWin){
   const projFuturePts=Math.round(winRate*cutTeam.remaining)*ptsPerWin;
   return cutTeam.ladderPts+projFuturePts;
 }
-
 function fixtureDifficulty(ourAvg,theirAvg){
   const diff=(theirAvg||0)-(ourAvg||0);
   if(diff>2)return{lvl:"hard",label:"Hard"};
   if(diff<-2)return{lvl:"easy",label:"Winnable"};
   return{lvl:"medium",label:"50/50"};
 }
-
 function renderFinalsPath(){
   const grade=selectedFPGrade();
   const spots=selectedFPFinalsSpots();
@@ -625,7 +683,6 @@ function renderFinalsPath(){
   });
   lh+='</tbody></table>';
   sel("fpLadder").innerHTML=lh;
-
   const vEl=sel("fpVerdict");
   if(!obgfcRow){
     vEl.innerHTML='<p class="muted">No OBGFC team found in '+grade+'.</p>';
@@ -661,23 +718,21 @@ function renderFinalsPath(){
     cls="dire";
   }
   vEl.innerHTML='<div class="verdict-hero '+cls+'"><div class="verdict-emoji">'+emoji+'</div><div class="verdict-status">'+status+'</div><div class="verdict-headline">'+headline+'</div><div class="verdict-detail">'+detail+'</div></div>';
-
   const winsNeeded=Math.max(0,Math.ceil((cutline-obgfcRow.ladderPts)/ptsPerWin));
   const safeWins=Math.min(obgfcRow.remaining,Math.max(winsNeeded,Math.ceil(obgfcRow.remaining*0.7)));
   const liveWins=Math.min(obgfcRow.remaining,Math.max(0,winsNeeded));
   const longshotWins=obgfcRow.remaining;
   sel("fpScenarios").innerHTML='<div class="scenario-grid">'+
-    '<div class="scenario-card safe"><div class="scenario-header">Safe path</div><div class="scenario-title">Guaranteed finals</div><div class="scenario-req">Win <b>'+safeWins+' of '+obgfcRow.remaining+'</b> remaining games</div><div class="scenario-detail">Should carry you clear of any cutline scenarios regardless of what else happens.</div></div>'+
+    '<div class="scenario-card safe"><div class="scenario-header">Safe path</div><div class="scenario-title">Guaranteed finals</div><div class="scenario-req">Win <b>'+safeWins+' of '+obgfcRow.remaining+'</b> remaining games</div><div class="scenario-detail">Should carry you clear regardless of other results.</div></div>'+
     '<div class="scenario-card live"><div class="scenario-header">Live path</div><div class="scenario-title">In the mix</div><div class="scenario-req">Win <b>'+liveWins+' of '+obgfcRow.remaining+'</b> games</div><div class="scenario-detail">Puts you around the cutline but percentage and rival results matter.</div></div>'+
-    '<div class="scenario-card longshot"><div class="scenario-header">Long shot</div><div class="scenario-title">Win out + hope</div><div class="scenario-req">Win <b>all '+longshotWins+'</b> remaining and hope rivals slip</div><div class="scenario-detail">Only path if you are currently below the cut.</div></div>'+
+    '<div class="scenario-card longshot"><div class="scenario-header">Long shot</div><div class="scenario-title">Win out + hope</div><div class="scenario-req">Win <b>all '+longshotWins+'</b> remaining and hope rivals slip</div><div class="scenario-detail">Only path if currently below the cut.</div></div>'+
   '</div>';
-
   const rEl=sel("fpRemaining");
   if(!obgfcRow.upcoming.length){
     rEl.innerHTML=emptyState("No remaining fixtures - season complete.");
   }else{
     const ourAvg=squadSummary(players.filter(p=>isOwnClub(p)&&p.grade===grade)).avgScore;
-    let h='<p class="muted">Difficulty is based on opponent squad avg talent score vs OBGFC ('+ourAvg+').</p><table class="data"><thead><tr><th>Round</th><th>Date</th><th>Home/Away</th><th>Opponent</th><th>Their avg</th><th>Difficulty</th></tr></thead><tbody>';
+    let h='<p class="muted">Difficulty based on opponent squad avg talent score vs OBGFC ('+ourAvg+').</p><table class="data"><thead><tr><th>Round</th><th>Date</th><th>Home/Away</th><th>Opponent</th><th>Their avg</th><th>Difficulty</th></tr></thead><tbody>';
     obgfcRow.upcoming.forEach(f=>{
       const oppSquad=players.filter(p=>p.club===f.opponent&&p.grade===grade);
       const theirAvg=squadSummary(oppSquad).avgScore;
@@ -688,19 +743,18 @@ function renderFinalsPath(){
     h+='</tbody></table>';
     rEl.innerHTML=h;
   }
-
   const kEl=sel("fpKeyFixtures");
   const bubbleTeams=ladder.slice(Math.max(0,spots-2),spots+3).map(t=>t.team);
-  const keyGames=games.filter(g=>g.grade===grade&&(g.status||"").toUpperCase()!=="FINAL").filter(g=>{
-    const hN=(g.home||{}).name,aN=(g.away||{}).name;
+  const keyGames=games.filter(g=>g.grade===grade&&!isFinal(g)).filter(g=>{
+    const hN=gameHome(g),aN=gameAway(g);
     return bubbleTeams.indexOf(hN)>=0&&bubbleTeams.indexOf(aN)>=0&&!(isOwnClubName(hN)||isOwnClubName(aN));
-  }).sort((a,b)=>(a.dateTime||"").localeCompare(b.dateTime||"")).slice(0,10);
+  }).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b))).slice(0,10);
   if(!keyGames.length){
     kEl.innerHTML=emptyState("No cutline-impact fixtures scheduled between rival teams.");
   }else{
-    let h='<p class="muted">Fixtures between teams inside the finals bubble - watch these results:</p><table class="data"><thead><tr><th>Round</th><th>Date</th><th>Home</th><th>Away</th><th>Impact</th></tr></thead><tbody>';
+    let h='<p class="muted">Fixtures between teams inside the finals bubble:</p><table class="data"><thead><tr><th>Round</th><th>Date</th><th>Home</th><th>Away</th><th>Impact</th></tr></thead><tbody>';
     keyGames.forEach(g=>{
-      h+='<tr><td>'+(g.round||"")+'</td><td>'+((g.dateTime||"").slice(0,10))+'</td><td>'+((g.home||{}).name||"")+'</td><td>'+((g.away||{}).name||"")+'</td><td class="muted">Rival showdown</td></tr>';
+      h+='<tr><td>'+(g.round||"")+'</td><td>'+gameDateStr(g)+'</td><td>'+gameHome(g)+'</td><td>'+gameAway(g)+'</td><td class="muted">Rival showdown</td></tr>';
     });
     h+='</tbody></table>';
     kEl.innerHTML=h;
