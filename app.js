@@ -116,21 +116,13 @@ function autoSelectNextFixture(){
   const own=sel("mpOwnTeam"),opp=sel("mpOpponent");
   if(!own||!opp)return false;
   if(own.value&&opp.value)return true;
-  let nx=findObgfcNextFixture();
-  if(!nx){
-    const teams=obgfcTeams();
-    for(const t of teams){
-      const last=lastFixtureFor(t.club,t.grade);
-      if(last){nx={team:t,fixture:last};break;}
-    }
-  }
+  const nx=findObgfcNextFixture();
   if(!nx)return false;
   const ownVal=JSON.stringify(nx.team);
   if([...own.options].some(o=>o.value===ownVal))own.value=ownVal;
   const oppName=(gameHome(nx.fixture)===nx.team.club)?gameAway(nx.fixture):gameHome(nx.fixture);
   if(oppName&&[...opp.options].some(o=>o.value===oppName))opp.value=oppName;
   return true;
-}
 }
 
 function populateMatchPrepDropdowns(){
