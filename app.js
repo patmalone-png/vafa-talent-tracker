@@ -112,7 +112,7 @@ function findObgfcNextFixture(){
   });
   return best;
 }
-functionfunction autoSelectNextFixture(){
+function autoSelectNextFixture(){
   const own=sel("mpOwnTeam"),opp=sel("mpOpponent");
   if(!own||!opp)return false;
   if(own.value&&opp.value)return true;
