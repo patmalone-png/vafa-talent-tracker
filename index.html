@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VAFA Talent ID</title>
 styles.css
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>VAFA Talent ID</title>
-styles.css
 </head>
+<body>
+<header class="topbar">
+  <h1>VAFA Talent ID</h1>
+  <div class="last-sync" id="lastSync">Loading&hellip;</div>
+</header>
 
 <nav class="tabs" id="tabs">
   <button class="tab active" data-tab="dashboard">Dashboard</button>
@@ -29,9 +29,7 @@ styles.css
     <div class="card">
       <div class="controls">
         <label>Grade <select id="gradeFilter"><option value="">All grades</option></select></label>
-        <label>Form window
-          <select id="formWindow"><option value="3">Last 3</option><option value="4">Last 4</option><option value="5">Last 5</option></select>
-        </label>
+        <label>Form window <select id="formWindow"><option value="3">Last 3</option><option value="4">Last 4</option><option value="5">Last 5</option></select></label>
       </div>
     </div>
     <div class="tiles">
@@ -87,9 +85,7 @@ styles.css
       </div>
     </div>
 
-    <div class="card hidden" id="mpAutoHeader">
-      <div class="autoheader-hero" id="mpAutoHeaderContent"></div>
-    </div>
+    <div class="card hidden" id="mpAutoHeader"><div class="autoheader-hero" id="mpAutoHeaderContent"></div></div>
 
     <div class="card hidden" id="mpHeadToHead">
       <h2>Head-to-Head</h2>
