@@ -1,178 +1,68 @@
-// VAFA Talent ID v1.8 - schema-aligned to actual PlayHQ output
+// VAFA Talent ID v1.9 - Coaches Brief Redesign
 (function(){
 "use strict";
-
 let games=[], players=[], lastSync=null;
 let watchlist=JSON.parse(localStorage.getItem("vafa_watchlist")||"[]");
-
-const OWN_CLUB_KEYWORDS=["old brighton"];
-function isOwnClub(p){return OWN_CLUB_KEYWORDS.some(kw=>(p.club||"").toLowerCase().includes(kw));}
-function isOwnClubName(n){return OWN_CLUB_KEYWORDS.some(kw=>(n||"").toLowerCase().includes(kw));}
-
-function gameHome(g){ return g.homeTeam || (g.home&&g.home.name) || ""; }
-function gameAway(g){ return g.awayTeam || (g.away&&g.away.name) || ""; }
-function gameHomeScore(g){
-  if(typeof g.homeScore==="number") return g.homeScore;
-  if(g.home && g.home.score && g.home.score.points!=null) return g.home.score.points;
-  return null;
-}
-function gameAwayScore(g){
-  if(typeof g.awayScore==="number") return g.awayScore;
-  if(g.away && g.away.score && g.away.score.points!=null) return g.away.score.points;
-  return null;
-}
-function gameDateStr(g){ return (g.date || g.dateTime || "").slice(0,10); }
-function gameDateTime(g){ return g.dateTime || g.date || ""; }
-function isFinal(g){ return (g.status||"").toUpperCase()==="FINAL"; }
-function homeOutcome(g){
-  const hs=gameHomeScore(g), as=gameAwayScore(g);
-  if(hs==null || as==null) return null;
-  if(hs>as) return "WON";
-  if(hs<as) return "LOST";
-  return "DRAW";
-}
-function awayOutcome(g){
-  const o=homeOutcome(g);
-  if(o==="WON") return "LOST";
-  if(o==="LOST") return "WON";
-  if(o==="DRAW") return "DRAW";
-  return null;
-}
-function gameInvolves(g,club){ return gameHome(g)===club || gameAway(g)===club; }
-
-function talentScore(p){
-  const g=Math.max(1,p.games||1);
-  const raw=((p.bog||0)*8)+((p.bogFirsts||0)*6)+((p.goals||0)*5)+((p.wins||0)*2);
-  return +(raw/Math.sqrt(g)).toFixed(1);
-}
-function bestCount(p){
-  if(typeof p.bestCount==="number") return p.bestCount;
-  return (p.history||[]).filter(h=>(h.bog||0)>0||h.inBest).length;
-}
-function gameTalentScore(h){
-  if(typeof h.talentScore==="number") return h.talentScore;
-  return (h.goals||0)*5+(h.bog||0)*8+((h.bog===6)?6:0)+(h.won?2:0);
-}
-function formIndicator(p,window){
-  const hist=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-  if(hist.length<window+2) return null;
-  const recent=hist.slice(-window), earlier=hist.slice(0,-window);
-  const avg=arr=>arr.length?arr.reduce((s,h)=>s+gameTalentScore(h),0)/arr.length:0;
-  const r=avg(recent), e=avg(earlier);
-  const delta=+(r-e).toFixed(1);
-  const trend=delta>1?"\u25B2":delta<-1?"\u25BC":"\u25AC";
-  return {recent:+r.toFixed(1),earlier:+e.toFixed(1),delta,trend};
-}
-
+const OWN=["old brighton"];
+function isOwnClub(p){return OWN.some(k=>(p.club||"").toLowerCase().includes(k));}
+function isOwnClubName(n){return OWN.some(k=>(n||"").toLowerCase().includes(k));}
+function gameHome(g){return g.homeTeam||(g.home&&g.home.name)||"";}
+function gameAway(g){return g.awayTeam||(g.away&&g.away.name)||"";}
+function gameHomeScore(g){if(typeof g.homeScore==="number")return g.homeScore;if(g.home&&g.home.score&&g.home.score.points!=null)return g.home.score.points;return null;}
+function gameAwayScore(g){if(typeof g.awayScore==="number")return g.awayScore;if(g.away&&g.away.score&&g.away.score.points!=null)return g.away.score.points;return null;}
+function gameDateStr(g){return (g.date||g.dateTime||"").slice(0,10);}
+function gameDateTime(g){return g.dateTime||g.date||"";}
+function isFinal(g){return (g.status||"").toUpperCase()==="FINAL";}
+function homeOutcome(g){const h=gameHomeScore(g),a=gameAwayScore(g);if(h==null||a==null)return null;if(h>a)return "WON";if(h<a)return "LOST";return "DRAW";}
+function awayOutcome(g){const o=homeOutcome(g);if(o==="WON")return "LOST";if(o==="LOST")return "WON";if(o==="DRAW")return "DRAW";return null;}
+function gameInvolves(g,c){return gameHome(g)===c||gameAway(g)===c;}
+function talentScore(p){const g=Math.max(1,p.games||1);const r=((p.bog||0)*8)+((p.bogFirsts||0)*6)+((p.goals||0)*5)+((p.wins||0)*2);return +(r/Math.sqrt(g)).toFixed(1);}
+function bestCount(p){if(typeof p.bestCount==="number")return p.bestCount;return (p.history||[]).filter(h=>(h.bog||0)>0||h.inBest).length;}
+function gameTalentScore(h){if(typeof h.talentScore==="number")return h.talentScore;return (h.goals||0)*5+(h.bog||0)*8+((h.bog===6)?6:0)+(h.won?2:0);}
+function formIndicator(p,w){const hist=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));if(hist.length<w+2)return null;const rec=hist.slice(-w),ear=hist.slice(0,-w);const avg=a=>a.length?a.reduce((s,h)=>s+gameTalentScore(h),0)/a.length:0;const r=avg(rec),e=avg(ear);const d=+(r-e).toFixed(1);return {recent:+r.toFixed(1),earlier:+e.toFixed(1),delta:d,trend:d>1?"\u25B2":d<-1?"\u25BC":"\u25AC"};}
 function sel(id){return document.getElementById(id);}
 function selectedGrade(){const e=sel("gradeFilter");return e?(e.value||""):"";}
 function selectedFormWindow(){const e=sel("formWindow");return e?parseInt(e.value||"3",10):3;}
-function applyGrade(list){const g=selectedGrade();return g?list.filter(x=>(x.grade||"")===g):list;}
-
-function discoverGrades(){
-  const set=new Set();
-  games.forEach(g=>{ if(g.grade) set.add(g.grade); });
-  players.forEach(p=>{ if(p.grade) set.add(p.grade); });
-  return Array.from(set).sort();
-}
-function populateGradeDropdown(id, includeAllOption){
-  const dd=sel(id);
-  if(!dd) return;
-  const currentValue=dd.value;
-  while(dd.options.length) dd.remove(0);
-  if(includeAllOption){
-    const o=document.createElement("option");
-    o.value=""; o.textContent="All Women's grades";
-    dd.appendChild(o);
-  }
-  discoverGrades().forEach(g=>{
-    const o=document.createElement("option");
-    o.value=g; o.textContent=g;
-    dd.appendChild(o);
-  });
-  if(currentValue && [...dd.options].some(o=>o.value===currentValue)){
-    dd.value=currentValue;
-  }
-}
-function populateAllGradeDropdowns(){
-  populateGradeDropdown("gradeFilter", true);
-  populateGradeDropdown("lbGrade", true);
-  populateGradeDropdown("rlGrade", true);
-  populateGradeDropdown("fpGrade", false);
-}
+function applyGrade(l){const g=selectedGrade();return g?l.filter(x=>(x.grade||"")===g):l;}
+function discoverGrades(){const s=new Set();games.forEach(g=>{if(g.grade)s.add(g.grade);});players.forEach(p=>{if(p.grade)s.add(p.grade);});return Array.from(s).sort();}
+function populateGradeDropdown(id,inclAll){const dd=sel(id);if(!dd)return;const cur=dd.value;while(dd.options.length)dd.remove(0);if(inclAll){const o=document.createElement("option");o.value="";o.textContent="All grades";dd.appendChild(o);}discoverGrades().forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent=g;dd.appendChild(o);});if(cur&&[...dd.options].some(o=>o.value===cur))dd.value=cur;}
+function populateAllGradeDropdowns(){populateGradeDropdown("gradeFilter",true);populateGradeDropdown("lbGrade",true);populateGradeDropdown("rlGrade",true);populateGradeDropdown("fpGrade",false);}
 
 async function loadData(){
   try{
-    const [gR,pR]=await Promise.all([
-      fetch("data/games.json",{cache:"no-store"}),
-      fetch("data/players.json",{cache:"no-store"})
-    ]);
-    games=gR.ok?await gR.json():[];
-    players=pR.ok?await pR.json():[];
+    const [gR,pR]=await Promise.all([fetch("data/games.json",{cache:"no-store"}),fetch("data/players.json",{cache:"no-store"})]);
+    games=gR.ok?await gR.json():[];players=pR.ok?await pR.json():[];
   }catch(e){games=[];players=[];}
   players.forEach(p=>{if(typeof p.talentScore!=="number")p.talentScore=talentScore(p);});
   lastSync=localStorage.getItem("vafa_last_render")||new Date().toISOString();
   localStorage.setItem("vafa_last_render",new Date().toISOString());
-  populateAllGradeDropdowns();
-  populateClubDropdown();
-  populateMatchPrepDropdowns();
+  populateAllGradeDropdowns();populateClubDropdown();populateMatchPrepDropdowns();
   renderAll();
 }
+function renderAll(){renderDashboard();renderLeaderboards();renderPlayerList();renderScoutReport();renderMatchPrep();renderRoundLog();renderFinalsPath();renderWatchlist();renderSettings();const s=lastSync?new Date(lastSync).toLocaleString():"never";const ls=sel("lastSync");if(ls)ls.textContent="Last sync: "+s;}
 
-function renderAll(){
-  renderDashboard();renderLeaderboards();renderPlayerList();
-  renderScoutReport();renderMatchPrep();renderRoundLog();
-  renderFinalsPath();renderWatchlist();renderSettings();
-  const s=lastSync?new Date(lastSync).toLocaleString():"never";
-  const ls=sel("lastSync");if(ls)ls.textContent="Last sync: "+s;
-}
-
-sel("tabs").addEventListener("click",e=>{
-  const b=e.target.closest(".tab");if(!b)return;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
-  b.classList.add("active");
-  sel(b.dataset.tab).classList.add("active");
-});
-
+sel("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));b.classList.add("active");sel(b.dataset.tab).classList.add("active");if(b.dataset.tab==="matchprep")renderMatchPrep();});
 function emptyState(m){return '<div class="empty">'+(m||"No data yet.")+'</div>';}
-function playerLink(p){
-  const own=isOwnClub(p)?'<span class="own-club" title="OBGFC">\u25CF</span> ':'';
-  return own+'<a href="#" class="player-link" data-pid="'+p.id+'">'+(p.name||"Unknown")+'</a>';
-}
-function renderTop5(id,rows,label,vf,ex){
-  const el=sel(id);if(!el)return;
-  if(!rows.length){el.innerHTML=emptyState();return;}
-  let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>'+label+'</th>'+(ex?'<th>'+ex.label+'</th>':'')+'</tr></thead><tbody>';
-  rows.forEach((p,i)=>{
-    h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+vf(p)+'</b></td>'+(ex?'<td>'+ex.fn(p)+'</td>':'')+'</tr>';
-  });
-  h+='</tbody></table>';el.innerHTML=h;
-}
+function playerLink(p){const own=isOwnClub(p)?'<span class="own-club" title="OBGFC">\u25CF</span> ':'';return own+'#pid="'+p.id+'">'+(p.name||"Unknown")+'</a>';}
+function renderTop5(id,rows,label,vf,ex){const el=sel(id);if(!el)return;if(!rows.length){el.innerHTML=emptyState();return;}let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>'+label+'</th>'+(ex?'<th>'+ex.label+'</th>':'')+'</tr></thead><tbody>';rows.forEach((p,i)=>{h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+vf(p)+'</b></td>'+(ex?'<td>'+ex.fn(p)+'</td>':'')+'</tr>';});h+='</tbody></table>';el.innerHTML=h;}
 
 function renderDashboard(){
-  const pool=applyGrade(players).filter(p=>p.name&&p.name.trim()&&p.name.trim().toLowerCase()!=="none none");
-  const fxPool=applyGrade(games);
-  const fw=selectedFormWindow();
-  sel("t-games").textContent=fxPool.length||"0";
-  sel("t-players").textContent=pool.length||"0";
+  const pool=applyGrade(players).filter(p=>p.name&&p.name.trim().toLowerCase()!=="none none");
+  const fxPool=applyGrade(games);const fw=selectedFormWindow();
+  sel("t-games").textContent=fxPool.length||"0";sel("t-players").textContent=pool.length||"0";
   const top=[...pool].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0))[0];
-  sel("t-top").textContent=top?top.talentScore:"-";
-  sel("t-sync").textContent=lastSync?new Date(lastSync).toLocaleDateString():"-";
+  sel("t-top").textContent=top?top.talentScore:"-";sel("t-sync").textContent=lastSync?new Date(lastSync).toLocaleDateString():"-";
   const q=pool.filter(p=>(p.games||0)>=3);
   renderTop5("topTalent",[...q].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0)).slice(0,5),"Score",p=>p.talentScore||0,{label:"Games",fn:p=>p.games||0});
-  renderTop5("topBest",[...pool].map(p=>({...p,_best:bestCount(p)})).sort((a,b)=>b._best-a._best||(b.talentScore||0)-(a.talentScore||0)).slice(0,5),"In best",p=>p._best,{label:"Games",fn:p=>p.games||0});
-  renderTop5("topGoals",[...pool].sort((a,b)=>(b.goals||0)-(a.goals||0)||(b.talentScore||0)-(a.talentScore||0)).slice(0,5),"Goals",p=>p.goals||0,{label:"Per game",fn:p=>p.games?(p.goals/p.games).toFixed(2):"0"});
-  const formed=q.map(p=>({...p,_form:formIndicator(p,fw)})).filter(p=>p._form).sort((a,b)=>b._form.delta-a._form.delta).slice(0,5);
-  renderTop5("topForm",formed,"\u0394 vs avg",p=>'<span class="'+(p._form.delta>0?'form-up':p._form.delta<0?'form-down':'form-flat')+'">'+p._form.trend+' '+p._form.delta+'</span>',{label:"Last "+fw+" avg",fn:p=>p._form.recent});
+  renderTop5("topBest",[...pool].map(p=>({...p,_b:bestCount(p)})).sort((a,b)=>b._b-a._b||(b.talentScore||0)-(a.talentScore||0)).slice(0,5),"In best",p=>p._b,{label:"Games",fn:p=>p.games||0});
+  renderTop5("topGoals",[...pool].sort((a,b)=>(b.goals||0)-(a.goals||0)).slice(0,5),"Goals",p=>p.goals||0,{label:"Per game",fn:p=>p.games?(p.goals/p.games).toFixed(2):"0"});
+  const formed=q.map(p=>({...p,_f:formIndicator(p,fw)})).filter(p=>p._f).sort((a,b)=>b._f.delta-a._f.delta).slice(0,5);
+  renderTop5("topForm",formed,"\u0394",p=>'<span class="'+(p._f.delta>0?'form-up':p._f.delta<0?'form-down':'form-flat')+'">'+p._f.trend+' '+p._f.delta+'</span>',{label:"Last "+fw,fn:p=>p._f.recent});
   const fx=[...fxPool].sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a))).slice(0,8);
   const fEl=sel("recentFixtures");
   if(!fx.length){fEl.innerHTML=emptyState();return;}
   let h='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th></tr></thead><tbody>';
-  fx.forEach(g=>{
-    const hs=gameHomeScore(g); const as=gameAwayScore(g);
-    h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(hs!=null?hs:"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(as!=null?as:"-")+'</b></td></tr>';
-  });
+  fx.forEach(g=>{h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(gameHomeScore(g)!=null?gameHomeScore(g):"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(gameAwayScore(g)!=null?gameAwayScore(g):"-")+'</b></td></tr>';});
   h+='</tbody></table>';fEl.innerHTML=h;
 }
 
@@ -180,24 +70,14 @@ function renderLeaderboards(){
   const metric=(sel("lbMetric")||{}).value||"talentScore";
   const minG=parseInt((sel("lbMinGames")||{}).value||"1",10);
   const grade=(sel("lbGrade")||{}).value||"";
-  let pool=players.filter(p=>(p.games||0)>=minG&&p.name&&p.name.trim()&&p.name.trim().toLowerCase()!=="none none");
+  let pool=players.filter(p=>(p.games||0)>=minG&&p.name&&p.name.trim().toLowerCase()!=="none none");
   if(grade)pool=pool.filter(p=>p.grade===grade);
-  const gv=p=>{
-    if(metric==="talentScore")return p.talentScore||0;
-    if(metric==="bog")return p.bog||0;
-    if(metric==="bogFirsts")return p.bogFirsts||0;
-    if(metric==="bestCount")return bestCount(p);
-    if(metric==="goals")return p.goals||0;
-    if(metric==="wins")return p.wins||0;
-    return 0;
-  };
+  const gv=p=>{if(metric==="talentScore")return p.talentScore||0;if(metric==="bestCount")return bestCount(p);if(metric==="goals")return p.goals||0;if(metric==="wins")return p.wins||0;return 0;};
   pool.sort((a,b)=>gv(b)-gv(a));
   const el=sel("lbTable");
   if(!pool.length){el.innerHTML=emptyState();return;}
   let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>Games</th><th>'+metric+'</th></tr></thead><tbody>';
-  pool.slice(0,30).forEach((p,i)=>{
-    h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td><b>'+gv(p)+'</b></td></tr>';
-  });
+  pool.slice(0,30).forEach((p,i)=>{h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td><b>'+gv(p)+'</b></td></tr>';});
   h+='</tbody></table>';el.innerHTML=h;
 }
 
@@ -207,619 +87,349 @@ function renderPlayerList(){
   const el=sel("playerList");
   if(!filtered.length){el.innerHTML=emptyState();return;}
   let h='<table class="data"><thead><tr><th></th><th>Player</th><th>Club</th><th>Grade</th><th>Score</th><th></th></tr></thead><tbody>';
-  filtered.slice(0,200).forEach(p=>{
-    const st=watchlist.indexOf(p.id)>=0;
-    h+='<tr><td><button class="star" data-pid="'+p.id+'">'+(st?'\u2605':'\u2606')+'</button></td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="btn small" data-pid="'+p.id+'" data-action="open">View</button></td></tr>';
-  });
+  filtered.slice(0,200).forEach(p=>{const st=watchlist.indexOf(p.id)>=0;h+='<tr><td><button class="star" data-pid="'+p.id+'">'+(st?'\u2605':'\u2606')+'</button></td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="btn small" data-pid="'+p.id+'" data-action="open">View</button></td></tr>';});
   h+='</tbody></table>';el.innerHTML=h;
 }
 sel("playerSearch").addEventListener("input",renderPlayerList);
-document.addEventListener("click",e=>{
-  const link=e.target.closest(".player-link, [data-action='open']");
-  if(link){e.preventDefault();openProfile(link.dataset.pid);return;}
-  const star=e.target.closest(".star");
-  if(star){
-    const id=star.dataset.pid;
-    if(watchlist.indexOf(id)>=0)watchlist=watchlist.filter(x=>x!==id);
-    else watchlist.push(id);
-    localStorage.setItem("vafa_watchlist",JSON.stringify(watchlist));
-    renderPlayerList();renderWatchlist();renderDashboard();
-  }
-});
-sel("backToList").addEventListener("click",()=>{
-  sel("playerProfile").classList.add("hidden");
-  sel("playerList").classList.remove("hidden");
-  document.querySelector('.tab[data-tab="players"]').click();
-});
-function openProfile(pid){
-  const p=players.find(x=>x.id===pid);if(!p)return;
-  document.querySelector('.tab[data-tab="players"]').click();
-  sel("playerList").classList.add("hidden");
-  sel("playerProfile").classList.remove("hidden");
-  sel("profileName").textContent=p.name;
-  sel("profileMeta").textContent=[p.club,p.grade,"#"+(p.number||""),(p.games||0)+" games","Goals: "+(p.goals||0),"In best: "+bestCount(p),"Talent: "+(p.talentScore||0)].filter(Boolean).join(" \u00B7 ");
-  const tiles=[["Goals",p.goals||0,p.games?(p.goals/p.games).toFixed(2):"0"],["BOG votes",p.bog||0,p.games?(p.bog/p.games).toFixed(2):"0"],["BOG firsts",p.bogFirsts||0,""],["In best",bestCount(p),""],["Wins",p.wins||0,""],["Captain",p.captainGames||0,""]].map(function(x){var l=x[0],t=x[1],pg=x[2];return '<div class="tile"><div class="tile-label">'+l+'</div><div class="tile-value">'+t+'</div>'+(pg?'<div class="muted">'+pg+' / game</div>':'')+'</div>';}).join("");
-  sel("profileStats").innerHTML='<div class="tiles">'+tiles+'</div>';
-  const hist=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-  drawSparkline("profileChart",hist.map(h=>gameTalentScore(h)));
-  const gEl=sel("profileGames");
-  if(!hist.length){gEl.innerHTML=emptyState("No per-game data.");return;}
-  let h='<table class="data"><thead><tr><th>Date</th><th>Round</th><th>Grade</th><th>Opp</th><th>G</th><th>BOG</th><th>W</th><th>Score</th></tr></thead><tbody>';
-  hist.forEach(hh=>{
-    h+='<tr><td>'+(hh.date||"")+'</td><td>'+(hh.round||"")+'</td><td class="muted">'+(hh.grade||"")+'</td><td>'+(hh.opponent||"")+'</td><td>'+(hh.goals||0)+'</td><td>'+(hh.bog||0)+'</td><td>'+(hh.won?"\u2713":"")+'</td><td><b>'+gameTalentScore(hh)+'</b></td></tr>';
-  });
-  h+='</tbody></table>';gEl.innerHTML=h;
-}
-function drawSparkline(id,data){
-  const c=sel(id);if(!c||!c.getContext)return;
-  const ctx=c.getContext("2d");ctx.clearRect(0,0,c.width,c.height);
-  if(!data.length)return;
-  const max=Math.max.apply(null,data.concat([1])),min=Math.min.apply(null,data.concat([0]));
-  const pad=10,w=c.width-pad*2,h=c.height-pad*2;
-  ctx.strokeStyle="#c9a44c";ctx.lineWidth=2;ctx.beginPath();
-  data.forEach((v,i)=>{
-    const x=pad+(i/(Math.max(1,data.length-1)))*w;
-    const y=pad+h-((v-min)/Math.max(0.001,max-min))*h;
-    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-  });
-  ctx.stroke();
-  ctx.fillStyle="#c9a44c";
-  data.forEach((v,i)=>{
-    const x=pad+(i/(Math.max(1,data.length-1)))*w;
-    const y=pad+h-((v-min)/Math.max(0.001,max-min))*h;
-    ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
-  });
-}
+document.addEventListener("click",e=>{const link=e.target.closest(".player-link, [data-action='open']");if(link){e.preventDefault();openProfile(link.dataset.pid);return;}const star=e.target.closest(".star");if(star){const id=star.dataset.pid;if(watchlist.indexOf(id)>=0)watchlist=watchlist.filter(x=>x!==id);else watchlist.push(id);localStorage.setItem("vafa_watchlist",JSON.stringify(watchlist));renderPlayerList();renderWatchlist();renderDashboard();}});
+sel("backToList").addEventListener("click",()=>{sel("playerProfile").classList.add("hidden");sel("playerList").classList.remove("hidden");document.querySelector('.tab[data-tab="players"]').click();});
+function openProfile(pid){const p=players.find(x=>x.id===pid);if(!p)return;document.querySelector('.tab[data-tab="players"]').click();sel("playerList").classList.add("hidden");sel("playerProfile").classList.remove("hidden");sel("profileName").textContent=p.name;sel("profileMeta").textContent=[p.club,p.grade,"#"+(p.number||""),(p.games||0)+" games","Goals: "+(p.goals||0),"In best: "+bestCount(p),"Talent: "+(p.talentScore||0)].filter(Boolean).join(" \u00B7 ");const tiles=[["Goals",p.goals||0],["BOG votes",p.bog||0],["BOG firsts",p.bogFirsts||0],["In best",bestCount(p)],["Wins",p.wins||0]].map(x=>'<div class="tile"><div class="tile-label">'+x[0]+'</div><div class="tile-value">'+x[1]+'</div></div>').join("");sel("profileStats").innerHTML='<div class="tiles">'+tiles+'</div>';const hist=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));drawSparkline("profileChart",hist.map(h=>gameTalentScore(h)));const gEl=sel("profileGames");if(!hist.length){gEl.innerHTML=emptyState();return;}let h='<table class="data"><thead><tr><th>Date</th><th>Round</th><th>Opp</th><th>G</th><th>BOG</th><th>W</th><th>Score</th></tr></thead><tbody>';hist.forEach(hh=>{h+='<tr><td>'+(hh.date||"")+'</td><td>'+(hh.round||"")+'</td><td>'+(hh.opponent||"")+'</td><td>'+(hh.goals||0)+'</td><td>'+(hh.bog||0)+'</td><td>'+(hh.won?"\u2713":"")+'</td><td><b>'+gameTalentScore(hh)+'</b></td></tr>';});h+='</tbody></table>';gEl.innerHTML=h;}
+function drawSparkline(id,data){const c=sel(id);if(!c||!c.getContext)return;const ctx=c.getContext("2d");ctx.clearRect(0,0,c.width,c.height);if(!data.length)return;const max=Math.max.apply(null,data.concat([1])),min=Math.min.apply(null,data.concat([0]));const pad=10,w=c.width-pad*2,h=c.height-pad*2;ctx.strokeStyle="#c9a44c";ctx.lineWidth=2;ctx.beginPath();data.forEach((v,i)=>{const x=pad+(i/(Math.max(1,data.length-1)))*w;const y=pad+h-((v-min)/Math.max(0.001,max-min))*h;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();ctx.fillStyle="#c9a44c";data.forEach((v,i)=>{const x=pad+(i/(Math.max(1,data.length-1)))*w;const y=pad+h-((v-min)/Math.max(0.001,max-min))*h;ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();});}
 
-function populateClubDropdown(){
-  const s=sel("scoutClub");if(!s)return;
-  while(s.options.length>1)s.remove(1);
-  Array.from(new Set(players.map(p=>p.club).filter(Boolean))).sort().forEach(c=>{
-    const o=document.createElement("option");o.value=c;o.textContent=c;s.appendChild(o);
-  });
-}
-function renderScoutReport(){
-  const s=sel("scoutClub");if(!s)return;
-  const club=s.value;const el=sel("scoutReport");
-  if(!club){el.innerHTML='<p class="muted">Pick a club.</p>';return;}
-  const squad=players.filter(p=>p.club===club).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
-  if(!squad.length){el.innerHTML=emptyState();return;}
-  const recent=games.filter(g=>gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a))).slice(0,5);
-  let h='<h3>Top 5 danger players</h3><table class="data"><thead><tr><th>Player</th><th>Grade</th><th>Goals</th><th>In best</th><th>Score</th></tr></thead><tbody>';
-  squad.slice(0,5).forEach(p=>{
-    h+='<tr><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.goals||0)+'</td><td>'+bestCount(p)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';
-  });
-  h+='</tbody></table><h3>Recent fixtures</h3>';
-  if(!recent.length)h+=emptyState("No recent fixtures.");
-  else{
-    h+='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th></tr></thead><tbody>';
-    recent.forEach(g=>{
-      const hs=gameHomeScore(g); const as=gameAwayScore(g);
-      h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(hs!=null?hs:"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(as!=null?as:"-")+'</b></td></tr>';
-    });
-    h+='</tbody></table>';
-  }
-  el.innerHTML=h;
-}
+function populateClubDropdown(){const s=sel("scoutClub");if(!s)return;while(s.options.length>1)s.remove(1);Array.from(new Set(players.map(p=>p.club).filter(Boolean))).sort().forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;s.appendChild(o);});}
+function renderScoutReport(){const s=sel("scoutClub");if(!s)return;const club=s.value;const el=sel("scoutReport");if(!club){el.innerHTML='<p class="muted">Pick a club.</p>';return;}const squad=players.filter(p=>p.club===club).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));if(!squad.length){el.innerHTML=emptyState();return;}let h='<h3>Top 5 danger players</h3><table class="data"><thead><tr><th>Player</th><th>Grade</th><th>Goals</th><th>Best</th><th>Score</th></tr></thead><tbody>';squad.slice(0,5).forEach(p=>{h+='<tr><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.goals||0)+'</td><td>'+bestCount(p)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';});h+='</tbody></table>';el.innerHTML=h;}
 (function(){const s=sel("scoutClub");if(s)s.addEventListener("change",renderScoutReport);})();
+// ===== MATCH PREP v1.9 - COACHES BRIEF =====
+function obgfcTeams(){return Array.from(new Set(players.filter(isOwnClub).map(p=>({club:p.club,grade:p.grade})).map(o=>JSON.stringify(o)))).map(s=>JSON.parse(s)).sort((a,b)=>(a.grade||"").localeCompare(b.grade||""));}
+function nextFixtureFor(club,grade){const now=new Date().toISOString();return games.filter(g=>g.grade===grade).filter(g=>!isFinal(g)).filter(g=>gameInvolves(g,club)).filter(g=>{const dt=gameDateTime(g);return !dt||dt>=now;}).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)))[0]||null;}
+function lastFixtureFor(club,grade){return games.filter(g=>g.grade===grade).filter(g=>isFinal(g)).filter(g=>gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)))[0]||null;}
 
-function obgfcTeams(){
-  return Array.from(new Set(players.filter(isOwnClub).map(p=>({club:p.club,grade:p.grade})).map(o=>JSON.stringify(o)))).map(s=>JSON.parse(s)).sort((a,b)=>(a.grade||"").localeCompare(b.grade||""));
+function findObgfcNextFixture(){
+  const teams=obgfcTeams();let best=null;
+  teams.forEach(t=>{
+    const fx=nextFixtureFor(t.club,t.grade);
+    if(fx&&(!best||gameDateTime(fx)<gameDateTime(best.fixture))){best={team:t,fixture:fx};}
+  });
+  return best;
 }
-function nextFixtureFor(club,grade){
-  const now=new Date().toISOString();
-  return games.filter(g=>g.grade===grade).filter(g=>!isFinal(g)).filter(g=>gameInvolves(g,club)).filter(g=>{const dt=gameDateTime(g);return !dt||dt>=now;}).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)))[0]||null;
+function autoSelectNextFixture(){
+  const own=sel("mpOwnTeam"),opp=sel("mpOpponent");
+  if(!own||!opp)return false;
+  if(own.value&&opp.value)return true;
+  const nx=findObgfcNextFixture();
+  if(!nx)return false;
+  const ownVal=JSON.stringify(nx.team);
+  if([...own.options].some(o=>o.value===ownVal))own.value=ownVal;
+  const oppName=(gameHome(nx.fixture)===nx.team.club)?gameAway(nx.fixture):gameHome(nx.fixture);
+  if(oppName&&[...opp.options].some(o=>o.value===oppName))opp.value=oppName;
+  return true;
 }
-function lastFixtureFor(club,grade){
-  return games.filter(g=>g.grade===grade).filter(g=>isFinal(g)).filter(g=>gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)))[0]||null;
-}
+
 function populateMatchPrepDropdowns(){
   const own=sel("mpOwnTeam"),opp=sel("mpOpponent");
   if(!own||!opp)return;
   while(own.options.length>1)own.remove(1);
-  obgfcTeams().forEach(t=>{
-    const o=document.createElement("option");o.value=JSON.stringify(t);
-    o.textContent=t.grade?(t.grade+" - "+t.club):t.club;own.appendChild(o);
-  });
+  obgfcTeams().forEach(t=>{const o=document.createElement("option");o.value=JSON.stringify(t);o.textContent=t.grade?(t.grade+" - "+t.club):t.club;own.appendChild(o);});
   while(opp.options.length>1)opp.remove(1);
-  Array.from(new Set(players.map(p=>p.club).filter(Boolean))).filter(c=>!isOwnClubName(c)).sort().forEach(c=>{
-    const o=document.createElement("option");o.value=c;o.textContent=c;opp.appendChild(o);
-  });
+  Array.from(new Set(players.map(p=>p.club).filter(Boolean))).filter(c=>!isOwnClubName(c)).sort().forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;opp.appendChild(o);});
 }
-function autoFillOpponent(){
-  const oS=sel("mpOwnTeam"),pS=sel("mpOpponent");
-  if(!oS.value)return;
-  const t=JSON.parse(oS.value);
-  const nxt=nextFixtureFor(t.club,t.grade)||lastFixtureFor(t.club,t.grade);
-  if(!nxt)return;
-  const o=(gameHome(nxt)===t.club)?gameAway(nxt):gameHome(nxt);
-  if(o&&[...pS.options].some(x=>x.value===o))pS.value=o;
-}
+function autoFillOpponent(){const oS=sel("mpOwnTeam"),pS=sel("mpOpponent");if(!oS.value)return;const t=JSON.parse(oS.value);const nxt=nextFixtureFor(t.club,t.grade)||lastFixtureFor(t.club,t.grade);if(!nxt)return;const o=(gameHome(nxt)===t.club)?gameAway(nxt):gameHome(nxt);if(o&&[...pS.options].some(x=>x.value===o))pS.value=o;}
+
 function selectedOwnTeam(){const v=sel("mpOwnTeam").value;if(!v)return null;try{return JSON.parse(v);}catch(e){return null;}}
 function selectedOpponent(){return sel("mpOpponent").value||"";}
 function selectedMPFormWindow(){return parseInt(sel("mpFormWindow").value||"3",10);}
-function gradeTalentBenchmark(grade,topN){
-  topN=topN||20;
-  const r=players.filter(p=>p.grade===grade&&(p.games||0)>=3).filter(p=>p.name&&p.name.trim().toLowerCase()!=="none none").sort((a,b)=>(b.talentScore||0)-(a.talentScore||0)).slice(0,topN);
-  return r.length?(r[r.length-1].talentScore||0):0;
+function gradeTalentBenchmark(grade,topN){topN=topN||20;const r=players.filter(p=>p.grade===grade&&(p.games||0)>=3).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0)).slice(0,topN);return r.length?(r[r.length-1].talentScore||0):0;}
+function squadSummary(sq){if(!sq.length)return{size:0,avgScore:0,topScore:0,goals:0,best:0,topName:"-"};const goals=sq.reduce((s,p)=>s+(p.goals||0),0);const best=sq.reduce((s,p)=>s+bestCount(p),0);const sorted=[...sq].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));const top=sorted[0];return{size:sq.length,avgScore:+(sq.reduce((s,p)=>s+(p.talentScore||0),0)/sq.length).toFixed(1),topScore:top.talentScore||0,topName:top.name||"-",goals,best};}
+
+function headToHead(ourClub,opp,grade){
+  const meets=games.filter(g=>isFinal(g)&&g.grade===grade&&((gameHome(g)===ourClub&&gameAway(g)===opp)||(gameHome(g)===opp&&gameAway(g)===ourClub)));
+  const res={games:meets.length,wins:0,losses:0,draws:0,marginSum:0,atHome:{w:0,l:0,d:0,marginSum:0,games:0},away:{w:0,l:0,d:0,marginSum:0,games:0},recent:[]};
+  meets.forEach(g=>{
+    const ourIsHome=gameHome(g)===ourClub;
+    const ourScore=ourIsHome?gameHomeScore(g):gameAwayScore(g);
+    const theirScore=ourIsHome?gameAwayScore(g):gameHomeScore(g);
+    if(ourScore==null||theirScore==null)return;
+    const margin=ourScore-theirScore;
+    res.marginSum+=margin;
+    const bucket=ourIsHome?res.atHome:res.away;
+    bucket.games++;bucket.marginSum+=margin;
+    if(margin>0){res.wins++;bucket.w++;}
+    else if(margin<0){res.losses++;bucket.l++;}
+    else{res.draws++;bucket.d++;}
+    res.recent.push({date:gameDateStr(g),round:g.round,ourIsHome,ourScore,theirScore,margin});
+  });
+  res.avgMargin=meets.length?+(res.marginSum/meets.length).toFixed(1):0;
+  res.atHome.avgMargin=res.atHome.games?+(res.atHome.marginSum/res.atHome.games).toFixed(1):0;
+  res.away.avgMargin=res.away.games?+(res.away.marginSum/res.away.games).toFixed(1):0;
+  res.recent.sort((a,b)=>b.date.localeCompare(a.date));
+  res.recent=res.recent.slice(0,5);
+  return res;
 }
-function squadSummary(sq){
-  if(!sq.length)return{size:0,avgScore:0,topScore:0,goals:0,best:0,topName:"-"};
-  const goals=sq.reduce((s,p)=>s+(p.goals||0),0);
-  const best=sq.reduce((s,p)=>s+bestCount(p),0);
-  const sorted=[...sq].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
-  const top=sorted[0];
-  return{size:sq.length,avgScore:+(sq.reduce((s,p)=>s+(p.talentScore||0),0)/sq.length).toFixed(1),topScore:top.talentScore||0,topName:top.name||"-",goals,best};
+
+function homeAwayForm(club,grade){
+  const done=games.filter(g=>isFinal(g)&&g.grade===grade&&gameInvolves(g,club));
+  const home={games:0,wins:0,losses:0,draws:0,marginSum:0};
+  const away={games:0,wins:0,losses:0,draws:0,marginSum:0};
+  done.forEach(g=>{
+    const isHome=gameHome(g)===club;
+    const ourScore=isHome?gameHomeScore(g):gameAwayScore(g);
+    const theirScore=isHome?gameAwayScore(g):gameHomeScore(g);
+    if(ourScore==null||theirScore==null)return;
+    const margin=ourScore-theirScore;
+    const b=isHome?home:away;
+    b.games++;b.marginSum+=margin;
+    if(margin>0)b.wins++;else if(margin<0)b.losses++;else b.draws++;
+  });
+  home.winPct=home.games?Math.round((home.wins/home.games)*100):0;
+  away.winPct=away.games?Math.round((away.wins/away.games)*100):0;
+  home.avgMargin=home.games?+(home.marginSum/home.games).toFixed(1):0;
+  away.avgMargin=away.games?+(away.marginSum/away.games).toFixed(1):0;
+  const wScore=(home.wins*1.0)+(away.wins*1.5)-(home.losses*1.5)-(away.losses*1.0);
+  const maxPos=(home.games*1.0)+(away.games*1.5);
+  const wPct=maxPos?Math.round(((wScore+maxPos)/(2*maxPos))*100):50;
+  let tone,text;
+  if(home.winPct>=60&&away.winPct<=40){tone="neutral";text="Strong at home, vulnerable away";}
+  else if(away.winPct>=50){tone="negative";text="Travel well - dangerous away side";}
+  else if(home.winPct<=40){tone="positive";text="Struggles at home - beatable there";}
+  else{tone="neutral";text="Balanced form home and away";}
+  return{home,away,weightedScore:+wScore.toFixed(1),weightedPct:wPct,verdict:{tone,text}};
 }
+
+function classForm(club,grade,ladder){
+  const ourIdx=ladder.findIndex(t=>t.team===club);
+  if(ourIdx<0)return null;
+  const ourPos=ourIdx+1;
+  const done=games.filter(g=>isFinal(g)&&g.grade===grade&&gameInvolves(g,club));
+  let expectedWins=0,expectedLosses=0,unexpectedWins=0,unexpectedLosses=0;
+  const notable={quality:[],shocks:[]};
+  done.forEach(g=>{
+    const isHome=gameHome(g)===club;
+    const oppName=isHome?gameAway(g):gameHome(g);
+    const oppIdx=ladder.findIndex(t=>t.team===oppName);
+    if(oppIdx<0)return;
+    const oppPos=oppIdx+1;
+    const ourScore=isHome?gameHomeScore(g):gameAwayScore(g);
+    const theirScore=isHome?gameAwayScore(g):gameHomeScore(g);
+    if(ourScore==null||theirScore==null)return;
+    const won=ourScore>theirScore;
+    if(ourPos<oppPos){
+      if(won){expectedWins++;}
+      else{unexpectedLosses++;notable.shocks.push({round:g.round,opp:oppName,oppPos,margin:ourScore-theirScore});}
+    }else if(ourPos>oppPos){
+      if(won){unexpectedWins++;notable.quality.push({round:g.round,opp:oppName,oppPos,margin:ourScore-theirScore});}
+      else{expectedLosses++;}
+    }
+  });
+  const total=expectedWins+expectedLosses+unexpectedWins+unexpectedLosses;
+  const diff=unexpectedWins-unexpectedLosses;
+  let tone,headline,detail;
+  if(diff>=2){tone="green";headline="Above expected form - dangerous team playing well";detail=unexpectedWins+" quality wins vs "+unexpectedLosses+" shock losses. They are beating who they shouldn't and turning up when it matters.";}
+  else if(diff<=-2){tone="red";headline="Underperforming - beatable if prepared";detail=unexpectedLosses+" shock losses vs "+unexpectedWins+" quality wins. They drop games to teams they should beat - target this.";}
+  else{tone="amber";headline="On par with ladder position";detail=unexpectedWins+" quality wins, "+unexpectedLosses+" shock losses. Results roughly match where they sit on the ladder.";}
+  return{ourPos,expectedWins,expectedLosses,unexpectedWins,unexpectedLosses,total,notable,verdict:{tone,headline,detail}};
+}
+  function renderAutoHeader(own,opp,fixture){
+  const card=sel("mpAutoHeader");if(!card)return;
+  card.classList.remove("hidden");
+  const isHome=gameHome(fixture)===own.club;
+  const badge=isHome?'<div class="venue-badge home">AT HOME</div>':'<div class="venue-badge away">AWAY AT '+opp.toUpperCase()+'</div>';
+  let dateStr=gameDateStr(fixture);
+  try{const d=new Date(gameDateTime(fixture));if(!isNaN(d))dateStr=d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'short'});}catch(e){}
+  const html='<div class="autoheader-team">'+own.club+'</div><div class="autoheader-vs">VS</div><div class="autoheader-team">'+opp+'</div><div class="autoheader-meta">'+(fixture.round||"")+' \u00B7 '+dateStr+' \u00B7 '+own.grade+'</div>'+badge;
+  sel("mpAutoHeaderContent").innerHTML=html;
+}
+
+function renderHeadToHeadSection(ourClub,opp,grade,obgfcIsHome){
+  const card=sel("mpHeadToHead");if(!card)return;
+  card.classList.remove("hidden");
+  const h2h=headToHead(ourClub,opp,grade);
+  const el=sel("mpHeadToHeadContent");
+  if(!h2h.games){el.innerHTML='<p class="muted">No past meetings on record in this grade.</p>';return;}
+  const homeCls=obgfcIsHome?'h2h-highlight':'';
+  const awayCls=!obgfcIsHome?'h2h-highlight':'';
+  let html='<div class="h2h-split">';
+  html+='<div class="h2h-block '+homeCls+'"><div class="h2h-block-label">OBGFC at home vs them</div><div class="h2h-block-record">'+h2h.atHome.w+'-'+h2h.atHome.l+(h2h.atHome.d?'-'+h2h.atHome.d:'')+'</div><div class="h2h-block-margin">Avg margin: '+(h2h.atHome.avgMargin>0?"+":"")+h2h.atHome.avgMargin+'</div></div>';
+  html+='<div class="h2h-block '+awayCls+'"><div class="h2h-block-label">OBGFC away vs them</div><div class="h2h-block-record">'+h2h.away.w+'-'+h2h.away.l+(h2h.away.d?'-'+h2h.away.d:'')+'</div><div class="h2h-block-margin">Avg margin: '+(h2h.away.avgMargin>0?"+":"")+h2h.away.avgMargin+'</div></div>';
+  html+='</div>';
+  html+='<div class="h2h-summary"><strong>All-time:</strong> '+h2h.wins+' wins, '+h2h.losses+' losses'+(h2h.draws?', '+h2h.draws+' draws':'')+' &middot; <strong>Avg margin:</strong> '+(h2h.avgMargin>0?"+":"")+h2h.avgMargin+'</div>';
+  if(h2h.recent.length){
+    html+='<h3>Last '+h2h.recent.length+' meetings</h3><table class="data"><thead><tr><th>Date</th><th>Round</th><th>Venue</th><th>Result</th><th>Margin</th></tr></thead><tbody>';
+    h2h.recent.forEach(r=>{const cls=r.margin>0?"form-up":r.margin<0?"form-down":"form-flat";const result=r.margin>0?"WON":r.margin<0?"LOST":"DRAW";html+='<tr><td>'+r.date+'</td><td>'+(r.round||"")+'</td><td>'+(r.ourIsHome?"Home":"Away")+'</td><td><span class="'+cls+'">'+result+' '+r.ourScore+'-'+r.theirScore+'</span></td><td>'+(r.margin>0?"+":"")+r.margin+'</td></tr>';});
+    html+='</tbody></table>';
+  }
+  el.innerHTML=html;
+}
+
+function renderHomeAwayFormSection(opp,grade,obgfcIsHome){
+  const card=sel("mpHomeAwayForm");if(!card)return;
+  card.classList.remove("hidden");
+  const haf=homeAwayForm(opp,grade);
+  const el=sel("mpHomeAwayFormContent");
+  if(!haf.home.games&&!haf.away.games){el.innerHTML=emptyState("No completed games this season.");return;}
+  const homeHl=!obgfcIsHome?'haf-highlight':'';
+  const awayHl=obgfcIsHome?'haf-highlight':'';
+  let html='<div class="haf-split">';
+  html+='<div class="haf-block '+homeHl+'"><div class="haf-block-label">Their home form</div><div class="haf-block-record">'+haf.home.wins+'-'+haf.home.losses+(haf.home.draws?'-'+haf.home.draws:'')+' <span class="muted">('+haf.home.winPct+'%)</span></div><div class="haf-block-margin">Avg margin: '+(haf.home.avgMargin>0?"+":"")+haf.home.avgMargin+'</div></div>';
+  html+='<div class="haf-block '+awayHl+'"><div class="haf-block-label">Their away form</div><div class="haf-block-record">'+haf.away.wins+'-'+haf.away.losses+(haf.away.draws?'-'+haf.away.draws:'')+' <span class="muted">('+haf.away.winPct+'%)</span></div><div class="haf-block-margin">Avg margin: '+(haf.away.avgMargin>0?"+":"")+haf.away.avgMargin+'</div></div>';
+  html+='</div>';
+  html+='<div class="haf-weighted">Weighted form score: <b>'+haf.weightedPct+'%</b> <span class="muted">(away wins x1.5, home losses x1.5)</span></div>';
+  html+='<div class="haf-verdict tone-'+haf.verdict.tone+'"><strong>Verdict:</strong> '+haf.verdict.text+'.';
+  if(obgfcIsHome){html+=' You are hosting - they will be playing away.';}else{html+=' You are travelling to them - factor their home advantage.';}
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderClassFormSection(opp,grade){
+  const card=sel("mpClassForm");if(!card)return;
+  card.classList.remove("hidden");
+  const ladder=buildLadder(grade,4);
+  const cf=classForm(opp,grade,ladder);
+  const el=sel("mpClassFormContent");
+  if(!cf){el.innerHTML=emptyState("Unable to compute - not enough ladder data.");return;}
+  let html='<div class="class-form-summary">';
+  html+='<div class="tile"><div class="tile-label">Quality wins (up)</div><div class="tile-value class-tone-green">'+cf.unexpectedWins+'</div></div>';
+  html+='<div class="tile"><div class="tile-label">Shock losses (down)</div><div class="tile-value class-tone-red">'+cf.unexpectedLosses+'</div></div>';
+  html+='</div>';
+  html+='<div class="haf-verdict tone-'+(cf.verdict.tone==="green"?"positive":cf.verdict.tone==="red"?"negative":"neutral")+'"><strong>'+cf.verdict.headline+'</strong><br>'+cf.verdict.detail+'</div>';
+  if(cf.notable.quality.length){
+    html+='<h3>Their quality wins (beat teams above them)</h3><table class="data"><thead><tr><th>Round</th><th>Beat</th><th>Their pos</th><th>Margin</th></tr></thead><tbody>';
+    cf.notable.quality.forEach(q=>{html+='<tr><td>'+(q.round||"")+'</td><td>'+q.opp+'</td><td>#'+q.oppPos+'</td><td><span class="form-up">+'+q.margin+'</span></td></tr>';});
+    html+='</tbody></table>';
+  }
+  if(cf.notable.shocks.length){
+    html+='<h3>Their shock losses (beaten by teams below them)</h3><table class="data"><thead><tr><th>Round</th><th>Lost to</th><th>Their pos</th><th>Margin</th></tr></thead><tbody>';
+    cf.notable.shocks.forEach(s=>{html+='<tr><td>'+(s.round||"")+'</td><td>'+s.opp+'</td><td>#'+s.oppPos+'</td><td><span class="form-down">'+s.margin+'</span></td></tr>';});
+    html+='</tbody></table>';
+  }
+  el.innerHTML=html;
+}
+
 function renderVersusComparison(own,opp,oppSquad){
-  const card=sel("mpVersus"),vd=sel("mpVersusVerdict");
-  if(!card)return;
+  const card=sel("mpVersus");if(!card)return;
   if(!own||!opp){card.classList.add("hidden");return;}
   const ourSquad=players.filter(p=>isOwnClub(p)&&p.grade===own.grade&&p.name&&p.name.trim().toLowerCase()!=="none none");
   if(!ourSquad.length){card.classList.add("hidden");return;}
   card.classList.remove("hidden");
   sel("mpVersusOpponent").textContent=opp;
   const us=squadSummary(ourSquad),th=squadSummary(oppSquad);
-  const m=[
-    {l:"Squad size",a:us.size,b:th.size},
-    {l:"Avg talent score",a:us.avgScore,b:th.avgScore},
-    {l:"Top talent score",a:us.topScore,b:th.topScore,s:{a:us.topName,b:th.topName}},
-    {l:"Total goals",a:us.goals,b:th.goals},
-    {l:"Total times in best",a:us.best,b:th.best}
-  ];
+  const m=[{l:"Squad size",a:us.size,b:th.size},{l:"Avg talent score",a:us.avgScore,b:th.avgScore},{l:"Top talent",a:us.topScore,b:th.topScore,s:{a:us.topName,b:th.topName}},{l:"Total goals",a:us.goals,b:th.goals},{l:"Times in best",a:us.best,b:th.best}];
   let h='<table class="vs-table"><thead><tr><th>Metric</th><th>OBGFC</th><th>'+opp+'</th></tr></thead><tbody>';
   let oA=0,tA=0;
-  m.forEach(x=>{
-    const aB=x.a>x.b,bB=x.b>x.a;
-    if(aB)oA++;else if(bB)tA++;
-    const aC=aB?"vs-better":bB?"vs-worse":"vs-equal";
-    const bC=bB?"vs-better":aB?"vs-worse":"vs-equal";
-    h+='<tr><td>'+x.l+'</td><td><span class="'+aC+'">'+x.a+'</span>'+(x.s?'<span class="vs-edge">'+x.s.a+'</span>':'')+'</td><td><span class="'+bC+'">'+x.b+'</span>'+(x.s?'<span class="vs-edge">'+x.s.b+'</span>':'')+'</td></tr>';
-  });
+  m.forEach(x=>{const aB=x.a>x.b,bB=x.b>x.a;if(aB)oA++;else if(bB)tA++;const aC=aB?"vs-better":bB?"vs-worse":"vs-equal";const bC=bB?"vs-better":aB?"vs-worse":"vs-equal";h+='<tr><td>'+x.l+'</td><td><span class="'+aC+'">'+x.a+'</span>'+(x.s?'<br><span class="muted">'+x.s.a+'</span>':'')+'</td><td><span class="'+bC+'">'+x.b+'</span>'+(x.s?'<br><span class="muted">'+x.s.b+'</span>':'')+'</td></tr>';});
   h+='</tbody></table>';
   sel("mpVersusTable").innerHTML=h;
   let line;
-  if(oA>tA)line="OBGFC ahead in "+oA+" of "+m.length+" metrics - favourable matchup on paper.";
+  if(oA>tA)line="OBGFC ahead in "+oA+" of "+m.length+" metrics - favourable matchup.";
   else if(tA>oA)line=opp+" ahead in "+tA+" of "+m.length+" metrics - work to do.";
   else line="Even matchup - "+oA+"-"+tA+" across "+m.length+" metrics.";
-  const gap=th.topScore-us.topScore;
-  if(Math.abs(gap)>=5){
-    line+=gap>0?" Their best ("+th.topName+") outranks ours by "+gap.toFixed(1)+" - plan to tag.":" Our best ("+us.topName+") outranks theirs by "+(-gap).toFixed(1)+" - own that matchup.";
-  }
-  vd.textContent=line;
+  sel("mpVersusVerdict").textContent=line;
 }
+
 function renderMatchPrep(){
+  autoSelectNextFixture();
   const own=selectedOwnTeam(),opp=selectedOpponent(),fw=selectedMPFormWindow();
-  const show=y=>{["mpHeader","mpVersus","mpSummary","mpDanger","mpInForm","mpCrossGrade","mpFullSquad","mpRecent"].forEach(id=>{const el=sel(id);if(el)el.classList.toggle("hidden",!y);});};
-  if(!opp){show(false);return;}
-  show(true);
+  const cards=["mpAutoHeader","mpHeadToHead","mpHomeAwayForm","mpClassForm","mpVersus","mpDanger","mpFullSquad","mpRecent"];
+  if(!opp||!own){cards.forEach(id=>{const e=sel(id);if(e)e.classList.add("hidden");});return;}
   let squad=players.filter(p=>p.club===opp);
-  if(own){const sg=squad.filter(p=>p.grade===own.grade);if(sg.length)squad=sg;}
+  const sg=squad.filter(p=>p.grade===own.grade);if(sg.length)squad=sg;
   squad=squad.filter(p=>p.name&&p.name.trim().toLowerCase()!=="none none");
   squad.sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
-  const fx=own?(nextFixtureFor(own.club,own.grade)||lastFixtureFor(own.club,own.grade)):null;
-  sel("mpFixtureTitle").textContent=own?(own.club+" vs "+opp):("Preview: "+opp);
-  const fm=[];
-  if(fx){
-    fm.push(gameDateStr(fx));
-    if(fx.round)fm.push(fx.round);
-    if(own&&own.grade)fm.push(own.grade);
-    fm.push(isFinal(fx)?"(last meeting)":"(upcoming)");
-  }else if(own)fm.push(own.grade+" - no scheduled fixture");
-  sel("mpFixtureMeta").textContent=fm.join(" \u00B7 ");
+  const fx=nextFixtureFor(own.club,own.grade)||lastFixtureFor(own.club,own.grade);
+  if(fx){renderAutoHeader(own,opp,fx);}else{sel("mpAutoHeader").classList.add("hidden");}
+  const obgfcIsHome=fx?(gameHome(fx)===own.club):true;
+  renderHeadToHeadSection(own.club,opp,own.grade,obgfcIsHome);
+  renderHomeAwayFormSection(opp,own.grade,obgfcIsHome);
+  renderClassFormSection(opp,own.grade);
   renderVersusComparison(own,opp,squad);
-  const t=squad.reduce((a,p)=>{a.players++;a.games+=p.games||0;a.goals+=p.goals||0;a.best+=bestCount(p);return a;},{players:0,games:0,goals:0,best:0});
-  const ts=squad[0]?squad[0].talentScore:0;
-  const as=squad.length?+(squad.reduce((s,p)=>s+(p.talentScore||0),0)/squad.length).toFixed(1):0;
-  sel("mpSummaryTiles").innerHTML=[["Squad size",t.players],["Avg talent",as],["Top talent",ts],["Total goals",t.goals],["Times in best",t.best]].map(function(x){return '<div class="tile"><div class="tile-label">'+x[0]+'</div><div class="tile-value">'+x[1]+'</div></div>';}).join("");
+  sel("mpDanger").classList.remove("hidden");
   renderTop5("mpDangerList",squad.slice(0,5),"Score",p=>p.talentScore||0,{label:"Games",fn:p=>p.games||0});
-  const inF=squad.map(p=>({...p,_form:formIndicator(p,fw)})).filter(p=>p._form&&p._form.delta>0).sort((a,b)=>b._form.delta-a._form.delta).slice(0,5);
-  const fEl=sel("mpInFormList");
-  if(!inF.length)fEl.innerHTML=emptyState("No players above season avg.");
-  else{
-    let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Grade</th><th>\u0394</th><th>Last '+fw+' avg</th><th>Season avg</th></tr></thead><tbody>';
-    inF.forEach((p,i)=>{
-      h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td><span class="form-up">\u25B2 '+p._form.delta+'</span></td><td>'+p._form.recent+'</td><td>'+p._form.earlier+'</td></tr>';
-    });
-    h+='</tbody></table>';fEl.innerHTML=h;
-  }
-  const cEl=sel("mpCrossList");
-  if(!own)cEl.innerHTML='<p class="muted">Pick your OBGFC team to enable cross-grade detection.</p>';
-  else{
-    const bench=gradeTalentBenchmark(own.grade,20);
-    const cross=players.filter(p=>p.club===opp&&p.grade!==own.grade&&p.name&&p.name.trim().toLowerCase()!=="none none"&&(p.games||0)>=3&&(p.talentScore||0)>=bench).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
-    if(!cross.length)cEl.innerHTML='<p class="muted">No cross-grade threats. Benchmark: '+bench+'.</p>';
-    else{
-      let h='<p class="muted">Benchmark: top-20 cut-off in '+own.grade+' = <b>'+bench+'</b>.</p><table class="data"><thead><tr><th>Player</th><th>Their grade</th><th>Games</th><th>In best</th><th>Goals</th><th>Score</th></tr></thead><tbody>';
-      cross.slice(0,8).forEach(p=>{
-        h+='<tr class="cross-grade-row"><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td>'+bestCount(p)+'</td><td>'+(p.goals||0)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';
-      });
-      h+='</tbody></table>';cEl.innerHTML=h;
-    }
-  }
+  sel("mpFullSquad").classList.remove("hidden");
   const fsEl=sel("mpFullSquadList");
-  if(!squad.length)fsEl.innerHTML=emptyState();
+  if(!squad.length){fsEl.innerHTML=emptyState();}
   else{
     let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Grade</th><th>Games</th><th>In best</th><th>Goals</th><th>Talent</th><th>Form</th></tr></thead><tbody>';
-    squad.forEach((p,i)=>{
-      const f=formIndicator(p,fw);
-      const fc=f?'<span class="'+(f.delta>0?'form-up':f.delta<0?'form-down':'form-flat')+'">'+f.trend+' '+f.delta+'</span>':'<span class="muted">-</span>';
-      h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td>'+bestCount(p)+'</td><td>'+(p.goals||0)+'</td><td><b>'+(p.talentScore||0)+'</b></td><td>'+fc+'</td></tr>';
-    });
+    squad.forEach((p,i)=>{const f=formIndicator(p,fw);const fc=f?'<span class="'+(f.delta>0?'form-up':f.delta<0?'form-down':'form-flat')+'">'+f.trend+' '+f.delta+'</span>':'<span class="muted">-</span>';h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td>'+bestCount(p)+'</td><td>'+(p.goals||0)+'</td><td><b>'+(p.talentScore||0)+'</b></td><td>'+fc+'</td></tr>';});
     h+='</tbody></table>';fsEl.innerHTML=h;
   }
+  sel("mpRecent").classList.remove("hidden");
   const rEl=sel("mpRecentList");
   const rec=games.filter(g=>gameInvolves(g,opp)).filter(g=>isFinal(g)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a))).slice(0,6);
-  if(!rec.length)rEl.innerHTML=emptyState("No recent results.");
+  if(!rec.length){rEl.innerHTML=emptyState("No recent results.");}
   else{
     let h='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Result</th></tr></thead><tbody>';
-    rec.forEach(g=>{
-      const hs=gameHomeScore(g); const as=gameAwayScore(g);
-      const iH=gameHome(g)===opp;
-      const oc=iH?homeOutcome(g):awayOutcome(g);
-      const cl=oc==="WON"?"form-up":oc==="LOST"?"form-down":"form-flat";
-      h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(hs!=null?hs:"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(as!=null?as:"-")+'</b></td><td><span class="'+cl+'">'+(oc||"-")+'</span></td></tr>';
-    });
+    rec.forEach(g=>{const hs=gameHomeScore(g),as=gameAwayScore(g);const iH=gameHome(g)===opp;const oc=iH?homeOutcome(g):awayOutcome(g);const cl=oc==="WON"?"form-up":oc==="LOST"?"form-down":"form-flat";h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(hs!=null?hs:"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(as!=null?as:"-")+'</b></td><td><span class="'+cl+'">'+(oc||"-")+'</span></td></tr>';});
     h+='</tbody></table>';rEl.innerHTML=h;
   }
 }
-(function(){
-  const o=sel("mpOwnTeam"),p=sel("mpOpponent"),f=sel("mpFormWindow");
-  if(o)o.addEventListener("change",()=>{autoFillOpponent();renderMatchPrep();});
-  if(p)p.addEventListener("change",renderMatchPrep);
-  if(f)f.addEventListener("change",renderMatchPrep);
-})();
 
+(function(){const o=sel("mpOwnTeam"),p=sel("mpOpponent"),f=sel("mpFormWindow");if(o)o.addEventListener("change",()=>{autoFillOpponent();renderMatchPrep();});if(p)p.addEventListener("change",renderMatchPrep);if(f)f.addEventListener("change",renderMatchPrep);})();
+
+// ===== ROUND LOG =====
 function selectedRLGrade(){const e=sel("rlGrade");return e?(e.value||""):"";}
 function selectedRLFormWindow(){const e=sel("rlFormWindow");return e?parseInt(e.value||"3",10):3;}
 function buildTeamForm(grade,window){
   const done=games.filter(g=>isFinal(g)).filter(g=>!grade||g.grade===grade).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)));
   const byT={};
-  done.forEach(g=>{
-    const hName=gameHome(g), aName=gameAway(g);
-    const hS=gameHomeScore(g)||0, aS=gameAwayScore(g)||0;
-    const hOut=homeOutcome(g), aOut=awayOutcome(g);
-    const rec=(sideName,oppName,sF,sA,oc)=>{
-      if(!sideName)return;
-      const k=sideName+"||"+g.grade;
-      if(!byT[k])byT[k]={team:sideName,grade:g.grade,results:[]};
-      const r=oc==="WON"?"W":oc==="LOST"?"L":oc==="DRAW"?"D":"?";
-      byT[k].results.push({date:gameDateStr(g),round:g.round,opponent:oppName||"",scoreFor:sF,scoreAgainst:sA,result:r});
-    };
-    rec(hName,aName,hS,aS,hOut);rec(aName,hName,aS,hS,aOut);
-  });
-  return Object.values(byT).map(t=>{
-    const lN=t.results.slice(-window);
-    const w=lN.filter(r=>r.result==="W").length,l=lN.filter(r=>r.result==="L").length,d=lN.filter(r=>r.result==="D").length;
-    const pts=w*3+d,max=lN.length*3,pct=max?+((pts/max)*100).toFixed(0):0;
-    const tr=pct>=67?"hot":pct<=33?"cold":"even";
-    const tF=lN.reduce((s,r)=>s+r.scoreFor,0),tA=lN.reduce((s,r)=>s+r.scoreAgainst,0);
-    const aM=lN.length?+(((tF-tA)/lN.length)).toFixed(0):0;
-    return{team:t.team,grade:t.grade,results:lN,wins:w,losses:l,draws:d,pts,pct,trend:tr,avgMargin:aM,gamesPlayed:t.results.length};
-  }).sort((a,b)=>b.pct-a.pct||b.avgMargin-a.avgMargin||b.wins-a.wins);
+  done.forEach(g=>{const hN=gameHome(g),aN=gameAway(g);const hS=gameHomeScore(g)||0,aS=gameAwayScore(g)||0;const hOut=homeOutcome(g),aOut=awayOutcome(g);const rec=(sN,oN,sF,sA,oc)=>{if(!sN)return;const k=sN+"||"+g.grade;if(!byT[k])byT[k]={team:sN,grade:g.grade,results:[]};const r=oc==="WON"?"W":oc==="LOST"?"L":oc==="DRAW"?"D":"?";byT[k].results.push({date:gameDateStr(g),round:g.round,opponent:oN||"",scoreFor:sF,scoreAgainst:sA,result:r});};rec(hN,aN,hS,aS,hOut);rec(aN,hN,aS,hS,aOut);});
+  return Object.values(byT).map(t=>{const lN=t.results.slice(-window);const w=lN.filter(r=>r.result==="W").length,l=lN.filter(r=>r.result==="L").length,d=lN.filter(r=>r.result==="D").length;const pts=w*3+d,max=lN.length*3,pct=max?+((pts/max)*100).toFixed(0):0;const tr=pct>=67?"hot":pct<=33?"cold":"even";const tF=lN.reduce((s,r)=>s+r.scoreFor,0),tA=lN.reduce((s,r)=>s+r.scoreAgainst,0);const aM=lN.length?+(((tF-tA)/lN.length)).toFixed(0):0;return{team:t.team,grade:t.grade,results:lN,wins:w,losses:l,draws:d,pts,pct,trend:tr,avgMargin:aM,gamesPlayed:t.results.length};}).sort((a,b)=>b.pct-a.pct||b.avgMargin-a.avgMargin||b.wins-a.wins);
 }
-function renderFormBlocks(res,win){
-  const b=[...res];while(b.length<win)b.unshift({result:"tbd"});
-  return '<span class="form-blocks">'+b.map(r=>{
-    const c=r.result==="W"?"win":r.result==="L"?"loss":r.result==="D"?"draw":"tbd";
-    const l=r.result&&r.result!=="tbd"?r.result:"\u00B7";
-    return '<span class="form-block '+c+'">'+l+'</span>';
-  }).join("")+'</span>';
-}
-function renderTeamFormBoard(grade,win){
-  const teams=buildTeamForm(grade,win);const el=sel("rlTeamForm");
-  if(!teams.length){el.innerHTML=emptyState("No completed games.");return;}
-  let h='<table class="data"><thead><tr><th>#</th><th>Team</th>'+(grade?'':'<th>Grade</th>')+'<th>Last '+win+'</th><th>Form pts</th><th>Form %</th><th>Avg margin</th><th>W-D-L</th></tr></thead><tbody>';
-  teams.forEach((t,i)=>{
-    const own=isOwnClubName(t.team);
-    const cls=t.trend==="hot"?"hot":t.trend==="cold"?"cold":"";
-    const d=own?'<span class="own-club">\u25CF</span> ':'';
-    h+='<tr class="team-form-row '+cls+'"><td>'+(i+1)+'</td><td class="team-name">'+d+t.team+'</td>'+(grade?'':'<td class="muted">'+t.grade+'</td>')+'<td>'+renderFormBlocks(t.results,win)+'</td><td>'+t.pts+' / '+(win*3)+'</td><td class="form-pct">'+t.pct+'%</td><td>'+(t.avgMargin>0?"+":"")+t.avgMargin+'</td><td>'+t.wins+'-'+t.draws+'-'+t.losses+'</td></tr>';
-  });
-  h+='</tbody></table>';el.innerHTML=h;
-}
-function buildPlayerMovers(grade){
-  return players.filter(p=>p.name&&p.name.trim().toLowerCase()!=="none none"&&(!grade||p.grade===grade)&&(p.history||[]).length>=2).map(p=>{
-    const h=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-    const last=h[h.length-1],prior=h.slice(0,-1);
-    const lTs=gameTalentScore(last);
-    const pA=prior.length?prior.reduce((s,x)=>s+gameTalentScore(x),0)/prior.length:0;
-    return{...p,_lastTs:lTs,_priorAvg:+pA.toFixed(1),_delta:+(lTs-pA).toFixed(1),_lastRound:last.round,_lastOpp:last.opponent};
-  });
-}
-function renderPlayerMovers(grade){
-  const m=buildPlayerMovers(grade);
-  const c=[...m].sort((a,b)=>b._delta-a._delta).slice(0,10);
-  const f=[...m].sort((a,b)=>a._delta-b._delta).slice(0,10);
-  const rM=(id,rows,cls)=>{
-    const el=sel(id);
-    if(!rows.length){el.innerHTML=emptyState("Need 2+ games.");return;}
-    let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>Last round</th><th>This game</th><th>Prior avg</th><th>\u0394</th></tr></thead><tbody>';
-    rows.forEach((p,i)=>{
-      const dc=p._delta>0?"form-up":p._delta<0?"form-down":"form-flat";
-      const ts=p._delta>0?"\u25B2":p._delta<0?"\u25BC":"\u25AC";
-      h+='<tr class="'+cls+'"><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p._lastRound||"")+' <span class="muted">vs '+(p._lastOpp||"?")+'</span></td><td>'+p._lastTs+'</td><td>'+p._priorAvg+'</td><td><span class="'+dc+'">'+ts+' '+(p._delta>0?"+":"")+p._delta+'</span></td></tr>';
-    });
-    h+='</tbody></table>';el.innerHTML=h;
-  };
-  rM("rlClimbers",c,"mover-up");rM("rlFaders",f,"mover-down");
-}
-function renderNewElite(grade){
-  const el=sel("rlNewElite");
-  const gs=grade?[grade]:Array.from(new Set(players.map(p=>p.grade).filter(Boolean)));
-  const out=[];
-  gs.forEach(g=>{
-    const pool=players.filter(p=>p.grade===g&&p.name&&p.name.trim().toLowerCase()!=="none none"&&(p.history||[]).length>=2);
-    if(!pool.length)return;
-    const bench=gradeTalentBenchmark(g,20);if(!bench)return;
-    pool.forEach(p=>{
-      const h=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-      const last=h[h.length-1],prior=h.slice(0,-1);
-      const pT=prior.reduce((a,x)=>{a.bog+=(x.bog||0);a.goals+=(x.goals||0);a.wins+=x.won?1:0;a.bogFirsts+=(x.bog===6?1:0);return a;},{bog:0,goals:0,wins:0,bogFirsts:0});
-      const pG=Math.max(1,prior.length);
-      const pS=+(((pT.bog*8)+(pT.bogFirsts*6)+(pT.goals*5)+(pT.wins*2))/Math.sqrt(pG)).toFixed(1);
-      const cS=p.talentScore||0;
-      if(pS<bench&&cS>=bench){
-        out.push({...p,_priorScore:pS,_benchmark:bench,_lastRound:last.round,_lastOpp:last.opponent,_lastTs:gameTalentScore(last)});
-      }
-    });
-  });
-  if(!out.length){el.innerHTML='<p class="muted">No new entrants this round.</p>';return;}
-  out.sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
-  let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>Last round</th><th>Game TS</th><th>Now</th><th>Was</th><th>Benchmark</th></tr></thead><tbody>';
-  out.forEach((p,i)=>{
-    h+='<tr class="elite-new"><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p._lastRound||"")+' <span class="muted">vs '+(p._lastOpp||"?")+'</span></td><td>'+p._lastTs+'</td><td><b>'+(p.talentScore||0)+'</b></td><td>'+p._priorScore+'</td><td class="muted">'+p._benchmark+'</td></tr>';
-  });
-  h+='</tbody></table>';el.innerHTML=h;
-}
-function renderBigResults(grade){
-  const el=sel("rlBigResults");
-  const pool=games.filter(g=>isFinal(g)).filter(g=>!grade||g.grade===grade);
-  const sorted=[...pool].sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)));
-  if(!sorted.length){el.innerHTML=emptyState("No completed games.");return;}
-  const ld=gameDateStr(sorted[0]);
-  const co=new Date(ld);co.setDate(co.getDate()-6);
-  const cs=co.toISOString().slice(0,10);
-  const last=pool.filter(g=>gameDateStr(g)>=cs);
-  const rk=last.map(g=>{
-    const hs=gameHomeScore(g)||0,as=gameAwayScore(g)||0;
-    return{...g,_m:Math.abs(hs-as),_hs:hs,_as:as};
-  }).sort((a,b)=>b._m-a._m).slice(0,8);
-  if(!rk.length){el.innerHTML=emptyState("No big results.");return;}
-  let h='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Margin</th></tr></thead><tbody>';
-  rk.forEach(g=>{
-    h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+g._hs+'</b></td><td>'+gameAway(g)+'</td><td><b>'+g._as+'</b></td><td><b>'+g._m+'</b></td></tr>';
-  });
-  h+='</tbody></table>';el.innerHTML=h;
-}
-function renderRoundLog(){
-  const g=selectedRLGrade(),w=selectedRLFormWindow();
-  renderTeamFormBoard(g,w);renderPlayerMovers(g);renderNewElite(g);renderBigResults(g);
-}
+function renderFormBlocks(res,win){const b=[...res];while(b.length<win)b.unshift({result:"tbd"});return '<span class="form-blocks">'+b.map(r=>{const c=r.result==="W"?"win":r.result==="L"?"loss":r.result==="D"?"draw":"tbd";const l=r.result&&r.result!=="tbd"?r.result:"\u00B7";return '<span class="form-block '+c+'">'+l+'</span>';}).join("")+'</span>';}
+function renderTeamFormBoard(grade,win){const teams=buildTeamForm(grade,win);const el=sel("rlTeamForm");if(!teams.length){el.innerHTML=emptyState();return;}let h='<table class="data"><thead><tr><th>#</th><th>Team</th>'+(grade?'':'<th>Grade</th>')+'<th>Last '+win+'</th><th>Pts</th><th>%</th><th>Margin</th><th>W-D-L</th></tr></thead><tbody>';teams.forEach((t,i)=>{const own=isOwnClubName(t.team);const cls=t.trend==="hot"?"hot":t.trend==="cold"?"cold":"";const d=own?'<span class="own-club">\u25CF</span> ':'';h+='<tr class="team-form-row '+cls+'"><td>'+(i+1)+'</td><td>'+d+t.team+'</td>'+(grade?'':'<td class="muted">'+t.grade+'</td>')+'<td>'+renderFormBlocks(t.results,win)+'</td><td>'+t.pts+' / '+(win*3)+'</td><td>'+t.pct+'%</td><td>'+(t.avgMargin>0?"+":"")+t.avgMargin+'</td><td>'+t.wins+'-'+t.draws+'-'+t.losses+'</td></tr>';});h+='</tbody></table>';el.innerHTML=h;}
+function buildPlayerMovers(grade){return players.filter(p=>p.name&&p.name.trim().toLowerCase()!=="none none"&&(!grade||p.grade===grade)&&(p.history||[]).length>=2).map(p=>{const h=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));const last=h[h.length-1],prior=h.slice(0,-1);const lTs=gameTalentScore(last);const pA=prior.length?prior.reduce((s,x)=>s+gameTalentScore(x),0)/prior.length:0;return{...p,_lastTs:lTs,_priorAvg:+pA.toFixed(1),_delta:+(lTs-pA).toFixed(1),_lastRound:last.round,_lastOpp:last.opponent};});}
+function renderPlayerMovers(grade){const m=buildPlayerMovers(grade);const c=[...m].sort((a,b)=>b._delta-a._delta).slice(0,10);const f=[...m].sort((a,b)=>a._delta-b._delta).slice(0,10);const rM=(id,rows,cls)=>{const el=sel(id);if(!rows.length){el.innerHTML=emptyState();return;}let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>Last round</th><th>This</th><th>Prior</th><th>\u0394</th></tr></thead><tbody>';rows.forEach((p,i)=>{const dc=p._delta>0?"form-up":p._delta<0?"form-down":"form-flat";const ts=p._delta>0?"\u25B2":p._delta<0?"\u25BC":"\u25AC";h+='<tr class="'+cls+'"><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p._lastRound||"")+' vs '+(p._lastOpp||"?")+'</td><td>'+p._lastTs+'</td><td>'+p._priorAvg+'</td><td><span class="'+dc+'">'+ts+' '+(p._delta>0?"+":"")+p._delta+'</span></td></tr>';});h+='</tbody></table>';el.innerHTML=h;};rM("rlClimbers",c,"mover-up");rM("rlFaders",f,"mover-down");}
+function renderBigResults(grade){const el=sel("rlBigResults");const pool=games.filter(g=>isFinal(g)).filter(g=>!grade||g.grade===grade);const sorted=[...pool].sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)));if(!sorted.length){el.innerHTML=emptyState();return;}const ld=gameDateStr(sorted[0]);const co=new Date(ld);co.setDate(co.getDate()-6);const cs=co.toISOString().slice(0,10);const last=pool.filter(g=>gameDateStr(g)>=cs);const rk=last.map(g=>{const hs=gameHomeScore(g)||0,as=gameAwayScore(g)||0;return{...g,_m:Math.abs(hs-as),_hs:hs,_as:as};}).sort((a,b)=>b._m-a._m).slice(0,8);if(!rk.length){el.innerHTML=emptyState();return;}let h='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Margin</th></tr></thead><tbody>';rk.forEach(g=>{h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+g._hs+'</b></td><td>'+gameAway(g)+'</td><td><b>'+g._as+'</b></td><td><b>'+g._m+'</b></td></tr>';});h+='</tbody></table>';el.innerHTML=h;}
+function renderRoundLog(){const g=selectedRLGrade(),w=selectedRLFormWindow();renderTeamFormBoard(g,w);renderPlayerMovers(g);renderBigResults(g);}
 ["rlGrade","rlFormWindow"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("change",renderRoundLog);});
-
+  // ===== FINALS PATH =====
 function selectedFPGrade(){const e=sel("fpGrade");return e?(e.value||""):"";}
 function selectedFPFinalsSpots(){const e=sel("fpFinalsSpots");return e?parseInt(e.value||"4",10):4;}
 function selectedFPPtsWin(){const e=sel("fpPtsWin");const v=e?parseInt(e.value||"4",10):4;return Math.max(1,Math.min(4,v));}
 function buildLadder(grade,ptsPerWin){
-  ptsPerWin=ptsPerWin||4;
-  const ptsPerDraw=Math.floor(ptsPerWin/2);
+  ptsPerWin=ptsPerWin||4;const ptsPerDraw=Math.floor(ptsPerWin/2);
   const done=games.filter(g=>isFinal(g)&&g.grade===grade);
   const upc=games.filter(g=>!isFinal(g)&&g.grade===grade);
   const bT={};
-  const ens=n=>{
-    if(!n)return null;
-    if(!bT[n])bT[n]={team:n,played:0,wins:0,losses:0,draws:0,pointsFor:0,pointsAgainst:0,upcoming:[]};
-    return bT[n];
-  };
-  done.forEach(g=>{
-    const hName=gameHome(g),aName=gameAway(g);
-    if(!hName||!aName)return;
-    const hS=gameHomeScore(g)||0,aS=gameAwayScore(g)||0;
-    const hT=ens(hName),aT=ens(aName);
-    hT.played++;aT.played++;
-    hT.pointsFor+=hS;hT.pointsAgainst+=aS;
-    aT.pointsFor+=aS;aT.pointsAgainst+=hS;
-    const hOut=homeOutcome(g);
-    if(hOut==="WON"){hT.wins++;aT.losses++;}
-    else if(hOut==="LOST"){aT.wins++;hT.losses++;}
-    else if(hOut==="DRAW"){hT.draws++;aT.draws++;}
-  });
-  upc.forEach(g=>{
-    const hName=gameHome(g),aName=gameAway(g);
-    if(!hName||!aName)return;
-    const hT=ens(hName),aT=ens(aName);
-    hT.upcoming.push({opponent:aName,date:gameDateTime(g),round:g.round,home:true});
-    aT.upcoming.push({opponent:hName,date:gameDateTime(g),round:g.round,home:false});
-  });
-  return Object.values(bT).map(t=>{
-    t.ladderPts=t.wins*ptsPerWin+t.draws*ptsPerDraw;
-    t.percentage=t.pointsAgainst>0?+((t.pointsFor/t.pointsAgainst)*100).toFixed(1):0;
-    t.remaining=t.upcoming.length;
-    t.maxPossiblePts=t.ladderPts+t.remaining*ptsPerWin;
-    return t;
-  }).sort((a,b)=>b.ladderPts-a.ladderPts||b.percentage-a.percentage);
+  const ens=n=>{if(!n)return null;if(!bT[n])bT[n]={team:n,played:0,wins:0,losses:0,draws:0,pointsFor:0,pointsAgainst:0,upcoming:[]};return bT[n];};
+  done.forEach(g=>{const hN=gameHome(g),aN=gameAway(g);if(!hN||!aN)return;const hS=gameHomeScore(g)||0,aS=gameAwayScore(g)||0;const hT=ens(hN),aT=ens(aN);hT.played++;aT.played++;hT.pointsFor+=hS;hT.pointsAgainst+=aS;aT.pointsFor+=aS;aT.pointsAgainst+=hS;const hOut=homeOutcome(g);if(hOut==="WON"){hT.wins++;aT.losses++;}else if(hOut==="LOST"){aT.wins++;hT.losses++;}else if(hOut==="DRAW"){hT.draws++;aT.draws++;}});
+  upc.forEach(g=>{const hN=gameHome(g),aN=gameAway(g);if(!hN||!aN)return;const hT=ens(hN),aT=ens(aN);hT.upcoming.push({opponent:aN,date:gameDateTime(g),round:g.round,home:true});aT.upcoming.push({opponent:hN,date:gameDateTime(g),round:g.round,home:false});});
+  return Object.values(bT).map(t=>{t.ladderPts=t.wins*ptsPerWin+t.draws*ptsPerDraw;t.percentage=t.pointsAgainst>0?+((t.pointsFor/t.pointsAgainst)*100).toFixed(1):0;t.remaining=t.upcoming.length;t.maxPossiblePts=t.ladderPts+t.remaining*ptsPerWin;return t;}).sort((a,b)=>b.ladderPts-a.ladderPts||b.percentage-a.percentage);
 }
-function projectCutline(ladder,spots,ptsPerWin){
-  if(ladder.length<spots)return 0;
-  const cutTeam=ladder[spots-1];
-  if(cutTeam.played===0)return 0;
-  const winRate=cutTeam.wins/cutTeam.played;
-  const projFuturePts=Math.round(winRate*cutTeam.remaining)*ptsPerWin;
-  return cutTeam.ladderPts+projFuturePts;
-}
-function fixtureDifficulty(ourAvg,theirAvg){
-  const diff=(theirAvg||0)-(ourAvg||0);
-  if(diff>2)return{lvl:"hard",label:"Hard"};
-  if(diff<-2)return{lvl:"easy",label:"Winnable"};
-  return{lvl:"medium",label:"50/50"};
-}
+function projectCutline(ladder,spots,ptsPerWin){if(ladder.length<spots)return 0;const c=ladder[spots-1];if(c.played===0)return 0;const wr=c.wins/c.played;return c.ladderPts+Math.round(wr*c.remaining)*ptsPerWin;}
 function renderFinalsPath(){
-  const grade=selectedFPGrade();
-  const spots=selectedFPFinalsSpots();
-  const ptsPerWin=selectedFPPtsWin();
+  const grade=selectedFPGrade();const spots=selectedFPFinalsSpots();const ptsPerWin=selectedFPPtsWin();
   const ladder=buildLadder(grade,ptsPerWin);
-  if(!ladder.length){
-    sel("fpLadder").innerHTML=emptyState("No games yet for this grade.");
-    sel("fpVerdict").innerHTML=emptyState("Pick a grade with completed games.");
-    sel("fpScenarios").innerHTML="";
-    sel("fpRemaining").innerHTML="";
-    sel("fpKeyFixtures").innerHTML="";
-    return;
-  }
+  if(!ladder.length){sel("fpLadder").innerHTML=emptyState();sel("fpVerdict").innerHTML=emptyState();sel("fpScenarios").innerHTML="";sel("fpRemaining").innerHTML="";return;}
   const cutline=projectCutline(ladder,spots,ptsPerWin);
   const obgfcRow=ladder.find(t=>isOwnClubName(t.team));
-  let lh='<table class="data"><thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>D</th><th>PF</th><th>PA</th><th>%</th><th>Pts</th><th>Remain</th><th>Max</th></tr></thead><tbody>';
-  ladder.forEach((t,i)=>{
-    const own=isOwnClubName(t.team);
-    const dot=own?'<span class="own-club">\u25CF</span> ':'';
-    let cls="";
-    if(i<spots)cls="finals-row";
-    else if(t.maxPossiblePts<cutline-4)cls="eliminated-row";
-    lh+='<tr class="'+cls+'"><td>'+(i+1)+'</td><td>'+dot+t.team+'</td><td>'+t.played+'</td><td>'+t.wins+'</td><td>'+t.losses+'</td><td>'+t.draws+'</td><td>'+t.pointsFor+'</td><td>'+t.pointsAgainst+'</td><td>'+t.percentage+'</td><td><b>'+t.ladderPts+'</b></td><td>'+t.remaining+'</td><td class="muted">'+t.maxPossiblePts+'</td></tr>';
-    if(i===spots-1){
-      lh+='<tr class="cutline-marker"><td colspan="12">FINALS CUTLINE - projected ~'+cutline+' pts</td></tr>';
-    }
-  });
-  lh+='</tbody></table>';
-  sel("fpLadder").innerHTML=lh;
-  const vEl=sel("fpVerdict");
-  if(!obgfcRow){
-    vEl.innerHTML='<p class="muted">No OBGFC team found in '+grade+'.</p>';
-    sel("fpScenarios").innerHTML="";
-    sel("fpRemaining").innerHTML="";
-    sel("fpKeyFixtures").innerHTML="";
-    return;
-  }
+  let lh='<table class="data"><thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>D</th><th>%</th><th>Pts</th><th>Rem</th></tr></thead><tbody>';
+  ladder.forEach((t,i)=>{const own=isOwnClubName(t.team);const dot=own?'<span class="own-club">\u25CF</span> ':'';let cls="";if(i<spots)cls="finals-row";lh+='<tr class="'+cls+'"><td>'+(i+1)+'</td><td>'+dot+t.team+'</td><td>'+t.played+'</td><td>'+t.wins+'</td><td>'+t.losses+'</td><td>'+t.draws+'</td><td>'+t.percentage+'</td><td><b>'+t.ladderPts+'</b></td><td>'+t.remaining+'</td></tr>';if(i===spots-1){lh+='<tr class="cutline-marker"><td colspan="9">FINALS CUTLINE - projected ~'+cutline+' pts</td></tr>';}});
+  lh+='</tbody></table>';sel("fpLadder").innerHTML=lh;
+  if(!obgfcRow){sel("fpVerdict").innerHTML='<p class="muted">No OBGFC team in '+grade+'.</p>';sel("fpScenarios").innerHTML="";sel("fpRemaining").innerHTML="";return;}
   const pos=ladder.findIndex(t=>t.team===obgfcRow.team)+1;
-  const gap=obgfcRow.ladderPts-cutline;
-  const maxGap=obgfcRow.maxPossiblePts-cutline;
+  const gap=obgfcRow.ladderPts-cutline;const maxGap=obgfcRow.maxPossiblePts-cutline;
   let status,emoji,headline,detail,cls;
   const ord=n=>n===1?"st":n===2?"nd":n===3?"rd":"th";
-  if(pos<=spots&&gap>=(obgfcRow.remaining*ptsPerWin)){
-    status="Guaranteed";emoji="\uD83C\uDFC6";
-    headline="Finals locked in";
-    detail="OBGFC is "+pos+ord(pos)+" and mathematically safe. Focus on top-2 double chance.";
-    cls="safe";
-  }else if(pos<=spots){
-    status="In the four";emoji="\uD83D\uDFE2";
-    headline="Currently "+pos+ord(pos)+" - "+gap+" pts inside the cut";
-    detail="You're in the finals mix. Winning half your remaining "+obgfcRow.remaining+" games likely secures your spot.";
-    cls="safe";
-  }else if(maxGap>=0){
-    status="In the mix";emoji="\uD83D\uDFE1";
-    headline=Math.abs(gap)+" pts off - "+obgfcRow.remaining+" games left";
-    detail="Still mathematically alive. Need to win "+Math.ceil(Math.abs(gap)/ptsPerWin)+"+ of your remaining "+obgfcRow.remaining+" fixtures to challenge.";
-    cls="risky";
-  }else{
-    status="Eliminated";emoji="\uD83D\uDD34";
-    headline="Finals unreachable this season";
-    detail="Even winning out ("+obgfcRow.remaining+" games) leaves you "+Math.abs(maxGap)+" pts short of projected cutline of "+cutline+".";
-    cls="dire";
-  }
-  vEl.innerHTML='<div class="verdict-hero '+cls+'"><div class="verdict-emoji">'+emoji+'</div><div class="verdict-status">'+status+'</div><div class="verdict-headline">'+headline+'</div><div class="verdict-detail">'+detail+'</div></div>';
+  if(pos<=spots&&gap>=(obgfcRow.remaining*ptsPerWin)){status="Guaranteed";emoji="\uD83C\uDFC6";headline="Finals locked in";detail="OBGFC is "+pos+ord(pos)+" and mathematically safe.";cls="safe";}
+  else if(pos<=spots){status="In the four";emoji="\uD83D\uDFE2";headline="Currently "+pos+ord(pos);detail="You're inside the cut by "+gap+" pts.";cls="safe";}
+  else if(maxGap>=0){status="In the mix";emoji="\uD83D\uDFE1";headline=Math.abs(gap)+" pts off the cut";detail="Need to win "+Math.ceil(Math.abs(gap)/ptsPerWin)+"+ of your remaining "+obgfcRow.remaining+" games.";cls="risky";}
+  else{status="Eliminated";emoji="\uD83D\uDD34";headline="Finals unreachable";detail="Even winning out leaves you "+Math.abs(maxGap)+" pts short.";cls="dire";}
+  sel("fpVerdict").innerHTML='<div class="verdict-hero '+cls+'"><div class="verdict-emoji">'+emoji+'</div><div class="verdict-status">'+status+'</div><div class="verdict-headline">'+headline+'</div><div class="verdict-detail">'+detail+'</div></div>';
   const winsNeeded=Math.max(0,Math.ceil((cutline-obgfcRow.ladderPts)/ptsPerWin));
-  const safeWins=Math.min(obgfcRow.remaining,Math.max(winsNeeded,Math.ceil(obgfcRow.remaining*0.7)));
-  const liveWins=Math.min(obgfcRow.remaining,Math.max(0,winsNeeded));
-  const longshotWins=obgfcRow.remaining;
-  sel("fpScenarios").innerHTML='<div class="scenario-grid">'+
-    '<div class="scenario-card safe"><div class="scenario-header">Safe path</div><div class="scenario-title">Guaranteed finals</div><div class="scenario-req">Win <b>'+safeWins+' of '+obgfcRow.remaining+'</b> remaining games</div><div class="scenario-detail">Should carry you clear regardless of other results.</div></div>'+
-    '<div class="scenario-card live"><div class="scenario-header">Live path</div><div class="scenario-title">In the mix</div><div class="scenario-req">Win <b>'+liveWins+' of '+obgfcRow.remaining+'</b> games</div><div class="scenario-detail">Puts you around the cutline but percentage and rival results matter.</div></div>'+
-    '<div class="scenario-card longshot"><div class="scenario-header">Long shot</div><div class="scenario-title">Win out + hope</div><div class="scenario-req">Win <b>all '+longshotWins+'</b> remaining and hope rivals slip</div><div class="scenario-detail">Only path if currently below the cut.</div></div>'+
-  '</div>';
+  const safeW=Math.min(obgfcRow.remaining,Math.max(winsNeeded,Math.ceil(obgfcRow.remaining*0.7)));
+  const liveW=Math.min(obgfcRow.remaining,Math.max(0,winsNeeded));
+  sel("fpScenarios").innerHTML='<div class="scenario-grid"><div class="scenario-card safe"><div class="scenario-header">Safe path</div><div class="scenario-title">Guaranteed</div><div class="scenario-req">Win <b>'+safeW+' of '+obgfcRow.remaining+'</b></div></div><div class="scenario-card live"><div class="scenario-header">Live path</div><div class="scenario-title">In the mix</div><div class="scenario-req">Win <b>'+liveW+' of '+obgfcRow.remaining+'</b></div></div><div class="scenario-card longshot"><div class="scenario-header">Long shot</div><div class="scenario-title">Win out</div><div class="scenario-req">Win <b>all '+obgfcRow.remaining+'</b></div></div></div>';
   const rEl=sel("fpRemaining");
-  if(!obgfcRow.upcoming.length){
-    rEl.innerHTML=emptyState("No remaining fixtures - season complete.");
-  }else{
-    const ourAvg=squadSummary(players.filter(p=>isOwnClub(p)&&p.grade===grade)).avgScore;
-    let h='<p class="muted">Difficulty based on opponent squad avg talent score vs OBGFC ('+ourAvg+').</p><table class="data"><thead><tr><th>Round</th><th>Date</th><th>Home/Away</th><th>Opponent</th><th>Their avg</th><th>Difficulty</th></tr></thead><tbody>';
-    obgfcRow.upcoming.forEach(f=>{
-      const oppSquad=players.filter(p=>p.club===f.opponent&&p.grade===grade);
-      const theirAvg=squadSummary(oppSquad).avgScore;
-      const d=fixtureDifficulty(ourAvg,theirAvg);
-      const cls=d.lvl==="hard"?"must-win":d.lvl==="easy"?"winnable":"";
-      h+='<tr class="fixture-row '+cls+'"><td>'+(f.round||"")+'</td><td>'+((f.date||"").slice(0,10))+'</td><td>'+(f.home?"Home":"Away")+'</td><td>'+f.opponent+'</td><td>'+theirAvg+'</td><td><span class="fixture-difficulty '+d.lvl+'">'+d.label+'</span></td></tr>';
-    });
-    h+='</tbody></table>';
-    rEl.innerHTML=h;
-  }
-  const kEl=sel("fpKeyFixtures");
-  const bubbleTeams=ladder.slice(Math.max(0,spots-2),spots+3).map(t=>t.team);
-  const keyGames=games.filter(g=>g.grade===grade&&!isFinal(g)).filter(g=>{
-    const hN=gameHome(g),aN=gameAway(g);
-    return bubbleTeams.indexOf(hN)>=0&&bubbleTeams.indexOf(aN)>=0&&!(isOwnClubName(hN)||isOwnClubName(aN));
-  }).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b))).slice(0,10);
-  if(!keyGames.length){
-    kEl.innerHTML=emptyState("No cutline-impact fixtures scheduled between rival teams.");
-  }else{
-    let h='<p class="muted">Fixtures between teams inside the finals bubble:</p><table class="data"><thead><tr><th>Round</th><th>Date</th><th>Home</th><th>Away</th><th>Impact</th></tr></thead><tbody>';
-    keyGames.forEach(g=>{
-      h+='<tr><td>'+(g.round||"")+'</td><td>'+gameDateStr(g)+'</td><td>'+gameHome(g)+'</td><td>'+gameAway(g)+'</td><td class="muted">Rival showdown</td></tr>';
-    });
-    h+='</tbody></table>';
-    kEl.innerHTML=h;
-  }
+  if(!obgfcRow.upcoming.length){rEl.innerHTML=emptyState("Season complete.");}
+  else{let h='<table class="data"><thead><tr><th>Round</th><th>Date</th><th>Venue</th><th>Opponent</th></tr></thead><tbody>';obgfcRow.upcoming.forEach(f=>{h+='<tr><td>'+(f.round||"")+'</td><td>'+((f.date||"").slice(0,10))+'</td><td>'+(f.home?"Home":"Away")+'</td><td>'+f.opponent+'</td></tr>';});h+='</tbody></table>';rEl.innerHTML=h;}
 }
 ["fpGrade","fpFinalsSpots","fpPtsWin"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("change",renderFinalsPath);});
 
-function renderWatchlist(){
-  const el=sel("watchlistView");if(!el)return;
-  const list=players.filter(p=>watchlist.indexOf(p.id)>=0).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
-  if(!list.length){el.innerHTML=emptyState("Your watchlist is empty.");return;}
-  let h='<table class="data"><thead><tr><th>Player</th><th>Club</th><th>Grade</th><th>Games</th><th>Goals</th><th>In best</th><th>Score</th><th></th></tr></thead><tbody>';
-  list.forEach(p=>{
-    h+='<tr><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td>'+(p.goals||0)+'</td><td>'+bestCount(p)+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="star" data-pid="'+p.id+'">\u2605</button></td></tr>';
-  });
-  h+='</tbody></table>';el.innerHTML=h;
-}
-
-function renderSettings(){
-  const e=sel("setLastSync");if(e)e.textContent=lastSync?new Date(lastSync).toLocaleString():"never";
-}
+// ===== WATCHLIST / SETTINGS =====
+function renderWatchlist(){const el=sel("watchlistView");if(!el)return;const list=players.filter(p=>watchlist.indexOf(p.id)>=0).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));if(!list.length){el.innerHTML=emptyState("Your watchlist is empty.");return;}let h='<table class="data"><thead><tr><th>Player</th><th>Club</th><th>Grade</th><th>Score</th><th></th></tr></thead><tbody>';list.forEach(p=>{h+='<tr><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="star" data-pid="'+p.id+'">\u2605</button></td></tr>';});h+='</tbody></table>';el.innerHTML=h;}
+function renderSettings(){const e=sel("setLastSync");if(e)e.textContent=lastSync?new Date(lastSync).toLocaleString():"never";}
 const rb=sel("refreshBtn");if(rb)rb.addEventListener("click",loadData);
-
 ["lbMetric","lbMinGames","lbGrade"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("input",renderLeaderboards);});
 ["gradeFilter","formWindow"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("input",renderDashboard);});
-
-(function(){
-  const b=sel("formulaToggle"),bd=sel("formulaBody");
-  if(!b||!bd)return;
-  b.addEventListener("click",()=>{
-    const hid=bd.classList.toggle("hidden");
-    b.setAttribute("aria-expanded",hid?"false":"true");
-  });
-})();
-
-function tableToCSV(t){
-  if(!t)return"";
-  const rows=[];
-  t.querySelectorAll("tr").forEach(tr=>{
-    const cs=[];
-    tr.querySelectorAll("th,td").forEach(c=>{
-      const tx=c.textContent.replace(/\s+/g," ").trim();
-      cs.push(/[",\n]/.test(tx)?'"'+tx.replace(/"/g,'""')+'"':tx);
-    });
-    if(cs.length)rows.push(cs.join(","));
-  });
-  return rows.join("\n");
-}
-function downloadCSV(n,csv){
-  const grade=(selectedGrade()||selectedRLGrade()||selectedFPGrade()||"all-grades").replace(/[^a-z0-9]+/gi,"-").toLowerCase();
-  const st=new Date().toISOString().slice(0,10);
-  const fn="vafa-talent-id_"+n+"_"+grade+"_"+st+".csv";
-  const bl=new Blob([csv],{type:"text/csv;charset=utf-8;"});
-  const url=URL.createObjectURL(bl);
-  const a=document.createElement("a");a.href=url;a.download=fn;
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-document.addEventListener("click",e=>{
-  const b=e.target.closest(".csv-btn");if(!b)return;
-  const tId=b.dataset.csv,n=b.dataset.name||"export";
-  const t=document.querySelector("#"+tId+" table");
-  if(!t){alert("Nothing to export yet.");return;}
-  downloadCSV(n,tableToCSV(t));
-});
 
 loadData();
 })();
