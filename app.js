@@ -43,7 +43,7 @@ function renderAll(){renderDashboard();renderLeaderboards();renderPlayerList();r
 
 sel("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));b.classList.add("active");sel(b.dataset.tab).classList.add("active");if(b.dataset.tab==="matchprep")renderMatchPrep();});
 function emptyState(m){return '<div class="empty">'+(m||"No data yet.")+'</div>';}
-function playerLink(p){const own=isOwnClub(p)?'<span class="own-club" title="OBGFC">\u25CF</span> ':'';return own+'#pid="'+p.id+'">'+(p.name||"Unknown")+'</a>';}
+function playerLink(p){const own=isOwnClub(p)?'<span class="own-club" title="OBGFC">\u25CF</span> ':'';const id=p.id||p.name||'';return own+'<span class="player-link" style="color:#c9a44c;cursor:pointer;text-decoration:underline;" data-pid="'+id+'">'+(p.name||"Unknown")+'</span>';}
 function renderTop5(id,rows,label,vf,ex){const el=sel(id);if(!el)return;if(!rows.length){el.innerHTML=emptyState();return;}let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Club</th><th>Grade</th><th>'+label+'</th>'+(ex?'<th>'+ex.label+'</th>':'')+'</tr></thead><tbody>';rows.forEach((p,i)=>{h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+vf(p)+'</b></td>'+(ex?'<td>'+ex.fn(p)+'</td>':'')+'</tr>';});h+='</tbody></table>';el.innerHTML=h;}
 
 function renderDashboard(){
@@ -112,17 +112,25 @@ function findObgfcNextFixture(){
   });
   return best;
 }
-function autoSelectNextFixture(){
+functionfunction autoSelectNextFixture(){
   const own=sel("mpOwnTeam"),opp=sel("mpOpponent");
   if(!own||!opp)return false;
   if(own.value&&opp.value)return true;
-  const nx=findObgfcNextFixture();
+  let nx=findObgfcNextFixture();
+  if(!nx){
+    const teams=obgfcTeams();
+    for(const t of teams){
+      const last=lastFixtureFor(t.club,t.grade);
+      if(last){nx={team:t,fixture:last};break;}
+    }
+  }
   if(!nx)return false;
   const ownVal=JSON.stringify(nx.team);
   if([...own.options].some(o=>o.value===ownVal))own.value=ownVal;
   const oppName=(gameHome(nx.fixture)===nx.team.club)?gameAway(nx.fixture):gameHome(nx.fixture);
   if(oppName&&[...opp.options].some(o=>o.value===oppName))opp.value=oppName;
   return true;
+}
 }
 
 function populateMatchPrepDropdowns(){
