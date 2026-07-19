@@ -39,7 +39,7 @@ async function loadData(){
   populateAllGradeDropdowns();populateClubDropdown();
   renderAll();
 }
-function renderAll(){renderDashboard();renderLeaderboards();renderPlayerList();renderScoutReport();renderMatchPrep();renderRoundLog();renderFinalsPath();renderWatchlist();renderSettings();const s=lastSync?new Date(lastSync).toLocaleString():"never";const ls=sel("lastSync");if(ls)ls.textContent="Last sync: "+s;}
+function renderAll(){renderDashboard();renderLeaderboards();renderPlayerList();renderScoutReport();renderMatchPrep();renderRoundLog();renderFinalsPath();renderWatchlist();renderSettings();const s=lastSync?new Date(lastSync).toLocaleString():"never";const ls=sel("lastSync");if(ls)ls.textContent="Last sync: "+s;renderRunHomeProjections();}
 
 sel("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));b.classList.add("active");sel(b.dataset.tab).classList.add("active");if(b.dataset.tab==="matchprep")renderMatchPrep();});
 function emptyState(m){return '<div class="empty">'+(m||"No data yet.")+'</div>';}
@@ -341,5 +341,87 @@ const rb=sel("refreshBtn");if(rb)rb.addEventListener("click",loadData);
 ["lbMetric","lbMinGames","lbGrade"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("input",renderLeaderboards);});
 ["gradeFilter","formWindow"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("input",renderDashboard);});
 
+// ===== RUN HOME PROJECTIONS =====
+function predictFixtureProbability(homeTeamName, awayTeamName, grade, ladder){
+  const homeForm=teamLast5(homeTeamName, grade, ladder);
+  const awayForm=teamLast5(awayTeamName, grade, ladder);
+  const homePos=ladder.findIndex(t=>t.team===homeTeamName)+1;
+  const awayPos=ladder.findIndex(t=>t.team===awayTeamName)+1;
+  const formGap=(homeForm.pct||50)-(awayForm.pct||50);
+  let ladderBonus=0;
+  if(homePos>0&&awayPos>0){
+    ladderBonus=Math.max(-10, Math.min(10, (awayPos-homePos)*0.5));
+  }
+  const homeAdv=8;
+  let homeWinPct=50+(formGap*0.5)+ladderBonus+homeAdv;
+  homeWinPct=Math.max(10, Math.min(90, Math.round(homeWinPct)));
+  let prediction='T';
+  if(homeWinPct>=60)prediction='W';
+  else if(homeWinPct<=40)prediction='L';
+  return {homeWinPct, prediction};
+}
+
+function projectTeamRunHome(club, grade, ladder){
+  const now=new Date().toISOString();
+  const upcoming=games.filter(g=>g.grade===grade&&!isFinal(g)&&gameInvolves(g,club)&&(!gameDateTime(g)||gameDateTime(g)>=now)).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)));
+  let predictedWins=0, predictedLosses=0, predictedTossups=0;
+  const fixtures=[];
+  upcoming.forEach(g=>{
+    const isHome=gameHome(g)===club;
+    const opp=isHome?gameAway(g):gameHome(g);
+    const p=predictFixtureProbability(gameHome(g), gameAway(g), grade, ladder);
+    let ourPct, ourPred;
+    if(isHome){
+      ourPct=p.homeWinPct;
+      ourPred=p.prediction;
+    }else{
+      ourPct=100-p.homeWinPct;
+      ourPred=p.prediction==='W'?'L':p.prediction==='L'?'W':'T';
+    }
+    if(ourPred==='W')predictedWins++;
+    else if(ourPred==='L')predictedLosses++;
+    else predictedTossups++;
+    fixtures.push({opponent:opp, isHome, round:g.round, date:gameDateStr(g), prob:ourPct, prediction:ourPred});
+  });
+  const teamRow=ladder.find(t=>t.team===club);
+  const currentPts=teamRow?teamRow.pts:0;
+  const projectedPts=currentPts+(predictedWins*4)+(predictedTossups*2);
+  return {upcoming:fixtures, predictedWins, predictedLosses, predictedTossups, currentPts, projectedPts};
+}
+
+function renderRunHomeProjections(){
+  const grade=selectedFPGrade();
+  const el=sel("fpRunHome");
+  if(!el)return;
+  const ladder=buildLadderSimple(grade);
+  if(!ladder.length){el.innerHTML=emptyState("No games yet for this grade.");return;}
+  const projections=ladder.map(t=>{
+    const proj=projectTeamRunHome(t.team, grade, ladder);
+    return {team:t.team, played:t.wins+t.losses+t.draws, wins:t.wins, losses:t.losses, currentPts:t.pts, currentPct:t.pct.toFixed(0), ...proj};
+  });
+  projections.sort((a,b)=>b.projectedPts-a.projectedPts||b.currentPct-a.currentPct);
+  projections.forEach((p,i)=>{p.projectedPos=i+1;});
+  const spots=selectedFPFinalsSpots();
+  const cutoffPts=projections[spots-1]?projections[spots-1].projectedPts:0;
+  let html='<div style="overflow-x:auto;"><table class="data"><thead><tr><th>#</th><th>Team</th><th>P</th><th>Curr Pts</th><th>Remaining</th><th>Proj W-L-T</th><th>Proj Pts</th><th>Status</th></tr></thead><tbody>';
+  projections.forEach((p,i)=>{
+    const own=isOwnClubName(p.team);
+    const dot=own?'<span class="own-club">\u25CF</span> ':'';
+    let statusHtml, cls;
+    if(p.projectedPos<=spots){cls="finals-row";statusHtml='<span class="fixture-difficulty easy">IN</span>';}
+    else if(p.projectedPos<=spots+1&&Math.abs(p.projectedPts-cutoffPts)<=4){cls="";statusHtml='<span class="fixture-difficulty medium">BUBBLE</span>';}
+    else{cls="";statusHtml='<span class="fixture-difficulty hard">OUT</span>';}
+    let fixHtml='';
+    p.upcoming.forEach(f=>{
+      const predCls=f.prediction==='W'?'win':f.prediction==='L'?'loss':'draw';
+      const venueTag=f.isHome?'H':'A';
+      fixHtml+='<span class="form-block '+predCls+'" title="'+(f.round||'')+' '+venueTag+' vs '+f.opponent+' ('+f.prob+'%)">'+f.prediction+'</span>';
+    });
+    html+='<tr class="'+cls+'"><td>'+(i+1)+'</td><td>'+dot+p.team+'</td><td>'+p.played+'</td><td>'+p.currentPts+'</td><td><span class="form-blocks">'+fixHtml+'</span></td><td>'+p.predictedWins+'-'+p.predictedLosses+'-'+p.predictedTossups+'</td><td><b>'+p.projectedPts+'</b></td><td>'+statusHtml+'</td></tr>';
+  });
+  html+='</tbody></table></div>';
+  html+='<p class="muted" style="margin-top:10px;font-size:.75rem;">Predictions weighted by form (last 5), ladder position (\xB110%), home advantage (+8%). W=likely win, L=likely loss, T=tossup. Hover fixtures for details.</p>';
+  el.innerHTML=html;
+}
 loadData();
 })();
