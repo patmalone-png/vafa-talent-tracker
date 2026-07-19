@@ -105,19 +105,21 @@ function nextFixtureFor(club,grade){const now=new Date().toISOString();return ga
 function lastFixtureFor(club,grade){return games.filter(g=>g.grade===grade&&isFinal(g)&&gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)))[0]||null;}
 
 function findObgfcNextFixture(){
-  const teams=obgfcTeams();
-  let best=null;
-  teams.forEach(t=>{
-    const fx=nextFixtureFor(t.club,t.grade);
-    if(fx&&(!best||gameDateTime(fx)<gameDateTime(best.fixture))){best={team:t,fixture:fx};}
-  });
-  if(!best){
-    teams.forEach(t=>{
-      const fx=lastFixtureFor(t.club,t.grade);
-      if(fx&&(!best||gameDateTime(fx)>gameDateTime(best.fixture))){best={team:t,fixture:fx,isPast:true};}
-    });
+  const now=new Date().toISOString();
+  const isOB=n=>(n||"").toLowerCase().includes("brighton");
+  const upcoming=games.filter(g=>!isFinal(g)&&(isOB(gameHome(g))||isOB(gameAway(g)))&&(!gameDateTime(g)||gameDateTime(g)>=now)).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)));
+  if(upcoming.length){
+    const g=upcoming[0];
+    const club=isOB(gameHome(g))?gameHome(g):gameAway(g);
+    return{team:{club:club,grade:g.grade},fixture:g};
   }
-  return best;
+  const past=games.filter(g=>isFinal(g)&&(isOB(gameHome(g))||isOB(gameAway(g)))).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)));
+  if(past.length){
+    const g=past[0];
+    const club=isOB(gameHome(g))?gameHome(g):gameAway(g);
+    return{team:{club:club,grade:g.grade},fixture:g,isPast:true};
+  }
+  return null;
 }
 
 function buildLadderSimple(grade){
