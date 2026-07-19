@@ -388,7 +388,7 @@ function projectTeamRunHome(club, grade, ladder){
   return {upcoming:fixtures, predictedWins, predictedLosses, predictedTossups, currentPts, projectedPts};
 }
 
-function renderRunHomeProjections(grade){
+function renderRunHomeProjections(){
   const grade=selectedFPGrade();
   const el=sel("fpRunHome");
   if(!el)return;
