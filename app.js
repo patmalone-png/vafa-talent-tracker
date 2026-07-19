@@ -126,7 +126,8 @@ function buildLadderSimple(grade){
   const done=games.filter(g=>isFinal(g)&&g.grade===grade);
   const t={};
   done.forEach(g=>{
-    const hN=gameHome(g),aN=gameAway(g);
+    const hS0=gameHomeScore(g)||0,aS0=gameAwayScore(g)||0;
+    if(hS0===0&&aS0===0)return;const hN=gameHome(g),aN=gameAway(g);
     if(!hN||!aN)return;
     const hS=gameHomeScore(g)||0,aS=gameAwayScore(g)||0;
     if(!t[hN])t[hN]={team:hN,wins:0,losses:0,draws:0,pf:0,pa:0};
