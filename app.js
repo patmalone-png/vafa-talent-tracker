@@ -36,7 +36,7 @@ async function loadData(){
   players.forEach(p=>{if(typeof p.talentScore!=="number")p.talentScore=talentScore(p);});
   lastSync=localStorage.getItem("vafa_last_render")||new Date().toISOString();
   localStorage.setItem("vafa_last_render",new Date().toISOString());
-  populateAllGradeDropdowns();populateClubDropdown();populateMatchPrepDropdowns();
+  populateAllGradeDropdowns();populateClubDropdown();
   renderAll();
 }
 function renderAll(){renderDashboard();renderLeaderboards();renderPlayerList();renderScoutReport();renderMatchPrep();renderRoundLog();renderFinalsPath();renderWatchlist();renderSettings();const s=lastSync?new Date(lastSync).toLocaleString():"never";const ls=sel("lastSync");if(ls)ls.textContent="Last sync: "+s;}
