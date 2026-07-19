@@ -307,7 +307,6 @@ function buildLadder(grade,ptsPerWin){
 }
 function projectCutline(ladder,spots,ptsPerWin){if(ladder.length<spots)return 0;const c=ladder[spots-1];if(c.played===0)return 0;const wr=c.wins/c.played;return c.ladderPts+Math.round(wr*c.remaining)*ptsPerWin;}
 function renderFinalsPath(){
-  const grade=selectedFPGrade();
   const spots=selectedFPFinalsSpots();const ptsPerWin=selectedFPPtsWin();
   const grade=selectedFPGrade();const ladder=buildLadder(grade,ptsPerWin);
   if(!ladder.length){sel("fpLadder").innerHTML=emptyState();sel("fpVerdict").innerHTML=emptyState();sel("fpScenarios").innerHTML="";sel("fpRemaining").innerHTML="";return;}
@@ -390,6 +389,7 @@ function projectTeamRunHome(club, grade, ladder){
 }
 
 function renderRunHomeProjections(grade){
+  const grade=selectedFPGrade();
   const el=sel("fpRunHome");
   if(!el)return;
   const ladder=buildLadderSimple(grade);
