@@ -127,7 +127,8 @@ function buildLadderSimple(grade){
   const t={};
   done.forEach(g=>{
     const hS0=gameHomeScore(g)||0,aS0=gameAwayScore(g)||0;
-    if(hS0===0&&aS0===0)return;const hN=gameHome(g),aN=gameAway(g);
+    if(hS0===0&&aS0===0)return;
+    const hN=gameHome(g),aN=gameAway(g);
     if(!hN||!aN)return;
     const hS=gameHomeScore(g)||0,aS=gameAwayScore(g)||0;
     if(!t[hN])t[hN]={team:hN,wins:0,losses:0,draws:0,pf:0,pa:0};
@@ -137,6 +138,7 @@ function buildLadderSimple(grade){
     else if(aS>hS){t[aN].wins++;t[hN].losses++;}
     else{t[hN].draws++;t[aN].draws++;}
   });
+
   return Object.values(t).map(x=>{x.pts=x.wins*4+x.draws*2;x.pct=x.pa>0?(x.pf/x.pa)*100:0;return x;}).sort((a,b)=>b.pts-a.pts||b.pct-a.pct);
 }
 
@@ -383,10 +385,17 @@ function projectTeamRunHome(club, grade, ladder){
     else predictedTossups++;
     fixtures.push({opponent:opp, isHome, round:g.round, date:gameDateStr(g), prob:ourPct, prediction:ourPred});
   });
-  const teamRow=ladder.find(t=>t.team===club);
-  const currentPts=teamRow?teamRow.pts:0;
-  const projectedPts=currentPts+(predictedWins*4)+(predictedTossups*2);
-  return {upcoming:fixtures, predictedWins, predictedLosses, predictedTossups, currentPts, projectedPts};
+    const teamRow=ladder.find(t=>t.team===club);
+    const currentPts=teamRow?teamRow.pts:0;
+    const projectedPts=currentPts+(predictedWins*4)+(predictedTossups*2);
+    const currentGamesPlayed=teamRow?(teamRow.wins+teamRow.losses+teamRow.draws):0;
+    const currentWins=teamRow?teamRow.wins:0;
+    const currentDraws=teamRow?teamRow.draws:0;
+    const projectedGames=currentGamesPlayed+fixtures.length;
+    const projectedWinsTotal=currentWins+predictedWins+(predictedTossups*0.5);
+    const projectedRatio=projectedGames>0?Math.round(((projectedWinsTotal+currentDraws*0.5)/projectedGames)*100):0;
+    const currentRatio=currentGamesPlayed>0?Math.round(((currentWins+currentDraws*0.5)/currentGamesPlayed)*100):0;
+    return {upcoming:fixtures, predictedWins, predictedLosses, predictedTossups, currentPts, projectedPts, currentRatio, projectedRatio, projectedGames};
 }
 
 function renderRunHomeProjections(){
