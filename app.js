@@ -99,271 +99,194 @@ function drawSparkline(id,data){const c=sel(id);if(!c||!c.getContext)return;cons
 function populateClubDropdown(){const s=sel("scoutClub");if(!s)return;while(s.options.length>1)s.remove(1);Array.from(new Set(players.map(p=>p.club).filter(Boolean))).sort().forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;s.appendChild(o);});}
 function renderScoutReport(){const s=sel("scoutClub");if(!s)return;const club=s.value;const el=sel("scoutReport");if(!club){el.innerHTML='<p class="muted">Pick a club.</p>';return;}const squad=players.filter(p=>p.club===club).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));if(!squad.length){el.innerHTML=emptyState();return;}let h='<h3>Top 5 danger players</h3><table class="data"><thead><tr><th>Player</th><th>Grade</th><th>Goals</th><th>Best</th><th>Score</th></tr></thead><tbody>';squad.slice(0,5).forEach(p=>{h+='<tr><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.goals||0)+'</td><td>'+bestCount(p)+'</td><td><b>'+(p.talentScore||0)+'</b></td></tr>';});h+='</tbody></table>';el.innerHTML=h;}
 (function(){const s=sel("scoutClub");if(s)s.addEventListener("change",renderScoutReport);})();
-// ===== MATCH PREP v1.9 - COACHES BRIEF =====
-function obgfcTeams(){return Array.from(new Set(players.filter(isOwnClub).map(p=>({club:p.club,grade:p.grade})).map(o=>JSON.stringify(o)))).map(s=>JSON.parse(s)).sort((a,b)=>(a.grade||"").localeCompare(b.grade||""));}
-function nextFixtureFor(club,grade){const now=new Date().toISOString();return games.filter(g=>g.grade===grade).filter(g=>!isFinal(g)).filter(g=>gameInvolves(g,club)).filter(g=>{const dt=gameDateTime(g);return !dt||dt>=now;}).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)))[0]||null;}
-function lastFixtureFor(club,grade){return games.filter(g=>g.grade===grade).filter(g=>isFinal(g)).filter(g=>gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)))[0]||null;}
+// ===== MATCH PREP v2.0 - AUTO COACHES BRIEF =====
+function obgfcTeams(){return Array.from(new Set(players.filter(isOwnClub).map(p=>({club:p.club,grade:p.grade})).map(o=>JSON.stringify(o)))).map(s=>JSON.parse(s));}
+function nextFixtureFor(club,grade){const now=new Date().toISOString();return games.filter(g=>g.grade===grade&&!isFinal(g)&&gameInvolves(g,club)&&(!gameDateTime(g)||gameDateTime(g)>=now)).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)))[0]||null;}
+function lastFixtureFor(club,grade){return games.filter(g=>g.grade===grade&&isFinal(g)&&gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a)))[0]||null;}
 
 function findObgfcNextFixture(){
-  const teams=obgfcTeams();let best=null;
+  const teams=obgfcTeams();
+  let best=null;
   teams.forEach(t=>{
     const fx=nextFixtureFor(t.club,t.grade);
     if(fx&&(!best||gameDateTime(fx)<gameDateTime(best.fixture))){best={team:t,fixture:fx};}
   });
+  if(!best){
+    teams.forEach(t=>{
+      const fx=lastFixtureFor(t.club,t.grade);
+      if(fx&&(!best||gameDateTime(fx)>gameDateTime(best.fixture))){best={team:t,fixture:fx,isPast:true};}
+    });
+  }
   return best;
 }
-function autoSelectNextFixture(){
-  const own=sel("mpOwnTeam"),opp=sel("mpOpponent");
-  if(!own||!opp)return false;
-  if(own.value&&opp.value)return true;
-  const nx=findObgfcNextFixture();
-  if(!nx)return false;
-  const ownVal=JSON.stringify(nx.team);
-  if([...own.options].some(o=>o.value===ownVal))own.value=ownVal;
-  const oppName=(gameHome(nx.fixture)===nx.team.club)?gameAway(nx.fixture):gameHome(nx.fixture);
-  if(oppName&&[...opp.options].some(o=>o.value===oppName))opp.value=oppName;
-  return true;
-}
 
-function populateMatchPrepDropdowns(){
-  const own=sel("mpOwnTeam"),opp=sel("mpOpponent");
-  if(!own||!opp)return;
-  while(own.options.length>1)own.remove(1);
-  obgfcTeams().forEach(t=>{const o=document.createElement("option");o.value=JSON.stringify(t);o.textContent=t.grade?(t.grade+" - "+t.club):t.club;own.appendChild(o);});
-  while(opp.options.length>1)opp.remove(1);
-  Array.from(new Set(players.map(p=>p.club).filter(Boolean))).filter(c=>!isOwnClubName(c)).sort().forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;opp.appendChild(o);});
-}
-function autoFillOpponent(){const oS=sel("mpOwnTeam"),pS=sel("mpOpponent");if(!oS.value)return;const t=JSON.parse(oS.value);const nxt=nextFixtureFor(t.club,t.grade)||lastFixtureFor(t.club,t.grade);if(!nxt)return;const o=(gameHome(nxt)===t.club)?gameAway(nxt):gameHome(nxt);if(o&&[...pS.options].some(x=>x.value===o))pS.value=o;}
-
-function selectedOwnTeam(){const v=sel("mpOwnTeam").value;if(!v)return null;try{return JSON.parse(v);}catch(e){return null;}}
-function selectedOpponent(){return sel("mpOpponent").value||"";}
-function selectedMPFormWindow(){return parseInt(sel("mpFormWindow").value||"3",10);}
-function gradeTalentBenchmark(grade,topN){topN=topN||20;const r=players.filter(p=>p.grade===grade&&(p.games||0)>=3).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0)).slice(0,topN);return r.length?(r[r.length-1].talentScore||0):0;}
-function squadSummary(sq){if(!sq.length)return{size:0,avgScore:0,topScore:0,goals:0,best:0,topName:"-"};const goals=sq.reduce((s,p)=>s+(p.goals||0),0);const best=sq.reduce((s,p)=>s+bestCount(p),0);const sorted=[...sq].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));const top=sorted[0];return{size:sq.length,avgScore:+(sq.reduce((s,p)=>s+(p.talentScore||0),0)/sq.length).toFixed(1),topScore:top.talentScore||0,topName:top.name||"-",goals,best};}
-
-function headToHead(ourClub,opp,grade){
-  const meets=games.filter(g=>isFinal(g)&&g.grade===grade&&((gameHome(g)===ourClub&&gameAway(g)===opp)||(gameHome(g)===opp&&gameAway(g)===ourClub)));
-  const res={games:meets.length,wins:0,losses:0,draws:0,marginSum:0,atHome:{w:0,l:0,d:0,marginSum:0,games:0},away:{w:0,l:0,d:0,marginSum:0,games:0},recent:[]};
-  meets.forEach(g=>{
-    const ourIsHome=gameHome(g)===ourClub;
-    const ourScore=ourIsHome?gameHomeScore(g):gameAwayScore(g);
-    const theirScore=ourIsHome?gameAwayScore(g):gameHomeScore(g);
-    if(ourScore==null||theirScore==null)return;
-    const margin=ourScore-theirScore;
-    res.marginSum+=margin;
-    const bucket=ourIsHome?res.atHome:res.away;
-    bucket.games++;bucket.marginSum+=margin;
-    if(margin>0){res.wins++;bucket.w++;}
-    else if(margin<0){res.losses++;bucket.l++;}
-    else{res.draws++;bucket.d++;}
-    res.recent.push({date:gameDateStr(g),round:g.round,ourIsHome,ourScore,theirScore,margin});
+function buildLadderSimple(grade){
+  const done=games.filter(g=>isFinal(g)&&g.grade===grade);
+  const t={};
+  done.forEach(g=>{
+    const hN=gameHome(g),aN=gameAway(g);
+    if(!hN||!aN)return;
+    const hS=gameHomeScore(g)||0,aS=gameAwayScore(g)||0;
+    if(!t[hN])t[hN]={team:hN,wins:0,losses:0,draws:0,pf:0,pa:0};
+    if(!t[aN])t[aN]={team:aN,wins:0,losses:0,draws:0,pf:0,pa:0};
+    t[hN].pf+=hS;t[hN].pa+=aS;t[aN].pf+=aS;t[aN].pa+=hS;
+    if(hS>aS){t[hN].wins++;t[aN].losses++;}
+    else if(aS>hS){t[aN].wins++;t[hN].losses++;}
+    else{t[hN].draws++;t[aN].draws++;}
   });
-  res.avgMargin=meets.length?+(res.marginSum/meets.length).toFixed(1):0;
-  res.atHome.avgMargin=res.atHome.games?+(res.atHome.marginSum/res.atHome.games).toFixed(1):0;
-  res.away.avgMargin=res.away.games?+(res.away.marginSum/res.away.games).toFixed(1):0;
-  res.recent.sort((a,b)=>b.date.localeCompare(a.date));
-  res.recent=res.recent.slice(0,5);
-  return res;
+  return Object.values(t).map(x=>{x.pts=x.wins*4+x.draws*2;x.pct=x.pa>0?(x.pf/x.pa)*100:0;return x;}).sort((a,b)=>b.pts-a.pts||b.pct-a.pct);
 }
 
-function homeAwayForm(club,grade){
-  const done=games.filter(g=>isFinal(g)&&g.grade===grade&&gameInvolves(g,club));
-  const home={games:0,wins:0,losses:0,draws:0,marginSum:0};
-  const away={games:0,wins:0,losses:0,draws:0,marginSum:0};
+function teamLast5(club,grade,ladder){
+  const done=games.filter(g=>isFinal(g)&&g.grade===grade&&gameInvolves(g,club)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a))).slice(0,5);
+  const results=[];
+  let weightedScore=0,maxScore=0;
   done.forEach(g=>{
     const isHome=gameHome(g)===club;
     const ourScore=isHome?gameHomeScore(g):gameAwayScore(g);
     const theirScore=isHome?gameAwayScore(g):gameHomeScore(g);
     if(ourScore==null||theirScore==null)return;
-    const margin=ourScore-theirScore;
-    const b=isHome?home:away;
-    b.games++;b.marginSum+=margin;
-    if(margin>0)b.wins++;else if(margin<0)b.losses++;else b.draws++;
-  });
-  home.winPct=home.games?Math.round((home.wins/home.games)*100):0;
-  away.winPct=away.games?Math.round((away.wins/away.games)*100):0;
-  home.avgMargin=home.games?+(home.marginSum/home.games).toFixed(1):0;
-  away.avgMargin=away.games?+(away.marginSum/away.games).toFixed(1):0;
-  const wScore=(home.wins*1.0)+(away.wins*1.5)-(home.losses*1.5)-(away.losses*1.0);
-  const maxPos=(home.games*1.0)+(away.games*1.5);
-  const wPct=maxPos?Math.round(((wScore+maxPos)/(2*maxPos))*100):50;
-  let tone,text;
-  if(home.winPct>=60&&away.winPct<=40){tone="neutral";text="Strong at home, vulnerable away";}
-  else if(away.winPct>=50){tone="negative";text="Travel well - dangerous away side";}
-  else if(home.winPct<=40){tone="positive";text="Struggles at home - beatable there";}
-  else{tone="neutral";text="Balanced form home and away";}
-  return{home,away,weightedScore:+wScore.toFixed(1),weightedPct:wPct,verdict:{tone,text}};
-}
-
-function classForm(club,grade,ladder){
-  const ourIdx=ladder.findIndex(t=>t.team===club);
-  if(ourIdx<0)return null;
-  const ourPos=ourIdx+1;
-  const done=games.filter(g=>isFinal(g)&&g.grade===grade&&gameInvolves(g,club));
-  let expectedWins=0,expectedLosses=0,unexpectedWins=0,unexpectedLosses=0;
-  const notable={quality:[],shocks:[]};
-  done.forEach(g=>{
-    const isHome=gameHome(g)===club;
     const oppName=isHome?gameAway(g):gameHome(g);
-    const oppIdx=ladder.findIndex(t=>t.team===oppName);
-    if(oppIdx<0)return;
-    const oppPos=oppIdx+1;
-    const ourScore=isHome?gameHomeScore(g):gameAwayScore(g);
-    const theirScore=isHome?gameAwayScore(g):gameHomeScore(g);
-    if(ourScore==null||theirScore==null)return;
     const won=ourScore>theirScore;
-    if(ourPos<oppPos){
-      if(won){expectedWins++;}
-      else{unexpectedLosses++;notable.shocks.push({round:g.round,opp:oppName,oppPos,margin:ourScore-theirScore});}
-    }else if(ourPos>oppPos){
-      if(won){unexpectedWins++;notable.quality.push({round:g.round,opp:oppName,oppPos,margin:ourScore-theirScore});}
-      else{expectedLosses++;}
+    const drew=ourScore===theirScore;
+    // Base weighting
+    let base=0;
+    if(won)base=isHome?1.0:1.5;
+    else if(drew)base=isHome?0.5:0.75;
+    else base=isHome?-1.5:-1.0;
+    // Ladder difficulty bonus
+    let bonus=0;
+    if(ladder){
+      const ourPos=ladder.findIndex(t=>t.team===club);
+      const oppPos=ladder.findIndex(t=>t.team===oppName);
+      if(ourPos>=0&&oppPos>=0){
+        if(won&&oppPos<ourPos)bonus=0.5;
+        else if(!won&&!drew&&oppPos>ourPos)bonus=-0.5;
+      }
     }
+    weightedScore+=base+bonus;
+    maxScore+=isHome?1.0:1.5;
+    results.push({date:gameDateStr(g),round:g.round,isHome,ourScore,theirScore,oppName,result:won?"W":drew?"D":"L",margin:ourScore-theirScore});
   });
-  const total=expectedWins+expectedLosses+unexpectedWins+unexpectedLosses;
-  const diff=unexpectedWins-unexpectedLosses;
-  let tone,headline,detail;
-  if(diff>=2){tone="green";headline="Above expected form - dangerous team playing well";detail=unexpectedWins+" quality wins vs "+unexpectedLosses+" shock losses. They are beating who they shouldn't and turning up when it matters.";}
-  else if(diff<=-2){tone="red";headline="Underperforming - beatable if prepared";detail=unexpectedLosses+" shock losses vs "+unexpectedWins+" quality wins. They drop games to teams they should beat - target this.";}
-  else{tone="amber";headline="On par with ladder position";detail=unexpectedWins+" quality wins, "+unexpectedLosses+" shock losses. Results roughly match where they sit on the ladder.";}
-  return{ourPos,expectedWins,expectedLosses,unexpectedWins,unexpectedLosses,total,notable,verdict:{tone,headline,detail}};
-}
-  function renderAutoHeader(own,opp,fixture){
-  const card=sel("mpAutoHeader");if(!card)return;
-  card.classList.remove("hidden");
-  const isHome=gameHome(fixture)===own.club;
-  const badge=isHome?'<div class="venue-badge home">AT HOME</div>':'<div class="venue-badge away">AWAY AT '+opp.toUpperCase()+'</div>';
-  let dateStr=gameDateStr(fixture);
-  try{const d=new Date(gameDateTime(fixture));if(!isNaN(d))dateStr=d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'short'});}catch(e){}
-  const html='<div class="autoheader-team">'+own.club+'</div><div class="autoheader-vs">VS</div><div class="autoheader-team">'+opp+'</div><div class="autoheader-meta">'+(fixture.round||"")+' \u00B7 '+dateStr+' \u00B7 '+own.grade+'</div>'+badge;
-  sel("mpAutoHeaderContent").innerHTML=html;
+  const pctScore=maxScore>0?Math.round(((weightedScore+maxScore)/(2*maxScore))*100):50;
+  return {results:results.reverse(),weightedScore:+weightedScore.toFixed(1),pct:pctScore,wins:results.filter(r=>r.result==="W").length,losses:results.filter(r=>r.result==="L").length,draws:results.filter(r=>r.result==="D").length};
 }
 
-function renderHeadToHeadSection(ourClub,opp,grade,obgfcIsHome){
-  const card=sel("mpHeadToHead");if(!card)return;
-  card.classList.remove("hidden");
-  const h2h=headToHead(ourClub,opp,grade);
-  const el=sel("mpHeadToHeadContent");
-  if(!h2h.games){el.innerHTML='<p class="muted">No past meetings on record in this grade.</p>';return;}
-  const homeCls=obgfcIsHome?'h2h-highlight':'';
-  const awayCls=!obgfcIsHome?'h2h-highlight':'';
-  let html='<div class="h2h-split">';
-  html+='<div class="h2h-block '+homeCls+'"><div class="h2h-block-label">OBGFC at home vs them</div><div class="h2h-block-record">'+h2h.atHome.w+'-'+h2h.atHome.l+(h2h.atHome.d?'-'+h2h.atHome.d:'')+'</div><div class="h2h-block-margin">Avg margin: '+(h2h.atHome.avgMargin>0?"+":"")+h2h.atHome.avgMargin+'</div></div>';
-  html+='<div class="h2h-block '+awayCls+'"><div class="h2h-block-label">OBGFC away vs them</div><div class="h2h-block-record">'+h2h.away.w+'-'+h2h.away.l+(h2h.away.d?'-'+h2h.away.d:'')+'</div><div class="h2h-block-margin">Avg margin: '+(h2h.away.avgMargin>0?"+":"")+h2h.away.avgMargin+'</div></div>';
-  html+='</div>';
-  html+='<div class="h2h-summary"><strong>All-time:</strong> '+h2h.wins+' wins, '+h2h.losses+' losses'+(h2h.draws?', '+h2h.draws+' draws':'')+' &middot; <strong>Avg margin:</strong> '+(h2h.avgMargin>0?"+":"")+h2h.avgMargin+'</div>';
-  if(h2h.recent.length){
-    html+='<h3>Last '+h2h.recent.length+' meetings</h3><table class="data"><thead><tr><th>Date</th><th>Round</th><th>Venue</th><th>Result</th><th>Margin</th></tr></thead><tbody>';
-    h2h.recent.forEach(r=>{const cls=r.margin>0?"form-up":r.margin<0?"form-down":"form-flat";const result=r.margin>0?"WON":r.margin<0?"LOST":"DRAW";html+='<tr><td>'+r.date+'</td><td>'+(r.round||"")+'</td><td>'+(r.ourIsHome?"Home":"Away")+'</td><td><span class="'+cls+'">'+result+' '+r.ourScore+'-'+r.theirScore+'</span></td><td>'+(r.margin>0?"+":"")+r.margin+'</td></tr>';});
-    html+='</tbody></table>';
+function generateCoachingNotes(ownClub,oppName,grade,fixture,ourForm,theirForm,oppSquad,ladder){
+  const notes=[];
+  const isHome=gameHome(fixture)===ownClub;
+  const oppIsHigher=ladder.findIndex(t=>t.team===oppName)<ladder.findIndex(t=>t.team===ownClub);
+  // 1. Venue factor
+  if(isHome){
+    notes.push({icon:"HOME",tone:"neutral",text:"We're hosting. Their away form is "+(theirForm.wins)+"W-"+theirForm.losses+"L in last 5. Own the first quarter to set the tone."});
+  }else{
+    notes.push({icon:"AWAY",tone:"warning",text:"We're travelling. Their home advantage counts - factor into the game plan and pre-game routine."});
   }
-  el.innerHTML=html;
-}
-
-function renderHomeAwayFormSection(opp,grade,obgfcIsHome){
-  const card=sel("mpHomeAwayForm");if(!card)return;
-  card.classList.remove("hidden");
-  const haf=homeAwayForm(opp,grade);
-  const el=sel("mpHomeAwayFormContent");
-  if(!haf.home.games&&!haf.away.games){el.innerHTML=emptyState("No completed games this season.");return;}
-  const homeHl=!obgfcIsHome?'haf-highlight':'';
-  const awayHl=obgfcIsHome?'haf-highlight':'';
-  let html='<div class="haf-split">';
-  html+='<div class="haf-block '+homeHl+'"><div class="haf-block-label">Their home form</div><div class="haf-block-record">'+haf.home.wins+'-'+haf.home.losses+(haf.home.draws?'-'+haf.home.draws:'')+' <span class="muted">('+haf.home.winPct+'%)</span></div><div class="haf-block-margin">Avg margin: '+(haf.home.avgMargin>0?"+":"")+haf.home.avgMargin+'</div></div>';
-  html+='<div class="haf-block '+awayHl+'"><div class="haf-block-label">Their away form</div><div class="haf-block-record">'+haf.away.wins+'-'+haf.away.losses+(haf.away.draws?'-'+haf.away.draws:'')+' <span class="muted">('+haf.away.winPct+'%)</span></div><div class="haf-block-margin">Avg margin: '+(haf.away.avgMargin>0?"+":"")+haf.away.avgMargin+'</div></div>';
-  html+='</div>';
-  html+='<div class="haf-weighted">Weighted form score: <b>'+haf.weightedPct+'%</b> <span class="muted">(away wins x1.5, home losses x1.5)</span></div>';
-  html+='<div class="haf-verdict tone-'+haf.verdict.tone+'"><strong>Verdict:</strong> '+haf.verdict.text+'.';
-  if(obgfcIsHome){html+=' You are hosting - they will be playing away.';}else{html+=' You are travelling to them - factor their home advantage.';}
-  html+='</div>';
-  el.innerHTML=html;
-}
-
-function renderClassFormSection(opp,grade){
-  const card=sel("mpClassForm");if(!card)return;
-  card.classList.remove("hidden");
-  const ladder=buildLadder(grade,4);
-  const cf=classForm(opp,grade,ladder);
-  const el=sel("mpClassFormContent");
-  if(!cf){el.innerHTML=emptyState("Unable to compute - not enough ladder data.");return;}
-  let html='<div class="class-form-summary">';
-  html+='<div class="tile"><div class="tile-label">Quality wins (up)</div><div class="tile-value class-tone-green">'+cf.unexpectedWins+'</div></div>';
-  html+='<div class="tile"><div class="tile-label">Shock losses (down)</div><div class="tile-value class-tone-red">'+cf.unexpectedLosses+'</div></div>';
-  html+='</div>';
-  html+='<div class="haf-verdict tone-'+(cf.verdict.tone==="green"?"positive":cf.verdict.tone==="red"?"negative":"neutral")+'"><strong>'+cf.verdict.headline+'</strong><br>'+cf.verdict.detail+'</div>';
-  if(cf.notable.quality.length){
-    html+='<h3>Their quality wins (beat teams above them)</h3><table class="data"><thead><tr><th>Round</th><th>Beat</th><th>Their pos</th><th>Margin</th></tr></thead><tbody>';
-    cf.notable.quality.forEach(q=>{html+='<tr><td>'+(q.round||"")+'</td><td>'+q.opp+'</td><td>#'+q.oppPos+'</td><td><span class="form-up">+'+q.margin+'</span></td></tr>';});
-    html+='</tbody></table>';
+  // 2. Form comparison
+  const formGap=ourForm.pct-theirForm.pct;
+  if(formGap>=15){
+    notes.push({icon:"MOMENTUM",tone:"positive",text:"We enter in stronger form ("+ourForm.pct+"% vs "+theirForm.pct+"%). Take confidence but don't drop intensity."});
+  }else if(formGap<=-15){
+    notes.push({icon:"CHALLENGE",tone:"negative",text:"They enter in stronger form ("+theirForm.pct+"% vs "+ourForm.pct+"%). Underdog mindset - stay disciplined, stay in the fight."});
+  }else{
+    notes.push({icon:"BALANCE",tone:"neutral",text:"Form is close ("+ourForm.pct+"% vs "+theirForm.pct+"%). The details will decide this - first-quarter energy and set-piece execution."});
   }
-  if(cf.notable.shocks.length){
-    html+='<h3>Their shock losses (beaten by teams below them)</h3><table class="data"><thead><tr><th>Round</th><th>Lost to</th><th>Their pos</th><th>Margin</th></tr></thead><tbody>';
-    cf.notable.shocks.forEach(s=>{html+='<tr><td>'+(s.round||"")+'</td><td>'+s.opp+'</td><td>#'+s.oppPos+'</td><td><span class="form-down">'+s.margin+'</span></td></tr>';});
-    html+='</tbody></table>';
+  // 3. Their top player
+  if(oppSquad.length){
+    const topPlayer=oppSquad[0];
+    notes.push({icon:"TAG",tone:"warning",text:"Their #1 threat: "+topPlayer.name+" (Talent Score "+topPlayer.talentScore+", "+(topPlayer.goals||0)+" goals, "+bestCount(topPlayer)+" games in best). Plan a matchup - do not let her set the tempo."});
   }
-  el.innerHTML=html;
-}
-
-function renderVersusComparison(own,opp,oppSquad){
-  const card=sel("mpVersus");if(!card)return;
-  if(!own||!opp){card.classList.add("hidden");return;}
-  const ourSquad=players.filter(p=>isOwnClub(p)&&p.grade===own.grade&&p.name&&p.name.trim().toLowerCase()!=="none none");
-  if(!ourSquad.length){card.classList.add("hidden");return;}
-  card.classList.remove("hidden");
-  sel("mpVersusOpponent").textContent=opp;
-  const us=squadSummary(ourSquad),th=squadSummary(oppSquad);
-  const m=[{l:"Squad size",a:us.size,b:th.size},{l:"Avg talent score",a:us.avgScore,b:th.avgScore},{l:"Top talent",a:us.topScore,b:th.topScore,s:{a:us.topName,b:th.topName}},{l:"Total goals",a:us.goals,b:th.goals},{l:"Times in best",a:us.best,b:th.best}];
-  let h='<table class="vs-table"><thead><tr><th>Metric</th><th>OBGFC</th><th>'+opp+'</th></tr></thead><tbody>';
-  let oA=0,tA=0;
-  m.forEach(x=>{const aB=x.a>x.b,bB=x.b>x.a;if(aB)oA++;else if(bB)tA++;const aC=aB?"vs-better":bB?"vs-worse":"vs-equal";const bC=bB?"vs-better":aB?"vs-worse":"vs-equal";h+='<tr><td>'+x.l+'</td><td><span class="'+aC+'">'+x.a+'</span>'+(x.s?'<br><span class="muted">'+x.s.a+'</span>':'')+'</td><td><span class="'+bC+'">'+x.b+'</span>'+(x.s?'<br><span class="muted">'+x.s.b+'</span>':'')+'</td></tr>';});
-  h+='</tbody></table>';
-  sel("mpVersusTable").innerHTML=h;
-  let line;
-  if(oA>tA)line="OBGFC ahead in "+oA+" of "+m.length+" metrics - favourable matchup.";
-  else if(tA>oA)line=opp+" ahead in "+tA+" of "+m.length+" metrics - work to do.";
-  else line="Even matchup - "+oA+"-"+tA+" across "+m.length+" metrics.";
-  sel("mpVersusVerdict").textContent=line;
+  // 4. Their recent form pattern
+  if(theirForm.losses>=3){
+    notes.push({icon:"OPPORTUNITY",tone:"positive",text:"They've lost "+theirForm.losses+" of their last 5. Fragile confidence - press hard early and they may fold."});
+  }else if(theirForm.wins>=4){
+    notes.push({icon:"WARN",tone:"warning",text:"They've won "+theirForm.wins+" of their last 5. On a run - expect a confident, structured opponent."});
+  }
+  // 5. Scoring pattern
+  const avgFor=theirForm.results.length?Math.round(theirForm.results.reduce((s,r)=>s+r.ourScore,0)/theirForm.results.length):0;
+  const avgAgainst=theirForm.results.length?Math.round(theirForm.results.reduce((s,r)=>s+r.theirScore,0)/theirForm.results.length):0;
+  if(avgAgainst>=70){
+    notes.push({icon:"ATTACK",tone:"positive",text:"They're leaking goals ("+avgAgainst+" pts against per game in last 5). Attack the forward line early - reward efficient entries."});
+  }
+  if(avgFor>=80){
+    notes.push({icon:"DEFEND",tone:"warning",text:"They're scoring heavily ("+avgFor+" pts per game). Defensive structure is critical - reduce their inside-50 count."});
+  }
+  return notes;
 }
 
 function renderMatchPrep(){
-  autoSelectNextFixture();
-  const own=selectedOwnTeam(),opp=selectedOpponent(),fw=selectedMPFormWindow();
+  const nx=findObgfcNextFixture();
   const cards=["mpAutoHeader","mpHeadToHead","mpHomeAwayForm","mpClassForm","mpVersus","mpDanger","mpFullSquad","mpRecent"];
-  if(!opp||!own){cards.forEach(id=>{const e=sel(id);if(e)e.classList.add("hidden");});return;}
-  let squad=players.filter(p=>p.club===opp);
-  const sg=squad.filter(p=>p.grade===own.grade);if(sg.length)squad=sg;
-  squad=squad.filter(p=>p.name&&p.name.trim().toLowerCase()!=="none none");
-  squad.sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
-  const fx=nextFixtureFor(own.club,own.grade)||lastFixtureFor(own.club,own.grade);
-  if(fx){renderAutoHeader(own,opp,fx);}else{sel("mpAutoHeader").classList.add("hidden");}
-  const obgfcIsHome=fx?(gameHome(fx)===own.club):true;
-  renderHeadToHeadSection(own.club,opp,own.grade,obgfcIsHome);
-  renderHomeAwayFormSection(opp,own.grade,obgfcIsHome);
-  renderClassFormSection(opp,own.grade);
-  renderVersusComparison(own,opp,squad);
-  sel("mpDanger").classList.remove("hidden");
-  renderTop5("mpDangerList",squad.slice(0,5),"Score",p=>p.talentScore||0,{label:"Games",fn:p=>p.games||0});
-  sel("mpFullSquad").classList.remove("hidden");
-  const fsEl=sel("mpFullSquadList");
-  if(!squad.length){fsEl.innerHTML=emptyState();}
-  else{
-    let h='<table class="data"><thead><tr><th>#</th><th>Player</th><th>Grade</th><th>Games</th><th>In best</th><th>Goals</th><th>Talent</th><th>Form</th></tr></thead><tbody>';
-    squad.forEach((p,i)=>{const f=formIndicator(p,fw);const fc=f?'<span class="'+(f.delta>0?'form-up':f.delta<0?'form-down':'form-flat')+'">'+f.trend+' '+f.delta+'</span>':'<span class="muted">-</span>';h+='<tr><td>'+(i+1)+'</td><td>'+playerLink(p)+'</td><td class="muted">'+(p.grade||"")+'</td><td>'+(p.games||0)+'</td><td>'+bestCount(p)+'</td><td>'+(p.goals||0)+'</td><td><b>'+(p.talentScore||0)+'</b></td><td>'+fc+'</td></tr>';});
-    h+='</tbody></table>';fsEl.innerHTML=h;
+  if(!nx){
+    if(sel("mpAutoHeader")){sel("mpAutoHeader").classList.remove("hidden");sel("mpAutoHeaderContent").innerHTML='<div class="autoheader-team">No upcoming OBGFC fixture found</div><div class="autoheader-meta">Check that fixtures are loaded for your grade.</div>';}
+    cards.slice(1).forEach(id=>{const e=sel(id);if(e)e.classList.add("hidden");});
+    return;
   }
-  sel("mpRecent").classList.remove("hidden");
-  const rEl=sel("mpRecentList");
-  const rec=games.filter(g=>gameInvolves(g,opp)).filter(g=>isFinal(g)).sort((a,b)=>gameDateTime(b).localeCompare(gameDateTime(a))).slice(0,6);
-  if(!rec.length){rEl.innerHTML=emptyState("No recent results.");}
-  else{
-    let h='<table class="data"><thead><tr><th>Date</th><th>Grade</th><th>Round</th><th>Home</th><th>Score</th><th>Away</th><th>Score</th><th>Result</th></tr></thead><tbody>';
-    rec.forEach(g=>{const hs=gameHomeScore(g),as=gameAwayScore(g);const iH=gameHome(g)===opp;const oc=iH?homeOutcome(g):awayOutcome(g);const cl=oc==="WON"?"form-up":oc==="LOST"?"form-down":"form-flat";h+='<tr><td>'+gameDateStr(g)+'</td><td class="muted">'+(g.grade||"")+'</td><td>'+(g.round||"")+'</td><td>'+gameHome(g)+'</td><td><b>'+(hs!=null?hs:"-")+'</b></td><td>'+gameAway(g)+'</td><td><b>'+(as!=null?as:"-")+'</b></td><td><span class="'+cl+'">'+(oc||"-")+'</span></td></tr>';});
-    h+='</tbody></table>';rEl.innerHTML=h;
+  const own=nx.team;
+  const opp=(gameHome(nx.fixture)===own.club)?gameAway(nx.fixture):gameHome(nx.fixture);
+  const fixture=nx.fixture;
+  const isHome=gameHome(fixture)===own.club;
+  const ladder=buildLadderSimple(own.grade);
+  const ourForm=teamLast5(own.club,own.grade,ladder);
+  const theirForm=teamLast5(opp,own.grade,ladder);
+  let oppSquad=players.filter(p=>p.club===opp&&p.grade===own.grade&&p.name&&p.name.trim().toLowerCase()!=="none none").sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
+  if(!oppSquad.length){oppSquad=players.filter(p=>p.club===opp&&p.name&&p.name.trim().toLowerCase()!=="none none").sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));}
+  // 1. Fixture hero
+  if(sel("mpAutoHeader")){
+    sel("mpAutoHeader").classList.remove("hidden");
+    const badge=isHome?'<div class="venue-badge home">AT HOME</div>':'<div class="venue-badge away">AWAY AT '+opp+'</div>';
+    let dateStr=gameDateStr(fixture);
+    try{const d=new Date(gameDateTime(fixture));if(!isNaN(d))dateStr=d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'short'});}catch(e){}
+    const roundLabel=fixture.round||"Next";
+    const html='<div class="autoheader-team">'+own.club+'</div><div class="autoheader-vs">VS</div><div class="autoheader-team">'+opp+'</div><div class="autoheader-meta">'+roundLabel+' \u00B7 '+dateStr+' \u00B7 '+own.grade+(nx.isPast?' (last meeting)':'')+'</div>'+badge;
+    sel("mpAutoHeaderContent").innerHTML=html;
   }
+  // 2. Form comparison (reuse mpHeadToHead card slot)
+  if(sel("mpHeadToHead")){
+    sel("mpHeadToHead").classList.remove("hidden");
+    sel("mpHeadToHead").querySelector("h2").textContent="Form Comparison - Last 5 Games";
+    sel("mpHeadToHead").querySelector("p").textContent="Weighted for venue difficulty and opponent quality.";
+    const renderBlocks=(f)=>{return f.results.map(r=>{const cls=r.result==="W"?"win":r.result==="L"?"loss":"draw";return '<span class="form-block '+cls+'" title="'+r.round+' '+(r.isHome?"H":"A")+' vs '+r.oppName+' '+r.ourScore+'-'+r.theirScore+'">'+r.result+'</span>';}).join("");};
+    let html='<div class="h2h-split">';
+    html+='<div class="h2h-block h2h-highlight"><div class="h2h-block-label">OBGFC (last 5)</div><div style="margin:8px 0"><span class="form-blocks">'+renderBlocks(ourForm)+'</span></div><div class="h2h-block-record">'+ourForm.pct+'%</div><div class="h2h-block-margin">'+ourForm.wins+'W-'+ourForm.draws+'D-'+ourForm.losses+'L weighted</div></div>';
+    html+='<div class="h2h-block"><div class="h2h-block-label">'+opp+' (last 5)</div><div style="margin:8px 0"><span class="form-blocks">'+renderBlocks(theirForm)+'</span></div><div class="h2h-block-record">'+theirForm.pct+'%</div><div class="h2h-block-margin">'+theirForm.wins+'W-'+theirForm.draws+'D-'+theirForm.losses+'L weighted</div></div>';
+    html+='</div>';
+    sel("mpHeadToHeadContent").innerHTML=html;
+  }
+  // 3. Verdict (reuse mpHomeAwayForm card)
+  if(sel("mpHomeAwayForm")){
+    sel("mpHomeAwayForm").classList.remove("hidden");
+    sel("mpHomeAwayForm").querySelector("h2").textContent="Match Verdict";
+    sel("mpHomeAwayForm").querySelector("p").textContent="Based on weighted form and matchup context.";
+    const formGap=ourForm.pct-theirForm.pct;
+    let tone,text;
+    if(formGap>=15){tone="positive";text="Form favours OBGFC ("+ourForm.pct+"% vs "+theirForm.pct+"%). Confident approach but stay disciplined - upsets happen when favourites drop intensity.";}
+    else if(formGap<=-15){tone="negative";text="Steep test. "+opp+" enters in significantly better form ("+theirForm.pct+"% vs "+ourForm.pct+"%). Underdog mindset, structured game plan, target their weaknesses.";}
+    else{tone="neutral";text="Close call. Form separated by "+Math.abs(formGap)+"% - this is a genuine tossup. First-quarter energy and set-piece execution will decide it.";}
+    sel("mpHomeAwayFormContent").innerHTML='<div class="haf-verdict tone-'+tone+'"><strong>'+text+'</strong></div>';
+  }
+  // 4. Coaching notes (reuse mpClassForm card)
+  if(sel("mpClassForm")){
+    sel("mpClassForm").classList.remove("hidden");
+    sel("mpClassForm").querySelector("h2").textContent="Coaching Notes";
+    sel("mpClassForm").querySelector("p").textContent="Auto-generated tactical points for this fixture.";
+    const notes=generateCoachingNotes(own.club,opp,own.grade,fixture,ourForm,theirForm,oppSquad,ladder);
+    let html='';
+    notes.forEach(n=>{
+      const toneCls=n.tone==="positive"?"tone-positive":n.tone==="negative"?"tone-negative":n.tone==="warning"?"tone-neutral":"tone-neutral";
+      html+='<div class="haf-verdict '+toneCls+'" style="margin-top:8px;"><strong>'+n.icon+':</strong> '+n.text+'</div>';
+    });
+    sel("mpClassFormContent").innerHTML=html;
+  }
+  // 5. Top 5 talent (reuse mpDanger card)
+  if(sel("mpDanger")){
+    sel("mpDanger").classList.remove("hidden");
+    sel("mpDanger").querySelector("h2").textContent="Their Top 5 - Watch these players";
+    renderTop5("mpDangerList",oppSquad.slice(0,5),"Talent",p=>p.talentScore||0,{label:"Games",fn:p=>p.games||0});
+  }
+  // Hide leftover cards
+  ["mpVersus","mpFullSquad","mpRecent"].forEach(id=>{const e=sel(id);if(e)e.classList.add("hidden");});
 }
-
-(function(){const o=sel("mpOwnTeam"),p=sel("mpOpponent"),f=sel("mpFormWindow");if(o)o.addEventListener("change",()=>{autoFillOpponent();renderMatchPrep();});if(p)p.addEventListener("change",renderMatchPrep);if(f)f.addEventListener("change",renderMatchPrep);})();
-
 // ===== ROUND LOG =====
 function selectedRLGrade(){const e=sel("rlGrade");return e?(e.value||""):"";}
 function selectedRLFormWindow(){const e=sel("rlFormWindow");return e?parseInt(e.value||"3",10):3;}
@@ -423,7 +346,6 @@ function renderFinalsPath(){
   else{let h='<table class="data"><thead><tr><th>Round</th><th>Date</th><th>Venue</th><th>Opponent</th></tr></thead><tbody>';obgfcRow.upcoming.forEach(f=>{h+='<tr><td>'+(f.round||"")+'</td><td>'+((f.date||"").slice(0,10))+'</td><td>'+(f.home?"Home":"Away")+'</td><td>'+f.opponent+'</td></tr>';});h+='</tbody></table>';rEl.innerHTML=h;}
 }
 ["fpGrade","fpFinalsSpots","fpPtsWin"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("change",renderFinalsPath);});
-
 // ===== WATCHLIST / SETTINGS =====
 function renderWatchlist(){const el=sel("watchlistView");if(!el)return;const list=players.filter(p=>watchlist.indexOf(p.id)>=0).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));if(!list.length){el.innerHTML=emptyState("Your watchlist is empty.");return;}let h='<table class="data"><thead><tr><th>Player</th><th>Club</th><th>Grade</th><th>Score</th><th></th></tr></thead><tbody>';list.forEach(p=>{h+='<tr><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="star" data-pid="'+p.id+'">\u2605</button></td></tr>';});h+='</tbody></table>';el.innerHTML=h;}
 function renderSettings(){const e=sel("setLastSync");if(e)e.textContent=lastSync?new Date(lastSync).toLocaleString():"never";}
