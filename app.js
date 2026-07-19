@@ -39,7 +39,7 @@ async function loadData(){
   populateAllGradeDropdowns();populateClubDropdown();
   renderAll();
 }
-function renderAll(){renderDashboard();renderLeaderboards();renderPlayerList();renderScoutReport();renderMatchPrep();renderRoundLog();renderFinalsPath();renderWatchlist();renderSettings();const s=lastSync?new Date(lastSync).toLocaleString():"never";const ls=sel("lastSync");if(ls)ls.textContent="Last sync: "+s;renderRunHomeProjections();}
+function renderAll(){renderDashboard();renderLeaderboards();renderPlayerList();renderScoutReport();renderMatchPrep();renderRoundLog();renderFinalsPath();renderWatchlist();renderSettings();const s=lastSync?new Date(lastSync).toLocaleString():"never";const ls=sel("lastSync");if(ls)ls.textContent="Last sync: "+s;renderRunHomeProjections(grade);}
 
 sel("tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));b.classList.add("active");sel(b.dataset.tab).classList.add("active");if(b.dataset.tab==="matchprep")renderMatchPrep();});
 function emptyState(m){return '<div class="empty">'+(m||"No data yet.")+'</div>';}
@@ -307,7 +307,7 @@ function buildLadder(grade,ptsPerWin){
 }
 function projectCutline(ladder,spots,ptsPerWin){if(ladder.length<spots)return 0;const c=ladder[spots-1];if(c.played===0)return 0;const wr=c.wins/c.played;return c.ladderPts+Math.round(wr*c.remaining)*ptsPerWin;}
 function renderFinalsPath(){
-  const grade=selectedFPGrade();const spots=selectedFPFinalsSpots();const ptsPerWin=selectedFPPtsWin();
+  const spots=selectedFPFinalsSpots();const ptsPerWin=selectedFPPtsWin();
   const ladder=buildLadder(grade,ptsPerWin);
   if(!ladder.length){sel("fpLadder").innerHTML=emptyState();sel("fpVerdict").innerHTML=emptyState();sel("fpScenarios").innerHTML="";sel("fpRemaining").innerHTML="";return;}
   const cutline=projectCutline(ladder,spots,ptsPerWin);
@@ -389,7 +389,7 @@ function projectTeamRunHome(club, grade, ladder){
   return {upcoming:fixtures, predictedWins, predictedLosses, predictedTossups, currentPts, projectedPts};
 }
 
-function renderRunHomeProjections(){
+function renderRunHomeProjections(grade){
   const grade=selectedFPGrade();
   const el=sel("fpRunHome");
   if(!el)return;
