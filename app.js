@@ -334,7 +334,7 @@ function renderFinalsPath(){
   sel("fpScenarios").innerHTML='<div class="scenario-grid"><div class="scenario-card safe"><div class="scenario-header">Safe path</div><div class="scenario-title">Guaranteed</div><div class="scenario-req">Win <b>'+safeW+' of '+obgfcRow.remaining+'</b></div></div><div class="scenario-card live"><div class="scenario-header">Live path</div><div class="scenario-title">In the mix</div><div class="scenario-req">Win <b>'+liveW+' of '+obgfcRow.remaining+'</b></div></div><div class="scenario-card longshot"><div class="scenario-header">Long shot</div><div class="scenario-title">Win out</div><div class="scenario-req">Win <b>all '+obgfcRow.remaining+'</b></div></div></div>';
   const rEl=sel("fpRemaining");
   if(!obgfcRow.upcoming.length){rEl.innerHTML=emptyState("Season complete.");}
-  else{let h='<table class="data"><thead><tr><th>Round</th><th>Date</th><th>Venue</th><th>Opponent</th></tr></thead><tbody>';obgfcRow.upcoming.forEach(f=>{h+='<tr><td>'+(f.round||"")+'</td><td>'+((f.date||"").slice(0,10))+'</td><td>'+(f.home?"Home":"Away")+'</td><td>'+f.opponent+'</td></tr>';});h+='</tbody></table>';rEl.innerHTML=h;renderRunHomeProjections();}}
+  else{let h='<table class="data"><thead><tr><th>Round</th><th>Date</th><th>Venue</th><th>Opponent</th></tr></thead><tbody>';obgfcRow.upcoming.forEach(f=>{h+='<tr><td>'+(f.round||"")+'</td><td>'+((f.date||"").slice(0,10))+'</td><td>'+(f.home?"Home":"Away")+'</td><td>'+f.opponent+'</td></tr>';});h+='</tbody></table>';rEl.innerHTML=h;renderFinalsRoadmap();renderRunHomeProjections();}}
 ["fpGrade","fpFinalsSpots","fpPtsWin"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("change",renderFinalsPath);});
 // ===== WATCHLIST / SETTINGS =====
 function renderWatchlist(){const el=sel("watchlistView");if(!el)return;const list=players.filter(p=>watchlist.indexOf(p.id)>=0).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));if(!list.length){el.innerHTML=emptyState("Your watchlist is empty.");return;}let h='<table class="data"><thead><tr><th>Player</th><th>Club</th><th>Grade</th><th>Score</th><th></th></tr></thead><tbody>';list.forEach(p=>{h+='<tr><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="star" data-pid="'+p.id+'">\u2605</button></td></tr>';});h+='</tbody></table>';el.innerHTML=h;}
@@ -397,6 +397,116 @@ function projectTeamRunHome(club, grade, ladder){
     const currentRatio=currentGamesPlayed>0?Math.round(((currentWins+currentDraws*0.5)/currentGamesPlayed)*100):0;
     return {upcoming:fixtures, predictedWins, predictedLosses, predictedTossups, currentPts, projectedPts, currentRatio, projectedRatio, projectedGames};
 }
+
+function renderFinalsRoadmap(){
+  const grade=selectedFPGrade();
+  const el=sel("fpRoadmap");
+  if(!el)return;
+  const ladder=buildLadderSimple(grade);
+  if(!ladder.length){el.innerHTML=emptyState("No games yet.");return;}
+  const obgfcRow=ladder.find(t=>isOwnClubName(t.team));
+  if(!obgfcRow){el.innerHTML='<p class="muted">No OBGFC team in this grade.</p>';return;}
+  const proj=projectTeamRunHome(obgfcRow.team, grade, ladder);
+  const spots=selectedFPFinalsSpots();
+  // Build projections for all teams to determine cutoff
+  const allProj=ladder.map(t=>{
+    const p=projectTeamRunHome(t.team, grade, ladder);
+    return {team:t.team, projectedRatio:p.projectedRatio, projectedPts:p.projectedPts};
+  }).sort((a,b)=>b.projectedRatio-a.projectedRatio||b.projectedPts-a.projectedPts);
+  const cutoffTeam=allProj[spots-1];
+  const cutoffRatio=cutoffTeam?cutoffTeam.projectedRatio:0;
+  const obgfcProj=allProj.find(x=>x.team===obgfcRow.team);
+  const obgfcPos=allProj.findIndex(x=>x.team===obgfcRow.team)+1;
+  const gapToCut=obgfcProj?obgfcProj.projectedRatio-cutoffRatio:0;
+  // Categorise remaining fixtures
+  const wins=proj.upcoming.filter(f=>f.prediction==='W');
+  const tossups=proj.upcoming.filter(f=>f.prediction==='T');
+  const losses=proj.upcoming.filter(f=>f.prediction==='L');
+  // Calculate scenarios
+  const currentPts=obgfcRow.pts;
+  const currentGames=obgfcRow.wins+obgfcRow.losses+obgfcRow.draws;
+  const currentWins=obgfcRow.wins+(obgfcRow.draws*0.5);
+  const totalFutureGames=proj.upcoming.length;
+  const finalGames=currentGames+totalFutureGames;
+  const calcMR=(addWins)=>Math.round(((currentWins+addWins)/finalGames)*100);
+  const scenarios={
+    holdServe: calcMR(wins.length),
+    winOneTossup: calcMR(wins.length+1),
+    winBothTossups: calcMR(wins.length+tossups.length),
+    winAll: calcMR(totalFutureGames)
+  };
+  // Format fixture names
+  const fmtFix=(f)=>f.opponent+' ('+(f.isHome?'H':'A')+')';
+  // Build the narrative
+  let html='';
+  // Verdict headline
+  let tone, verdict;
+  if(obgfcPos<=spots&&gapToCut>=10){tone="tone-positive";verdict="\uD83D\uDFE2 On track for finals";}
+  else if(obgfcPos<=spots){tone="tone-neutral";verdict="\uD83D\uDFE1 In the mix but not safe";}
+  else if(obgfcPos<=spots+1){tone="tone-neutral";verdict="\uD83D\uDFE1 On the bubble - one game changes everything";}
+  else{tone="tone-negative";verdict="\uD83D\uDD34 Uphill battle";}
+  html+='<div class="haf-verdict '+tone+'" style="margin-bottom:14px;"><strong style="font-size:1rem;">'+verdict+'</strong><br>Projected: '+obgfcPos+((obgfcPos===1)?"st":(obgfcPos===2)?"nd":(obgfcPos===3)?"rd":"th")+' with '+obgfcProj.projectedRatio+'% MR ('+(gapToCut>=0?"+":"")+gapToCut+'% vs cutoff at '+cutoffRatio+'%)</div>';
+  // The decisive games (tossups)
+  if(tossups.length>0){
+    html+='<div class="haf-verdict tone-neutral" style="margin-bottom:8px;"><strong>\uD83C\uDFAF Decisive games (tossups)</strong><br>';
+    html+='These are your season-defining fixtures - the model gives them ~50/50. Win rate here decides everything.<br><br>';
+    tossups.forEach(t=>{
+      html+='&bull; <b>'+fmtFix(t)+'</b> - '+t.prob+'% predicted win<br>';
+    });
+    if(tossups.length===1){
+      html+='<br><em>Winning this alone: MR climbs to '+scenarios.winOneTossup+'%. Losing it: '+scenarios.holdServe+'%.</em>';
+    }else if(tossups.length>=2){
+      html+='<br><em>Winning both: '+scenarios.winBothTossups+'% MR. Winning one: '+scenarios.winOneTossup+'%. Losing both: '+scenarios.holdServe+'%.</em>';
+    }
+    html+='</div>';
+  }
+  // Must-hold games (Ws)
+  if(wins.length>0){
+    html+='<div class="haf-verdict tone-positive" style="margin-bottom:8px;"><strong>\u2705 Must-hold games ('+wins.length+' expected wins)</strong><br>';
+    html+='The model calls these winnable. Non-negotiable - dropping even one costs finals.<br><br>';
+    wins.forEach(w=>{
+      html+='&bull; <b>'+fmtFix(w)+'</b> - '+w.prob+'% predicted win<br>';
+    });
+    html+='</div>';
+  }
+  // Shock opportunities (Ls)
+  if(losses.length>0){
+    html+='<div class="haf-verdict tone-negative" style="margin-bottom:8px;"><strong>\uD83D\uDCA5 Shock opportunities</strong><br>';
+    html+='Model expects losses but upsets happen. Even one stolen result would transform the road.<br><br>';
+    losses.forEach(l=>{
+      html+='&bull; <b>'+fmtFix(l)+'</b> - '+l.prob+'% predicted win<br>';
+    });
+    html+='</div>';
+  }
+  // Scenarios summary
+  html+='<div class="haf-verdict tone-neutral" style="margin-bottom:8px;"><strong>\uD83D\uDCCA Scenarios</strong><br>';
+  html+='<b>Hold serve only</b> (win all '+wins.length+' expected, lose others): '+scenarios.holdServe+'% MR<br>';
+  if(tossups.length>=1){
+    html+='<b>Hold serve + win 1 tossup</b>: '+scenarios.winOneTossup+'% MR<br>';
+  }
+  if(tossups.length>=2){
+    html+='<b>Hold serve + win both tossups</b>: '+scenarios.winBothTossups+'% MR<br>';
+  }
+  html+='<b>Win out</b>: '+scenarios.winAll+'% MR<br>';
+  html+='<br><em>Finals cutoff projected at '+cutoffRatio+'% MR</em>';
+  html+='</div>';
+  // The game plan one-liner
+  let plan='';
+  if(tossups.length===0){
+    if(scenarios.holdServe>=cutoffRatio){plan="Hold serve. Win the "+wins.length+" expected games and finals are locked.";}
+    else{plan="Even holding serve isn't enough. You need to steal an upset from "+(losses[0]?fmtFix(losses[0]):"a predicted loss")+" to make finals.";}
+  }else if(tossups.length===1){
+    if(scenarios.winOneTossup>=cutoffRatio){plan="Win "+fmtFix(tossups[0])+" and hold serve on the expected wins. That's finals.";}
+    else{plan="Win "+fmtFix(tossups[0])+" AND steal an upset. Anything less isn't enough.";}
+  }else{
+    const needTossupsForCut=Math.ceil((cutoffRatio-scenarios.holdServe)/(scenarios.winBothTossups-scenarios.holdServe)*tossups.length);
+    if(needTossupsForCut<=1){plan="Win "+fmtFix(tossups[0])+" - your season-defining game. Then hold serve on the expected wins. That's finals.";}
+    else{plan="Win BOTH tossups ("+tossups.map(fmtFix).join(" & ")+") and hold serve on the expected "+wins.length+" wins. That's the path.";}
+  }
+  html+='<div class="haf-verdict tone-positive" style="border-left:4px solid var(--gold);"><strong>\uD83C\uDFC6 The game plan</strong><br>'+plan+'</div>';
+  el.innerHTML=html;
+}
+
 function renderRunHomeProjections(){
   const grade=selectedFPGrade();
   const el=sel("fpRunHome");
