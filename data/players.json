@@ -169,6 +169,87 @@
     "formIndicator": 100
   },
   {
+    "name": "Sienna Symons",
+    "team": "Parkdale Vultures Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 10,
+    "timesInBest": 8,
+    "goals": 21,
+    "gameLog": [
+      {
+        "date": "2026-05-16",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 3,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Haileybury Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 3,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "South Melbourne Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 5,
+        "inBest": true,
+        "bestRank": 2
+      }
+    ],
+    "formIndicator": 87
+  },
+  {
     "name": "Georgie Kerr",
     "team": "Old Scotch Reserve Women's",
     "grade": "Premier Women's Reserve",
@@ -248,87 +329,6 @@
       }
     ],
     "formIndicator": 100
-  },
-  {
-    "name": "Sienna Symons",
-    "team": "Parkdale Vultures Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 10,
-    "timesInBest": 7,
-    "goals": 18,
-    "gameLog": [
-      {
-        "date": "2026-05-16",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 3,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Haileybury Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "South Melbourne Senior Women's",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 5,
-        "inBest": true,
-        "bestRank": 2
-      }
-    ],
-    "formIndicator": 47
   },
   {
     "name": "Georgia Harris",
@@ -940,6 +940,101 @@
     "formIndicator": 100
   },
   {
+    "name": "Maisie Welsh",
+    "team": "Parkside Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 12,
+    "timesInBest": 9,
+    "goals": 11,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Port Melbourne Chargers Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 3,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Williamstown CYMS Senior Women's",
+        "goals": 4,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Maddi Wilson",
     "team": "Ormond Senior Women's",
     "grade": "Division 1 Women's",
@@ -1033,6 +1128,94 @@
       }
     ],
     "formIndicator": 89
+  },
+  {
+    "name": "Breanna Allen",
+    "team": "Parkdale Vultures Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 11,
+    "timesInBest": 10,
+    "goals": 9,
+    "gameLog": [
+      {
+        "date": "2026-05-16",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Haileybury Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-04-18",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "South Melbourne Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 84
   },
   {
     "name": "Tess Baxter",
@@ -1211,101 +1394,6 @@
         "date": "2026-07-18",
         "opponent": "Old Yarra Cobras Senior Women's",
         "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 100
-  },
-  {
-    "name": "Maisie Welsh",
-    "team": "Parkside Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 12,
-    "timesInBest": 8,
-    "goals": 11,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Port Melbourne Chargers Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 3,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Williamstown CYMS Senior Women's",
-        "goals": 4,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
         "inBest": false,
         "bestRank": null
       }
@@ -1561,94 +1649,6 @@
       }
     ],
     "formIndicator": 42
-  },
-  {
-    "name": "Breanna Allen",
-    "team": "Parkdale Vultures Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 11,
-    "timesInBest": 9,
-    "goals": 8,
-    "gameLog": [
-      {
-        "date": "2026-05-16",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Haileybury Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-18",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "South Melbourne Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 3
-      }
-    ],
-    "formIndicator": 56
   },
   {
     "name": "Lucy Dobbyn",
@@ -10557,6 +10557,80 @@
     "formIndicator": 62
   },
   {
+    "name": "Jessica Welford",
+    "team": "Parkdale Vultures Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 9,
+    "timesInBest": 5,
+    "goals": 6,
+    "gameLog": [
+      {
+        "date": "2026-05-23",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Haileybury Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-04-18",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "South Melbourne Senior Women's",
+        "goals": 2,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Anita Krapivsky",
     "team": "Ormond Senior Women's 2",
     "grade": "Division 4 Women's",
@@ -12615,6 +12689,80 @@
     "formIndicator": 43
   },
   {
+    "name": "Naomi Russo",
+    "team": "Parkdale Vultures Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 9,
+    "timesInBest": 5,
+    "goals": 5,
+    "gameLog": [
+      {
+        "date": "2026-05-16",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Haileybury Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-04-18",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "South Melbourne Senior Women's",
+        "goals": 3,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 57
+  },
+  {
     "name": "Georgia Bold",
     "team": "Canterbury Senior Women's",
     "grade": "Division 4 Women's",
@@ -13670,6 +13818,87 @@
       }
     ],
     "formIndicator": 48
+  },
+  {
+    "name": "Zara Wilson",
+    "team": "Port Melbourne Chargers Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 10,
+    "timesInBest": 7,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Parkside Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Williamstown CYMS Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      }
+    ],
+    "formIndicator": 64
   },
   {
     "name": "Skye Bakic",
@@ -15648,6 +15877,73 @@
     "formIndicator": 31
   },
   {
+    "name": "Chloe Kamberis",
+    "team": "Port Melbourne Chargers Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 8,
+    "timesInBest": 6,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Parkside Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      }
+    ],
+    "formIndicator": 58
+  },
+  {
     "name": "Francesca Anderson",
     "team": "Old Carey Senior Women's",
     "grade": "Division 1 Women's",
@@ -16650,154 +16946,6 @@
       }
     ],
     "formIndicator": 100
-  },
-  {
-    "name": "Naomi Russo",
-    "team": "Parkdale Vultures Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 9,
-    "timesInBest": 4,
-    "goals": 5,
-    "gameLog": [
-      {
-        "date": "2026-05-16",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Haileybury Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-18",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "South Melbourne Senior Women's",
-        "goals": 3,
-        "inBest": true,
-        "bestRank": 3
-      }
-    ],
-    "formIndicator": 31
-  },
-  {
-    "name": "Jessica Welford",
-    "team": "Parkdale Vultures Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 9,
-    "timesInBest": 4,
-    "goals": 5,
-    "gameLog": [
-      {
-        "date": "2026-05-23",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Haileybury Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-18",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "South Melbourne Senior Women's",
-        "goals": 2,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 94
   },
   {
     "name": "Daisy Bonnett",
@@ -18980,87 +19128,6 @@
       }
     ],
     "formIndicator": 97
-  },
-  {
-    "name": "Zara Wilson",
-    "team": "Port Melbourne Chargers Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 10,
-    "timesInBest": 6,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Parkside Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Williamstown CYMS Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 36
   },
   {
     "name": "Claire Wilson",
@@ -22823,73 +22890,6 @@
     "formIndicator": 44
   },
   {
-    "name": "Chloe Kamberis",
-    "team": "Port Melbourne Chargers Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 8,
-    "timesInBest": 5,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Parkside Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 33
-  },
-  {
     "name": "Sienna Tedde",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
@@ -24956,6 +24956,94 @@
       }
     ],
     "formIndicator": 39
+  },
+  {
+    "name": "Georgia Collinson",
+    "team": "Parkdale Vultures Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 11,
+    "timesInBest": 3,
+    "goals": 5,
+    "gameLog": [
+      {
+        "date": "2026-05-16",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Haileybury Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Yarra Cobras Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-04-18",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 2,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "South Melbourne Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      }
+    ],
+    "formIndicator": 62
   },
   {
     "name": "Keira Jebb",
@@ -27473,6 +27561,94 @@
     "formIndicator": 88
   },
   {
+    "name": "Maegan Harrison",
+    "team": "Port Melbourne Chargers Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 11,
+    "timesInBest": 4,
+    "goals": 2,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Parkside Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 2
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Tanisha Clark",
     "team": "Port Melbourne Chargers Senior Women's",
     "grade": "Premier B Women's",
@@ -27552,6 +27728,94 @@
       }
     ],
     "formIndicator": 83
+  },
+  {
+    "name": "Sunday Stoney",
+    "team": "Port Melbourne Chargers Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 11,
+    "timesInBest": 5,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Parkside Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Williamstown CYMS Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      }
+    ],
+    "formIndicator": 90
   },
   {
     "name": "Aoife Nic a Bhaird",
@@ -27883,6 +28147,182 @@
       }
     ],
     "formIndicator": 45
+  },
+  {
+    "name": "Alice Mayne",
+    "team": "Parkside Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 10,
+    "timesInBest": 3,
+    "goals": 4,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Port Melbourne Chargers Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Williamstown CYMS Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
+    "name": "Hannah Baird",
+    "team": "Parkside Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 12,
+    "timesInBest": 5,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Port Melbourne Chargers Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Williamstown CYMS Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      }
+    ],
+    "formIndicator": 97
   },
   {
     "name": "Gemma Holland",
@@ -31694,6 +32134,59 @@
     "formIndicator": 92
   },
   {
+    "name": "Hannah Baird",
+    "team": "Parkside Senior Women's 2",
+    "grade": "Division 5 Women's",
+    "games": 6,
+    "timesInBest": 3,
+    "goals": 4,
+    "gameLog": [
+      {
+        "date": "2026-05-02",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 3,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Melania Andonov",
     "team": "Old Scotch U19 Women's",
     "grade": "Holmesglen U19 Premier Women's",
@@ -33259,6 +33752,80 @@
     "formIndicator": 0
   },
   {
+    "name": "Amelie Kamberis",
+    "team": "Port Melbourne Chargers Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 9,
+    "timesInBest": 3,
+    "goals": 3,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Parkside Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Williamstown CYMS Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 4
+      }
+    ],
+    "formIndicator": 83
+  },
+  {
     "name": "laura luci",
     "team": "Port Melbourne Chargers Senior Women's",
     "grade": "Premier B Women's",
@@ -33493,6 +34060,94 @@
       }
     ],
     "formIndicator": 51
+  },
+  {
+    "name": "Heidi GARDAM",
+    "team": "Parkside Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 11,
+    "timesInBest": 4,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Port Melbourne Chargers Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Williamstown CYMS Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      }
+    ],
+    "formIndicator": 100
   },
   {
     "name": "Ruby Raymond",
@@ -34962,94 +35617,6 @@
       }
     ],
     "formIndicator": 42
-  },
-  {
-    "name": "Georgia Collinson",
-    "team": "Parkdale Vultures Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 11,
-    "timesInBest": 2,
-    "goals": 5,
-    "gameLog": [
-      {
-        "date": "2026-05-16",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Haileybury Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Yarra Cobras Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-18",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 2,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "South Melbourne Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 25
   },
   {
     "name": "Jemima Broadhead",
@@ -38099,94 +38666,6 @@
     "formIndicator": 0
   },
   {
-    "name": "Maegan Harrison",
-    "team": "Port Melbourne Chargers Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 11,
-    "timesInBest": 3,
-    "goals": 2,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Parkside Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 81
-  },
-  {
     "name": "maia sublet",
     "team": "Port Melbourne Chargers Senior Women's",
     "grade": "Premier B Women's",
@@ -38266,94 +38745,6 @@
       }
     ],
     "formIndicator": 50
-  },
-  {
-    "name": "Sunday Stoney",
-    "team": "Port Melbourne Chargers Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 11,
-    "timesInBest": 4,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Parkside Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Williamstown CYMS Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 54
   },
   {
     "name": "Emma Elliott",
@@ -38787,182 +39178,6 @@
       }
     ],
     "formIndicator": 42
-  },
-  {
-    "name": "Alice Mayne",
-    "team": "Parkside Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 10,
-    "timesInBest": 2,
-    "goals": 4,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Port Melbourne Chargers Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Williamstown CYMS Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 100
-  },
-  {
-    "name": "Hannah Baird",
-    "team": "Parkside Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 12,
-    "timesInBest": 4,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Port Melbourne Chargers Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Williamstown CYMS Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 58
   },
   {
     "name": "Jessica Trend",
@@ -44632,6 +44847,101 @@
     "formIndicator": 100
   },
   {
+    "name": "Holly Burr",
+    "team": "Parkside Senior Women's 2",
+    "grade": "Division 5 Women's",
+    "games": 12,
+    "timesInBest": 4,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "St Kevin's Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "South Melbourne Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Stephanie James",
     "team": "Elsternwick Senior Women's",
     "grade": "Division 5 Women's",
@@ -45261,52 +45571,6 @@
       }
     ],
     "formIndicator": 42
-  },
-  {
-    "name": "Hannah Baird",
-    "team": "Parkside Senior Women's 2",
-    "grade": "Division 5 Women's",
-    "games": 5,
-    "timesInBest": 2,
-    "goals": 4,
-    "gameLog": [
-      {
-        "date": "2026-05-02",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 3,
-        "inBest": true,
-        "bestRank": 1
-      }
-    ],
-    "formIndicator": 100
   },
   {
     "name": "Sienna Horan",
@@ -47271,80 +47535,6 @@
     "formIndicator": 26
   },
   {
-    "name": "Amelie Kamberis",
-    "team": "Port Melbourne Chargers Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 9,
-    "timesInBest": 2,
-    "goals": 3,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Parkside Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Williamstown CYMS Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 2,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 51
-  },
-  {
     "name": "Amy Pearce",
     "team": "Beaumaris Senior Women's",
     "grade": "Premier B Women's",
@@ -47720,94 +47910,6 @@
       }
     ],
     "formIndicator": 46
-  },
-  {
-    "name": "Heidi GARDAM",
-    "team": "Parkside Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 11,
-    "timesInBest": 3,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Port Melbourne Chargers Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Williamstown CYMS Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 91
   },
   {
     "name": "Charli McClure",
@@ -48622,6 +48724,59 @@
       }
     ],
     "formIndicator": 61
+  },
+  {
+    "name": "jaz farrow",
+    "team": "Beaumaris Senior Women's 2",
+    "grade": "Division 2 Women's",
+    "games": 6,
+    "timesInBest": 3,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Hampton Rovers Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "UHS-VU Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "St Mary's Salesian Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "De La Salle Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "UHS-VU Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Richmond Central Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 5
+      }
+    ],
+    "formIndicator": 55
   },
   {
     "name": "Holly Meyer",
@@ -50908,6 +51063,73 @@
     "formIndicator": 91
   },
   {
+    "name": "Sophie Burgess",
+    "team": "Parkside Senior Women's 2",
+    "grade": "Division 5 Women's",
+    "games": 8,
+    "timesInBest": 3,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "St Kevin's Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      }
+    ],
+    "formIndicator": 93
+  },
+  {
     "name": "Kate Dyer",
     "team": "Parkside Senior Women's 2",
     "grade": "Division 5 Women's",
@@ -51209,6 +51431,73 @@
       }
     ],
     "formIndicator": 84
+  },
+  {
+    "name": "Ellie Waters",
+    "team": "Parkside Senior Women's 2",
+    "grade": "Division 5 Women's",
+    "games": 8,
+    "timesInBest": 3,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-25",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "St Kevin's Senior Women's 3",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "South Melbourne Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      }
+    ],
+    "formIndicator": 46
   },
   {
     "name": "Diana Cornish",
@@ -55417,6 +55706,101 @@
     "formIndicator": 69
   },
   {
+    "name": "Georgia Lindemans",
+    "team": "Parkside Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 12,
+    "timesInBest": 3,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "La Trobe University Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Port Melbourne Chargers Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Beaumaris Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Old Melburnians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Williamstown CYMS Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Mia Ison",
     "team": "Parkside Senior Women's",
     "grade": "Premier B Women's",
@@ -57702,59 +58086,6 @@
       }
     ],
     "formIndicator": 58
-  },
-  {
-    "name": "jaz farrow",
-    "team": "Beaumaris Senior Women's 2",
-    "grade": "Division 2 Women's",
-    "games": 6,
-    "timesInBest": 3,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Hampton Rovers Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "UHS-VU Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "St Mary's Salesian Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "De La Salle Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "UHS-VU Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Richmond Central Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      }
-    ],
-    "formIndicator": 42
   },
   {
     "name": "Zoe Hewlett",
@@ -61321,101 +61652,6 @@
     "formIndicator": 0
   },
   {
-    "name": "Holly Burr",
-    "team": "Parkside Senior Women's 2",
-    "grade": "Division 5 Women's",
-    "games": 12,
-    "timesInBest": 3,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "St Kevin's Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "South Melbourne Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 100
-  },
-  {
     "name": "Georgie Wiley",
     "team": "West Brunswick Senior Women's 3",
     "grade": "Division 5 Women's",
@@ -64163,6 +64399,24 @@
     "formIndicator": 100
   },
   {
+    "name": "Vaiola Walshe",
+    "team": "Port Melbourne Chargers Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 1,
+    "timesInBest": 1,
+    "goals": 3,
+    "gameLog": [
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Xaverians Senior Women's",
+        "goals": 3,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Olivia Allen",
     "team": "Power House Senior Women's",
     "grade": "Division 1 Women's",
@@ -66215,73 +66469,6 @@
     "formIndicator": 100
   },
   {
-    "name": "Sophie Burgess",
-    "team": "Parkside Senior Women's 2",
-    "grade": "Division 5 Women's",
-    "games": 8,
-    "timesInBest": 2,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "St Kevin's Senior Women's 3",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 62
-  },
-  {
     "name": "Georgina McEwen",
     "team": "St Kevin's Senior Women's 3",
     "grade": "Division 5 Women's",
@@ -66340,73 +66527,6 @@
       }
     ],
     "formIndicator": 55
-  },
-  {
-    "name": "Ellie Waters",
-    "team": "Parkside Senior Women's 2",
-    "grade": "Division 5 Women's",
-    "games": 8,
-    "timesInBest": 2,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-04-25",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "St Kevin's Senior Women's 3",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "South Melbourne Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
   },
   {
     "name": "Mia Ison",
@@ -71506,101 +71626,6 @@
       }
     ],
     "formIndicator": 54
-  },
-  {
-    "name": "Georgia Lindemans",
-    "team": "Parkside Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 12,
-    "timesInBest": 2,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "La Trobe University Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Port Melbourne Chargers Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Beaumaris Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Old Melburnians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Williamstown CYMS Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 100
   },
   {
     "name": "Charlotte James",
@@ -83581,6 +83606,45 @@
     "formIndicator": 62
   },
   {
+    "name": "Mia Hyde-Smith",
+    "team": "St Kevin's Reserve Women's",
+    "grade": "Premier Women's Reserve",
+    "games": 4,
+    "timesInBest": 0,
+    "goals": 3,
+    "gameLog": [
+      {
+        "date": "2026-05-02",
+        "opponent": "Westbourne Grammarians Reserve Women's",
+        "goals": 2,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Geelong Reserve Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Kew Reserve Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Caulfield Grammarians Reserve Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      }
+    ],
+    "formIndicator": 26
+  },
+  {
     "name": "Isabel Choate",
     "team": "Westbourne Grammarians Reserve Women's",
     "grade": "Premier Women's Reserve",
@@ -84615,24 +84679,6 @@
         "goals": 1,
         "inBest": true,
         "bestRank": 3
-      }
-    ],
-    "formIndicator": 88
-  },
-  {
-    "name": "Vaiola Walshe",
-    "team": "Port Melbourne Chargers Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 1,
-    "timesInBest": 0,
-    "goals": 3,
-    "gameLog": [
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Xaverians Senior Women's",
-        "goals": 3,
-        "inBest": false,
-        "bestRank": null
       }
     ],
     "formIndicator": 88
@@ -87899,6 +87945,24 @@
       {
         "date": "2026-07-04",
         "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 88
+  },
+  {
+    "name": "Lucy Doyle",
+    "team": "Parkside Senior Women's 2",
+    "grade": "Division 5 Women's",
+    "games": 1,
+    "timesInBest": 1,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-07-18",
+        "opponent": "Ormond Senior Women's 2",
         "goals": 1,
         "inBest": true,
         "bestRank": 3
@@ -91789,45 +91853,6 @@
     "formIndicator": 0
   },
   {
-    "name": "Mia Hyde-Smith",
-    "team": "St Kevin's Reserve Women's",
-    "grade": "Premier Women's Reserve",
-    "games": 4,
-    "timesInBest": 0,
-    "goals": 2,
-    "gameLog": [
-      {
-        "date": "2026-05-02",
-        "opponent": "Westbourne Grammarians Reserve Women's",
-        "goals": 2,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Geelong Reserve Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Kew Reserve Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Caulfield Grammarians Reserve Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
     "name": "Caitlyn Gashi",
     "team": "Westbourne Grammarians Reserve Women's",
     "grade": "Premier Women's Reserve",
@@ -95075,6 +95100,24 @@
         "goals": 0,
         "inBest": true,
         "bestRank": 3
+      }
+    ],
+    "formIndicator": 75
+  },
+  {
+    "name": "Millie-Rose Bracken",
+    "team": "Parkside Senior Women's",
+    "grade": "Premier B Women's",
+    "games": 1,
+    "timesInBest": 1,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-07-18",
+        "opponent": "Old Yarra Cobras Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
       }
     ],
     "formIndicator": 75
@@ -102220,6 +102263,24 @@
     "formIndicator": 75
   },
   {
+    "name": "Emily Boddington",
+    "team": "Parkdale Vultures Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 1,
+    "timesInBest": 1,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-07-18",
+        "opponent": "Caulfield Grammarians Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      }
+    ],
+    "formIndicator": 75
+  },
+  {
     "name": "Amelia Randall",
     "team": "Caulfield Grammarians Senior Women's 3",
     "grade": "Division 3 Women's",
@@ -105377,6 +105438,73 @@
     "formIndicator": 0
   },
   {
+    "name": "Bronte Grayston",
+    "team": "Parkside Senior Women's 2",
+    "grade": "Division 5 Women's",
+    "games": 8,
+    "timesInBest": 1,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "St Kevin's Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Eden Hayes",
     "team": "Elsternwick Senior Women's",
     "grade": "Division 5 Women's",
@@ -106295,7 +106423,7 @@
     "name": "Georgia Lindemans",
     "team": "Parkside Senior Women's 2",
     "grade": "Division 5 Women's",
-    "games": 4,
+    "games": 5,
     "timesInBest": 0,
     "goals": 2,
     "gameLog": [
@@ -106326,9 +106454,16 @@
         "goals": 2,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       }
     ],
-    "formIndicator": 75
+    "formIndicator": 92
   },
   {
     "name": "Louisa Stocks",
@@ -106830,7 +106965,7 @@
     "name": "Ava Hunt",
     "team": "Parkside Senior Women's 2",
     "grade": "Division 5 Women's",
-    "games": 3,
+    "games": 2,
     "timesInBest": 1,
     "goals": 0,
     "gameLog": [
@@ -106847,16 +106982,9 @@
         "goals": 0,
         "inBest": true,
         "bestRank": 2
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
       }
     ],
-    "formIndicator": 58
+    "formIndicator": 62
   },
   {
     "name": "Caitlin Carpenter",
@@ -113690,7 +113818,7 @@
     "name": "Jasmine Vo",
     "team": "Parkside Senior Women's 2",
     "grade": "Division 5 Women's",
-    "games": 3,
+    "games": 2,
     "timesInBest": 0,
     "goals": 1,
     "gameLog": [
@@ -113707,16 +113835,9 @@
         "goals": 0,
         "inBest": false,
         "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
       }
     ],
-    "formIndicator": 54
+    "formIndicator": 56
   },
   {
     "name": "Maisie Welsh",
@@ -113926,24 +114047,6 @@
       {
         "date": "2026-07-04",
         "opponent": "De La Salle Senior Women's 2",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 62
-  },
-  {
-    "name": "Lucy Doyle",
-    "team": "Parkside Senior Women's 2",
-    "grade": "Division 5 Women's",
-    "games": 1,
-    "timesInBest": 0,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-07-18",
-        "opponent": "Ormond Senior Women's 2",
         "goals": 1,
         "inBest": false,
         "bestRank": null
@@ -124818,24 +124921,6 @@
   },
   {
     "name": "Therese Allaoui",
-    "team": "Parkside Senior Women's",
-    "grade": "Premier B Women's",
-    "games": 1,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-07-18",
-        "opponent": "Old Yarra Cobras Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
-    "name": "Millie-Rose Bracken",
     "team": "Parkside Senior Women's",
     "grade": "Premier B Women's",
     "games": 1,
@@ -137128,24 +137213,6 @@
     "formIndicator": 0
   },
   {
-    "name": "Emily Boddington",
-    "team": "Parkdale Vultures Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 1,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-07-18",
-        "opponent": "Caulfield Grammarians Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
     "name": "Isabella Cunnington",
     "team": "Old Haileybury Senior Women's",
     "grade": "Division 3 Women's",
@@ -142080,73 +142147,6 @@
       {
         "date": "2026-05-16",
         "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
-    "name": "Bronte Grayston",
-    "team": "Parkside Senior Women's 2",
-    "grade": "Division 5 Women's",
-    "games": 8,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "St Kevin's Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Ormond Senior Women's 2",
         "goals": 0,
         "inBest": false,
         "bestRank": null
