@@ -149,12 +149,10 @@ function teamLast5(club,grade,ladder){
     const oppName=isHome?gameAway(g):gameHome(g);
     const won=ourScore>theirScore;
     const drew=ourScore===theirScore;
-    // Base weighting
     let base=0;
     if(won)base=isHome?1.0:1.5;
     else if(drew)base=isHome?0.5:0.75;
     else base=isHome?-1.5:-1.0;
-    // Ladder difficulty bonus
     let bonus=0;
     if(ladder){
       const ourPos=ladder.findIndex(t=>t.team===club);
@@ -175,14 +173,11 @@ function teamLast5(club,grade,ladder){
 function generateCoachingNotes(ownClub,oppName,grade,fixture,ourForm,theirForm,oppSquad,ladder){
   const notes=[];
   const isHome=gameHome(fixture)===ownClub;
-  const oppIsHigher=ladder.findIndex(t=>t.team===oppName)<ladder.findIndex(t=>t.team===ownClub);
-  // 1. Venue factor
   if(isHome){
     notes.push({icon:"HOME",tone:"neutral",text:"We're hosting. Their away form is "+(theirForm.wins)+"W-"+theirForm.losses+"L in last 5. Own the first quarter to set the tone."});
   }else{
     notes.push({icon:"AWAY",tone:"warning",text:"We're travelling. Their home advantage counts - factor into the game plan and pre-game routine."});
   }
-  // 2. Form comparison
   const formGap=ourForm.pct-theirForm.pct;
   if(formGap>=15){
     notes.push({icon:"MOMENTUM",tone:"positive",text:"We enter in stronger form ("+ourForm.pct+"% vs "+theirForm.pct+"%). Take confidence but don't drop intensity."});
@@ -191,18 +186,15 @@ function generateCoachingNotes(ownClub,oppName,grade,fixture,ourForm,theirForm,o
   }else{
     notes.push({icon:"BALANCE",tone:"neutral",text:"Form is close ("+ourForm.pct+"% vs "+theirForm.pct+"%). The details will decide this - first-quarter energy and set-piece execution."});
   }
-  // 3. Their top player
   if(oppSquad.length){
     const topPlayer=oppSquad[0];
     notes.push({icon:"TAG",tone:"warning",text:"Their #1 threat: "+topPlayer.name+" (Talent Score "+topPlayer.talentScore+", "+(topPlayer.goals||0)+" goals, "+bestCount(topPlayer)+" games in best). Plan a matchup - do not let her set the tempo."});
   }
-  // 4. Their recent form pattern
   if(theirForm.losses>=3){
     notes.push({icon:"OPPORTUNITY",tone:"positive",text:"They've lost "+theirForm.losses+" of their last 5. Fragile confidence - press hard early and they may fold."});
   }else if(theirForm.wins>=4){
     notes.push({icon:"WARN",tone:"warning",text:"They've won "+theirForm.wins+" of their last 5. On a run - expect a confident, structured opponent."});
   }
-  // 5. Scoring pattern
   const avgFor=theirForm.results.length?Math.round(theirForm.results.reduce((s,r)=>s+r.ourScore,0)/theirForm.results.length):0;
   const avgAgainst=theirForm.results.length?Math.round(theirForm.results.reduce((s,r)=>s+r.theirScore,0)/theirForm.results.length):0;
   if(avgAgainst>=70){
@@ -231,7 +223,6 @@ function renderMatchPrep(){
   const theirForm=teamLast5(opp,own.grade,ladder);
   let oppSquad=players.filter(p=>p.club===opp&&p.grade===own.grade&&p.name&&p.name.trim().toLowerCase()!=="none none").sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));
   if(!oppSquad.length){oppSquad=players.filter(p=>p.club===opp&&p.name&&p.name.trim().toLowerCase()!=="none none").sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));}
-  // 1. Fixture hero
   if(sel("mpAutoHeader")){
     sel("mpAutoHeader").classList.remove("hidden");
     const badge=isHome?'<div class="venue-badge home">AT HOME</div>':'<div class="venue-badge away">AWAY AT '+opp+'</div>';
@@ -241,11 +232,10 @@ function renderMatchPrep(){
     const html='<div class="autoheader-team">'+own.club+'</div><div class="autoheader-vs">VS</div><div class="autoheader-team">'+opp+'</div><div class="autoheader-meta">'+roundLabel+' \u00B7 '+dateStr+' \u00B7 '+own.grade+(nx.isPast?' (last meeting)':'')+'</div>'+badge;
     sel("mpAutoHeaderContent").innerHTML=html;
   }
-  // 2. Form comparison (reuse mpHeadToHead card slot)
   if(sel("mpHeadToHead")){
     sel("mpHeadToHead").classList.remove("hidden");
     sel("mpHeadToHead").querySelector("h2").textContent="Form Comparison - Last 5 Games";
-    sel("mpHeadToHead").querySelector("p").textContent="Weighted for venue difficulty and opponent quality.";
+    const p=sel("mpHeadToHead").querySelector("p");if(p)p.textContent="Weighted for venue difficulty and opponent quality.";
     const renderBlocks=(f)=>{return f.results.map(r=>{const cls=r.result==="W"?"win":r.result==="L"?"loss":"draw";return '<span class="form-block '+cls+'" title="'+r.round+' '+(r.isHome?"H":"A")+' vs '+r.oppName+' '+r.ourScore+'-'+r.theirScore+'">'+r.result+'</span>';}).join("");};
     let html='<div class="h2h-split">';
     html+='<div class="h2h-block h2h-highlight"><div class="h2h-block-label">OBGFC (last 5)</div><div style="margin:8px 0"><span class="form-blocks">'+renderBlocks(ourForm)+'</span></div><div class="h2h-block-record">'+ourForm.pct+'%</div><div class="h2h-block-margin">'+ourForm.wins+'W-'+ourForm.draws+'D-'+ourForm.losses+'L weighted</div></div>';
@@ -253,11 +243,10 @@ function renderMatchPrep(){
     html+='</div>';
     sel("mpHeadToHeadContent").innerHTML=html;
   }
-  // 3. Verdict (reuse mpHomeAwayForm card)
   if(sel("mpHomeAwayForm")){
     sel("mpHomeAwayForm").classList.remove("hidden");
     sel("mpHomeAwayForm").querySelector("h2").textContent="Match Verdict";
-    sel("mpHomeAwayForm").querySelector("p").textContent="Based on weighted form and matchup context.";
+    const p=sel("mpHomeAwayForm").querySelector("p");if(p)p.textContent="Based on weighted form and matchup context.";
     const formGap=ourForm.pct-theirForm.pct;
     let tone,text;
     if(formGap>=15){tone="positive";text="Form favours OBGFC ("+ourForm.pct+"% vs "+theirForm.pct+"%). Confident approach but stay disciplined - upsets happen when favourites drop intensity.";}
@@ -265,26 +254,23 @@ function renderMatchPrep(){
     else{tone="neutral";text="Close call. Form separated by "+Math.abs(formGap)+"% - this is a genuine tossup. First-quarter energy and set-piece execution will decide it.";}
     sel("mpHomeAwayFormContent").innerHTML='<div class="haf-verdict tone-'+tone+'"><strong>'+text+'</strong></div>';
   }
-  // 4. Coaching notes (reuse mpClassForm card)
   if(sel("mpClassForm")){
     sel("mpClassForm").classList.remove("hidden");
     sel("mpClassForm").querySelector("h2").textContent="Coaching Notes";
-    sel("mpClassForm").querySelector("p").textContent="Auto-generated tactical points for this fixture.";
+    const p=sel("mpClassForm").querySelector("p");if(p)p.textContent="Auto-generated tactical points for this fixture.";
     const notes=generateCoachingNotes(own.club,opp,own.grade,fixture,ourForm,theirForm,oppSquad,ladder);
     let html='';
     notes.forEach(n=>{
-      const toneCls=n.tone==="positive"?"tone-positive":n.tone==="negative"?"tone-negative":n.tone==="warning"?"tone-neutral":"tone-neutral";
+      const toneCls=n.tone==="positive"?"tone-positive":n.tone==="negative"?"tone-negative":"tone-neutral";
       html+='<div class="haf-verdict '+toneCls+'" style="margin-top:8px;"><strong>'+n.icon+':</strong> '+n.text+'</div>';
     });
     sel("mpClassFormContent").innerHTML=html;
   }
-  // 5. Top 5 talent (reuse mpDanger card)
   if(sel("mpDanger")){
     sel("mpDanger").classList.remove("hidden");
     sel("mpDanger").querySelector("h2").textContent="Their Top 5 - Watch these players";
     renderTop5("mpDangerList",oppSquad.slice(0,5),"Talent",p=>p.talentScore||0,{label:"Games",fn:p=>p.games||0});
   }
-  // Hide leftover cards
   ["mpVersus","mpFullSquad","mpRecent"].forEach(id=>{const e=sel(id);if(e)e.classList.add("hidden");});
 }
 // ===== ROUND LOG =====
