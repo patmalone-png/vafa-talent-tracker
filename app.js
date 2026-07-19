@@ -390,7 +390,6 @@ function projectTeamRunHome(club, grade, ladder){
 }
 
 function renderRunHomeProjections(grade){
-  const grade=selectedFPGrade();
   const el=sel("fpRunHome");
   if(!el)return;
   const ladder=buildLadderSimple(grade);
