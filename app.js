@@ -397,7 +397,6 @@ function projectTeamRunHome(club, grade, ladder){
     const currentRatio=currentGamesPlayed>0?Math.round(((currentWins+currentDraws*0.5)/currentGamesPlayed)*100):0;
     return {upcoming:fixtures, predictedWins, predictedLosses, predictedTossups, currentPts, projectedPts, currentRatio, projectedRatio, projectedGames};
 }
-
 function renderRunHomeProjections(){
   const grade=selectedFPGrade();
   const el=sel("fpRunHome");
@@ -406,19 +405,19 @@ function renderRunHomeProjections(){
   if(!ladder.length){el.innerHTML=emptyState("No games yet for this grade.");return;}
   const projections=ladder.map(t=>{
     const proj=projectTeamRunHome(t.team, grade, ladder);
-    return {team:t.team, played:t.wins+t.losses+t.draws, wins:t.wins, losses:t.losses, currentPts:t.pts, currentPct:t.pct.toFixed(0), ...proj};
+    return {team:t.team, played:t.wins+t.losses+t.draws, wins:t.wins, losses:t.losses, ...proj};
   });
-  projections.sort((a,b)=>b.projectedPts-a.projectedPts||b.currentPct-a.currentPct);
+  projections.sort((a,b)=>b.projectedRatio-a.projectedRatio||b.projectedPts-a.projectedPts);
   projections.forEach((p,i)=>{p.projectedPos=i+1;});
   const spots=selectedFPFinalsSpots();
-  const cutoffPts=projections[spots-1]?projections[spots-1].projectedPts:0;
-  let html='<div style="overflow-x:auto;"><table class="data"><thead><tr><th>#</th><th>Team</th><th>P</th><th>Curr Pts</th><th>Remaining</th><th>Proj W-L-T</th><th>Proj Pts</th><th>Status</th></tr></thead><tbody>';
+  const cutoffRatio=projections[spots-1]?projections[spots-1].projectedRatio:0;
+  let html='<div style="overflow-x:auto;"><table class="data"><thead><tr><th>#</th><th>Team</th><th>P</th><th>Curr MR%</th><th>Remaining</th><th>Proj W-L-T</th><th>Proj MR%</th><th>Proj Pts</th><th>Status</th></tr></thead><tbody>';
   projections.forEach((p,i)=>{
     const own=isOwnClubName(p.team);
     const dot=own?'<span class="own-club">\u25CF</span> ':'';
     let statusHtml, cls;
     if(p.projectedPos<=spots){cls="finals-row";statusHtml='<span class="fixture-difficulty easy">IN</span>';}
-    else if(p.projectedPos<=spots+1&&Math.abs(p.projectedPts-cutoffPts)<=4){cls="";statusHtml='<span class="fixture-difficulty medium">BUBBLE</span>';}
+    else if(p.projectedPos<=spots+1&&Math.abs(p.projectedRatio-cutoffRatio)<=5){cls="";statusHtml='<span class="fixture-difficulty medium">BUBBLE</span>';}
     else{cls="";statusHtml='<span class="fixture-difficulty hard">OUT</span>';}
     let fixHtml='';
     p.upcoming.forEach(f=>{
@@ -426,10 +425,10 @@ function renderRunHomeProjections(){
       const venueTag=f.isHome?'H':'A';
       fixHtml+='<span class="form-block '+predCls+'" title="'+(f.round||'')+' '+venueTag+' vs '+f.opponent+' ('+f.prob+'%)">'+f.prediction+'</span>';
     });
-    html+='<tr class="'+cls+'"><td>'+(i+1)+'</td><td>'+dot+p.team+'</td><td>'+p.played+'</td><td>'+p.currentPts+'</td><td><span class="form-blocks">'+fixHtml+'</span></td><td>'+p.predictedWins+'-'+p.predictedLosses+'-'+p.predictedTossups+'</td><td><b>'+p.projectedPts+'</b></td><td>'+statusHtml+'</td></tr>';
+    html+='<tr class="'+cls+'"><td>'+(i+1)+'</td><td>'+dot+p.team+'</td><td>'+p.played+'</td><td>'+(p.currentRatio||0)+'%</td><td><span class="form-blocks">'+fixHtml+'</span></td><td>'+p.predictedWins+'-'+p.predictedLosses+'-'+p.predictedTossups+'</td><td><b>'+(p.projectedRatio||0)+'%</b></td><td>'+p.projectedPts+'</td><td>'+statusHtml+'</td></tr>';
   });
   html+='</tbody></table></div>';
-  html+='<p class="muted" style="margin-top:10px;font-size:.75rem;">Predictions weighted by form (last 5), ladder position (\xB110%), home advantage (+8%). W=likely win, L=likely loss, T=tossup. Hover fixtures for details.</p>';
+  html+='<p class="muted" style="margin-top:10px;font-size:.75rem;">Sorted by projected Match Ratio (wins ÷ games played, draws = half win). Predictions weighted by form (last 5), ladder position (\xB110%), home advantage (+8%). W=likely win, L=likely loss, T=tossup. Hover fixtures for details.</p>';
   el.innerHTML=html;
 }
 loadData();
