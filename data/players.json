@@ -4559,6 +4559,94 @@
     "formIndicator": 57
   },
   {
+    "name": "Jess Whattam",
+    "team": "South Melbourne Senior Women's",
+    "grade": "Division 5 Women's",
+    "games": 11,
+    "timesInBest": 10,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-25",
+        "opponent": "Parkdale Vultures Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "St Kevin's Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Parkside Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      }
+    ],
+    "formIndicator": 80
+  },
+  {
     "name": "Olivia Rundle",
     "team": "Caulfield Grammarians Senior Women's",
     "grade": "William Buck Premier Women's",
@@ -6967,94 +7055,6 @@
     "formIndicator": 61
   },
   {
-    "name": "Jess Whattam",
-    "team": "South Melbourne Senior Women's",
-    "grade": "Division 5 Women's",
-    "games": 11,
-    "timesInBest": 9,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-25",
-        "opponent": "Parkdale Vultures Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "St Kevin's Senior Women's 3",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Parkside Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 57
-  },
-  {
     "name": "Lucy Stubbings",
     "team": "Old Scotch U19 Women's",
     "grade": "Holmesglen U19 Premier Women's",
@@ -8983,6 +8983,94 @@
       }
     ],
     "formIndicator": 45
+  },
+  {
+    "name": "Susanna Ryan",
+    "team": "South Melbourne Senior Women's",
+    "grade": "Division 5 Women's",
+    "games": 11,
+    "timesInBest": 7,
+    "goals": 3,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Parkdale Vultures Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Parkside Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      }
+    ],
+    "formIndicator": 75
   },
   {
     "name": "Rachel Da Silva",
@@ -13275,94 +13363,6 @@
       }
     ],
     "formIndicator": 100
-  },
-  {
-    "name": "Susanna Ryan",
-    "team": "South Melbourne Senior Women's",
-    "grade": "Division 5 Women's",
-    "games": 11,
-    "timesInBest": 6,
-    "goals": 3,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Parkdale Vultures Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Parkside Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 49
   },
   {
     "name": "Michaela George",
@@ -22235,6 +22235,80 @@
       }
     ],
     "formIndicator": 42
+  },
+  {
+    "name": "Adel Botfield",
+    "team": "South Melbourne Senior Women's",
+    "grade": "Division 5 Women's",
+    "games": 9,
+    "timesInBest": 6,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Parkdale Vultures Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Parkside Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      }
+    ],
+    "formIndicator": 67
   },
   {
     "name": "Jessica Blaikie",
@@ -31841,80 +31915,6 @@
     "formIndicator": 95
   },
   {
-    "name": "Adel Botfield",
-    "team": "South Melbourne Senior Women's",
-    "grade": "Division 5 Women's",
-    "games": 9,
-    "timesInBest": 5,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Parkdale Vultures Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Parkside Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 38
-  },
-  {
     "name": "Amber McCarthy",
     "team": "Monash Blues Senior Women's 2",
     "grade": "Division 5 Women's",
@@ -36854,6 +36854,80 @@
         "goals": 1,
         "inBest": false,
         "bestRank": null
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
+    "name": "Abigail Russell",
+    "team": "South Melbourne Senior Women's",
+    "grade": "Division 5 Women's",
+    "games": 9,
+    "timesInBest": 4,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Parkdale Vultures Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
       }
     ],
     "formIndicator": 100
@@ -51632,80 +51706,6 @@
       }
     ],
     "formIndicator": 79
-  },
-  {
-    "name": "Abigail Russell",
-    "team": "South Melbourne Senior Women's",
-    "grade": "Division 5 Women's",
-    "games": 9,
-    "timesInBest": 3,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Parkdale Vultures Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 77
   },
   {
     "name": "Allanah Ryan",
@@ -80981,6 +80981,80 @@
     "formIndicator": 83
   },
   {
+    "name": "Mackenzie Dalton",
+    "team": "South Melbourne Senior Women's",
+    "grade": "Division 5 Women's",
+    "games": 9,
+    "timesInBest": 2,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Prahran/Collegians Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Parkdale Vultures Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "De La Salle Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "St Kevin's Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-23",
+        "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Ormond Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Elsternwick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 83
+  },
+  {
     "name": "Sophie Porter",
     "team": "South Melbourne Senior Women's",
     "grade": "Division 5 Women's",
@@ -105086,10 +105160,10 @@
     "formIndicator": 0
   },
   {
-    "name": "Mackenzie Dalton",
+    "name": "Alysha Literski",
     "team": "South Melbourne Senior Women's",
     "grade": "Division 5 Women's",
-    "games": 9,
+    "games": 12,
     "timesInBest": 1,
     "goals": 0,
     "gameLog": [
@@ -105118,12 +105192,26 @@
         "date": "2026-05-09",
         "opponent": "St Kevin's Senior Women's 3",
         "goals": 0,
-        "inBest": true,
-        "bestRank": 5
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Monash Blues Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
       },
       {
         "date": "2026-05-23",
         "opponent": "Preston Bullants Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "West Brunswick Senior Women's 3",
         "goals": 0,
         "inBest": false,
         "bestRank": null
@@ -105150,14 +105238,21 @@
         "bestRank": null
       },
       {
-        "date": "2026-07-18",
-        "opponent": "West Brunswick Senior Women's 3",
+        "date": "2026-07-04",
+        "opponent": "Parkside Senior Women's 2",
         "goals": 0,
         "inBest": false,
         "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "West Brunswick Senior Women's 3",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 5
       }
     ],
-    "formIndicator": 0
+    "formIndicator": 100
   },
   {
     "name": "Olivia Poole",
@@ -141813,101 +141908,6 @@
       {
         "date": "2026-05-09",
         "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
-    "name": "Alysha Literski",
-    "team": "South Melbourne Senior Women's",
-    "grade": "Division 5 Women's",
-    "games": 12,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Prahran/Collegians Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Parkdale Vultures Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "De La Salle Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "St Kevin's Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Monash Blues Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-23",
-        "opponent": "Preston Bullants Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "West Brunswick Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Ormond Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Elsternwick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Glen Eira / Old McKinnon Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Parkside Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "West Brunswick Senior Women's 3",
         "goals": 0,
         "inBest": false,
         "bestRank": null
