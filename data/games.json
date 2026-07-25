@@ -525,8 +525,8 @@
     "date": "2026-07-25",
     "homeTeam": "St Kevin's Senior Women's",
     "awayTeam": "West Brunswick Senior Women's",
-    "homeScore": 30,
-    "awayScore": 19,
+    "homeScore": 32,
+    "awayScore": 20,
     "status": "FINAL"
   },
   {
@@ -555,9 +555,9 @@
     "date": "2026-07-25",
     "homeTeam": "Kew Senior Women's",
     "awayTeam": "Fitzroy Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "PENDING"
+    "homeScore": 35,
+    "awayScore": 26,
+    "status": "FINAL"
   },
   {
     "id": "98189724-d9af-48bc-a87c-fad26a250a48",
@@ -5505,9 +5505,9 @@
     "date": "2026-07-25",
     "homeTeam": "Williamstown CYMS U19 Women's",
     "awayTeam": "Old Scotch U19 Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "PENDING"
+    "homeScore": 15,
+    "awayScore": 26,
+    "status": "FINAL"
   },
   {
     "id": "fc1ab92b-a7b3-4a29-9205-30561e42c802",
