@@ -3645,9 +3645,9 @@
     "date": "2026-07-25",
     "homeTeam": "Prahran/Collegians Senior Women's",
     "awayTeam": "Old Yarra Cobras Senior Women's 2",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "PENDING"
+    "homeScore": 64,
+    "awayScore": 2,
+    "status": "FINAL"
   },
   {
     "id": "93a30b81-9b42-4f3a-9415-099b3dc1414a",
@@ -4335,9 +4335,9 @@
     "date": "2026-07-26",
     "homeTeam": "MUWFC Senior Women's",
     "awayTeam": "Brunswick Senior Women's",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "UPCOMING"
+    "homeScore": 33,
+    "awayScore": 40,
+    "status": "FINAL"
   },
   {
     "id": "56f4c9fd-cfdf-4a6c-a8a3-c63d0ccad2e4",
@@ -5145,9 +5145,9 @@
     "date": "2026-07-25",
     "homeTeam": "Glen Eira / Old McKinnon Senior Women's 2",
     "awayTeam": "Parkside Senior Women's 2",
-    "homeScore": 0,
-    "awayScore": 0,
-    "status": "PENDING"
+    "homeScore": 8,
+    "awayScore": 22,
+    "status": "FINAL"
   },
   {
     "id": "3ae24863-b2ad-4c35-ba78-1f3399ee70f5",
