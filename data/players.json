@@ -11284,6 +11284,73 @@
     "formIndicator": 84
   },
   {
+    "name": "Rhiann O’Donnell",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 8,
+    "timesInBest": 4,
+    "goals": 9,
+    "gameLog": [
+      {
+        "date": "2026-04-25",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 4,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 1
+      }
+    ],
+    "formIndicator": 60
+  },
+  {
     "name": "Chloe Phillips",
     "team": "Parkdale Vultures Senior Women's",
     "grade": "Division 3 Women's",
@@ -15653,73 +15720,6 @@
       }
     ],
     "formIndicator": 61
-  },
-  {
-    "name": "Rhiann O’Donnell",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 8,
-    "timesInBest": 3,
-    "goals": 9,
-    "gameLog": [
-      {
-        "date": "2026-04-25",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 1,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 4,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 2,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 39
   },
   {
     "name": "Lilly Ellis",
@@ -21464,6 +21464,175 @@
       }
     ],
     "formIndicator": 65
+  },
+  {
+    "name": "Samantha Dale",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 11,
+    "timesInBest": 6,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Port Melbourne Chargers Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Xaverians Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 1,
+        "inBest": true,
+        "bestRank": 5
+      }
+    ],
+    "formIndicator": 55
+  },
+  {
+    "name": "Ashlea Wilson",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 10,
+    "timesInBest": 3,
+    "goals": 7,
+    "gameLog": [
+      {
+        "date": "2026-05-02",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 5
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Xaverians Senior Women's 2",
+        "goals": 1,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      }
+    ],
+    "formIndicator": 34
   },
   {
     "name": "Maya Dunne",
@@ -31390,175 +31559,6 @@
       }
     ],
     "formIndicator": 77
-  },
-  {
-    "name": "Samantha Dale",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 11,
-    "timesInBest": 5,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Port Melbourne Chargers Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Xaverians Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 4
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 21
-  },
-  {
-    "name": "Ashlea Wilson",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 10,
-    "timesInBest": 2,
-    "goals": 7,
-    "gameLog": [
-      {
-        "date": "2026-05-02",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 5
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Xaverians Senior Women's 2",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
   },
   {
     "name": "Bridget Savic",
@@ -57645,101 +57645,6 @@
     "formIndicator": 56
   },
   {
-    "name": "Emma Calvert",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 12,
-    "timesInBest": 2,
-    "goals": 3,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Port Melbourne Chargers Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 2,
-        "inBest": true,
-        "bestRank": 3
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Xaverians Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 33
-  },
-  {
     "name": "Tahlia Day",
     "team": "Hawthorn Senior Women's",
     "grade": "Division 3 Women's",
@@ -67677,6 +67582,168 @@
     "formIndicator": 0
   },
   {
+    "name": "Emma Calvert",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 12,
+    "timesInBest": 2,
+    "goals": 2,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Port Melbourne Chargers Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 3
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Xaverians Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      }
+    ],
+    "formIndicator": 0
+  },
+  {
+    "name": "Emma Sullivan",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 8,
+    "timesInBest": 3,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Port Melbourne Chargers Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Xaverians Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 1
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 2
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 4
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Katherine Ingvarson",
     "team": "Fitzroy Senior Women's 3",
     "grade": "Division 3 Women's",
@@ -73927,87 +73994,6 @@
       }
     ],
     "formIndicator": 71
-  },
-  {
-    "name": "Meaghan Donaldson",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 10,
-    "timesInBest": 2,
-    "goals": 1,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Port Melbourne Chargers Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Xaverians Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 6
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 1,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 37
   },
   {
     "name": "Bridget Turner",
@@ -87604,6 +87590,87 @@
     "formIndicator": 58
   },
   {
+    "name": "Meaghan Donaldson",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 10,
+    "timesInBest": 2,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-04-18",
+        "opponent": "Port Melbourne Chargers Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-04-25",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Xaverians Senior Women's 2",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      }
+    ],
+    "formIndicator": 0
+  },
+  {
     "name": "Claire McGrath",
     "team": "Albert Park Senior Women's",
     "grade": "Division 3 Women's",
@@ -87690,73 +87757,6 @@
       }
     ],
     "formIndicator": 0
-  },
-  {
-    "name": "Emma Sullivan",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 8,
-    "timesInBest": 2,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-18",
-        "opponent": "Port Melbourne Chargers Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-04-25",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Xaverians Senior Women's 2",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 1
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": true,
-        "bestRank": 2
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 75
   },
   {
     "name": "Claudia Hetherington",
@@ -88099,6 +88099,87 @@
       }
     ],
     "formIndicator": 0
+  },
+  {
+    "name": "Aine Conlon",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 10,
+    "timesInBest": 1,
+    "goals": 2,
+    "gameLog": [
+      {
+        "date": "2026-04-25",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-02",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-16",
+        "opponent": "Canterbury Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 2,
+        "inBest": true,
+        "bestRank": 3
+      }
+    ],
+    "formIndicator": 100
   },
   {
     "name": "elizabeth spicer",
@@ -115140,6 +115221,66 @@
     "formIndicator": 0
   },
   {
+    "name": "Katie Talbot",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 4 Women's",
+    "games": 7,
+    "timesInBest": 1,
+    "goals": 0,
+    "gameLog": [
+      {
+        "date": "2026-05-30",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Xaverians Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-20",
+        "opponent": "Aquinas Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-27",
+        "opponent": "Mazenod Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": true,
+        "bestRank": 6
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
     "name": "Iona Moller",
     "team": "MUWFC Senior Women's",
     "grade": "Division 4 Women's",
@@ -122954,6 +123095,66 @@
         "date": "2026-07-26",
         "opponent": "MUWFC Senior Women's",
         "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      }
+    ],
+    "formIndicator": 100
+  },
+  {
+    "name": "Beckie Esdaile",
+    "team": "Albert Park Senior Women's",
+    "grade": "Division 3 Women's",
+    "games": 7,
+    "timesInBest": 0,
+    "goals": 1,
+    "gameLog": [
+      {
+        "date": "2026-04-25",
+        "opponent": "Hawthorn Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-09",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-05-30",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-06-13",
+        "opponent": "Old Xaverians Senior Women's 2",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-04",
+        "opponent": "Fitzroy Senior Women's 3",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Wattle Park Senior Women's",
+        "goals": 0,
+        "inBest": false,
+        "bestRank": null
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "North Brunswick Senior Women's",
+        "goals": 1,
         "inBest": false,
         "bestRank": null
       }
@@ -146106,147 +146307,6 @@
     "formIndicator": 0
   },
   {
-    "name": "Beckie Esdaile",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 7,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-25",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Xaverians Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
-    "name": "Aine Conlon",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 3 Women's",
-    "games": 10,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-04-25",
-        "opponent": "Hawthorn Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-02",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-09",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-16",
-        "opponent": "Canterbury Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-05-30",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
     "name": "Imogen Gorst",
     "team": "Hawthorn Senior Women's",
     "grade": "Division 3 Women's",
@@ -151132,66 +151192,6 @@
       {
         "date": "2026-07-25",
         "opponent": "Albert Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      }
-    ],
-    "formIndicator": 0
-  },
-  {
-    "name": "Katie Talbot",
-    "team": "Albert Park Senior Women's",
-    "grade": "Division 4 Women's",
-    "games": 7,
-    "timesInBest": 0,
-    "goals": 0,
-    "gameLog": [
-      {
-        "date": "2026-05-30",
-        "opponent": "North Brunswick Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-13",
-        "opponent": "Old Xaverians Senior Women's 2",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-20",
-        "opponent": "Aquinas Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-06-27",
-        "opponent": "Mazenod Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-04",
-        "opponent": "Fitzroy Senior Women's 3",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-18",
-        "opponent": "Wattle Park Senior Women's",
-        "goals": 0,
-        "inBest": false,
-        "bestRank": null
-      },
-      {
-        "date": "2026-07-25",
-        "opponent": "North Brunswick Senior Women's",
         "goals": 0,
         "inBest": false,
         "bestRank": null
