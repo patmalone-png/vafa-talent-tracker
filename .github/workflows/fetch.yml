@@ -44,6 +44,8 @@ jobs:
           PLAYHQ_API_KEY: ${{ secrets.PLAYHQ_API_KEY }}
           PLAYHQ_TENANT: afl
         run: python scripts/fetch_playhq.py
+      - name: Fetch ladders2
+        run: python scripts/fetch_ladders.py
 
       - name: Validate output files
         run: |
