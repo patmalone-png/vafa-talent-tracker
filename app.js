@@ -107,7 +107,7 @@ function lastFixtureFor(club,grade){return games.filter(g=>g.grade===grade&&isFi
 function findObgfcNextFixture(){
   const now=new Date().toISOString();
   const isOB=n=>(n||"").toLowerCase().includes("brighton");
-  const upcoming=games.filter(g=>!isFinal(g)&&(isOB(gameHome(g))||isOB(gameAway(g)))&&(!gameDateTime(g)||gameDateTime(g)>=now)).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)));
+  const upcoming=games.filter(g=>!isFinal(g)&&(isOB(gameHome(g))||isOB(gameAway(g)))&&!gameHome(g).toLowerCase().includes("williamstown")&&!gameAway(g).toLowerCase().includes("williamstown")&&(!gameDateTime(g)||gameDateTime(g)>=now)).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)));
   if(upcoming.length){
     const g=upcoming[0];
     const club=isOB(gameHome(g))?gameHome(g):gameAway(g);
@@ -365,7 +365,7 @@ function predictFixtureProbability(homeTeamName, awayTeamName, grade, ladder){
 
 function projectTeamRunHome(club, grade, ladder){
   const now=new Date().toISOString();
-  const upcoming=games.filter(g=>g.grade===grade&&!isFinal(g)&&gameInvolves(g,club)&&(!gameDateTime(g)||gameDateTime(g)>=now)).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)));
+  const upcoming=games.filter(g=>g.grade===grade&&!isFinal(g)&&gameInvolves(g,club)&&!gameHome(g).toLowerCase().includes("williamstown")&&!gameAway(g).toLowerCase().includes("williamstown")&&(!gameDateTime(g)||gameDateTime(g)>=now)).sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b)));
   let predictedWins=0, predictedLosses=0, predictedTossups=0;
   const fixtures=[];
   upcoming.forEach(g=>{
