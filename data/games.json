@@ -1417,6 +1417,19 @@
     "awayScore": 106
   },
   {
+    "id": "268d1ccb-fa28-46b5-bc84-ae5a2320a050",
+    "season": "2026",
+    "grade": "Premier A Women's Reserve",
+    "round": "Round 11",
+    "date": "2026-07-04",
+    "dateTime": "2026-07-04T02:00:00.000Z",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
     "id": "6faffeb6-b443-45ca-9f9b-f699760dcfc8",
     "season": "2026",
     "grade": "Premier A Women's Reserve",
@@ -1493,19 +1506,6 @@
     "awayTeam": "",
     "homeScore": 12,
     "awayScore": 98
-  },
-  {
-    "id": "268d1ccb-fa28-46b5-bc84-ae5a2320a050",
-    "season": "2026",
-    "grade": "Premier A Women's Reserve",
-    "round": "Round 11",
-    "date": "2026-07-04",
-    "dateTime": "2026-07-04T02:00:00.000Z",
-    "status": "PENDING",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
   },
   {
     "id": "aaa8b200-4a3c-4933-98b1-3dde734794d6",
@@ -4775,8 +4775,8 @@
     "season": "2026",
     "grade": "Division 3 Women's",
     "round": "Round 14",
-    "date": "2026-08-01",
-    "dateTime": "2026-08-01T02:00:00.000Z",
+    "date": "2026-07-31",
+    "dateTime": "2026-07-31T23:20:00.000Z",
     "status": "UPCOMING",
     "homeTeam": "",
     "awayTeam": "",
