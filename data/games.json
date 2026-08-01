@@ -734,11 +734,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 21,
+    "awayScore": 17
   },
   {
     "id": "922d62fa-4a80-462b-b210-f09f5debb5eb",
@@ -747,11 +747,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:30:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 108,
+    "awayScore": 12
   },
   {
     "id": "c818b692-09dc-48d7-82e0-2557ab4d7f97",
@@ -760,11 +760,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 26,
+    "awayScore": 32
   },
   {
     "id": "04681ec3-7531-4d36-be16-ff0d74dba827",
@@ -773,11 +773,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 41,
+    "awayScore": 34
   },
   {
     "id": "1cbf9b5f-cc9f-40fd-84bb-21bf91847742",
@@ -1514,24 +1514,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T00:50:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
-  },
-  {
-    "id": "f01fd2db-4478-4464-9fca-985a0141ff5a",
-    "season": "2026",
-    "grade": "Premier A Women's Reserve",
-    "round": "Round 14",
-    "date": "2026-08-01",
-    "dateTime": "2026-08-01T02:00:00.000Z",
-    "status": "UPCOMING",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 32,
+    "awayScore": 30
   },
   {
     "id": "b383b204-2181-4eff-8324-af04a2da278f",
@@ -1540,7 +1527,20 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T01:40:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": 70,
+    "awayScore": 9
+  },
+  {
+    "id": "f01fd2db-4478-4464-9fca-985a0141ff5a",
+    "season": "2026",
+    "grade": "Premier A Women's Reserve",
+    "round": "Round 14",
+    "date": "2026-08-01",
+    "dateTime": "2026-08-01T02:00:00.000Z",
+    "status": "PENDING",
     "homeTeam": "",
     "awayTeam": "",
     "homeScore": null,
@@ -2392,30 +2392,17 @@
     "awayScore": 24
   },
   {
-    "id": "7402f212-ca42-4064-83f4-4c3546200e00",
-    "season": "2026",
-    "grade": "Premier B Women's",
-    "round": "Round 14",
-    "date": "2026-07-31",
-    "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
-  },
-  {
     "id": "70e3fb8b-9c30-4a14-b233-de000ec8a235",
     "season": "2026",
     "grade": "Premier B Women's",
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 32,
+    "awayScore": 14
   },
   {
     "id": "5144af68-ef9b-4913-8af3-da9c2c0619b9",
@@ -2424,7 +2411,20 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": 69,
+    "awayScore": 18
+  },
+  {
+    "id": "7402f212-ca42-4064-83f4-4c3546200e00",
+    "season": "2026",
+    "grade": "Premier B Women's",
+    "round": "Round 14",
+    "date": "2026-07-31",
+    "dateTime": "2026-07-31T23:20:00.000Z",
+    "status": "PENDING",
     "homeTeam": "",
     "awayTeam": "",
     "homeScore": null,
@@ -2437,7 +2437,7 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T06:45:00.000Z",
-    "status": "UPCOMING",
+    "status": null,
     "homeTeam": "",
     "awayTeam": "",
     "homeScore": null,
@@ -3230,11 +3230,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:45:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 50,
+    "awayScore": 3
   },
   {
     "id": "395d0201-2379-4d47-bb8e-3f36a0868510",
@@ -3243,11 +3243,11 @@
     "round": "Round 14",
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 32,
+    "awayScore": 63
   },
   {
     "id": "841431a9-bb11-465f-a72f-31db59292750",
@@ -3256,11 +3256,11 @@
     "round": "Round 14",
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 55,
+    "awayScore": 17
   },
   {
     "id": "51d1160d-42db-4d34-a0e9-0c9b70941a5e",
@@ -3269,11 +3269,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 49,
+    "awayScore": 32
   },
   {
     "id": "5f50ac0c-9bad-47c5-8c91-452235cdc32e",
@@ -4062,11 +4062,11 @@
     "round": "Round 14",
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 42,
+    "awayScore": 15
   },
   {
     "id": "b9a0ba80-133b-4ae3-a927-5a1fd010a917",
@@ -4075,11 +4075,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 33,
+    "awayScore": 53
   },
   {
     "id": "40cde3c3-e326-418d-a3c8-645a8852e467",
@@ -4088,11 +4088,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 34,
+    "awayScore": 12
   },
   {
     "id": "37a49432-bb9f-4329-a742-4fa32ad20074",
@@ -4101,11 +4101,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 37,
+    "awayScore": 16
   },
   {
     "id": "24f8c45b-9f64-41bd-ac23-1b26f4d0fac4",
@@ -4777,11 +4777,11 @@
     "round": "Round 14",
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 43,
+    "awayScore": 0
   },
   {
     "id": "58a45529-dfef-4153-bcd8-5f8e60adf137",
@@ -4790,11 +4790,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T00:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 45,
+    "awayScore": 33
   },
   {
     "id": "784996fa-332e-457f-921f-70dd9b90f7cf",
@@ -4803,11 +4803,11 @@
     "round": "Round 14",
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 15,
+    "awayScore": 42
   },
   {
     "id": "bca1dc97-772f-4247-a4d6-47dbcda5b09f",
@@ -5668,6 +5668,58 @@
     "awayScore": 0
   },
   {
+    "id": "dd362fa4-fe78-4a38-86f6-6b73db62b8d1",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 14",
+    "date": "2026-08-01",
+    "dateTime": "2026-08-01T01:00:00.000Z",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": 65,
+    "awayScore": 27
+  },
+  {
+    "id": "c23a447c-816f-4c2d-9a1e-040036b88211",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 14",
+    "date": "2026-08-01",
+    "dateTime": "2026-08-01T00:00:00.000Z",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": 48,
+    "awayScore": 33
+  },
+  {
+    "id": "70e86f74-f19d-4c75-b405-b370e594bd41",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 14",
+    "date": "2026-07-31",
+    "dateTime": "2026-07-31T23:20:00.000Z",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": 57,
+    "awayScore": 8
+  },
+  {
+    "id": "2d63df2d-8596-4189-88e8-26163d2fa8da",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 14",
+    "date": "2026-07-31",
+    "dateTime": "2026-07-31T23:20:00.000Z",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": 15,
+    "awayScore": 42
+  },
+  {
     "id": "590cefb7-bf27-4975-95b1-2621f57c169d",
     "season": "2026",
     "grade": "Division 4 Women's",
@@ -5681,65 +5733,13 @@
     "awayScore": null
   },
   {
-    "id": "dd362fa4-fe78-4a38-86f6-6b73db62b8d1",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 14",
-    "date": "2026-08-01",
-    "dateTime": "2026-08-01T01:00:00.000Z",
-    "status": "UPCOMING",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
-  },
-  {
-    "id": "c23a447c-816f-4c2d-9a1e-040036b88211",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 14",
-    "date": "2026-08-01",
-    "dateTime": "2026-08-01T00:00:00.000Z",
-    "status": "UPCOMING",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
-  },
-  {
-    "id": "70e86f74-f19d-4c75-b405-b370e594bd41",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 14",
-    "date": "2026-07-31",
-    "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
-  },
-  {
-    "id": "2d63df2d-8596-4189-88e8-26163d2fa8da",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 14",
-    "date": "2026-07-31",
-    "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
-  },
-  {
     "id": "9e40e615-d416-468a-90de-411393c9f68d",
     "season": "2026",
     "grade": "Division 4 Women's",
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T06:10:00.000Z",
-    "status": "UPCOMING",
+    "status": "PENDING",
     "homeTeam": "",
     "awayTeam": "",
     "homeScore": null,
@@ -6727,11 +6727,11 @@
     "round": "Round 14",
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 6,
+    "awayScore": 32
   },
   {
     "id": "8d2c1cb1-6ee3-4cd4-9b6c-6cac8633a26e",
@@ -6740,11 +6740,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T01:40:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 34,
+    "awayScore": 3
   },
   {
     "id": "6ae0c0f1-554a-464b-89a0-9a8180e0bc85",
@@ -6753,11 +6753,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 28,
+    "awayScore": 17
   },
   {
     "id": "78b931d1-9221-4959-85ea-36c92a6fa93a",
@@ -6766,11 +6766,11 @@
     "round": "Round 14",
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 74,
+    "awayScore": 1
   },
   {
     "id": "6f855bf7-48d0-4f17-8183-af60bb465234",
@@ -6779,11 +6779,11 @@
     "round": "Round 14",
     "date": "2026-08-01",
     "dateTime": "2026-08-01T01:40:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "",
     "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 22,
+    "awayScore": 16
   },
   {
     "id": "eff850b3-5dfa-41de-a240-3db6e7440449",
