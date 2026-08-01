@@ -2418,6 +2418,19 @@
     "awayScore": 18
   },
   {
+    "id": "c140a112-ff36-42b2-bbed-22cb20fb437c",
+    "season": "2026",
+    "grade": "Premier B Women's",
+    "round": "Round 14",
+    "date": "2026-08-01",
+    "dateTime": "2026-08-01T06:45:00.000Z",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": 36,
+    "awayScore": 35
+  },
+  {
     "id": "7402f212-ca42-4064-83f4-4c3546200e00",
     "season": "2026",
     "grade": "Premier B Women's",
@@ -2425,19 +2438,6 @@
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
     "status": "PENDING",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
-  },
-  {
-    "id": "c140a112-ff36-42b2-bbed-22cb20fb437c",
-    "season": "2026",
-    "grade": "Premier B Women's",
-    "round": "Round 14",
-    "date": "2026-08-01",
-    "dateTime": "2026-08-01T06:45:00.000Z",
-    "status": null,
     "homeTeam": "",
     "awayTeam": "",
     "homeScore": null,
@@ -5720,6 +5720,19 @@
     "awayScore": 42
   },
   {
+    "id": "9e40e615-d416-468a-90de-411393c9f68d",
+    "season": "2026",
+    "grade": "Division 4 Women's",
+    "round": "Round 14",
+    "date": "2026-08-01",
+    "dateTime": "2026-08-01T06:10:00.000Z",
+    "status": "FINAL",
+    "homeTeam": "",
+    "awayTeam": "",
+    "homeScore": 5,
+    "awayScore": 24
+  },
+  {
     "id": "590cefb7-bf27-4975-95b1-2621f57c169d",
     "season": "2026",
     "grade": "Division 4 Women's",
@@ -5727,19 +5740,6 @@
     "date": "2026-05-23",
     "dateTime": "2026-05-23T04:50:00.000Z",
     "status": "ABANDONED",
-    "homeTeam": "",
-    "awayTeam": "",
-    "homeScore": null,
-    "awayScore": null
-  },
-  {
-    "id": "9e40e615-d416-468a-90de-411393c9f68d",
-    "season": "2026",
-    "grade": "Division 4 Women's",
-    "round": "Round 14",
-    "date": "2026-08-01",
-    "dateTime": "2026-08-01T06:10:00.000Z",
-    "status": "PENDING",
     "homeTeam": "",
     "awayTeam": "",
     "homeScore": null,
