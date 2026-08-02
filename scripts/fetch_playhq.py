@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
-"""
-VAFA Talent ID - PlayHQ fetcher.
-Pulls: fixtures (v2), per-game player appearances (v1 summary),
-and the OFFICIAL ladder (v2) for each Women's grade.
-Writes data/games.json, data/players.json, data/ladders.json
-"""
+"""VAFA PlayHQ fetcher - restores working games + players. No ladder."""
 import json, sys, time
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib import request, parse, error
+from urllib import request, error
 
 API_KEY = "bc7f6eea-fd24-405d-84ba-6ace22e5c930"
 TENANT  = "afl"
 BASE    = "https://api.playhq.com"
-
 SEASON_NAME = "2026"
 
 GRADES = [
@@ -27,266 +21,123 @@ GRADES = [
     ("Division 5 Women's",        "6c9deafe-cc66-48f0-9f0f-0b69c594ea50"),
 ]
 
-HEADERS = {
-    "x-api-key": API_KEY,
-    "x-phq-tenant": TENANT,
-    "Accept": "application/json",
-    "User-Agent": "vafa-talent-id/3.0",
-}
-
+HEADERS = {"x-api-key":API_KEY,"x-phq-tenant":TENANT,"Accept":"application/json","User-Agent":"vafa/2.1"}
 ROOT = Path(__file__).resolve().parents[1]
-OUT_GAMES   = ROOT / "data" / "games.json"
-OUT_PLAYERS = ROOT / "data" / "players.json"
-OUT_LADDERS = ROOT / "data" / "ladders.json"
-
-
-def banner():
-    print("=" * 70)
-    print(" VAFA Talent ID - PlayHQ fetch v3.0 (with official ladders)")
-    print(f" Time   : {datetime.now(timezone.utc).isoformat()}")
-    print(f" Tenant : {TENANT}")
-    print(f" Grades : {len(GRADES)}")
-    print("=" * 70)
+OUT_GAMES = ROOT/"data"/"games.json"
+OUT_PLAYERS = ROOT/"data"/"players.json"
 
 
 def get(path):
-    url = BASE + path
-    req = request.Request(url, headers=HEADERS)
+    req = request.Request(BASE+path, headers=HEADERS)
     try:
         with request.urlopen(req, timeout=30) as r:
             return json.loads(r.read().decode("utf-8"))
     except error.HTTPError as e:
         if e.code != 404:
-            print(f"  HTTP {e.code} {path}: {e.read().decode('utf-8','ignore')[:160]}")
+            print(f"  HTTP {e.code} {path}")
         return None
     except Exception as e:
-        print(f"  ERR  {path}: {e}")
+        print(f"  ERR {path}: {e}")
         return None
 
 
 def list_grade_games(grade_id):
-    """v2 fixture - returns list of rounds, each with games[]."""
     data = get(f"/v2/grades/{grade_id}/games")
-    if not data:
-        return []
-    rounds = data.get("rounds") or []
-    flat = []
-    for r in rounds:
+    if not data: return []
+    flat=[]
+    for r in (data.get("rounds") or []):
         for g in (r.get("games") or []):
-            g["_round"] = r.get("name")
+            g["_round"]=r.get("name")
             flat.append(g)
     return flat
 
 
-def game_summary(game_id):
-    """v1 summary - returns appearances[]."""
-    data = get(f"/v1/games/{game_id}/summary")
-    if not data:
-        return []
+def grade_ladder_names(grade_id):
+    """Pull team id->name map from ladder so we can name teams in games."""
+    data = get(f"/v2/grades/{grade_id}/ladder")
+    m={}
+    if not data: return m
+    for lad in (data.get("ladders") or []):
+        for s in (lad.get("standings") or []):
+            t=s.get("team") or {}
+            if t.get("id"): m[t["id"]]=t.get("name","")
+    return m
+
+
+def game_summary(gid):
+    data=get(f"/v1/games/{gid}/summary")
+    if not data: return []
     return (data.get("data") or {}).get("appearances") or []
 
 
-def grade_ladder(grade_id, grade_name):
-    """v2 ladder - returns official standings for the grade."""
-    data = get(f"/v2/grades/{grade_id}/ladder")
-    rows = []
-    if not data:
-        return rows
-    # The ladder payload usually has a "ladders" array (one per pool),
-    # each with "standings". Fall back to top-level "data" if shape differs.
-    ladders = data.get("ladders")
-    if ladders:
-        for lad in ladders:
-            headers = [h.get("key") for h in (lad.get("headers") or [])]
-            for i, s in enumerate(lad.get("standings") or []):
-                team = s.get("team") or {}
-                vals = dict(zip(headers, s.get("values") or []))
-                rows.append({
-                    "grade":      grade_name,
-                    "position":   i + 1,
-                    "team":       team.get("name", ""),
-                    "played":     vals.get("played", 0),
-                    "wins":       vals.get("won", 0),
-                    "losses":     vals.get("lost", 0),
-                    "draws":      vals.get("drawn", 0),
-                    "byes":       vals.get("byes", 0),
-                    "points":     vals.get("competitionPoints", 0),
-                    "percentage": vals.get("percentage", 0),
-                    "pointsFor":  vals.get("pointsFor", 0),
-                    "pointsAgainst": vals.get("pointsAgainst", 0),
-                    "matchRatio": vals.get("matchRatio", 0),
-                })
-    return rows
-
-
 def extract_score(team):
-    """Pull TOTAL_GOALS / TOTAL_BEHINDS / TOTAL_SCORE from match.teams[i]."""
-    s = {"goals": 0, "behinds": 0, "points": 0}
+    s={"points":0}
     for st in ((team or {}).get("outcome") or {}).get("statistics") or []:
-        t, v = st.get("type"), st.get("value", 0)
-        if   t == "TOTAL_GOALS":   s["goals"]   = v
-        elif t == "TOTAL_BEHINDS": s["behinds"] = v
-        elif t == "TOTAL_SCORE":   s["points"]  = v
+        if st.get("type")=="TOTAL_SCORE": s["points"]=st.get("value",0)
     return s
 
 
 def main():
-    banner()
-    all_games   = []
-    all_ladders = []
-    appearances = []
-    team_lookup = {}
-
-    for grade_name, grade_id in GRADES:
-        print(f"\n-> {grade_name}  ({grade_id[:8]}...)")
-
-        # ----- Ladder (official) -----
-        lad = grade_ladder(grade_id, grade_name)
-        all_ladders.extend(lad)
-        for row in lad:
-            team_lookup.setdefault(row["team"], {"name": row["team"], "grade": grade_name})
-        print(f"   ladder rows: {len(lad)}")
-
-        # ----- Fixtures -----
-        fixtures = list_grade_games(grade_id)
-        print(f"   fixtures: {len(fixtures)}")
-        finals = [g for g in fixtures if (g.get("status") or "").upper() == "FINAL"]
-
-        for i, g in enumerate(finals, 1):
-            match_teams = ((g.get("match") or {}).get("teams")) or []
-            team_scores = {t.get("id"): extract_score(t) for t in match_teams}
-            top_teams = g.get("teams") or []
-            home_id = next((t.get("id") for t in top_teams if t.get("isHomeTeam")), None)
-            away_id = next((t.get("id") for t in top_teams if not t.get("isHomeTeam")), None)
-            schedule = (g.get("schedule") or [{}])[0]
-
-            # We store flat homeTeam/awayTeam names + scores for the app.
-            home_name = None
-            away_name = None
-            # PlayHQ v2 fixture doesn't always name teams inline; look up via ladder team ids if present
-            # Fall back to the top_teams names if available
-            for t in top_teams:
-                nm = (t.get("name") or (t.get("team") or {}).get("name"))
-                if t.get("isHomeTeam"):
-                    home_name = nm
-                else:
-                    away_name = nm
-
-            hs = team_scores.get(home_id, {}).get("points")
-            as_ = team_scores.get(away_id, {}).get("points")
-
-            all_games.append({
-                "id":        g.get("id"),
-                "season":    SEASON_NAME,
-                "grade":     grade_name,
-                "round":     g.get("_round"),
-                "date":      (schedule.get("dateTime") or "")[:10],
-                "dateTime":  schedule.get("dateTime"),
-                "status":    "FINAL",
-                "homeTeam":  home_name or "",
-                "awayTeam":  away_name or "",
-                "homeScore": hs,
-                "awayScore": as_,
-            })
-
-            for app in game_summary(g["id"]):
-                app["_gameId"]   = g.get("id")
-                app["_grade"]    = grade_name
-                app["_round"]    = g.get("_round")
-                app["_dateTime"] = schedule.get("dateTime")
-                appearances.append(app)
-
-            if i % 15 == 0:
-                print(f"   ...summarised {i}/{len(finals)}")
-            time.sleep(0.05)
-
-        # ----- Upcoming (non-final) fixtures -----
+    print("VAFA fetch v2.1 (restore)")
+    all_games=[]; appearances=[]
+    for grade_name,grade_id in GRADES:
+        print(f"-> {grade_name}")
+        names=grade_ladder_names(grade_id)
+        fixtures=list_grade_games(grade_id)
         for g in fixtures:
-            if (g.get("status") or "").upper() == "FINAL":
-                continue
-            top_teams = g.get("teams") or []
-            home_name = away_name = None
-            for t in top_teams:
-                nm = (t.get("name") or (t.get("team") or {}).get("name"))
-                if t.get("isHomeTeam"):
-                    home_name = nm
-                else:
-                    away_name = nm
-            schedule = (g.get("schedule") or [{}])[0]
+            top=g.get("teams") or []
+            home_id=next((t.get("id") for t in top if t.get("isHomeTeam")),None)
+            away_id=next((t.get("id") for t in top if not t.get("isHomeTeam")),None)
+            home_name=names.get(home_id,"")
+            away_name=names.get(away_id,"")
+            sched=(g.get("schedule") or [{}])[0]
+            status=(g.get("status") or "").upper()
+            hs=as_=None
+            if status=="FINAL":
+                mt=((g.get("match") or {}).get("teams")) or []
+                sc={t.get("id"):extract_score(t) for t in mt}
+                hs=sc.get(home_id,{}).get("points")
+                as_=sc.get(away_id,{}).get("points")
+                for app in game_summary(g["id"]):
+                    app["_grade"]=grade_name; app["_round"]=g.get("_round"); app["_dateTime"]=sched.get("dateTime")
+                    appearances.append(app)
+                time.sleep(0.05)
             all_games.append({
-                "id":        g.get("id"),
-                "season":    SEASON_NAME,
-                "grade":     grade_name,
-                "round":     g.get("_round"),
-                "date":      (schedule.get("dateTime") or "")[:10],
-                "dateTime":  schedule.get("dateTime"),
-                "status":    g.get("status"),
-                "homeTeam":  home_name or "",
-                "awayTeam":  away_name or "",
-                "homeScore": None,
-                "awayScore": None,
+                "id":g.get("id"),"grade":grade_name,"round":g.get("_round"),
+                "date":(sched.get("dateTime") or "")[:10],"dateTime":sched.get("dateTime"),
+                "status":status,"homeTeam":home_name,"awayTeam":away_name,
+                "homeScore":hs,"awayScore":as_,
             })
-
-    # ----- Aggregate players -----
-    players = {}
+    # players
+    players={}
     for app in appearances:
-        pid = app.get("id")
-        if not pid:
-            continue
-        goals = sum(s.get("value", 0) for s in (app.get("scoreSubTotal") or [])
-                    if s.get("type") == "6_POINT_SCORE") // 6
-        bog = app.get("bestPlayer") or 0
-        cap = app.get("captainRole")
-
-        p = players.setdefault(pid, {
-            "id": pid,
-            "name": f"{app.get('firstName','')} {app.get('lastName','')}".strip(),
-            "number": app.get("playerNumber"),
-            "grade": app.get("_grade"),
-            "club": "",  # club name not always on appearance; leave blank if absent
-            "games": 0, "goals": 0, "bog": 0, "bogFirsts": 0,
-            "bestCount": 0, "wins": 0, "captainGames": 0, "history": [],
-        })
-        p["games"] += 1
-        p["goals"] += goals
-        p["bog"]   += bog
-        if bog == 6: p["bogFirsts"] += 1
-        if bog > 0:  p["bestCount"]  += 1
-        if cap: p["captainGames"] += 1
-        gs = goals * 5 + bog * 8 + (6 if bog == 6 else 0)
-        p["history"].append({
-            "date": (app.get("_dateTime") or "")[:10],
-            "round": app.get("_round"),
-            "grade": app.get("_grade"),
-            "goals": goals, "bog": bog, "inBest": bog > 0,
-            "talentScore": gs,
-        })
-
+        pid=app.get("id")
+        if not pid: continue
+        goals=sum(s.get("value",0) for s in (app.get("scoreSubTotal") or []) if s.get("type")=="6_POINT_SCORE")//6
+        bog=app.get("bestPlayer") or 0
+        p=players.setdefault(pid,{"id":pid,"name":f"{app.get('firstName','')} {app.get('lastName','')}".strip(),
+            "number":app.get("playerNumber"),"grade":app.get("_grade"),"club":app.get("_teamName",""),
+            "games":0,"goals":0,"bog":0,"bogFirsts":0,"bestCount":0,"wins":0,"captainGames":0,"history":[]})
+        p["games"]+=1; p["goals"]+=goals; p["bog"]+=bog
+        if bog==6: p["bogFirsts"]+=1
+        if bog>0: p["bestCount"]+=1
+        p["history"].append({"date":(app.get("_dateTime") or "")[:10],"round":app.get("_round"),
+            "grade":app.get("_grade"),"goals":goals,"bog":bog,"inBest":bog>0,
+            "talentScore":goals*5+bog*8+(6 if bog==6 else 0)})
     for p in players.values():
-        g = max(1, p["games"])
-        raw = p["bog"]*8 + p["goals"]*5 + p["wins"]*2 + p["bogFirsts"]*6
-        p["talentScore"] = round(raw / (g ** 0.5), 1)
-
-    OUT_GAMES.parent.mkdir(parents=True, exist_ok=True)
-    OUT_GAMES.write_text(json.dumps(all_games, indent=2))
-    OUT_PLAYERS.write_text(json.dumps(list(players.values()), indent=2))
-    OUT_LADDERS.write_text(json.dumps(all_ladders, indent=2))
-
-    print("\n" + "=" * 70)
-    print(f" Wrote {len(all_games)} games, {len(players)} players, {len(all_ladders)} ladder rows")
-    print(f"  -> {OUT_GAMES}")
-    print(f"  -> {OUT_PLAYERS}")
-    print(f"  -> {OUT_LADDERS}")
-    print("=" * 70)
+        g=max(1,p["games"])
+        p["talentScore"]=round((p["bog"]*8+p["goals"]*5+p["wins"]*2+p["bogFirsts"]*6)/(g**0.5),1)
+    OUT_GAMES.parent.mkdir(parents=True,exist_ok=True)
+    OUT_GAMES.write_text(json.dumps(all_games,indent=2))
+    OUT_PLAYERS.write_text(json.dumps(list(players.values()),indent=2))
+    print(f"Wrote {len(all_games)} games, {len(players)} players")
     return 0
 
 
-if __name__ == "__main__":
-    try:
-        sys.exit(main())
+if __name__=="__main__":
+    try: sys.exit(main())
     except Exception as e:
         print(f"FATAL: {e}")
-        for f in (OUT_GAMES, OUT_PLAYERS, OUT_LADDERS):
-            if not f.exists():
-                f.write_text("[]\n")
+        for f in (OUT_GAMES,OUT_PLAYERS):
+            if not f.exists(): f.write_text("[]\n")
         sys.exit(0)
