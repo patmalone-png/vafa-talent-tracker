@@ -334,7 +334,7 @@ function renderFinalsPath(){
   sel("fpScenarios").innerHTML='<div class="scenario-grid"><div class="scenario-card safe"><div class="scenario-header">Safe path</div><div class="scenario-title">Guaranteed</div><div class="scenario-req">Win <b>'+safeW+' of '+obgfcRow.remaining+'</b></div></div><div class="scenario-card live"><div class="scenario-header">Live path</div><div class="scenario-title">In the mix</div><div class="scenario-req">Win <b>'+liveW+' of '+obgfcRow.remaining+'</b></div></div><div class="scenario-card longshot"><div class="scenario-header">Long shot</div><div class="scenario-title">Win out</div><div class="scenario-req">Win <b>all '+obgfcRow.remaining+'</b></div></div></div>';
   const rEl=sel("fpRemaining");
   if(!obgfcRow.upcoming.length){rEl.innerHTML=emptyState("Season complete.");}
-  else{let h='<table class="data"><thead><tr><th>Round</th><th>Date</th><th>Venue</th><th>Opponent</th></tr></thead><tbody>';obgfcRow.upcoming.forEach(f=>{h+='<tr><td>'+(f.round||"")+'</td><td>'+((f.date||"").slice(0,10))+'</td><td>'+(f.home?"Home":"Away")+'</td><td>'+f.opponent+'</td></tr>';});h+='</tbody></table>';rEl.innerHTML=h;renderFinalsRoadmap();renderRunHomeProjections();}}
+  else{let h='<table class="data"><thead><tr><th>Round</th><th>Date</th><th>Venue</th><th>Opponent</th></tr></thead><tbody>';obgfcRow.upcoming.forEach(f=>{h+='<tr><td>'+(f.round||"")+'</td><td>'+((f.date||"").slice(0,10))+'</td><td>'+(f.home?"Home":"Away")+'</td><td>'+f.opponent+'</td></tr>';});h+='</tbody></table>';rEl.innerHTML=h;renderFinalsRoadmap();renderClinchingScenarios();renderRunHomeProjections();}}
 ["fpGrade","fpFinalsSpots","fpPtsWin"].forEach(id=>{const e=sel(id);if(e)e.addEventListener("change",renderFinalsPath);});
 // ===== WATCHLIST / SETTINGS =====
 function renderWatchlist(){const el=sel("watchlistView");if(!el)return;const list=players.filter(p=>watchlist.indexOf(p.id)>=0).sort((a,b)=>(b.talentScore||0)-(a.talentScore||0));if(!list.length){el.innerHTML=emptyState("Your watchlist is empty.");return;}let h='<table class="data"><thead><tr><th>Player</th><th>Club</th><th>Grade</th><th>Score</th><th></th></tr></thead><tbody>';list.forEach(p=>{h+='<tr><td>'+playerLink(p)+'</td><td>'+(p.club||"")+'</td><td class="muted">'+(p.grade||"")+'</td><td><b>'+(p.talentScore||0)+'</b></td><td><button class="star" data-pid="'+p.id+'">\u2605</button></td></tr>';});h+='</tbody></table>';el.innerHTML=h;}
@@ -397,7 +397,133 @@ function projectTeamRunHome(club, grade, ladder){
     const currentRatio=currentGamesPlayed>0?Math.round(((currentWins+currentDraws*0.5)/currentGamesPlayed)*100):0;
     return {upcoming:fixtures, predictedWins, predictedLosses, predictedTossups, currentPts, projectedPts, currentRatio, projectedRatio, projectedGames};
 }
+// ===== CLINCHING SCENARIOS =====
+function teamRemaining(club, grade){
+  const now=new Date().toISOString();
+  return games.filter(g=>g.grade===grade&&!isFinal(g)&&gameInvolves(g,club)&&!gameHome(g).toLowerCase().includes("williamstown")&&!gameAway(g).toLowerCase().includes("williamstown"));
+}
+function teamRecord(club, ladder){
+  const row=ladder.find(t=>t.team===club);
+  if(!row)return null;
+  const played=(row.wins||0)+(row.losses||0)+(row.draws||0);
+  return {wins:row.wins||0, draws:row.draws||0, losses:row.losses||0, played:played, pct:row.pct||row.percentage||0};
+}
+function mr(wins, draws, played){ return played>0?((wins+draws*0.5)/played)*100:0; }
 
+function renderClinchingScenarios(){
+  const grade=selectedFPGrade();
+  const el=sel("fpClinch");
+  if(!el)return;
+  const ladder=buildLadderSimple(grade);
+  if(!ladder.length){el.innerHTML=emptyState("No ladder data.");return;}
+  const spots=selectedFPFinalsSpots();
+  const obgfcRow=ladder.find(t=>isOwnClubName(t.team));
+  if(!obgfcRow){el.innerHTML='<p class="muted">No OBGFC team in this grade.</p>';return;}
+  const club=obgfcRow.team;
+  const rec=teamRecord(club, ladder);
+  const remaining=teamRemaining(club, grade);
+  const R=remaining.length;
+  // Our floor: lose everything remaining
+  const floorMR=mr(rec.wins, rec.draws, rec.played+R);
+  const floorMRr=Math.round(floorMR*100)/100;
+  // Our ceiling: win everything
+  const ceilMR=mr(rec.wins+R, rec.draws, rec.played+R);
+  const ceilMRr=Math.round(ceilMR*100)/100;
+  // Current position
+  const currentPos=ladder.findIndex(t=>t.team===club)+1;
+  // Analyse every OTHER team - can they finish above our floor?
+  const rivals=[];
+  ladder.forEach(t=>{
+    if(t.team===club)return;
+    const tr=teamRecord(t.team, ladder);
+    if(!tr)return;
+    const tRem=teamRemaining(t.team, grade);
+    const tR=tRem.length;
+    // Their max achievable MR (win everything left)
+    const theirCeil=mr(tr.wins+tR, tr.draws, tr.played+tR);
+    // Do they play us? If they beat us head-to-head, and their % is better, they pass on tie
+    const h2h=remaining.find(g=>gameInvolves(g,t.team));
+    // How many wins do they need to exceed our floor?
+    let winsToPass=null;
+    for(let w=0;w<=tR;w++){
+      const theirMR=mr(tr.wins+w, tr.draws, tr.played+tR);
+      // They pass if their MR > our floor, OR equal MR and better percentage
+      if(theirMR>floorMR || (Math.abs(theirMR-floorMR)<0.01 && tr.pct>rec.pct)){
+        winsToPass=w;break;
+      }
+    }
+    const canPass=(theirCeil>floorMR)||(Math.abs(theirCeil-floorMR)<0.01&&tr.pct>rec.pct);
+    rivals.push({team:t.team, tr, tR, theirCeil:Math.round(theirCeil*100)/100, canPass, winsToPass, h2h:!!h2h, betterPct:tr.pct>rec.pct, currentlyAbove:ladder.findIndex(x=>x.team===t.team)<currentPos-1});
+  });
+  // Teams that threaten our floor = those below or near us who CAN pass
+  const threats=rivals.filter(r=>r.canPass && r.winsToPass!==null).sort((a,b)=>a.winsToPass-b.winsToPass);
+  const belowThreats=threats.filter(r=>!r.currentlyAbove);
+  // Build HTML
+  let html='';
+  // Floor summary
+  html+='<div class="tiles" style="margin-bottom:12px;">';
+  html+='<div class="tile"><div class="tile-label">Games left</div><div class="tile-value">'+R+'</div></div>';
+  html+='<div class="tile"><div class="tile-label">Floor MR (lose out)</div><div class="tile-value">'+floorMRr+'%</div></div>';
+  html+='<div class="tile"><div class="tile-label">Ceiling MR (win out)</div><div class="tile-value">'+ceilMRr+'%</div></div>';
+  html+='<div class="tile"><div class="tile-label">Our %</div><div class="tile-value">'+(rec.pct?rec.pct.toFixed(1):"-")+'</div></div>';
+  html+='</div>';
+  // Who can catch the floor
+  const catchers=belowThreats.filter(r=>r.winsToPass<=r.tR);
+  let tone, verdict;
+  if(catchers.length>=spots-currentPos+1 || (currentPos>spots)){
+    tone="tone-negative";verdict="\uD83D\uDD34 NOT SAFE if you lose out";
+  }else if(catchers.length>0){
+    tone="tone-neutral";verdict="\uD83D\uDFE1 At risk - losing out likely costs finals";
+  }else{
+    tone="tone-positive";verdict="\uD83D\uDFE2 Safe even if you lose out";
+  }
+  html+='<div class="haf-verdict '+tone+'" style="margin-bottom:12px;"><strong style="font-size:1rem;">'+verdict+'</strong><br>If you lose all '+R+' remaining, your Match Ratio floor is <b>'+floorMRr+'%</b>. '+catchers.length+' team(s) below you can climb above that floor.</div>';
+  // Threats table
+  if(catchers.length){
+    html+='<h3>Teams that can pass your floor</h3><table class="data"><thead><tr><th>Team</th><th>Now</th><th>Games left</th><th>Wins needed to pass</th><th>Plays you?</th><th>Threat</th></tr></thead><tbody>';
+    catchers.forEach(r=>{
+      const curMR=mr(r.tr.wins, r.tr.draws, r.tr.played);
+      let threatLevel, threatCls;
+      if(r.h2h && r.betterPct){threatLevel="GUARANTEED if they beat you";threatCls="form-down";}
+      else if(r.winsToPass<=1){threatLevel="High - just "+r.winsToPass+" win";threatCls="form-down";}
+      else if(r.winsToPass<=2){threatLevel="Medium";threatCls="form-flat";}
+      else{threatLevel="Low";threatCls="form-up";}
+      html+='<tr><td>'+r.team+'</td><td>'+r.tr.wins+'W-'+r.tr.losses+'L ('+Math.round(curMR)+'%)</td><td>'+r.tR+'</td><td><b>'+r.winsToPass+'</b></td><td>'+(r.h2h?'\u2705 Yes':'No')+'</td><td><span class="'+threatCls+'">'+threatLevel+'</span></td></tr>';
+    });
+    html+='</tbody></table>';
+  }
+  // Must-win identification
+  const mustWinGames=remaining.filter(g=>{
+    const opp=(gameHome(g)===club)?gameAway(g):gameHome(g);
+    const threat=threats.find(r=>r.team===opp);
+    return threat && threat.h2h && threat.betterPct;
+  });
+  html+='<h3>Your run home</h3><table class="data"><thead><tr><th>Round</th><th>Date</th><th>Venue</th><th>Opponent</th><th>Significance</th></tr></thead><tbody>';
+  remaining.sort((a,b)=>gameDateTime(a).localeCompare(gameDateTime(b))).forEach(g=>{
+    const isHome=gameHome(g)===club;
+    const opp=isHome?gameAway(g):gameHome(g);
+    const threat=threats.find(r=>r.team===opp);
+    let sig, sigCls;
+    if(threat && threat.h2h && threat.betterPct){sig="\uD83D\uDD11 MUST WIN - denies a direct rival";sigCls="form-down";}
+    else if(threat && threat.winsToPass<=2){sig="Important - opponent is a threat";sigCls="form-flat";}
+    else{sig="Winnable buffer game";sigCls="form-up";}
+    html+='<tr><td>'+(g.round||"")+'</td><td>'+gameDateStr(g)+'</td><td>'+(isHome?"Home":"Away")+'</td><td>'+opp+'</td><td><span class="'+sigCls+'">'+sig+'</span></td></tr>';
+  });
+  html+='</tbody></table>';
+  // The verdict one-liner
+  let plan='';
+  if(mustWinGames.length){
+    const names=mustWinGames.map(g=>{const isHome=gameHome(g)===club;const opp=isHome?gameAway(g):gameHome(g);return opp+' ('+(isHome?'H':'A')+')';});
+    plan="Win "+names.join(" and ")+" - beating "+(names.length>1?"these direct rivals":"this direct rival")+" both lifts you and denies them. That's the clearest path to finals.";
+  }else if(catchers.length===0){
+    plan="You're safe even losing out. Focus on percentage and seeding for finals.";
+  }else{
+    const needed=Math.max(1, catchers.length-(spots-currentPos));
+    plan="Win at least "+needed+" of your "+R+" remaining to stay clear of the chasing pack. Every win also removes a chaser's path.";
+  }
+  html+='<div class="haf-verdict tone-positive" style="border-left:4px solid var(--gold);margin-top:12px;"><strong>\uD83C\uDFC6 The clinch</strong><br>'+plan+'</div>';
+  el.innerHTML=html;
+}
 function renderFinalsRoadmap(){
   const grade=selectedFPGrade();
   const el=sel("fpRoadmap");
