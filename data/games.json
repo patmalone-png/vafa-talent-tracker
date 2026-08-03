@@ -2213,11 +2213,11 @@
     "round": "Round 14",
     "date": "2026-07-31",
     "dateTime": "2026-07-31T23:20:00.000Z",
-    "status": "PENDING",
+    "status": "FINAL",
     "homeTeam": "Glen Eira / Old McKinnon Senior Women's",
     "awayTeam": "Parkside Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 20,
+    "awayScore": 33
   },
   {
     "id": "70e3fb8b-9c30-4a14-b233-de000ec8a235",
