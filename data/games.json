@@ -6292,7 +6292,7 @@
     "grade": "Division 5 Women's",
     "round": "Round 15",
     "date": "2026-08-08",
-    "dateTime": "2026-08-08T04:00:00.000Z",
+    "dateTime": "2026-08-08T02:00:00.000Z",
     "status": "UPCOMING",
     "homeTeam": "St Kevin's Senior Women's 3",
     "awayTeam": "Parkside Senior Women's 2",
@@ -6317,11 +6317,11 @@
     "round": "Round 15",
     "date": "2026-08-07",
     "dateTime": "2026-08-07T09:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Ormond Senior Women's 2",
     "awayTeam": "West Brunswick Senior Women's 3",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 89,
+    "awayScore": 0
   },
   {
     "id": "fa3dd80d-170c-472e-be37-2f155bcda7df",
