@@ -892,7 +892,7 @@
     "grade": "Premier A Women's",
     "round": "Round 18",
     "date": "2026-08-29",
-    "dateTime": "2026-08-29T00:45:00.000Z",
+    "dateTime": "2026-08-29T00:30:00.000Z",
     "status": "UPCOMING",
     "homeTeam": "Caulfield Grammarians Senior Women's",
     "awayTeam": "West Brunswick Senior Women's",
@@ -5333,11 +5333,11 @@
     "round": "Round 15",
     "date": "2026-08-09",
     "dateTime": "2026-08-09T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "MUWFC Senior Women's",
     "awayTeam": "Albert Park Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 20,
+    "awayScore": 34
   },
   {
     "id": "e654103b-8412-4448-9312-651351c146f4",
