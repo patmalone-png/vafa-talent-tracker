@@ -773,11 +773,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "West Brunswick Senior Women's",
     "awayTeam": "Old Brighton Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 37,
+    "awayScore": 11
   },
   {
     "id": "a705ffab-c3ef-4e03-a218-fa037b93ab0d",
@@ -785,11 +785,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "St Kevin's Senior Women's",
     "awayTeam": "Kew Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 41,
+    "awayScore": 25
   },
   {
     "id": "a9aece79-0b63-4880-9d17-7c6c7fe6c7fd",
@@ -797,11 +797,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Fitzroy Senior Women's",
     "awayTeam": "Old Scotch Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 8,
+    "awayScore": 128
   },
   {
     "id": "09260e78-6bb4-4b40-833a-2c55b0f71d1a",
@@ -809,11 +809,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Old Geelong Senior Women's",
     "awayTeam": "Caulfield Grammarians Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 0,
+    "awayScore": 70
   },
   {
     "id": "cf253b03-7ab5-486f-972c-1512c2ff8de1",
@@ -1481,11 +1481,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "St Kevin's Reserve Women's",
     "awayTeam": "Kew Reserve Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 70,
+    "awayScore": 8
   },
   {
     "id": "858a0ed4-4b5e-4d7f-aa97-e3523883c7bb",
@@ -1493,11 +1493,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Old Geelong Reserve Women's",
     "awayTeam": "Caulfield Grammarians Reserve Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 0,
+    "awayScore": 139
   },
   {
     "id": "2030ed59-6476-4ba8-84f8-ce8702be3d6f",
@@ -1505,11 +1505,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Fitzroy Reserve Women's",
     "awayTeam": "Old Scotch Reserve Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 57,
+    "awayScore": 15
   },
   {
     "id": "296805b7-d0cb-4f43-8901-4b726fd58c39",
@@ -2309,11 +2309,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Beaumaris Senior Women's",
     "awayTeam": "Parkside Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 66,
+    "awayScore": 40
   },
   {
     "id": "45651964-d7d6-43c2-b163-2bb0d4c94526",
@@ -2321,11 +2321,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Williamstown CYMS Senior Women's",
     "awayTeam": "Old Yarra Cobras Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 117,
+    "awayScore": 7
   },
   {
     "id": "b87eb5fb-07cd-4891-9261-3df45738d0c9",
@@ -2333,11 +2333,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Old Melburnians Senior Women's",
     "awayTeam": "Port Melbourne Chargers Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 13,
+    "awayScore": 26
   },
   {
     "id": "6b85eccb-0982-42c2-973b-cd94f6d8e920",
@@ -2345,11 +2345,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Old Xaverians Senior Women's",
     "awayTeam": "Glen Eira / Old McKinnon Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 30,
+    "awayScore": 29
   },
   {
     "id": "8ffcd2b5-2e82-4ef0-9f57-1788c3c54ea4",
@@ -3077,11 +3077,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Oakleigh Senior Women's",
     "awayTeam": "Marcellin OC Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 23,
+    "awayScore": 33
   },
   {
     "id": "d7596cad-1cdd-4675-a555-d5814dc39fe1",
@@ -3089,11 +3089,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T02:15:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Old Carey Senior Women's",
     "awayTeam": "Whitefriars Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 12,
+    "awayScore": 61
   },
   {
     "id": "c7f26c09-511c-440e-8ff7-6b5f4a6bccf2",
@@ -3101,11 +3101,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Power House Senior Women's",
     "awayTeam": "Monash Blues Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 60,
+    "awayScore": 14
   },
   {
     "id": "4d3a4c38-db03-4de5-a8c8-e36a651e80e2",
@@ -3113,11 +3113,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "La Trobe University Senior Women's",
     "awayTeam": "Ormond Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 12,
+    "awayScore": 53
   },
   {
     "id": "423d57a1-e415-45f3-8183-14b2d6077d6e",
@@ -3845,11 +3845,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Old Camberwell Senior Women's",
     "awayTeam": "MCCFC Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 37,
+    "awayScore": 1
   },
   {
     "id": "27641469-33bd-461a-86d1-94ac169a3350",
@@ -3857,11 +3857,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Richmond Central Senior Women's",
     "awayTeam": "Hampton Rovers Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 55,
+    "awayScore": 11
   },
   {
     "id": "3cf6f7d8-999b-454c-a648-0003f119dde3",
@@ -3869,11 +3869,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "UHS-VU Senior Women's",
     "awayTeam": "St Mary's Salesian Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 11,
+    "awayScore": 16
   },
   {
     "id": "c6bb9f10-6271-48d6-ac34-53e4af31ee41",
@@ -3881,11 +3881,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Beaumaris Senior Women's 2",
     "awayTeam": "De La Salle Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 21,
+    "awayScore": 53
   },
   {
     "id": "4faf9d85-2785-470f-a3d0-a19746f71235",
@@ -4481,11 +4481,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T06:45:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Hawthorn Senior Women's",
     "awayTeam": "Old Yarra Cobras Senior Women's 2",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 48,
+    "awayScore": 25
   },
   {
     "id": "03f7a738-a3bf-44c9-97b9-dfdab5a3160d",
@@ -4493,11 +4493,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Parkdale Vultures Senior Women's",
     "awayTeam": "Caulfield Grammarians Senior Women's 3",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 86,
+    "awayScore": 0
   },
   {
     "id": "ef315b9a-67e9-47af-b975-38e63916ec2c",
@@ -4505,11 +4505,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T00:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Prahran/Collegians Senior Women's",
     "awayTeam": "Old Haileybury Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 21,
+    "awayScore": 14
   },
   {
     "id": "863fe329-646a-420a-b4fc-3e5a89767dd0",
@@ -5369,11 +5369,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Aquinas Senior Women's",
     "awayTeam": "Mazenod Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 37,
+    "awayScore": 20
   },
   {
     "id": "64d5b728-3c34-42df-9578-6f8d8cb878eb",
@@ -5381,11 +5381,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T01:40:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Brunswick Senior Women's",
     "awayTeam": "Old Xaverians Senior Women's 2",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 53,
+    "awayScore": 1
   },
   {
     "id": "2664eb9c-079a-4268-a222-1392bb32a0db",
@@ -5393,11 +5393,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T06:10:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Fitzroy Senior Women's 3",
     "awayTeam": "North Brunswick Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 12,
+    "awayScore": 21
   },
   {
     "id": "fa37cb01-aa1a-498c-b210-a9308ea37dcf",
@@ -5417,11 +5417,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Albert Park Senior Women's",
     "awayTeam": "Canterbury Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 41,
+    "awayScore": 21
   },
   {
     "id": "494c7cb3-9f47-492e-9753-16e5f9ef08d3",
@@ -6329,11 +6329,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T01:40:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Preston Bullants Senior Women's",
     "awayTeam": "Monash Blues Senior Women's 2",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 51,
+    "awayScore": 7
   },
   {
     "id": "9155cbc5-6ecf-495f-b5da-2fa687cc92f9",
@@ -6341,11 +6341,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T01:40:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "South Melbourne Senior Women's",
     "awayTeam": "Parkside Senior Women's 2",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 14,
+    "awayScore": 24
   },
   {
     "id": "6361d544-63f3-40b0-8841-27a3ef1c13f0",
@@ -6353,11 +6353,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T00:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "St Kevin's Senior Women's 3",
     "awayTeam": "De La Salle Senior Women's 2",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 48,
+    "awayScore": 0
   },
   {
     "id": "fa765e0e-e32f-42a5-934f-61e4bb51ef21",
@@ -6365,11 +6365,11 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Ormond Senior Women's 2",
     "awayTeam": "Glen Eira / Old McKinnon Senior Women's 2",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 65,
+    "awayScore": 8
   },
   {
     "id": "99449542-d865-430e-ba46-6fa97e796856",
@@ -6377,10 +6377,10 @@
     "round": "Round 16",
     "date": "2026-08-14",
     "dateTime": "2026-08-14T23:20:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "West Brunswick Senior Women's 3",
     "awayTeam": "Elsternwick Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 13,
+    "awayScore": 18
   }
 ]
