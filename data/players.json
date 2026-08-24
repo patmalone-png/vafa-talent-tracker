@@ -65748,9 +65748,35 @@
     "talentScore": 0.0
   },
   {
+    "id": "2993becb-2c82-454b-8a5e-b769afbb07a2",
+    "name": "Hannah Scothern",
+    "number": "15",
+    "grade": "Premier A Women's Reserve",
+    "club": "",
+    "games": 1,
+    "goals": 0,
+    "bog": 0,
+    "bogFirsts": 0,
+    "bestCount": 0,
+    "wins": 0,
+    "captainGames": 0,
+    "history": [
+      {
+        "date": "2026-08-22",
+        "round": "Round 17",
+        "grade": "Premier A Women's Reserve",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      }
+    ],
+    "talentScore": 0.0
+  },
+  {
     "id": "fb254f19-653e-4d12-9c43-ff38ca1038be",
     "name": "Emily Couchman",
-    "number": null,
+    "number": "24",
     "grade": "Premier A Women's Reserve",
     "club": "",
     "games": 1,
