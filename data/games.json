@@ -785,11 +785,11 @@
     "round": "Round 16",
     "date": "2026-08-15",
     "dateTime": "2026-08-15T04:00:00.000Z",
-    "status": "FINAL",
+    "status": "ABANDONED",
     "homeTeam": "St Kevin's Senior Women's",
     "awayTeam": "Kew Senior Women's",
-    "homeScore": 41,
-    "awayScore": 25
+    "homeScore": null,
+    "awayScore": null
   },
   {
     "id": "a9aece79-0b63-4880-9d17-7c6c7fe6c7fd",

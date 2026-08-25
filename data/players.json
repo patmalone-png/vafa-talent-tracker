@@ -5861,7 +5861,7 @@
     "number": "65",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 1,
     "bog": 18,
     "bogFirsts": 2,
@@ -6003,18 +6003,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 40.2
+    "talentScore": 41.6
   },
   {
     "id": "d920023c-2845-4d7c-970e-6df4e7ae06a2",
@@ -6022,11 +6013,11 @@
     "number": "10",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 3,
-    "bog": 40,
+    "bog": 35,
     "bogFirsts": 1,
-    "bestCount": 11,
+    "bestCount": 10,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -6164,18 +6155,9 @@
         "bog": 6,
         "inBest": true,
         "talentScore": 54
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 5,
-        "inBest": true,
-        "talentScore": 40
       }
     ],
-    "talentScore": 85.2
+    "talentScore": 77.7
   },
   {
     "id": "05037b54-9c76-4fe4-a064-233047cc43c2",
@@ -6254,11 +6236,11 @@
     "number": "18",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 15,
+    "games": 14,
     "goals": 9,
-    "bog": 30,
-    "bogFirsts": 1,
-    "bestCount": 12,
+    "bog": 24,
+    "bogFirsts": 0,
+    "bestCount": 11,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -6387,18 +6369,9 @@
         "bog": 1,
         "inBest": true,
         "talentScore": 13
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 6,
-        "inBest": true,
-        "talentScore": 54
       }
     ],
-    "talentScore": 75.1
+    "talentScore": 63.3
   },
   {
     "id": "e4414664-f010-4a5c-84c8-09bb411d227d",
@@ -6709,7 +6682,7 @@
     "number": "1",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 15,
+    "games": 14,
     "goals": 5,
     "bog": 16,
     "bogFirsts": 1,
@@ -6842,18 +6815,9 @@
         "bog": 4,
         "inBest": true,
         "talentScore": 32
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 41.1
+    "talentScore": 42.5
   },
   {
     "id": "f7f12e8e-a3df-40b6-8814-99651016717c",
@@ -7780,7 +7744,7 @@
     "number": "21",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 15,
+    "games": 14,
     "goals": 9,
     "bog": 6,
     "bogFirsts": 0,
@@ -7897,15 +7861,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-05-16",
         "round": "Round 5",
         "grade": "Premier A Women's Reserve",
@@ -7924,7 +7879,7 @@
         "talentScore": 8
       }
     ],
-    "talentScore": 24.0
+    "talentScore": 24.9
   },
   {
     "id": "bad591bf-8feb-4627-8a3b-5fc8ddc6bfeb",
@@ -8012,11 +7967,11 @@
     "number": "16",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
-    "goals": 1,
-    "bog": 18,
+    "games": 15,
+    "goals": 0,
+    "bog": 16,
     "bogFirsts": 1,
-    "bestCount": 5,
+    "bestCount": 4,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -8154,18 +8109,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 2,
-        "inBest": true,
-        "talentScore": 21
       }
     ],
-    "talentScore": 38.8
+    "talentScore": 34.6
   },
   {
     "id": "7a93c7a8-fa27-4528-8c47-19a3bb22d508",
@@ -8217,11 +8163,11 @@
     "number": "14",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 0,
-    "bog": 37,
+    "bog": 34,
     "bogFirsts": 2,
-    "bestCount": 12,
+    "bestCount": 11,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -8359,18 +8305,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 3,
-        "inBest": true,
-        "talentScore": 24
       }
     ],
-    "talentScore": 77.0
+    "talentScore": 73.3
   },
   {
     "id": "9e44444f-c97a-42ac-b295-388cefc58bc8",
@@ -8673,7 +8610,7 @@
     "number": "8",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 0,
     "bog": 15,
     "bogFirsts": 2,
@@ -8808,15 +8745,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-04-18",
         "round": "Round 1",
         "grade": "Premier A Women's Reserve",
@@ -8826,7 +8754,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 33.0
+    "talentScore": 34.1
   },
   {
     "id": "84bf681e-8dc2-4dab-bf94-63bda8f052c1",
@@ -8887,7 +8815,7 @@
     "number": "56",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 13,
+    "games": 12,
     "goals": 0,
     "bog": 17,
     "bogFirsts": 1,
@@ -9002,18 +8930,9 @@
         "bog": 2,
         "inBest": true,
         "talentScore": 16
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 39.4
+    "talentScore": 41.0
   },
   {
     "id": "7be5604f-526d-4d92-bb76-ea67ee829709",
@@ -9110,7 +9029,7 @@
     "number": "59",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 2,
     "bog": 13,
     "bogFirsts": 0,
@@ -9252,18 +9171,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 28.5
+    "talentScore": 29.4
   },
   {
     "id": "9bd3ecaf-2ec5-42f0-995f-7ee19a5b25ba",
@@ -10280,11 +10190,11 @@
     "number": "12",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 7,
+    "games": 6,
     "goals": 4,
-    "bog": 16,
+    "bog": 12,
     "bogFirsts": 1,
-    "bestCount": 4,
+    "bestCount": 3,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -10341,18 +10251,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 4,
-        "inBest": true,
-        "talentScore": 32
       }
     ],
-    "talentScore": 58.2
+    "talentScore": 49.8
   },
   {
     "id": "200c1bd3-bcee-42ab-bd79-1003117c1ef4",
@@ -10789,7 +10690,7 @@
     "number": null,
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -10926,15 +10827,6 @@
       {
         "date": "2026-08-08",
         "round": "Round 15",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
         "grade": "Premier A Women's",
         "goals": 0,
         "bog": 0,
@@ -10950,7 +10842,7 @@
     "number": null,
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -11087,15 +10979,6 @@
       {
         "date": "2026-08-08",
         "round": "Round 15",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
         "grade": "Premier A Women's",
         "goals": 0,
         "bog": 0,
@@ -17193,11 +17076,11 @@
     "number": "8",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 10,
-    "goals": 6,
-    "bog": 6,
+    "games": 9,
+    "goals": 5,
+    "bog": 4,
     "bogFirsts": 0,
-    "bestCount": 2,
+    "bestCount": 1,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -17274,15 +17157,6 @@
         "talentScore": 32
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 2,
-        "inBest": true,
-        "talentScore": 21
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -17292,7 +17166,7 @@
         "talentScore": 5
       }
     ],
-    "talentScore": 24.7
+    "talentScore": 19.0
   },
   {
     "id": "b815eff1-783d-448d-83e3-5dccdca4443f",
@@ -17300,8 +17174,8 @@
     "number": "51",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 14,
-    "goals": 14,
+    "games": 13,
+    "goals": 13,
     "bog": 10,
     "bogFirsts": 0,
     "bestCount": 2,
@@ -17417,15 +17291,6 @@
         "talentScore": 5
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 5
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -17435,7 +17300,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 40.1
+    "talentScore": 40.2
   },
   {
     "id": "af5eb1f0-6024-42d4-8059-9bb0b593c18b",
@@ -18209,8 +18074,8 @@
     "number": "35",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
-    "goals": 1,
+    "games": 15,
+    "goals": 0,
     "bog": 8,
     "bogFirsts": 1,
     "bestCount": 2,
@@ -18344,15 +18209,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 5
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -18362,7 +18218,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 18.8
+    "talentScore": 18.1
   },
   {
     "id": "a465749a-0a00-48b9-aa58-ca966f7f87ae",
@@ -18370,7 +18226,7 @@
     "number": "54",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 14,
+    "games": 13,
     "goals": 0,
     "bog": 9,
     "bogFirsts": 0,
@@ -18487,15 +18343,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -18505,7 +18352,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 19.2
+    "talentScore": 20.0
   },
   {
     "id": "3c6e8ab8-2b71-441d-b746-eb8be8559b36",
@@ -18647,7 +18494,7 @@
     "number": "13",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 12,
+    "games": 11,
     "goals": 0,
     "bog": 7,
     "bogFirsts": 0,
@@ -18746,15 +18593,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -18764,7 +18602,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 16.2
+    "talentScore": 16.9
   },
   {
     "id": "15aa2c5b-1f1a-4d08-8fe3-a2435e175513",
@@ -18807,11 +18645,11 @@
     "number": "11",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 14,
-    "goals": 6,
-    "bog": 26,
+    "games": 13,
+    "goals": 5,
+    "bog": 21,
     "bogFirsts": 0,
-    "bestCount": 6,
+    "bestCount": 5,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -18832,15 +18670,6 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 5,
-        "inBest": true,
-        "talentScore": 45
       },
       {
         "date": "2026-08-22",
@@ -18942,7 +18771,7 @@
         "talentScore": 29
       }
     ],
-    "talentScore": 63.6
+    "talentScore": 53.5
   },
   {
     "id": "bdd6ca15-7659-48bd-8308-d84e16f95224",
@@ -18950,7 +18779,7 @@
     "number": "55",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 14,
+    "games": 13,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -19067,15 +18896,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -19093,7 +18913,7 @@
     "number": "27",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 14,
+    "games": 13,
     "goals": 0,
     "bog": 19,
     "bogFirsts": 1,
@@ -19217,18 +19037,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 42.2
+    "talentScore": 43.8
   },
   {
     "id": "20509930-3bd7-42e1-aa0e-afa127694979",
@@ -19236,7 +19047,7 @@
     "number": "12",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 1,
     "bog": 22,
     "bogFirsts": 3,
@@ -19371,15 +19182,6 @@
         "talentScore": 8
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -19389,7 +19191,7 @@
         "talentScore": 54
       }
     ],
-    "talentScore": 49.8
+    "talentScore": 51.4
   },
   {
     "id": "1d44aff7-2cb7-49bf-90af-ecb9bf2d2501",
@@ -19397,7 +19199,7 @@
     "number": "20",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 9,
+    "games": 8,
     "goals": 1,
     "bog": 2,
     "bogFirsts": 0,
@@ -19476,18 +19278,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 7.0
+    "talentScore": 7.4
   },
   {
     "id": "2938617b-e32e-4e5d-bed7-248e73b9842c",
@@ -19495,7 +19288,7 @@
     "number": "61",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
+    "games": 15,
     "goals": 0,
     "bog": 8,
     "bogFirsts": 0,
@@ -19630,15 +19423,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -19648,7 +19432,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 16.0
+    "talentScore": 16.5
   },
   {
     "id": "d3a76ae8-c30a-4ff1-9754-07fdca0fe48a",
@@ -19799,11 +19583,11 @@
     "number": "16",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 13,
+    "games": 12,
     "goals": 1,
-    "bog": 6,
-    "bogFirsts": 1,
-    "bestCount": 1,
+    "bog": 0,
+    "bogFirsts": 0,
+    "bestCount": 0,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -19907,15 +19691,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 6,
-        "inBest": true,
-        "talentScore": 54
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -19925,7 +19700,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 16.4
+    "talentScore": 1.4
   },
   {
     "id": "91eba92b-30d1-4eb3-abde-6be826887387",
@@ -19933,11 +19708,11 @@
     "number": "2",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 16,
-    "goals": 1,
-    "bog": 34,
+    "games": 15,
+    "goals": 0,
+    "bog": 33,
     "bogFirsts": 2,
-    "bestCount": 8,
+    "bestCount": 7,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -20068,15 +19843,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 1,
-        "inBest": true,
-        "talentScore": 13
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -20086,7 +19852,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 72.2
+    "talentScore": 71.3
   },
   {
     "id": "41b3beb3-4f17-4044-a787-bc21768d0871",
@@ -20094,11 +19860,11 @@
     "number": "9",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 15,
+    "games": 14,
     "goals": 1,
-    "bog": 14,
+    "bog": 11,
     "bogFirsts": 0,
-    "bestCount": 4,
+    "bestCount": 3,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -20220,15 +19986,6 @@
         "talentScore": 24
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 3,
-        "inBest": true,
-        "talentScore": 24
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -20238,7 +19995,7 @@
         "talentScore": 40
       }
     ],
-    "talentScore": 30.2
+    "talentScore": 24.9
   },
   {
     "id": "703d4627-b3d8-4742-8149-13730e531af9",
@@ -28429,7 +28186,7 @@
     "number": "56",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 10,
+    "games": 9,
     "goals": 2,
     "bog": 5,
     "bogFirsts": 0,
@@ -28501,15 +28258,6 @@
         "talentScore": 5
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -28528,7 +28276,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 15.8
+    "talentScore": 16.7
   },
   {
     "id": "bc531cac-254b-44d9-8f19-a684967b95de",
@@ -28536,11 +28284,11 @@
     "number": "25",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 14,
+    "games": 13,
     "goals": 2,
-    "bog": 30,
+    "bog": 26,
     "bogFirsts": 1,
-    "bestCount": 10,
+    "bestCount": 9,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -28653,15 +28401,6 @@
         "talentScore": 16
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 4,
-        "inBest": true,
-        "talentScore": 32
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -28671,7 +28410,7 @@
         "talentScore": 24
       }
     ],
-    "talentScore": 68.4
+    "talentScore": 62.1
   },
   {
     "id": "f6f49931-32d4-44a3-b86e-059942fc5f96",
@@ -28920,7 +28659,7 @@
     "number": null,
     "grade": "Premier A Women's",
     "club": "",
-    "games": 15,
+    "games": 14,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -29039,15 +28778,6 @@
       {
         "date": "2026-08-08",
         "round": "Round 15",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
         "grade": "Premier A Women's",
         "goals": 0,
         "bog": 0,
@@ -30104,7 +29834,7 @@
     "number": "24",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 14,
+    "games": 13,
     "goals": 1,
     "bog": 13,
     "bogFirsts": 1,
@@ -30228,18 +29958,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 30.7
+    "talentScore": 31.9
   },
   {
     "id": "581b3833-f978-4ace-83ca-90012a0d2c31",
@@ -30407,7 +30128,7 @@
     "number": "25",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 15,
+    "games": 14,
     "goals": 3,
     "bog": 16,
     "bogFirsts": 0,
@@ -30515,15 +30236,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-04-18",
         "round": "Round 1",
         "grade": "Premier A Women's Reserve",
@@ -30551,7 +30263,7 @@
         "talentScore": 8
       }
     ],
-    "talentScore": 36.9
+    "talentScore": 38.2
   },
   {
     "id": "76887595-7393-4be4-a11b-45341fac4dc2",
@@ -31950,7 +31662,7 @@
     "number": "55",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 15,
+    "games": 14,
     "goals": 0,
     "bog": 9,
     "bogFirsts": 0,
@@ -32031,15 +31743,6 @@
         "talentScore": 40
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -32094,7 +31797,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 18.6
+    "talentScore": 19.2
   },
   {
     "id": "f77bcac5-5fea-46d2-be18-1dc433442414",
@@ -33671,7 +33374,7 @@
     "number": "13",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 8,
+    "games": 7,
     "goals": 2,
     "bog": 0,
     "bogFirsts": 0,
@@ -33741,18 +33444,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 3.5
+    "talentScore": 3.8
   },
   {
     "id": "02c681fe-e13c-42fc-ae13-b491c3e693c0",
@@ -33795,7 +33489,7 @@
     "number": "92",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 6,
+    "games": 5,
     "goals": 0,
     "bog": 5,
     "bogFirsts": 0,
@@ -33815,15 +33509,6 @@
       {
         "date": "2026-08-08",
         "round": "Round 15",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
         "grade": "Premier A Women's",
         "goals": 0,
         "bog": 0,
@@ -33858,7 +33543,7 @@
         "talentScore": 8
       }
     ],
-    "talentScore": 16.3
+    "talentScore": 17.9
   },
   {
     "id": "013b3eac-c268-4ef7-9ec8-e10ef6b298d8",
@@ -33866,7 +33551,7 @@
     "number": "20",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 12,
+    "games": 11,
     "goals": 0,
     "bog": 7,
     "bogFirsts": 0,
@@ -33972,18 +33657,9 @@
         "bog": 5,
         "inBest": true,
         "talentScore": 40
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       }
     ],
-    "talentScore": 16.2
+    "talentScore": 16.9
   },
   {
     "id": "487a1298-1b7f-4223-ba2c-4f5b3aabc90a",
@@ -37430,7 +37106,7 @@
     "number": "21",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 5,
+    "games": 4,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -37450,15 +37126,6 @@
       {
         "date": "2026-08-08",
         "round": "Round 15",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
         "grade": "Premier A Women's",
         "goals": 0,
         "bog": 0,
@@ -37492,8 +37159,8 @@
     "number": "6",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 12,
-    "goals": 3,
+    "games": 11,
+    "goals": 2,
     "bog": 12,
     "bogFirsts": 2,
     "bestCount": 2,
@@ -37598,18 +37265,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 5
       }
     ],
-    "talentScore": 35.5
+    "talentScore": 35.6
   },
   {
     "id": "4d3dac44-9268-4913-899c-0d1fbf183c62",
@@ -37617,7 +37275,7 @@
     "number": "40",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 6,
+    "games": 5,
     "goals": 1,
     "bog": 13,
     "bogFirsts": 0,
@@ -37662,15 +37320,6 @@
         "talentScore": 37
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -37680,7 +37329,7 @@
         "talentScore": 32
       }
     ],
-    "talentScore": 44.5
+    "talentScore": 48.7
   },
   {
     "id": "1d97da5d-987a-486c-be04-d96bbdcab624",
@@ -38536,8 +38185,8 @@
     "number": "41",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 12,
-    "goals": 7,
+    "games": 11,
+    "goals": 6,
     "bog": 1,
     "bogFirsts": 0,
     "bestCount": 1,
@@ -38617,15 +38266,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 5
-      },
-      {
         "date": "2026-05-02",
         "round": "Round 3",
         "grade": "Premier A Women's Reserve",
@@ -38653,7 +38293,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 12.4
+    "talentScore": 11.5
   },
   {
     "id": "123c747f-c09c-4324-9a53-461c203635cc",
@@ -38928,7 +38568,7 @@
     "number": "4",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 8,
+    "games": 7,
     "goals": 1,
     "bog": 11,
     "bogFirsts": 1,
@@ -38962,15 +38602,6 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 5
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
       },
       {
         "date": "2026-04-18",
@@ -39009,7 +38640,7 @@
         "talentScore": 54
       }
     ],
-    "talentScore": 35.0
+    "talentScore": 37.4
   },
   {
     "id": "35ba92e0-089a-4907-aa6a-b9328ad30417",
@@ -39979,11 +39610,11 @@
     "number": "76",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 7,
-    "goals": 1,
-    "bog": 10,
+    "games": 6,
+    "goals": 0,
+    "bog": 9,
     "bogFirsts": 1,
-    "bestCount": 3,
+    "bestCount": 2,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -40040,18 +39671,9 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 1,
-        "inBest": true,
-        "talentScore": 13
       }
     ],
-    "talentScore": 34.4
+    "talentScore": 31.8
   },
   {
     "id": "4d0ec75d-af04-472b-b445-a7f1212e04e9",
@@ -40245,7 +39867,7 @@
     "number": "8",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 13,
+    "games": 12,
     "goals": 0,
     "bog": 12,
     "bogFirsts": 2,
@@ -40326,15 +39948,6 @@
         "talentScore": 0
       },
       {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
         "date": "2026-08-22",
         "round": "Round 17",
         "grade": "Premier A Women's",
@@ -40371,7 +39984,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 30.0
+    "talentScore": 31.2
   },
   {
     "id": "05553323-8862-45a0-bd21-e7b99ec12de7",
@@ -41736,7 +41349,7 @@
     "number": "73",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 18,
+    "games": 17,
     "goals": 2,
     "bog": 11,
     "bogFirsts": 1,
@@ -41765,15 +41378,6 @@
       {
         "date": "2026-08-08",
         "round": "Round 15",
-        "grade": "Premier A Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
         "grade": "Premier A Women's",
         "goals": 0,
         "bog": 0,
@@ -41907,7 +41511,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 24.5
+    "talentScore": 25.2
   },
   {
     "id": "8a78373c-b21f-44c5-a7bb-4159cf99591a",
@@ -45170,8 +44774,8 @@
     "number": "52",
     "grade": "Premier A Women's",
     "club": "",
-    "games": 14,
-    "goals": 12,
+    "games": 13,
+    "goals": 11,
     "bog": 27,
     "bogFirsts": 3,
     "bestCount": 5,
@@ -45186,15 +44790,6 @@
         "bog": 6,
         "inBest": true,
         "talentScore": 59
-      },
-      {
-        "date": "2026-08-15",
-        "round": "Round 16",
-        "grade": "Premier A Women's",
-        "goals": 1,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 5
       },
       {
         "date": "2026-08-22",
@@ -45305,7 +44900,7 @@
         "talentScore": 5
       }
     ],
-    "talentScore": 78.6
+    "talentScore": 80.2
   },
   {
     "id": "2bf90e7b-7a52-4fef-9b50-cc2679a166f3",
