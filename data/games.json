@@ -869,11 +869,11 @@
     "round": "Round 18",
     "date": "2026-08-29",
     "dateTime": "2026-08-29T00:45:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Old Scotch Senior Women's",
     "awayTeam": "Old Brighton Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 89,
+    "awayScore": 19
   },
   {
     "id": "6da836d4-2538-48ae-80df-77b2cf270a1f",
@@ -881,11 +881,11 @@
     "round": "Round 18",
     "date": "2026-08-29",
     "dateTime": "2026-08-29T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Westbourne Grammarians Senior Women's",
     "awayTeam": "Kew Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 43,
+    "awayScore": 33
   },
   {
     "id": "91e6334f-0c5a-422a-95c8-299741c1d71e",
@@ -893,11 +893,11 @@
     "round": "Round 18",
     "date": "2026-08-29",
     "dateTime": "2026-08-29T00:30:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Caulfield Grammarians Senior Women's",
     "awayTeam": "West Brunswick Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 72,
+    "awayScore": 6
   },
   {
     "id": "237be5c9-a0c9-47c4-9d56-e45291ff8428",
@@ -905,11 +905,11 @@
     "round": "Round 18",
     "date": "2026-08-29",
     "dateTime": "2026-08-29T04:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Fitzroy Senior Women's",
     "awayTeam": "St Kevin's Senior Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 42,
+    "awayScore": 22
   },
   {
     "id": "d8d6150a-17f2-40fc-8748-1d53e202d863",
@@ -1553,11 +1553,11 @@
     "round": "Round 18",
     "date": "2026-08-28",
     "dateTime": "2026-08-28T22:30:00.000Z",
-    "status": "",
+    "status": "FINAL",
     "homeTeam": "Caulfield Grammarians Reserve Women's",
     "awayTeam": "West Brunswick Reserve Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 86,
+    "awayScore": 0
   },
   {
     "id": "7a4805dd-461a-4c39-8a89-0f2fbae46cf2",
@@ -1565,11 +1565,11 @@
     "round": "Round 18",
     "date": "2026-08-29",
     "dateTime": "2026-08-29T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Westbourne Grammarians Reserve Women's",
     "awayTeam": "Kew Reserve Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 20,
+    "awayScore": 31
   },
   {
     "id": "64444a89-6056-40fc-8b40-e92438aefae6",
@@ -1577,11 +1577,11 @@
     "round": "Round 18",
     "date": "2026-08-29",
     "dateTime": "2026-08-29T02:00:00.000Z",
-    "status": "UPCOMING",
+    "status": "FINAL",
     "homeTeam": "Fitzroy Reserve Women's",
     "awayTeam": "St Kevin's Reserve Women's",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 53,
+    "awayScore": 20
   },
   {
     "id": "1e862478-dadb-401e-81fd-d0f085b4caf2",
