@@ -20153,9 +20153,9 @@
     "club": "",
     "games": 15,
     "goals": 3,
-    "bog": 24,
+    "bog": 27,
     "bogFirsts": 2,
-    "bestCount": 5,
+    "bestCount": 6,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -20272,9 +20272,9 @@
         "round": "Round 18",
         "grade": "Premier A Women's",
         "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
+        "bog": 3,
+        "inBest": true,
+        "talentScore": 24
       },
       {
         "date": "2026-05-30",
@@ -20295,7 +20295,7 @@
         "talentScore": 42
       }
     ],
-    "talentScore": 56.5
+    "talentScore": 62.7
   },
   {
     "id": "41cf3bf9-b7eb-48b7-8882-5081b6ab3046",
@@ -20439,9 +20439,9 @@
     "club": "",
     "games": 16,
     "goals": 1,
-    "bog": 33,
+    "bog": 35,
     "bogFirsts": 2,
-    "bestCount": 7,
+    "bestCount": 8,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -20585,12 +20585,12 @@
         "round": "Round 18",
         "grade": "Premier A Women's",
         "goals": 1,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 5
+        "bog": 2,
+        "inBest": true,
+        "talentScore": 21
       }
     ],
-    "talentScore": 70.2
+    "talentScore": 74.2
   },
   {
     "id": "41b3beb3-4f17-4044-a787-bc21768d0871",
@@ -20600,9 +20600,9 @@
     "club": "",
     "games": 15,
     "goals": 1,
-    "bog": 11,
-    "bogFirsts": 0,
-    "bestCount": 3,
+    "bog": 17,
+    "bogFirsts": 1,
+    "bestCount": 4,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -20737,12 +20737,12 @@
         "round": "Round 18",
         "grade": "Premier A Women's",
         "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
+        "bog": 6,
+        "inBest": true,
+        "talentScore": 54
       }
     ],
-    "talentScore": 24.0
+    "talentScore": 38.0
   },
   {
     "id": "703d4627-b3d8-4742-8149-13730e531af9",
@@ -29429,9 +29429,9 @@
     "club": "",
     "games": 14,
     "goals": 2,
-    "bog": 26,
+    "bog": 27,
     "bogFirsts": 1,
-    "bestCount": 9,
+    "bestCount": 10,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -29557,12 +29557,12 @@
         "round": "Round 18",
         "grade": "Premier A Women's",
         "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
+        "bog": 1,
+        "inBest": true,
+        "talentScore": 8
       }
     ],
-    "talentScore": 59.9
+    "talentScore": 62.0
   },
   {
     "id": "f6f49931-32d4-44a3-b86e-059942fc5f96",
@@ -37070,9 +37070,9 @@
     "club": "",
     "games": 9,
     "goals": 1,
-    "bog": 9,
+    "bog": 14,
     "bogFirsts": 0,
-    "bestCount": 4,
+    "bestCount": 5,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -37153,12 +37153,12 @@
         "round": "Round 18",
         "grade": "Premier A Women's",
         "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 40
       }
     ],
-    "talentScore": 25.7
+    "talentScore": 39.0
   },
   {
     "id": "145ff3c3-de81-4e77-a350-d4bad3cb55cb",
@@ -38374,7 +38374,7 @@
   },
   {
     "id": "2044ef30-b03c-4799-874a-a9891fa6f3f7",
-    "name": "None None",
+    "name": "zara flanigan",
     "number": "27",
     "grade": "Premier A Women's",
     "club": "",
@@ -38843,9 +38843,9 @@
     "club": "",
     "games": 6,
     "goals": 1,
-    "bog": 13,
+    "bog": 17,
     "bogFirsts": 0,
-    "bestCount": 3,
+    "bestCount": 4,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -38899,12 +38899,12 @@
         "round": "Round 18",
         "grade": "Premier A Women's",
         "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 32
       }
     ],
-    "talentScore": 44.5
+    "talentScore": 57.6
   },
   {
     "id": "1d97da5d-987a-486c-be04-d96bbdcab624",
@@ -194180,7 +194180,7 @@
     "talentScore": 7.1
   },
   {
-    "id": "6d2e052e-10a8-4595-ad4e-cda9d561492e",
+    "id": "7575eed7-071a-4486-a791-75f82b811e5f",
     "name": "Isabel Tozer",
     "number": "31",
     "grade": "Division 3 Women's",
