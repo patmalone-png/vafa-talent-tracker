@@ -50,9 +50,7 @@ function renderTop5(id,rows,label,vf,ex){const el=sel(id);if(!el)return;if(!rows
 function renderDashboard(){
   const pool=applyGrade(players).filter(p=>p.name&&p.name.trim().toLowerCase()!=="none none");
   const fxPool=applyGrade(games);const fw=selectedFormWindow();
-  sel("t-games").textContent=fxPool.length||"0";sel("t-players").textContent=pool.length||"0";
-  const top=[...pool].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0))[0];
-  sel("t-top").textContent=top?top.talentScore:"-";sel("t-sync").textContent=lastSync?new Date(lastSync).toLocaleDateString():"-";
+  sel("t-games").textContent =pool.length;sel("t-players").textContent =pool.filter(p => recruitmentScore(p) >= 90).length;sel("t-top").textContent =pool.filter(p => recruitmentScore(p) >= 75).length;sel("t-sync").textContent =watchlist.length;
   const q=pool.filter(p=>(p.games||0)>=3);
   renderTop5("topTalent",[...q].sort((a,b)=>recruitmentScore(b)-recruitmentScore(a)).slice(0,5),
   renderTop5("topBest",[...pool].map(p=>({...p,_b:bestCount(p)})).sort((a,b)=>b._b-a._b||(b.talentScore||0)-(a.talentScore||0)).slice(0,5),"In best",p=>p._b,{label:"Games",fn:p=>p.games||0});
