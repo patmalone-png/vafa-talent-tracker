@@ -17,6 +17,7 @@ function homeOutcome(g){const h=gameHomeScore(g),a=gameAwayScore(g);if(h==null||
 function awayOutcome(g){const o=homeOutcome(g);if(o==="WON")return "LOST";if(o==="LOST")return "WON";if(o==="DRAW")return "DRAW";return null;}
 function gameInvolves(g,c){return gameHome(g)===c||gameAway(g)===c;}
 function talentScore(p){const g=Math.max(1,p.games||1);const r=((p.bog||0)*8)+((p.bogFirsts||0)*6)+((p.goals||0)*5)+((p.wins||0)*2);return +(r/Math.sqrt(g)).toFixed(1);}
+function recruitmentScore(p){let score = talentScore(p);const games = p.games || 0;const bests = bestCount(p);if(games >= 8) score += 10;if(bests >= 3) score += 10;if((p.goals || 0) >= 10) score += 5;return Math.round(score);}
 function bestCount(p){if(typeof p.bestCount==="number")return p.bestCount;return (p.history||[]).filter(h=>(h.bog||0)>0||h.inBest).length;}
 function gameTalentScore(h){if(typeof h.talentScore==="number")return h.talentScore;return (h.goals||0)*5+(h.bog||0)*8+((h.bog===6)?6:0)+(h.won?2:0);}
 function formIndicator(p,w){const hist=[...(p.history||[])].sort((a,b)=>(a.date||"").localeCompare(b.date||""));if(hist.length<w+2)return null;const rec=hist.slice(-w),ear=hist.slice(0,-w);const avg=a=>a.length?a.reduce((s,h)=>s+gameTalentScore(h),0)/a.length:0;const r=avg(rec),e=avg(ear);const d=+(r-e).toFixed(1);return {recent:+r.toFixed(1),earlier:+e.toFixed(1),delta:d,trend:d>1?"\u25B2":d<-1?"\u25BC":"\u25AC"};}
