@@ -54,7 +54,7 @@ function renderDashboard(){
   const top=[...pool].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0))[0];
   sel("t-top").textContent=top?top.talentScore:"-";sel("t-sync").textContent=lastSync?new Date(lastSync).toLocaleDateString():"-";
   const q=pool.filter(p=>(p.games||0)>=3);
-  renderTop5("topTalent",[...q].sort((a,b)=>(b.talentScore||0)-(a.talentScore||0)).slice(0,5),"Score",p=>p.talentScore||0,{label:"Games",fn:p=>p.games||0});
+  renderTop5("topTalent",[...q].sort((a,b)=>recruitmentScore(b)-recruitmentScore(a)).slice(0,5),
   renderTop5("topBest",[...pool].map(p=>({...p,_b:bestCount(p)})).sort((a,b)=>b._b-a._b||(b.talentScore||0)-(a.talentScore||0)).slice(0,5),"In best",p=>p._b,{label:"Games",fn:p=>p.games||0});
   renderTop5("topGoals",[...pool].sort((a,b)=>(b.goals||0)-(a.goals||0)).slice(0,5),"Goals",p=>p.goals||0,{label:"Per game",fn:p=>p.games?(p.goals/p.games).toFixed(2):"0"});
   const formed=q.map(p=>({...p,_f:formIndicator(p,fw)})).filter(p=>p._f).sort((a,b)=>b._f.delta-a._f.delta).slice(0,5);
