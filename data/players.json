@@ -202698,16 +202698,16 @@
     "talentScore": 0.0
   },
   {
-    "id": "063bd3ef-4d2e-4642-9fa7-9895d3d4ee29",
+    "id": "4d7cc750-d624-406e-bbe8-91c8105c78e2",
     "name": "Jessica Welford",
     "number": null,
     "grade": "Division 3 Women's",
     "club": "",
-    "games": 14,
-    "goals": 0,
-    "bog": 0,
+    "games": 26,
+    "goals": 8,
+    "bog": 17,
     "bogFirsts": 0,
-    "bestCount": 0,
+    "bestCount": 5,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -202719,6 +202719,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-22",
+        "round": "Round 6",
+        "grade": "Division 3 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
       },
       {
         "date": "2026-05-22",
@@ -202739,6 +202748,24 @@
         "talentScore": 0
       },
       {
+        "date": "2026-05-29",
+        "round": "Round 7",
+        "grade": "Division 3 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-06-12",
+        "round": "Round 8",
+        "grade": "Division 3 Women's",
+        "goals": 0,
+        "bog": 3,
+        "inBest": true,
+        "talentScore": 24
+      },
+      {
         "date": "2026-06-12",
         "round": "Round 8",
         "grade": "Division 3 Women's",
@@ -202746,6 +202773,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-06-19",
+        "round": "Round 9",
+        "grade": "Division 3 Women's",
+        "goals": 1,
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 37
       },
       {
         "date": "2026-06-19",
@@ -202760,10 +202796,28 @@
         "date": "2026-06-27",
         "round": "Round 10",
         "grade": "Division 3 Women's",
+        "goals": 1,
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 37
+      },
+      {
+        "date": "2026-06-27",
+        "round": "Round 10",
+        "grade": "Division 3 Women's",
         "goals": 0,
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-07-18",
+        "round": "Round 12",
+        "grade": "Division 3 Women's",
+        "goals": 1,
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 37
       },
       {
         "date": "2026-07-18",
@@ -202793,6 +202847,24 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-31",
+        "round": "Round 14",
+        "grade": "Division 3 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-08-08",
+        "round": "Round 15",
+        "grade": "Division 3 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-08-08",
         "round": "Round 15",
         "grade": "Division 3 Women's",
@@ -202805,10 +202877,37 @@
         "date": "2026-08-14",
         "round": "Round 16",
         "grade": "Division 3 Women's",
+        "goals": 2,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 10
+      },
+      {
+        "date": "2026-08-14",
+        "round": "Round 16",
+        "grade": "Division 3 Women's",
         "goals": 0,
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-04-17",
+        "round": "Round 1",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 2,
+        "inBest": true,
+        "talentScore": 16
+      },
+      {
+        "date": "2026-04-24",
+        "round": "Round 2",
+        "grade": "Division 5 Women's",
+        "goals": 2,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 10
       },
       {
         "date": "2026-04-24",
@@ -202836,122 +202935,6 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
-      }
-    ],
-    "talentScore": 0.0
-  },
-  {
-    "id": "5365366f-8d70-4d34-804e-1096f6b92406",
-    "name": "Jessica Welford",
-    "number": "1",
-    "grade": "Division 3 Women's",
-    "club": "",
-    "games": 12,
-    "goals": 8,
-    "bog": 17,
-    "bogFirsts": 0,
-    "bestCount": 5,
-    "wins": 0,
-    "captainGames": 0,
-    "history": [
-      {
-        "date": "2026-05-22",
-        "round": "Round 6",
-        "grade": "Division 3 Women's",
-        "goals": 1,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 5
-      },
-      {
-        "date": "2026-05-29",
-        "round": "Round 7",
-        "grade": "Division 3 Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-06-12",
-        "round": "Round 8",
-        "grade": "Division 3 Women's",
-        "goals": 0,
-        "bog": 3,
-        "inBest": true,
-        "talentScore": 24
-      },
-      {
-        "date": "2026-06-19",
-        "round": "Round 9",
-        "grade": "Division 3 Women's",
-        "goals": 1,
-        "bog": 4,
-        "inBest": true,
-        "talentScore": 37
-      },
-      {
-        "date": "2026-06-27",
-        "round": "Round 10",
-        "grade": "Division 3 Women's",
-        "goals": 1,
-        "bog": 4,
-        "inBest": true,
-        "talentScore": 37
-      },
-      {
-        "date": "2026-07-18",
-        "round": "Round 12",
-        "grade": "Division 3 Women's",
-        "goals": 1,
-        "bog": 4,
-        "inBest": true,
-        "talentScore": 37
-      },
-      {
-        "date": "2026-07-31",
-        "round": "Round 14",
-        "grade": "Division 3 Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-08",
-        "round": "Round 15",
-        "grade": "Division 3 Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-14",
-        "round": "Round 16",
-        "grade": "Division 3 Women's",
-        "goals": 2,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 10
-      },
-      {
-        "date": "2026-04-17",
-        "round": "Round 1",
-        "grade": "Division 5 Women's",
-        "goals": 0,
-        "bog": 2,
-        "inBest": true,
-        "talentScore": 16
-      },
-      {
-        "date": "2026-04-24",
-        "round": "Round 2",
-        "grade": "Division 5 Women's",
-        "goals": 2,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 10
       },
       {
         "date": "2026-05-08",
@@ -202963,7 +202946,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 50.8
+    "talentScore": 34.5
   },
   {
     "id": "2e7b098a-01d7-4b75-8ecf-c5993ee83faa",
