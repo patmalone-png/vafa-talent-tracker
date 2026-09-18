@@ -34825,7 +34825,7 @@
     "talentScore": 7.1
   },
   {
-    "id": "a50758df-a660-465e-9b60-ad04dead3bb3",
+    "id": "b9b969e2-3071-41cd-8056-5110ae60a82c",
     "name": "Katie Brown",
     "number": "92",
     "grade": "Premier A Women's",
@@ -210039,7 +210039,7 @@
   },
   {
     "id": "71aa22e2-04c5-4fd4-ae59-08c8c35ba72b",
-    "name": "Morgan Biggar",
+    "name": "None None",
     "number": "55",
     "grade": "Division 4 Women's",
     "club": "",
@@ -213305,7 +213305,7 @@
     "grade": "Division 4 Women's",
     "club": "",
     "games": 16,
-    "goals": 0,
+    "goals": 1,
     "bog": 12,
     "bogFirsts": 1,
     "bestCount": 3,
@@ -213397,10 +213397,10 @@
         "date": "2026-06-26",
         "round": "Round 10",
         "grade": "Division 4 Women's",
-        "goals": 0,
+        "goals": 1,
         "bog": 0,
         "inBest": false,
-        "talentScore": 0
+        "talentScore": 5
       },
       {
         "date": "2026-07-03",
@@ -213457,7 +213457,7 @@
         "talentScore": 40
       }
     ],
-    "talentScore": 25.5
+    "talentScore": 26.8
   },
   {
     "id": "8306cb33-dd2f-4749-82ec-408ffa06d859",
@@ -213886,7 +213886,7 @@
     "grade": "Division 4 Women's",
     "club": "",
     "games": 10,
-    "goals": 0,
+    "goals": 1,
     "bog": 2,
     "bogFirsts": 0,
     "bestCount": 1,
@@ -213942,10 +213942,10 @@
         "date": "2026-06-26",
         "round": "Round 10",
         "grade": "Division 4 Women's",
-        "goals": 0,
+        "goals": 1,
         "bog": 0,
         "inBest": false,
-        "talentScore": 0
+        "talentScore": 5
       },
       {
         "date": "2026-07-03",
@@ -213984,7 +213984,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 5.1
+    "talentScore": 6.6
   },
   {
     "id": "ee70dedc-79af-495f-8f17-d1d87e9cd1fb",
@@ -214064,7 +214064,7 @@
     "grade": "Division 4 Women's",
     "club": "",
     "games": 10,
-    "goals": 0,
+    "goals": 1,
     "bog": 12,
     "bogFirsts": 1,
     "bestCount": 3,
@@ -214102,10 +214102,10 @@
         "date": "2026-06-26",
         "round": "Round 10",
         "grade": "Division 4 Women's",
-        "goals": 0,
+        "goals": 1,
         "bog": 0,
         "inBest": false,
-        "talentScore": 0
+        "talentScore": 5
       },
       {
         "date": "2026-07-03",
@@ -214162,7 +214162,7 @@
         "talentScore": 54
       }
     ],
-    "talentScore": 32.3
+    "talentScore": 33.8
   },
   {
     "id": "912cc460-59df-4eff-a7ad-da2cde30b245",
@@ -214171,7 +214171,7 @@
     "grade": "Division 4 Women's",
     "club": "",
     "games": 13,
-    "goals": 9,
+    "goals": 11,
     "bog": 14,
     "bogFirsts": 0,
     "bestCount": 6,
@@ -214227,19 +214227,19 @@
         "date": "2026-06-20",
         "round": "Round 9",
         "grade": "Division 4 Women's",
-        "goals": 0,
+        "goals": 1,
         "bog": 0,
         "inBest": false,
-        "talentScore": 0
+        "talentScore": 5
       },
       {
         "date": "2026-06-26",
         "round": "Round 10",
         "grade": "Division 4 Women's",
-        "goals": 1,
+        "goals": 2,
         "bog": 2,
         "inBest": true,
-        "talentScore": 21
+        "talentScore": 26
       },
       {
         "date": "2026-07-03",
@@ -214296,7 +214296,7 @@
         "talentScore": 18
       }
     ],
-    "talentScore": 43.5
+    "talentScore": 46.3
   },
   {
     "id": "79396b0a-f7cf-4eb3-808e-c1f14574da64",
@@ -227934,7 +227934,7 @@
     "grade": "Division 4 Women's",
     "club": "",
     "games": 7,
-    "goals": 2,
+    "goals": 3,
     "bog": 10,
     "bogFirsts": 0,
     "bestCount": 3,
@@ -227945,10 +227945,10 @@
         "date": "2026-05-09",
         "round": "Round 4",
         "grade": "Division 4 Women's",
-        "goals": 2,
+        "goals": 3,
         "bog": 4,
         "inBest": true,
-        "talentScore": 42
+        "talentScore": 47
       },
       {
         "date": "2026-05-16",
@@ -228005,7 +228005,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 34.0
+    "talentScore": 35.9
   },
   {
     "id": "cf3ab3f5-4780-46a1-b04b-a124393cb5b2",
@@ -229360,7 +229360,7 @@
     "grade": "Division 4 Women's",
     "club": "",
     "games": 2,
-    "goals": 0,
+    "goals": 1,
     "bog": 0,
     "bogFirsts": 0,
     "bestCount": 0,
@@ -229371,10 +229371,10 @@
         "date": "2026-05-29",
         "round": "Round 7",
         "grade": "Division 4 Women's",
-        "goals": 0,
+        "goals": 1,
         "bog": 0,
         "inBest": false,
-        "talentScore": 0
+        "talentScore": 5
       },
       {
         "date": "2026-07-25",
@@ -229386,7 +229386,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 0.0
+    "talentScore": 3.5
   },
   {
     "id": "a8657a94-dae8-4e3b-b3bd-139a46617356",
