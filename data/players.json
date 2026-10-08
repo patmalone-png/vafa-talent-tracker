@@ -64630,6 +64630,50 @@
     "talentScore": 32.9
   },
   {
+    "id": "ff3d09d4-19f9-448b-a23b-46185b86adc4",
+    "name": "Lucy Hannah",
+    "number": "22",
+    "grade": "Premier A Women's Reserve",
+    "club": "",
+    "games": 3,
+    "goals": 0,
+    "bog": 6,
+    "bogFirsts": 0,
+    "bestCount": 2,
+    "wins": 0,
+    "captainGames": 0,
+    "history": [
+      {
+        "date": "2026-05-23",
+        "round": "Round 6",
+        "grade": "Premier A Women's Reserve",
+        "goals": 0,
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 40
+      },
+      {
+        "date": "2026-06-20",
+        "round": "Round 9",
+        "grade": "Premier A Women's Reserve",
+        "goals": 0,
+        "bog": 1,
+        "inBest": true,
+        "talentScore": 8
+      },
+      {
+        "date": "2026-06-27",
+        "round": "Round 10",
+        "grade": "Premier A Women's Reserve",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      }
+    ],
+    "talentScore": 27.7
+  },
+  {
     "id": "c7d0ee5c-3b58-423f-b688-6b1949cda934",
     "name": "kate camillo",
     "number": "44",
@@ -66034,41 +66078,6 @@
       }
     ],
     "talentScore": 16.0
-  },
-  {
-    "id": "ff3d09d4-19f9-448b-a23b-46185b86adc4",
-    "name": "Lucy Hannah",
-    "number": "76",
-    "grade": "Premier A Women's Reserve",
-    "club": "",
-    "games": 2,
-    "goals": 0,
-    "bog": 1,
-    "bogFirsts": 0,
-    "bestCount": 1,
-    "wins": 0,
-    "captainGames": 0,
-    "history": [
-      {
-        "date": "2026-06-20",
-        "round": "Round 9",
-        "grade": "Premier A Women's Reserve",
-        "goals": 0,
-        "bog": 1,
-        "inBest": true,
-        "talentScore": 8
-      },
-      {
-        "date": "2026-06-27",
-        "round": "Round 10",
-        "grade": "Premier A Women's Reserve",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      }
-    ],
-    "talentScore": 5.7
   },
   {
     "id": "f3137cb4-2948-4424-8c12-ce46c72cb798",
@@ -96951,6 +96960,68 @@
     "talentScore": 3.8
   },
   {
+    "id": "d6cdf435-d31e-4c57-ad7d-d14d2bf87948",
+    "name": "Charli McClure",
+    "number": "61",
+    "grade": "Premier B Women's",
+    "club": "",
+    "games": 5,
+    "goals": 1,
+    "bog": 10,
+    "bogFirsts": 0,
+    "bestCount": 3,
+    "wins": 0,
+    "captainGames": 0,
+    "history": [
+      {
+        "date": "2026-04-25",
+        "round": "Round 2",
+        "grade": "Premier B Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-01",
+        "round": "Round 3",
+        "grade": "Premier B Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Premier B Women's",
+        "goals": 0,
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 40
+      },
+      {
+        "date": "2026-05-16",
+        "round": "Round 5",
+        "grade": "Premier B Women's",
+        "goals": 0,
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 32
+      },
+      {
+        "date": "2026-05-23",
+        "round": "Round 6",
+        "grade": "Premier B Women's",
+        "goals": 1,
+        "bog": 1,
+        "inBest": true,
+        "talentScore": 13
+      }
+    ],
+    "talentScore": 38.0
+  },
+  {
     "id": "4dc49f9e-2123-4aa6-a1ff-ef310e71d4e5",
     "name": "Claudia Zuccala",
     "number": "7",
@@ -98698,59 +98769,6 @@
       }
     ],
     "talentScore": 38.7
-  },
-  {
-    "id": "d6cdf435-d31e-4c57-ad7d-d14d2bf87948",
-    "name": "Charli McClure",
-    "number": "61",
-    "grade": "Premier B Women's",
-    "club": "",
-    "games": 4,
-    "goals": 1,
-    "bog": 10,
-    "bogFirsts": 0,
-    "bestCount": 3,
-    "wins": 0,
-    "captainGames": 0,
-    "history": [
-      {
-        "date": "2026-05-01",
-        "round": "Round 3",
-        "grade": "Premier B Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-05-09",
-        "round": "Round 4",
-        "grade": "Premier B Women's",
-        "goals": 0,
-        "bog": 5,
-        "inBest": true,
-        "talentScore": 40
-      },
-      {
-        "date": "2026-05-16",
-        "round": "Round 5",
-        "grade": "Premier B Women's",
-        "goals": 0,
-        "bog": 4,
-        "inBest": true,
-        "talentScore": 32
-      },
-      {
-        "date": "2026-05-23",
-        "round": "Round 6",
-        "grade": "Premier B Women's",
-        "goals": 1,
-        "bog": 1,
-        "inBest": true,
-        "talentScore": 13
-      }
-    ],
-    "talentScore": 42.5
   },
   {
     "id": "8e89ecea-88cf-42fe-a313-6c920f4b17ab",
@@ -139344,17 +139362,35 @@
   {
     "id": "2142fcae-902d-483c-84c4-83b737ecbfbe",
     "name": "Mimi Chun",
-    "number": "49",
+    "number": null,
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 6,
-    "goals": 1,
-    "bog": 0,
+    "games": 8,
+    "goals": 2,
+    "bog": 5,
     "bogFirsts": 0,
-    "bestCount": 0,
+    "bestCount": 1,
     "wins": 0,
     "captainGames": 0,
     "history": [
+      {
+        "date": "2026-05-30",
+        "round": "Round 7",
+        "grade": "Division 1 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
+      },
+      {
+        "date": "2026-06-12",
+        "round": "Round 8",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 40
+      },
       {
         "date": "2026-06-20",
         "round": "Round 9",
@@ -139410,7 +139446,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 2.0
+    "talentScore": 17.7
   },
   {
     "id": "82087642-127f-424e-a724-ce42975c6751",
@@ -152766,6 +152802,41 @@
       }
     ],
     "talentScore": 0.0
+  },
+  {
+    "id": "39721e90-909f-4087-aded-280e2aabf07d",
+    "name": "Nicole Ridley",
+    "number": "43",
+    "grade": "Division 2 Women's",
+    "club": "",
+    "games": 2,
+    "goals": 0,
+    "bog": 5,
+    "bogFirsts": 0,
+    "bestCount": 1,
+    "wins": 0,
+    "captainGames": 0,
+    "history": [
+      {
+        "date": "2026-04-17",
+        "round": "Round 1",
+        "grade": "Division 2 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-02",
+        "round": "Round 3",
+        "grade": "Division 2 Women's",
+        "goals": 0,
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 40
+      }
+    ],
+    "talentScore": 28.3
   },
   {
     "id": "e9e3b31d-c196-4f9c-8e23-85b93abeb73d",
@@ -172312,6 +172383,41 @@
       }
     ],
     "talentScore": 14.1
+  },
+  {
+    "id": "c55be279-69ef-4d2a-8c7e-936cd3a3ed66",
+    "name": "Tianah Wilks-Smith",
+    "number": null,
+    "grade": "Division 2 Women's",
+    "club": "",
+    "games": 2,
+    "goals": 0,
+    "bog": 0,
+    "bogFirsts": 0,
+    "bestCount": 0,
+    "wins": 0,
+    "captainGames": 0,
+    "history": [
+      {
+        "date": "2026-05-30",
+        "round": "Round 7",
+        "grade": "Division 2 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-06-12",
+        "round": "Round 8",
+        "grade": "Division 2 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      }
+    ],
+    "talentScore": 0.0
   },
   {
     "id": "aa60de1a-1d9e-46bb-be78-c9e0c46921ef",
@@ -195043,6 +195149,41 @@
     "talentScore": 0.0
   },
   {
+    "id": "68178dfa-dab9-4831-ab97-839f257852ca",
+    "name": "Jess Coleman",
+    "number": null,
+    "grade": "Division 3 Women's",
+    "club": "",
+    "games": 2,
+    "goals": 0,
+    "bog": 0,
+    "bogFirsts": 0,
+    "bestCount": 0,
+    "wins": 0,
+    "captainGames": 0,
+    "history": [
+      {
+        "date": "2026-05-02",
+        "round": "Round 3",
+        "grade": "Division 3 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-01",
+        "round": "Round 3",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      }
+    ],
+    "talentScore": 0.0
+  },
+  {
     "id": "bf098995-cb2e-4703-bd0e-7280a8ff58e3",
     "name": "Alanna Badenhorst",
     "number": "3",
@@ -200903,6 +201044,32 @@
       }
     ],
     "talentScore": 1.9
+  },
+  {
+    "id": "702c5375-0460-4744-a708-27e2dd408828",
+    "name": "Alice Donald",
+    "number": "31",
+    "grade": "Division 3 Women's",
+    "club": "",
+    "games": 1,
+    "goals": 0,
+    "bog": 0,
+    "bogFirsts": 0,
+    "bestCount": 0,
+    "wins": 0,
+    "captainGames": 0,
+    "history": [
+      {
+        "date": "2026-05-15",
+        "round": "Round 5",
+        "grade": "Division 3 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      }
+    ],
+    "talentScore": 0.0
   },
   {
     "id": "64e14100-4e87-4522-8c48-8c7c2e308678",
@@ -228611,6 +228778,95 @@
     "talentScore": 0.0
   },
   {
+    "id": "9ed8664b-a1cb-4b4b-83d5-009b249ef730",
+    "name": "Emily Severin",
+    "number": null,
+    "grade": "Division 4 Women's",
+    "club": "",
+    "games": 8,
+    "goals": 3,
+    "bog": 2,
+    "bogFirsts": 0,
+    "bestCount": 1,
+    "wins": 0,
+    "captainGames": 0,
+    "history": [
+      {
+        "date": "2026-05-15",
+        "round": "Round 5",
+        "grade": "Division 4 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-06-12",
+        "round": "Round 8",
+        "grade": "Division 4 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-03",
+        "round": "Round 11",
+        "grade": "Division 4 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 4 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-24",
+        "round": "Round 13",
+        "grade": "Division 4 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-08-01",
+        "round": "Round 14",
+        "grade": "Division 4 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
+      },
+      {
+        "date": "2026-08-07",
+        "round": "Round 15",
+        "grade": "Division 4 Women's",
+        "goals": 2,
+        "bog": 2,
+        "inBest": true,
+        "talentScore": 26
+      },
+      {
+        "date": "2026-08-16",
+        "round": "Round 16",
+        "grade": "Division 4 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      }
+    ],
+    "talentScore": 11.0
+  },
+  {
     "id": "3bfc6594-41dc-4af2-a4e1-b4ad4bd29c0a",
     "name": "Rubee-Leigh Poata",
     "number": "5",
@@ -231547,77 +231803,6 @@
       }
     ],
     "talentScore": 0.0
-  },
-  {
-    "id": "9ed8664b-a1cb-4b4b-83d5-009b249ef730",
-    "name": "Emily Severin",
-    "number": "9",
-    "grade": "Division 4 Women's",
-    "club": "",
-    "games": 6,
-    "goals": 3,
-    "bog": 2,
-    "bogFirsts": 0,
-    "bestCount": 1,
-    "wins": 0,
-    "captainGames": 0,
-    "history": [
-      {
-        "date": "2026-07-03",
-        "round": "Round 11",
-        "grade": "Division 4 Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-07-17",
-        "round": "Round 12",
-        "grade": "Division 4 Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-07-24",
-        "round": "Round 13",
-        "grade": "Division 4 Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      },
-      {
-        "date": "2026-08-01",
-        "round": "Round 14",
-        "grade": "Division 4 Women's",
-        "goals": 1,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 5
-      },
-      {
-        "date": "2026-08-07",
-        "round": "Round 15",
-        "grade": "Division 4 Women's",
-        "goals": 2,
-        "bog": 2,
-        "inBest": true,
-        "talentScore": 26
-      },
-      {
-        "date": "2026-08-16",
-        "round": "Round 16",
-        "grade": "Division 4 Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      }
-    ],
-    "talentScore": 12.7
   },
   {
     "id": "bd4885ee-85ef-4da0-a175-9a221a544fe6",
@@ -253595,32 +253780,6 @@
       }
     ],
     "talentScore": 49.5
-  },
-  {
-    "id": "68178dfa-dab9-4831-ab97-839f257852ca",
-    "name": "Jess Coleman",
-    "number": "38",
-    "grade": "Division 5 Women's",
-    "club": "",
-    "games": 1,
-    "goals": 0,
-    "bog": 0,
-    "bogFirsts": 0,
-    "bestCount": 0,
-    "wins": 0,
-    "captainGames": 0,
-    "history": [
-      {
-        "date": "2026-05-01",
-        "round": "Round 3",
-        "grade": "Division 5 Women's",
-        "goals": 0,
-        "bog": 0,
-        "inBest": false,
-        "talentScore": 0
-      }
-    ],
-    "talentScore": 0.0
   },
   {
     "id": "7de20237-3b25-4853-b621-df210f31db36",
