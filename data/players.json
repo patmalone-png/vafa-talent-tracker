@@ -27839,7 +27839,7 @@
     "number": null,
     "grade": "Premier A Women's",
     "club": "",
-    "games": 31,
+    "games": 32,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -28084,6 +28084,15 @@
       {
         "date": "2026-07-03",
         "round": "Round 11",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -50670,11 +50679,11 @@
     "number": "14",
     "grade": "Premier A Women's Reserve",
     "club": "",
-    "games": 14,
-    "goals": 10,
-    "bog": 7,
-    "bogFirsts": 0,
-    "bestCount": 2,
+    "games": 15,
+    "goals": 11,
+    "bog": 13,
+    "bogFirsts": 1,
+    "bestCount": 3,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -50796,6 +50805,15 @@
         "talentScore": 41
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 1,
+        "bog": 6,
+        "inBest": true,
+        "talentScore": 59
+      },
+      {
         "date": "2026-08-14",
         "round": "Round 16",
         "grade": "Division 5 Women's",
@@ -50805,7 +50823,7 @@
         "talentScore": 5
       }
     ],
-    "talentScore": 28.3
+    "talentScore": 42.6
   },
   {
     "id": "edb6e78c-9689-42f8-8425-757facd83766",
@@ -52543,8 +52561,8 @@
     "number": "36",
     "grade": "Premier A Women's Reserve",
     "club": "",
-    "games": 8,
-    "goals": 1,
+    "games": 9,
+    "goals": 2,
     "bog": 0,
     "bogFirsts": 0,
     "bestCount": 0,
@@ -52597,6 +52615,15 @@
         "talentScore": 5
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -52624,7 +52651,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 1.8
+    "talentScore": 3.3
   },
   {
     "id": "244a94ca-7cc4-4d40-b658-ef53cefac98c",
@@ -52766,7 +52793,7 @@
     "number": "73",
     "grade": "Premier A Women's Reserve",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -52847,6 +52874,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-31",
         "round": "Round 14",
         "grade": "Division 5 Women's",
@@ -52864,11 +52900,11 @@
     "number": "21",
     "grade": "Premier A Women's Reserve",
     "club": "",
-    "games": 15,
-    "goals": 7,
-    "bog": 14,
+    "games": 16,
+    "goals": 8,
+    "bog": 17,
     "bogFirsts": 0,
-    "bestCount": 5,
+    "bestCount": 6,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -52981,6 +53017,15 @@
         "talentScore": 55
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 1,
+        "bog": 3,
+        "inBest": true,
+        "talentScore": 29
+      },
+      {
         "date": "2026-07-31",
         "round": "Round 14",
         "grade": "Division 5 Women's",
@@ -53008,7 +53053,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 38.0
+    "talentScore": 44.0
   },
   {
     "id": "4e66fa8a-132f-4abe-857b-bd2f2f04da80",
@@ -60138,8 +60183,8 @@
     "number": "117",
     "grade": "Premier A Women's Reserve",
     "club": "",
-    "games": 10,
-    "goals": 3,
+    "games": 11,
+    "goals": 4,
     "bog": 12,
     "bogFirsts": 0,
     "bestCount": 4,
@@ -60201,6 +60246,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -60237,7 +60291,7 @@
         "talentScore": 8
       }
     ],
-    "talentScore": 35.1
+    "talentScore": 35.0
   },
   {
     "id": "48f2fd1c-5a9d-4c02-86e8-d989d21b2d1d",
@@ -107419,7 +107473,7 @@
     "number": "91",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 1,
     "bog": 0,
     "bogFirsts": 0,
@@ -107430,6 +107484,15 @@
       {
         "date": "2026-04-17",
         "round": "Round 1",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -107527,7 +107590,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 1.5
+    "talentScore": 1.4
   },
   {
     "id": "d724c178-1eb0-4266-8a5d-b485305f09d6",
@@ -107651,7 +107714,7 @@
     "number": "17",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 0,
     "bog": 16,
     "bogFirsts": 0,
@@ -107685,6 +107748,15 @@
         "bog": 5,
         "inBest": true,
         "talentScore": 40
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       },
       {
         "date": "2026-05-15",
@@ -107768,7 +107840,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 37.0
+    "talentScore": 35.5
   },
   {
     "id": "79f16c75-02d7-4945-bd9c-982170122f05",
@@ -107776,7 +107848,7 @@
     "number": "29",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 0,
     "bog": 5,
     "bogFirsts": 0,
@@ -107805,6 +107877,15 @@
       {
         "date": "2026-05-02",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -107884,7 +107965,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 12.1
+    "talentScore": 11.5
   },
   {
     "id": "1166cea2-f07a-4853-9ea8-ce9f9bc2cc4f",
@@ -108026,7 +108107,7 @@
     "number": "21",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 4,
     "bog": 18,
     "bogFirsts": 1,
@@ -108055,6 +108136,15 @@
       {
         "date": "2026-05-02",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -108143,7 +108233,7 @@
         "talentScore": 37
       }
     ],
-    "talentScore": 49.1
+    "talentScore": 47.1
   },
   {
     "id": "e06ecaae-df9a-4acb-ad7c-478e132d31ac",
@@ -108151,11 +108241,11 @@
     "number": "32",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
-    "bog": 0,
+    "bog": 1,
     "bogFirsts": 0,
-    "bestCount": 0,
+    "bestCount": 1,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -108185,6 +108275,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 1,
+        "inBest": true,
+        "talentScore": 8
       },
       {
         "date": "2026-05-15",
@@ -108286,7 +108385,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 0.0
+    "talentScore": 2.1
   },
   {
     "id": "cbf6d44d-d3f8-4d3f-9090-a4492a30fc17",
@@ -108419,11 +108518,11 @@
     "number": "5",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 12,
-    "bog": 20,
+    "bog": 24,
     "bogFirsts": 1,
-    "bestCount": 5,
+    "bestCount": 6,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -108453,6 +108552,15 @@
         "bog": 3,
         "inBest": true,
         "talentScore": 29
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 32
       },
       {
         "date": "2026-05-15",
@@ -108563,7 +108671,7 @@
         "talentScore": 5
       }
     ],
-    "talentScore": 58.4
+    "talentScore": 64.5
   },
   {
     "id": "d464b2eb-dff9-43e8-bee9-155134b907c0",
@@ -109214,8 +109322,8 @@
     "number": "9",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 15,
-    "goals": 20,
+    "games": 16,
+    "goals": 21,
     "bog": 22,
     "bogFirsts": 1,
     "bestCount": 6,
@@ -109248,6 +109356,15 @@
         "bog": 4,
         "inBest": true,
         "talentScore": 42
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
       },
       {
         "date": "2026-05-15",
@@ -109358,7 +109475,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 72.8
+    "talentScore": 71.8
   },
   {
     "id": "cf699bd4-b72b-44fb-baf1-d5a051fb1055",
@@ -109616,8 +109733,8 @@
     "number": "96",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 10,
-    "goals": 1,
+    "games": 11,
+    "goals": 2,
     "bog": 4,
     "bogFirsts": 0,
     "bestCount": 1,
@@ -109650,6 +109767,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
       },
       {
         "date": "2026-05-15",
@@ -109715,7 +109841,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 11.7
+    "talentScore": 12.7
   },
   {
     "id": "a695236a-8a31-45c7-90d3-d4ec7c999823",
@@ -109848,7 +109974,7 @@
     "number": "19",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 0,
     "bog": 7,
     "bogFirsts": 1,
@@ -109882,6 +110008,15 @@
         "bog": 1,
         "inBest": true,
         "talentScore": 8
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       },
       {
         "date": "2026-05-15",
@@ -109992,7 +110127,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 16.0
+    "talentScore": 15.5
   },
   {
     "id": "a3c8a4cf-7b3d-4228-8a5b-1a2c0880f585",
@@ -110000,7 +110135,7 @@
     "number": "27",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 5,
     "bog": 37,
     "bogFirsts": 1,
@@ -110029,6 +110164,15 @@
       {
         "date": "2026-05-02",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -110144,7 +110288,7 @@
         "talentScore": 37
       }
     ],
-    "talentScore": 84.4
+    "talentScore": 81.8
   },
   {
     "id": "87b0c458-f956-412d-bb90-dfef5dd439d3",
@@ -110259,7 +110403,7 @@
     "number": "15",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 7,
     "bog": 31,
     "bogFirsts": 2,
@@ -110293,6 +110437,15 @@
         "bog": 2,
         "inBest": true,
         "talentScore": 16
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       },
       {
         "date": "2026-05-15",
@@ -110394,7 +110547,7 @@
         "talentScore": 16
       }
     ],
-    "talentScore": 78.8
+    "talentScore": 76.2
   },
   {
     "id": "0278e3cf-f27f-47f8-b85c-ae66e6009fbf",
@@ -110491,7 +110644,7 @@
     "number": "6",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 2,
     "bog": 11,
     "bogFirsts": 1,
@@ -110520,6 +110673,15 @@
       {
         "date": "2026-05-02",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -110581,7 +110743,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 34.7
+    "talentScore": 32.9
   },
   {
     "id": "fb9ccdcd-3b7b-4cc0-b93d-a7fb48a0530b",
@@ -110866,7 +111028,7 @@
     "number": "34",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 3,
     "bogFirsts": 0,
@@ -110895,6 +111057,15 @@
       {
         "date": "2026-05-02",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -111001,7 +111172,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 6.4
+    "talentScore": 6.2
   },
   {
     "id": "cfc70c37-cc4b-4119-b657-240b574f307e",
@@ -111009,7 +111180,7 @@
     "number": "28",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 10,
+    "games": 11,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -111029,6 +111200,15 @@
       {
         "date": "2026-04-24",
         "round": "Round 2",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -111249,11 +111429,11 @@
     "number": "36",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 1,
-    "bog": 24,
+    "bog": 29,
     "bogFirsts": 0,
-    "bestCount": 10,
+    "bestCount": 11,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -111283,6 +111463,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 40
       },
       {
         "date": "2026-05-15",
@@ -111393,7 +111582,7 @@
         "talentScore": 8
       }
     ],
-    "talentScore": 50.9
+    "talentScore": 59.2
   },
   {
     "id": "88c63f71-def1-4cc3-b1c3-e19117b3c96d",
@@ -111803,7 +111992,7 @@
     "number": "20",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 0,
     "bog": 9,
     "bogFirsts": 1,
@@ -111837,6 +112026,15 @@
         "bog": 6,
         "inBest": true,
         "talentScore": 54
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       },
       {
         "date": "2026-05-15",
@@ -111911,7 +112109,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 23.5
+    "talentScore": 22.5
   },
   {
     "id": "2cb07380-d9e0-4d14-98d6-e5e935b50a44",
@@ -111919,11 +112117,11 @@
     "number": "90",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 1,
-    "bog": 4,
-    "bogFirsts": 0,
-    "bestCount": 1,
+    "bog": 10,
+    "bogFirsts": 1,
+    "bestCount": 2,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -111953,6 +112151,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 6,
+        "inBest": true,
+        "talentScore": 54
       },
       {
         "date": "2026-05-15",
@@ -112054,7 +112261,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 9.9
+    "talentScore": 23.5
   },
   {
     "id": "e0e0232b-f089-4821-9e52-00fbc8eb5506",
@@ -112491,7 +112698,7 @@
     "number": null,
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -112520,6 +112727,15 @@
       {
         "date": "2026-05-02",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -112643,8 +112859,8 @@
     "number": "24",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
-    "goals": 3,
+    "games": 13,
+    "goals": 4,
     "bog": 0,
     "bogFirsts": 0,
     "bestCount": 0,
@@ -112677,6 +112893,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
       },
       {
         "date": "2026-05-16",
@@ -112760,7 +112985,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 4.3
+    "talentScore": 5.5
   },
   {
     "id": "4c94505b-e8bf-48a6-b245-ff24ecdfe0d5",
@@ -112768,8 +112993,8 @@
     "number": "32",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
-    "goals": 4,
+    "games": 13,
+    "goals": 5,
     "bog": 12,
     "bogFirsts": 1,
     "bestCount": 3,
@@ -112802,6 +113027,15 @@
         "bog": 4,
         "inBest": true,
         "talentScore": 32
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
       },
       {
         "date": "2026-05-16",
@@ -112893,11 +113127,11 @@
     "number": "22",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 10,
-    "goals": 4,
-    "bog": 10,
-    "bogFirsts": 0,
-    "bestCount": 2,
+    "games": 11,
+    "goals": 7,
+    "bog": 16,
+    "bogFirsts": 1,
+    "bestCount": 3,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -112927,6 +113161,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 3,
+        "bog": 6,
+        "inBest": true,
+        "talentScore": 69
       },
       {
         "date": "2026-05-16",
@@ -112992,7 +113235,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 31.6
+    "talentScore": 51.0
   },
   {
     "id": "b9983927-dbdd-4e0f-84d9-5afde4170fdf",
@@ -114098,7 +114341,7 @@
     "number": "25",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 0,
     "bog": 33,
     "bogFirsts": 1,
@@ -114132,6 +114375,15 @@
         "bog": 3,
         "inBest": true,
         "talentScore": 24
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       },
       {
         "date": "2026-05-16",
@@ -114206,7 +114458,7 @@
         "talentScore": 24
       }
     ],
-    "talentScore": 81.4
+    "talentScore": 77.9
   },
   {
     "id": "cf69d640-e844-4b10-a3c6-5b4b8dcb21dd",
@@ -114214,7 +114466,7 @@
     "number": "19",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 6,
     "bogFirsts": 1,
@@ -114243,6 +114495,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -114349,7 +114610,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 14.4
+    "talentScore": 13.9
   },
   {
     "id": "0463f22b-c23d-4baa-9a9f-c987d63cc11c",
@@ -114616,11 +114877,11 @@
     "number": "11",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 1,
-    "bog": 34,
+    "bog": 35,
     "bogFirsts": 2,
-    "bestCount": 9,
+    "bestCount": 10,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -114650,6 +114911,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 1,
+        "inBest": true,
+        "talentScore": 8
       },
       {
         "date": "2026-05-16",
@@ -114760,7 +115030,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 74.6
+    "talentScore": 74.2
   },
   {
     "id": "012aecf2-e0e2-4d42-b084-dd9b23677394",
@@ -114768,7 +115038,7 @@
     "number": "28",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 2,
+    "games": 3,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -114779,6 +115049,15 @@
       {
         "date": "2026-04-17",
         "round": "Round 1",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -114803,8 +115082,8 @@
     "number": "23",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
-    "goals": 0,
+    "games": 13,
+    "goals": 1,
     "bog": 0,
     "bogFirsts": 0,
     "bestCount": 0,
@@ -114837,6 +115116,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
       },
       {
         "date": "2026-05-22",
@@ -114920,7 +115208,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 0.0
+    "talentScore": 1.4
   },
   {
     "id": "21c8f020-2941-4c51-8b39-c90aa037a7a8",
@@ -114928,11 +115216,11 @@
     "number": "3",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 1,
-    "bog": 22,
+    "bog": 24,
     "bogFirsts": 0,
-    "bestCount": 8,
+    "bestCount": 9,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -114962,6 +115250,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 2,
+        "inBest": true,
+        "talentScore": 16
       },
       {
         "date": "2026-05-16",
@@ -115072,7 +115369,7 @@
         "talentScore": 21
       }
     ],
-    "talentScore": 46.7
+    "talentScore": 49.2
   },
   {
     "id": "24dfcbec-55da-4f04-ae18-73fc7c4952b1",
@@ -115080,11 +115377,11 @@
     "number": "10",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 13,
+    "games": 14,
     "goals": 4,
-    "bog": 22,
+    "bog": 25,
     "bogFirsts": 0,
-    "bestCount": 8,
+    "bestCount": 9,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -115114,6 +115411,15 @@
         "bog": 5,
         "inBest": true,
         "talentScore": 45
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 3,
+        "inBest": true,
+        "talentScore": 24
       },
       {
         "date": "2026-05-16",
@@ -115206,7 +115512,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 54.4
+    "talentScore": 58.8
   },
   {
     "id": "e9d7674f-a8a1-4b80-935f-67fd2f34a7b4",
@@ -115214,7 +115520,7 @@
     "number": "17",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 2,
     "bog": 0,
     "bogFirsts": 0,
@@ -115234,6 +115540,15 @@
       {
         "date": "2026-04-25",
         "round": "Round 2",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -115331,7 +115646,7 @@
         "talentScore": 5
       }
     ],
-    "talentScore": 2.9
+    "talentScore": 2.8
   },
   {
     "id": "27fa7103-39ce-4f4f-a5da-ee49565d5bcc",
@@ -115339,7 +115654,7 @@
     "number": "12",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -115359,6 +115674,15 @@
       {
         "date": "2026-04-25",
         "round": "Round 2",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -115437,11 +115761,11 @@
     "number": "5",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 3,
-    "bog": 33,
+    "bog": 37,
     "bogFirsts": 0,
-    "bestCount": 11,
+    "bestCount": 12,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -115471,6 +115795,15 @@
         "bog": 2,
         "inBest": true,
         "talentScore": 16
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 32
       },
       {
         "date": "2026-05-16",
@@ -115554,7 +115887,7 @@
         "talentScore": 8
       }
     ],
-    "talentScore": 80.5
+    "talentScore": 86.3
   },
   {
     "id": "73a826ee-c457-4747-b8a9-a64f5e5db902",
@@ -115562,7 +115895,7 @@
     "number": "4",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 26,
     "bogFirsts": 2,
@@ -115598,6 +115931,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-05-16",
         "round": "Round 5",
         "grade": "Division 1 Women's",
@@ -115697,7 +116039,7 @@
         "talentScore": 40
       }
     ],
-    "talentScore": 58.8
+    "talentScore": 56.8
   },
   {
     "id": "700487bc-ddb5-4353-a71d-b466124e768f",
@@ -115705,7 +116047,7 @@
     "number": "16",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 15,
     "bogFirsts": 1,
@@ -115725,6 +116067,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -115840,7 +116191,7 @@
         "talentScore": 32
       }
     ],
-    "talentScore": 33.7
+    "talentScore": 32.5
   },
   {
     "id": "9bdecffd-557a-4339-a8d3-00024aa31c65",
@@ -115848,7 +116199,7 @@
     "number": "2",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 2,
     "bog": 6,
     "bogFirsts": 1,
@@ -115868,6 +116219,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -115965,7 +116325,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 18.5
+    "talentScore": 17.8
   },
   {
     "id": "79828096-407e-4bc1-b135-40169961b2d7",
@@ -115973,8 +116333,8 @@
     "number": "9",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 10,
-    "goals": 4,
+    "games": 11,
+    "goals": 5,
     "bog": 9,
     "bogFirsts": 1,
     "bestCount": 2,
@@ -116009,6 +116369,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
+      },
+      {
         "date": "2026-05-16",
         "round": "Round 5",
         "grade": "Division 1 Women's",
@@ -116072,7 +116441,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 31.0
+    "talentScore": 31.1
   },
   {
     "id": "7738a02e-b8ff-4e33-bd8c-e8c3d5fd1773",
@@ -116080,7 +116449,7 @@
     "number": "6",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 13,
+    "games": 14,
     "goals": 0,
     "bog": 15,
     "bogFirsts": 1,
@@ -116109,6 +116478,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -116206,7 +116584,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 34.9
+    "talentScore": 33.7
   },
   {
     "id": "279187ba-f486-4563-bda3-5b3f1303a285",
@@ -116214,11 +116592,11 @@
     "number": "31",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
-    "bog": 30,
+    "bog": 35,
     "bogFirsts": 2,
-    "bestCount": 8,
+    "bestCount": 9,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -116248,6 +116626,15 @@
         "bog": 1,
         "inBest": true,
         "talentScore": 8
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 40
       },
       {
         "date": "2026-05-16",
@@ -116349,7 +116736,7 @@
         "talentScore": 54
       }
     ],
-    "talentScore": 67.3
+    "talentScore": 75.4
   },
   {
     "id": "447e3d35-a4e6-41af-8946-2aa22636e7e8",
@@ -116473,7 +116860,7 @@
     "number": "33",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -116502,6 +116889,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -116589,7 +116985,7 @@
     "number": "27",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -116609,6 +117005,15 @@
       {
         "date": "2026-04-25",
         "round": "Round 2",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -118610,7 +119015,7 @@
     "number": null,
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 13,
+    "games": 14,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -118639,6 +119044,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -118744,7 +119158,7 @@
     "number": null,
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -118773,6 +119187,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -132132,7 +132555,7 @@
     "number": "13",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -132152,6 +132575,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -132516,7 +132948,7 @@
     "number": null,
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -132536,6 +132968,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -134468,8 +134909,8 @@
     "number": "31",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 6,
-    "goals": 2,
+    "games": 7,
+    "goals": 3,
     "bog": 0,
     "bogFirsts": 0,
     "bestCount": 0,
@@ -134493,6 +134934,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
       },
       {
         "date": "2026-05-15",
@@ -134531,7 +134981,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 4.1
+    "talentScore": 5.7
   },
   {
     "id": "7cc92ac0-0a0b-442c-a4b3-dae337264e3c",
@@ -134717,11 +135167,11 @@
     "number": "3",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
-    "bog": 27,
+    "bog": 29,
     "bogFirsts": 0,
-    "bestCount": 10,
+    "bestCount": 11,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -134742,6 +135192,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 2,
+        "inBest": true,
+        "talentScore": 16
       },
       {
         "date": "2026-05-15",
@@ -134852,7 +135311,7 @@
         "talentScore": 24
       }
     ],
-    "talentScore": 57.7
+    "talentScore": 59.9
   },
   {
     "id": "6ca4c643-5609-44fa-8321-4c96a91698c1",
@@ -134860,11 +135319,11 @@
     "number": "22",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 0,
-    "bog": 15,
+    "bog": 18,
     "bogFirsts": 1,
-    "bestCount": 3,
+    "bestCount": 4,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -134885,6 +135344,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 3,
+        "inBest": true,
+        "talentScore": 24
       },
       {
         "date": "2026-05-15",
@@ -134950,7 +135418,7 @@
         "talentScore": 54
       }
     ],
-    "talentScore": 42.0
+    "talentScore": 47.4
   },
   {
     "id": "a829b0aa-7a00-4a84-be41-097dd08ae599",
@@ -135101,7 +135569,7 @@
     "number": "34",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 0,
     "bog": 16,
     "bogFirsts": 1,
@@ -135112,6 +135580,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -135218,7 +135695,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 38.7
+    "talentScore": 37.2
   },
   {
     "id": "c29d439b-8511-46d0-b0f1-1fa14f26ef63",
@@ -135226,7 +135703,7 @@
     "number": "18",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 8,
+    "games": 9,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -135237,6 +135714,15 @@
       {
         "date": "2026-05-01",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -135359,7 +135845,7 @@
     "number": "60",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 4,
+    "games": 5,
     "goals": 1,
     "bog": 0,
     "bogFirsts": 0,
@@ -135370,6 +135856,15 @@
       {
         "date": "2026-05-02",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -135404,7 +135899,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 2.5
+    "talentScore": 2.2
   },
   {
     "id": "e4a2c028-43d4-4a5d-bf2f-f0dc02095f12",
@@ -135412,7 +135907,7 @@
     "number": "24",
     "grade": "Division 1 Women's",
     "club": "",
-    "games": 13,
+    "games": 14,
     "goals": 0,
     "bog": 6,
     "bogFirsts": 0,
@@ -135423,6 +135918,15 @@
       {
         "date": "2026-05-02",
         "round": "Round 3",
+        "grade": "Division 1 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-05-09",
+        "round": "Round 4",
         "grade": "Division 1 Women's",
         "goals": 0,
         "bog": 0,
@@ -135538,7 +136042,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 13.3
+    "talentScore": 12.8
   },
   {
     "id": "3d61902d-5991-43e0-a090-ec2d7f7b7edf",
@@ -232702,11 +233206,11 @@
     "number": "75",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 8,
-    "goals": 2,
-    "bog": 21,
+    "games": 9,
+    "goals": 3,
+    "bog": 25,
     "bogFirsts": 2,
-    "bestCount": 5,
+    "bestCount": 6,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -232765,6 +233269,15 @@
         "talentScore": 5
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 1,
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 37
+      },
+      {
         "date": "2026-07-31",
         "round": "Round 14",
         "grade": "Division 5 Women's",
@@ -232783,7 +233296,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 67.2
+    "talentScore": 75.7
   },
   {
     "id": "ff063c9e-fd4f-4305-b6ab-757b104b4afc",
@@ -232880,7 +233393,7 @@
     "number": "11",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 0,
     "bog": 10,
     "bogFirsts": 0,
@@ -232961,6 +233474,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-31",
         "round": "Round 14",
         "grade": "Division 5 Women's",
@@ -232988,7 +233510,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 24.1
+    "talentScore": 23.1
   },
   {
     "id": "fd21e16e-c50c-45d8-9e33-258c68c7d300",
@@ -233201,7 +233723,7 @@
     "number": "74",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 0,
     "bog": 8,
     "bogFirsts": 1,
@@ -233291,6 +233813,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -233318,7 +233849,7 @@
         "talentScore": 54
       }
     ],
-    "talentScore": 20.2
+    "talentScore": 19.4
   },
   {
     "id": "0c9bfbd2-9429-4462-a069-a0c6e2853169",
@@ -233442,11 +233973,11 @@
     "number": "16",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 13,
+    "games": 14,
     "goals": 3,
-    "bog": 24,
+    "bog": 25,
     "bogFirsts": 0,
-    "bestCount": 8,
+    "bestCount": 9,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -233532,6 +234063,15 @@
         "talentScore": 24
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 1,
+        "inBest": true,
+        "talentScore": 8
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -233568,7 +234108,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 57.4
+    "talentScore": 57.5
   },
   {
     "id": "0e233916-e28e-40c0-a491-9d0e3cea02d0",
@@ -233576,7 +234116,7 @@
     "number": "33",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 6,
+    "games": 7,
     "goals": 3,
     "bog": 0,
     "bogFirsts": 0,
@@ -233637,9 +234177,18 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       }
     ],
-    "talentScore": 6.1
+    "talentScore": 5.7
   },
   {
     "id": "53b600bf-fb4e-45f6-8909-299ee5e41306",
@@ -233647,7 +234196,7 @@
     "number": "56",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 7,
+    "games": 8,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -233694,6 +234243,15 @@
       {
         "date": "2026-07-03",
         "round": "Round 11",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -234182,11 +234740,11 @@
     "number": "19",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 0,
-    "bog": 10,
+    "bog": 12,
     "bogFirsts": 0,
-    "bestCount": 4,
+    "bestCount": 5,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -234245,6 +234803,15 @@
         "talentScore": 8
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 2,
+        "inBest": true,
+        "talentScore": 16
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -234272,7 +234839,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 26.7
+    "talentScore": 30.4
   },
   {
     "id": "3acae476-2a07-4687-8eee-cb369e1c602a",
@@ -234593,11 +235160,11 @@
     "number": "98",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 5,
-    "goals": 1,
-    "bog": 6,
+    "games": 6,
+    "goals": 2,
+    "bog": 11,
     "bogFirsts": 1,
-    "bestCount": 1,
+    "bestCount": 2,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -234645,9 +235212,18 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 5
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 1,
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 45
       }
     ],
-    "talentScore": 26.4
+    "talentScore": 42.5
   },
   {
     "id": "b07195fd-4353-46bf-9bce-96e3c0fc9f41",
@@ -234655,7 +235231,7 @@
     "number": "5",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -234729,6 +235305,15 @@
       {
         "date": "2026-06-26",
         "round": "Round 10",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -234833,7 +235418,7 @@
     "number": "97",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 8,
+    "games": 9,
     "goals": 0,
     "bog": 10,
     "bogFirsts": 1,
@@ -234878,6 +235463,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -234914,7 +235508,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 30.4
+    "talentScore": 28.7
   },
   {
     "id": "cd55cc47-bd89-4b54-a8c8-6d2c173e70ff",
@@ -235279,7 +235873,7 @@
     "number": "24",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 7,
+    "games": 8,
     "goals": 0,
     "bog": 12,
     "bogFirsts": 0,
@@ -235349,9 +235943,18 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       }
     ],
-    "talentScore": 36.3
+    "talentScore": 33.9
   },
   {
     "id": "ddbcc9fb-ef42-4aeb-ad65-36ed0e3b8846",
@@ -235564,11 +236167,11 @@
     "number": "69",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 13,
+    "games": 14,
     "goals": 5,
-    "bog": 18,
+    "bog": 19,
     "bogFirsts": 1,
-    "bestCount": 9,
+    "bestCount": 10,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -235663,6 +236266,15 @@
         "talentScore": 54
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 1,
+        "inBest": true,
+        "talentScore": 8
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -235690,7 +236302,7 @@
         "talentScore": 13
       }
     ],
-    "talentScore": 48.5
+    "talentScore": 48.9
   },
   {
     "id": "7bdac70a-4a8f-41f4-be5d-2b9a1e43f560",
@@ -235848,7 +236460,7 @@
     "number": "27",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 0,
     "bog": 3,
     "bogFirsts": 0,
@@ -235956,6 +236568,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -235992,7 +236613,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 6.2
+    "talentScore": 6.0
   },
   {
     "id": "84090b12-c6cb-41ef-9e72-7c9417e6fa7e",
@@ -236000,11 +236621,11 @@
     "number": "41",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 10,
+    "games": 11,
     "goals": 0,
-    "bog": 5,
+    "bog": 8,
     "bogFirsts": 0,
-    "bestCount": 1,
+    "bestCount": 2,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -236081,6 +236702,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 3,
+        "inBest": true,
+        "talentScore": 24
+      },
+      {
         "date": "2026-08-01",
         "round": "Round 14",
         "grade": "Division 5 Women's",
@@ -236099,7 +236729,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 12.6
+    "talentScore": 19.3
   },
   {
     "id": "9c27e3ad-c41a-47f3-a22b-0fc46882783f",
@@ -236374,7 +237004,7 @@
     "number": "18",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 9,
     "bogFirsts": 1,
@@ -236473,6 +237103,15 @@
         "talentScore": 54
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -236509,7 +237148,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 20.8
+    "talentScore": 20.1
   },
   {
     "id": "776be583-0a9f-4812-8fbb-c13252ae4292",
@@ -236517,7 +237156,7 @@
     "number": "43",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 1,
     "bog": 32,
     "bogFirsts": 2,
@@ -236625,6 +237264,15 @@
         "talentScore": 24
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -236661,7 +237309,7 @@
         "talentScore": 8
       }
     ],
-    "talentScore": 70.5
+    "talentScore": 68.2
   },
   {
     "id": "726b9709-e475-441f-a6c5-492f57440e0b",
@@ -236669,11 +237317,11 @@
     "number": "5",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 1,
-    "bog": 0,
+    "bog": 5,
     "bogFirsts": 0,
-    "bestCount": 0,
+    "bestCount": 1,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -236777,6 +237425,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 5,
+        "inBest": true,
+        "talentScore": 40
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -236813,7 +237470,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 1.3
+    "talentScore": 11.2
   },
   {
     "id": "d10c8e50-450c-409f-bdbc-bd388fc00884",
@@ -236919,7 +237576,7 @@
     "number": "24",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 1,
     "bog": 27,
     "bogFirsts": 0,
@@ -237027,6 +237684,15 @@
         "talentScore": 16
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -237063,7 +237729,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 57.1
+    "talentScore": 55.2
   },
   {
     "id": "25ad5dad-8926-4439-9cd7-3239af7963f0",
@@ -237240,7 +237906,7 @@
     "number": "12",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 8,
+    "games": 9,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -237312,6 +237978,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -237329,11 +238004,11 @@
     "number": "7",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 1,
-    "bog": 25,
+    "bog": 27,
     "bogFirsts": 2,
-    "bestCount": 5,
+    "bestCount": 6,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -237410,6 +238085,15 @@
         "talentScore": 45
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 2,
+        "inBest": true,
+        "talentScore": 16
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -237446,7 +238130,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 62.6
+    "talentScore": 64.6
   },
   {
     "id": "659bafe5-006e-4437-9943-d9c2add2a9e0",
@@ -237454,7 +238138,7 @@
     "number": "8",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -237517,6 +238201,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-08-01",
         "round": "Round 14",
         "grade": "Division 5 Women's",
@@ -237552,11 +238245,11 @@
     "number": "51",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 10,
+    "games": 11,
     "goals": 0,
-    "bog": 17,
-    "bogFirsts": 1,
-    "bestCount": 5,
+    "bog": 23,
+    "bogFirsts": 2,
+    "bestCount": 6,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -237633,6 +238326,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 6,
+        "inBest": true,
+        "talentScore": 54
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -237651,7 +238353,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 44.9
+    "talentScore": 59.1
   },
   {
     "id": "831e0f21-f6f8-4aa5-a825-f8459a3be074",
@@ -237748,7 +238450,7 @@
     "number": "68",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 12,
+    "games": 13,
     "goals": 5,
     "bog": 12,
     "bogFirsts": 2,
@@ -237838,6 +238540,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -237865,7 +238576,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 38.4
+    "talentScore": 36.9
   },
   {
     "id": "e3017dbc-b59d-483f-923e-c7868faa8d2b",
@@ -237873,7 +238584,7 @@
     "number": "26",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 1,
     "bog": 0,
     "bogFirsts": 0,
@@ -237945,6 +238656,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -237981,7 +238701,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 1.5
+    "talentScore": 1.4
   },
   {
     "id": "b5570599-d386-4bba-8215-0264c24610da",
@@ -237989,7 +238709,7 @@
     "number": "62",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -238081,6 +238801,15 @@
       {
         "date": "2026-06-27",
         "round": "Round 10",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -238247,7 +238976,7 @@
     "number": null,
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -238348,6 +239077,15 @@
       {
         "date": "2026-07-04",
         "round": "Round 11",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -238399,7 +239137,7 @@
     "number": null,
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 15,
+    "games": 16,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -238507,6 +239245,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -238551,7 +239298,7 @@
     "number": null,
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 14,
+    "games": 15,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -238643,6 +239390,15 @@
       {
         "date": "2026-07-04",
         "round": "Round 11",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -250510,7 +251266,7 @@
     "number": null,
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 6,
+    "games": 7,
     "goals": 3,
     "bog": 22,
     "bogFirsts": 1,
@@ -250535,6 +251291,15 @@
         "bog": 1,
         "inBest": true,
         "talentScore": 18
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       },
       {
         "date": "2026-07-25",
@@ -250573,7 +251338,7 @@
         "talentScore": 54
       }
     ],
-    "talentScore": 80.4
+    "talentScore": 74.5
   },
   {
     "id": "e4ef939a-f76f-4cca-8470-223286ab64ed",
@@ -250750,7 +251515,7 @@
     "number": "47",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -250804,6 +251569,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -250848,11 +251622,11 @@
     "number": "3",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 13,
+    "games": 14,
     "goals": 0,
-    "bog": 40,
+    "bog": 44,
     "bogFirsts": 1,
-    "bestCount": 12,
+    "bestCount": 13,
     "wins": 0,
     "captainGames": 0,
     "history": [
@@ -250947,6 +251721,15 @@
         "talentScore": 40
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 4,
+        "inBest": true,
+        "talentScore": 32
+      },
+      {
         "date": "2026-08-01",
         "round": "Round 14",
         "grade": "Division 5 Women's",
@@ -250974,7 +251757,7 @@
         "talentScore": 32
       }
     ],
-    "talentScore": 90.4
+    "talentScore": 95.7
   },
   {
     "id": "01a19eec-6d65-446e-9339-e0f405673305",
@@ -250982,7 +251765,7 @@
     "number": "17",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 13,
+    "games": 14,
     "goals": 0,
     "bog": 14,
     "bogFirsts": 2,
@@ -251081,6 +251864,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -251108,7 +251900,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 34.4
+    "talentScore": 33.1
   },
   {
     "id": "5f7687df-0c14-4fb7-bdaf-b99a80b375c1",
@@ -251116,8 +251908,8 @@
     "number": "33",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 11,
-    "goals": 15,
+    "games": 12,
+    "goals": 16,
     "bog": 9,
     "bogFirsts": 0,
     "bestCount": 4,
@@ -251188,6 +251980,15 @@
         "talentScore": 5
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 1,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 5
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -251224,7 +252025,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 44.3
+    "talentScore": 43.9
   },
   {
     "id": "fb065e9c-713c-49f7-882f-727b8073edc9",
@@ -251357,7 +252158,7 @@
     "number": "45",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 11,
+    "games": 12,
     "goals": 2,
     "bog": 22,
     "bogFirsts": 2,
@@ -251429,6 +252230,15 @@
         "talentScore": 45
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -251465,7 +252275,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 59.7
+    "talentScore": 57.2
   },
   {
     "id": "a4217be5-c8e6-4649-bd6e-87641a81b475",
@@ -251561,7 +252371,7 @@
     "number": "66",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 8,
+    "games": 9,
     "goals": 0,
     "bog": 5,
     "bogFirsts": 0,
@@ -251615,6 +252425,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -251642,7 +252461,7 @@
         "talentScore": 40
       }
     ],
-    "talentScore": 14.1
+    "talentScore": 13.3
   },
   {
     "id": "483cade6-e2f2-4273-a48e-5b4389554940",
@@ -252514,7 +253333,7 @@
     "number": "27",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 10,
+    "games": 11,
     "goals": 0,
     "bog": 12,
     "bogFirsts": 1,
@@ -252586,6 +253405,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -252613,7 +253441,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 32.3
+    "talentScore": 30.8
   },
   {
     "id": "bd84f2f8-3417-4901-bfac-1c0eafb3daef",
@@ -252621,7 +253449,7 @@
     "number": "55",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 0,
     "bog": 13,
     "bogFirsts": 0,
@@ -252693,6 +253521,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -252711,7 +253548,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 34.7
+    "talentScore": 32.9
   },
   {
     "id": "9ab073c7-8ce8-4c84-bceb-2ea70e176371",
@@ -252950,7 +253787,7 @@
     "number": "2",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 10,
+    "games": 11,
     "goals": 0,
     "bog": 11,
     "bogFirsts": 0,
@@ -253022,6 +253859,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-31",
         "round": "Round 14",
         "grade": "Division 5 Women's",
@@ -253049,7 +253895,7 @@
         "talentScore": 24
       }
     ],
-    "talentScore": 27.8
+    "talentScore": 26.5
   },
   {
     "id": "88804405-5400-49cb-998c-5e00ee60233d",
@@ -253732,7 +254578,7 @@
     "number": "21",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 9,
+    "games": 10,
     "goals": 1,
     "bog": 7,
     "bogFirsts": 1,
@@ -253795,6 +254641,15 @@
         "talentScore": 8
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -253822,7 +254677,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 22.3
+    "talentScore": 21.2
   },
   {
     "id": "a157b18f-9a78-48a3-bb6a-c084503a9ea2",
@@ -254559,7 +255414,7 @@
     "number": "20",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 10,
+    "games": 11,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -254615,6 +255470,15 @@
       {
         "date": "2026-07-04",
         "round": "Round 11",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -255434,7 +256298,7 @@
     "number": "88",
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 6,
+    "games": 7,
     "goals": 0,
     "bog": 2,
     "bogFirsts": 0,
@@ -255470,6 +256334,15 @@
         "talentScore": 0
       },
       {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
         "date": "2026-07-25",
         "round": "Round 13",
         "grade": "Division 5 Women's",
@@ -255497,7 +256370,7 @@
         "talentScore": 16
       }
     ],
-    "talentScore": 6.5
+    "talentScore": 6.0
   },
   {
     "id": "3d1ad237-dce0-4df2-9ccf-e7564662ba51",
@@ -255965,7 +256838,7 @@
     "number": null,
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 3,
+    "games": 4,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -255976,6 +256849,15 @@
       {
         "date": "2026-06-19",
         "round": "Round 9",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -256439,7 +257321,7 @@
     "number": null,
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 4,
+    "games": 5,
     "goals": 0,
     "bog": 0,
     "bogFirsts": 0,
@@ -256450,6 +257332,15 @@
       {
         "date": "2026-06-27",
         "round": "Round 10",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
         "grade": "Division 5 Women's",
         "goals": 0,
         "bog": 0,
@@ -257205,7 +258096,7 @@
     "number": null,
     "grade": "Division 5 Women's",
     "club": "",
-    "games": 4,
+    "games": 5,
     "goals": 1,
     "bog": 0,
     "bogFirsts": 0,
@@ -257221,6 +258112,15 @@
         "bog": 0,
         "inBest": false,
         "talentScore": 5
+      },
+      {
+        "date": "2026-07-17",
+        "round": "Round 12",
+        "grade": "Division 5 Women's",
+        "goals": 0,
+        "bog": 0,
+        "inBest": false,
+        "talentScore": 0
       },
       {
         "date": "2026-07-25",
@@ -257250,7 +258150,7 @@
         "talentScore": 0
       }
     ],
-    "talentScore": 2.5
+    "talentScore": 2.2
   },
   {
     "id": "543080b2-9379-44ff-a9bc-80605aa2d3f0",
